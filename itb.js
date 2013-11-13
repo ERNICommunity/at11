@@ -43,11 +43,16 @@ function parse(html) {
 			.replace(/^\d\.\s*/, '');
 	}
 
-	var parseMenu = function(elem) {
-		return $(elem).find('tr').map(function() {
+	var parseMenu = function(table, p) {
+	    var temp = $(table).find('tr').map(function() {
 			var text = $(this).text();
-			return normalize(text);	
+			return normalize(text.replace(/.\)/, ''));	
 		});
+		var m = /Polievk.*:(.+)Špec.*:(.+)delená.*:(.+)$/ig.exec(p.text());
+	    temp.unshift(normalize(m[3]));
+	    temp.unshift(normalize(m[2]));
+	    temp.unshift(normalize(m[1]));
+		return temp;
 	};
 	
 	var today;
@@ -55,7 +60,7 @@ function parse(html) {
 	var text = $('td.cnt', '#contentBox').children('table').each(function(index, element){
 	    if(!today && index == new Date().getDay()-1)
 	    {
-	        today = parseMenu(element);
+	        today = parseMenu(element, $(element).prev());
 	        return false; //break loop
 	    }
 	});

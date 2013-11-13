@@ -3,6 +3,7 @@ var express = require('express');
 var hbs = require('hbs');
 var danovak = require('./danovak');
 var giuliano = require('./giuliano');
+var itb = require('./itb');
 
 var app = express();
 
@@ -24,7 +25,7 @@ function loadRestaurants(callback) {
 	var result = [];
 
 	var done = function() {
-		if (result.length === 2) {
+		if (result.length === 3) {
 			callback(result);
 		}
 	}
@@ -35,6 +36,11 @@ function loadRestaurants(callback) {
 	});
 
 	giuliano.readDailyMenu(function(menu){
+		result.push(menu);
+		done();
+	});
+	
+	itb.readDailyMenu(function(menu){
 		result.push(menu);
 		done();
 	});
