@@ -28,8 +28,8 @@ function loadRestaurants(callback) {
 		if (result.length === 3) {
 			callback(result);
 		}
-	}
-	
+	};
+
 	danovak.readDailyMenu(function(menu){
 		result.push(menu);
 		done();
@@ -39,7 +39,7 @@ function loadRestaurants(callback) {
 		result.push(menu);
 		done();
 	});
-	
+
 	itb.readDailyMenu(function(menu){
 		result.push(menu);
 		done();

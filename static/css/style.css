@@ -1,0 +1,55 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, "Sans serif";
+    color: rgb(51,51,51);
+}
+header {
+    display: block;
+    background-color: rgb(238,238,238);
+    margin: 0 0 30px 0;
+    padding: 0;
+}
+header > h1, body > div, footer > div {
+    width: 80%;
+    position: relative;
+    margin: 0 auto;
+}
+header > h1 {
+    padding: 1em 0;
+    font-size: 4em;
+}
+body > div {
+    padding:0;
+    position:relative;
+}
+div.daily {
+    display: inline-block;
+    vertical-align: top;
+    max-width: 400px;
+    margin:10px;
+    padding:20px;
+    border: 1px solid gray;
+    border-radius: 5px;
+}
+div.daily h2 {
+    font-size: 2em;
+}
+footer {
+    display: block;
+    background-color: rgb(200,208,208);
+    margin: 30px 0 0 0;
+    padding:0;
+    font-size: 0.8em;
+}
+footer > div {
+    padding: 1em 0;
+}
+footer a {
+    font-family: monospace;
+    color: red;
+    text-decoration: none;
+}
+footer a:hover {
+    text-decoration: underline;
+}
