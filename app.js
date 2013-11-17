@@ -1,9 +1,9 @@
 var config = require('./config');
 var express = require('express');
 var hbs = require('hbs');
-var danovak = require('./danovak');
 var giuliano = require('./giuliano');
 var itb = require('./itb');
+var obedovat = require('./obedovat');
 
 var app = express();
 
@@ -25,15 +25,15 @@ function loadRestaurants(callback) {
 	var result = [];
 
 	var done = function() {
-		if (result.length === 3) {
+		if (result.length === 4) {
 			callback(result);
 		}
 	};
 
-	danovak.readDailyMenu(function(menu){
+	obedovat.readDailyMenu(function(menu){
 		result.push(menu);
 		done();
-	});
+	}, '6801-u-danovaka', 'U Daňováka');
 
 	giuliano.readDailyMenu(function(menu){
 		result.push(menu);
@@ -44,4 +44,9 @@ function loadRestaurants(callback) {
 		result.push(menu);
 		done();
 	});
+
+    obedovat.readDailyMenu(function(menu){
+		result.push(menu);
+		done();
+	}, '150-alfa', 'Alfa');
 };

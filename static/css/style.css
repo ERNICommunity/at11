@@ -2,11 +2,20 @@ html, body {
     margin: 0;
     padding: 0;
     font-family: Arial, Helvetica, "Sans serif";
-    color: rgb(51,51,51);
+    background-color: white;
+    color: rgb(50,50,50);
+}
+a {
+    color: rgb(0, 84, 166);
+    text-decoration: none;
+    font-weight: bold;
+}
+a:hover {
+    text-decoration: underline;
 }
 header {
     display: block;
-    background-color: rgb(238,238,238);
+    background-color: rgb(210,210,210);
     margin: 0 0 30px 0;
     padding: 0;
 }
@@ -31,13 +40,14 @@ div.daily {
     padding:20px;
     border: 1px solid gray;
     border-radius: 5px;
+    background-color: rgb(250,250,250);
 }
 div.daily h2 {
     font-size: 2em;
 }
 footer {
     display: block;
-    background-color: rgb(200,208,208);
+    background-color: rgb(210,210,210);
     margin: 30px 0 0 0;
     padding:0;
     font-size: 0.8em;
@@ -47,9 +57,5 @@ footer > div {
 }
 footer a {
     font-family: monospace;
-    color: red;
-    text-decoration: none;
-}
-footer a:hover {
-    text-decoration: underline;
+    font-size: 1.3em;
 }

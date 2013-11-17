@@ -1,6 +1,6 @@
 {
     "name": "at11",
-    "description": "Daily lunch menu app",
+    "description": "Daily lunch menu application",
     "version": "0.0.1",
     "dependencies": {
         "cheerio": "*",
@@ -12,13 +12,11 @@
         "name": "Jakub  Šturc",
         "email": "jakub.sturc@erni.sk"
     },
-    "contributors": [
-        {
+    "contributors": [{
             "name": "Ján Neščivera",
             "email": "jan.nescivera@erni.sk"
-        }
-    ],
-    "keywords": ["lunch", "menu", "11", "erni"],
+        }],
+    "keywords": ["lunch", "menu", "at11", "erni"],
     "repository": {
         "type": "git",
         "url": "https://github.com/jakub-sturc/at11.git"
@@ -26,10 +24,9 @@
     "bugs": {
         "url": "https://github.com/jakub-sturc/at11/issues"
     },
-    "licenses": [
-        {
+    "licenses": [{
             "type": "Unlicense",
             "url": "http://unlicense.org"
-        }
-    ]
+        }],
+    "main": "app.js"
 }
