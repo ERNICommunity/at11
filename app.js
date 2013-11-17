@@ -1,9 +1,12 @@
 var config = require('./config');
 var express = require('express');
 var hbs = require('hbs');
+
+//our modules
+var menuFetcher = require('./menuFetcher');
+var obedovat = require('./obedovat');
 var giuliano = require('./giuliano');
 var itb = require('./itb');
-var obedovat = require('./obedovat');
 
 var app = express();
 
@@ -24,29 +27,22 @@ console.log('Listening on port ' + config.port + '.');
 function loadRestaurants(callback) {
 	var result = [];
 
-	var done = function() {
+	var done = function(restaurant) {
+        result.push(restaurant);
 		if (result.length === 4) {
 			callback(result);
 		}
 	};
 
-	obedovat.readDailyMenu(function(menu){
-		result.push(menu);
-		done();
-	}, '6801-u-danovaka', 'U Daňováka');
+    menuFetcher.fetchMenu('http://www.obedovat.sk/restauracia/6801-u-danovaka/denne-menu',
+        'U Daňováka', obedovat.parse, done);
 
-	giuliano.readDailyMenu(function(menu){
-		result.push(menu);
-		done();
-	});
+    menuFetcher.fetchMenu('http://www.giuliano.sk/sk/denne-menu/',
+        'Giuliano', giuliano.parse, done);
 
-	itb.readDailyMenu(function(menu){
-		result.push(menu);
-		done();
-	});
+    menuFetcher.fetchMenu('http://itbfood.sk/index.php?id=1&type=main_menu&t=1',
+        'ITB', itb.parse, done);
 
-    obedovat.readDailyMenu(function(menu){
-		result.push(menu);
-		done();
-	}, '150-alfa', 'Alfa');
+    menuFetcher.fetchMenu('http://www.obedovat.sk/restauracia/150-alfa/denne-menu',
+        'Alfa', obedovat.parse, done);
 };
