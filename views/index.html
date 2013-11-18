@@ -1,45 +1,35 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>@11</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Bootstrap -->
-    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <head>
+        <title>@11</title>
+        <link href="css/style.css" type="text/css" rel="stylesheet">
+        <script src="js/jquery.min.js"></script>
+    </head>
+    <body>
+        <header>
+            <h1>Daily lunch menu</h1>
+        </header>
 
-  </head>
-  <body>    
-    <div class="jumbotron">
-      <div class="container">
-        <h1>Daily lunch menu</h1>        
-      </div>
-    </div>
-
-    <div class="container">
-      <!-- Example row of columns -->
-      <div class="row">
-      {{#each restaurants}} 
-        <div class="col-lg-4">        
-          <h2>{{this.name}}</h2>
-          <ul>
-          {{#each this.menu}}
-            <li>{{this}}</li>
-          {{else}}
-            Sorry no lunch today :-(
-          {{/each}}
-          </ul>
+        <div>
+            {{#each restaurants}}
+            <div class="daily">
+                <h2>{{this.name}}</h2>
+                <ul>
+                    {{#each this.menu}}
+                    <li>{{this}}</li>
+                    {{else}}
+                    Sorry no lunch today :-(
+                    {{/each}}
+                </ul>
+            </div>
+            {{/each}}
         </div>
-      {{/each}}
-      </div>
 
-      <hr>
-
-      <footer>
-        <p>© ERNI 2013</p>
-      </footer>
-    </div>
-
-    <script src="js/jquery.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-
-  </body>
+        <footer>
+            <div>
+                <span style="float: left">© ERNI <script type="text/javascript">document.write(new Date().getFullYear());</script></span> <a style="float: right" href="https://github.com/jakub-sturc/at11" target="_blank">Source</a>
+                <div style="clear: both;"></div>
+            </div>
+        </footer>
+    </body>
 </html>
