@@ -6,7 +6,7 @@ module.exports = new (function() {
         var $ = cheerio.load(html);
 
         var today;
-
+        
         $('td.cnt', '#contentBox').children('table').each(function(index, element) {
             if (!today && index === new Date().getDay() - 1)
             {
@@ -18,9 +18,10 @@ module.exports = new (function() {
         return today;
 
         function parseMenu(table, p) {
-            var temp = $(table).find('tr').map(function() {
+            var temp = [];
+            $(table).find('tr').map(function() {
                 var text = $(this).text();
-                return normalize(text.replace(/.\)/, ''));
+                temp.push(normalize(text.replace(/.\)/, '')));
             });
             var m = /Polievk.*:(.+)Špec.*:(.+)delená.*:(.+)$/ig.exec(p.text());
             temp.unshift(normalize(m[3]));
