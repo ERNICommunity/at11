@@ -5,23 +5,22 @@ module.exports = new (function() {
 
         var $ = cheerio.load(html);
 
-        var today = new Array();
+        var menu = new Array();
         
-        $('td.cnt', '#contentBox').children('table').each(function(index, element) {
-            if(!today && index === new Date().getDay() - 1)
+        $('td.cnt', '#contentBox').children('table').each(function(index) {
+            if(index === new Date().getDay() - 1)
             {
-                today = parseMenu(element, $(element).prev());
+                menu = parseMenu(this, this.prev());
                 return false;
             }
         });
 
-        return today;
+        return menu;
 
         function parseMenu(table, p) {
             var temp = [];
-            $(table).find('tr').map(function() {
-                var text = $(this).text();
-                temp.push(normalize(text.replace(/.\)/, '')));
+            table.find('tr').each(function() {
+                temp.push(normalize(this.text().replace(/.\)/, '')));
             });
             var m = /Polievk.*:(.+)Špec.*:(.+)delená.*:(.+)$/ig.exec(p.text());
             temp.unshift(normalize(m[3]));

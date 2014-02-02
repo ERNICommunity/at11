@@ -21,9 +21,8 @@ module.exports = new (function() {
 
         function parseMenu(elem) {
             var arr = new Array();
-            $(elem).find('li').map(function() {
-                var text = $(this).text();
-                arr.push(normalize(text));
+            elem.find('li').each(function() {
+                arr.push(normalize(this.text()));
             });
             return arr;
         }
