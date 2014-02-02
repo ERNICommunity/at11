@@ -7,6 +7,7 @@ var menuFetcher = require('./menuFetcher');
 var obedovat = require('./obedovat');
 var giuliano = require('./giuliano');
 var itb = require('./itb');
+var skolka = require('./skolka');
 
 var app = express();
 
@@ -29,7 +30,7 @@ function loadRestaurants(callback) {
 
 	var done = function(restaurant) {
         result.push(restaurant);
-		if (result.length === 4) {
+		if (result.length === 5) {
 			callback(result);
 		}
 	};
@@ -45,4 +46,7 @@ function loadRestaurants(callback) {
 
     menuFetcher.fetchMenu('http://www.obedovat.sk/restauracia/150-alfa/denne-menu',
         'Alfa', obedovat.parse, done);
+        
+    menuFetcher.fetchMenu('http://jedalen.vysnivany.sk/ukazka-strany',
+        'Škôlka', skolka.parse, done);
 };
