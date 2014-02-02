@@ -5,7 +5,7 @@ module.exports = new (function() {
 
         var $ = cheerio.load(html);
 
-        var today;
+        var today = new Array();
         
         $('td.cnt', '#contentBox').children('table').each(function(index, element) {
             if (!today && index === new Date().getDay() - 1)

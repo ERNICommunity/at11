@@ -5,22 +5,26 @@ module.exports = new (function() {
 
         var $ = cheerio.load(html);
 
-        var first;
+        var menu = new Array();
 
         $('.daily-menu-for-day').each(function() {
-            var menu = parseMenu(this);
-            if (!first && menu.length > 0) {
-                first = menu;
+            var now = new Date();
+            var todayStr = now.getDate() + "." + now.getMonth() + "." + now.getFullYear();
+            if(this.children("header").first().text().indexOf(todayStr) !== -1)
+            {
+                menu = parseMenu(this);
             }
         });
 
-        return first;
+        return menu;
 
         function parseMenu(elem) {
-            return $(elem).find('li').map(function() {
+            var arr = new Array();
+            $(elem).find('li').map(function() {
                 var text = $(this).text();
-                return normalize(text);
+                arr.push(normalize(text));
             });
+            return arr;
         }
 
         function normalize(str) {

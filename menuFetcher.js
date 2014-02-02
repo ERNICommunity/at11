@@ -16,14 +16,27 @@ module.exports = new (function() {
 
 function load(url, parseCallback, doneCallback) {
 	request(url, function(error, response, body) {
+        var menu;
 		if (!error && response.statusCode === 200) {
-            var menu = parseCallback(body);
-            if(Array.isArray(menu))
-                doneCallback(menu);
-            else
-                doneCallback(null);
+            try
+            {
+                menu = parseCallback(body);
+                if(!Array.isArray(menu))
+                    throw "Invalid menu returned (expected array, got " + typeof menu + ")";
+            }
+            catch(e)
+            {
+                menu = ["Parser error", e];
+            }         
 		}
         else
-            doneCallback([error + " " + response.statusCode]);
+        {
+            menu = new Array();
+            if(error)
+                menu.push(error);
+            if (response)
+                menu.push("StatusCode: " + response.statusCode);
+        }
+        doneCallback(menu);
 	});
 }
