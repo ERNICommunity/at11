@@ -13,6 +13,7 @@ module.exports = new (function() {
             if(this.children("header").first().text().indexOf(todayStr) !== -1)
             {
                 menu = parseMenu(this);
+                return false;
             }
         });
 

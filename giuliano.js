@@ -13,6 +13,7 @@ module.exports = new (function() {
             if(this.children("div").first().text().indexOf(todayStr) !== -1)
             {
                 menu = this.children("div").eq(1).text().match(/[^\r\n]+/g);
+                return false;
             }
         });
 

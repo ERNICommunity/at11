@@ -8,10 +8,10 @@ module.exports = new (function() {
         var today = new Array();
         
         $('td.cnt', '#contentBox').children('table').each(function(index, element) {
-            if (!today && index === new Date().getDay() - 1)
+            if(!today && index === new Date().getDay() - 1)
             {
                 today = parseMenu(element, $(element).prev());
-                return false; //break loop
+                return false;
             }
         });
 
