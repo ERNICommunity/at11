@@ -9,7 +9,7 @@ module.exports = new (function() {
         
         $('.menublock').each(function(){
             var now = new Date();
-            var todayStr = ("0" + now.getDate()).slice(-2) + ". " + ("0" + now.getMonth()).slice(-2) + ". " + now.getFullYear();
+            var todayStr = ("0" + now.getDate()).slice(-2) + ". " + ("0" + (now.getMonth() + 1)).slice(-2) + ". " + now.getFullYear();
             if(this.children("div").first().text().indexOf(todayStr) !== -1)
             {
                 menu = this.children("div").eq(1).text().match(/[^\r\n]+/g);

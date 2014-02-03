@@ -9,7 +9,7 @@ module.exports = new (function() {
 
         $('div.entry-content', '#post-2').children("p").each(function(){
             var now = new Date();
-            var todayStr = now.getDate() + "." + now.getMonth() + "." + now.getFullYear();
+            var todayStr = now.getDate() + "." + (now.getMonth() + 1) + "." + now.getFullYear();
             if(this.text().indexOf(todayStr) !== -1)
             {          
                 menu.push(normalize(this.prev().contents().eq(1).text()));
