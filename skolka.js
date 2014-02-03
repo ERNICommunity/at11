@@ -4,28 +4,22 @@ module.exports = new (function() {
     this.parse = function(html) {
 
         var $ = cheerio.load(html);
-
+        
         var menu = new Array();
 
-        $('.daily-menu-for-day').each(function() {
+        $('div.entry-content', '#post-2').children("p").each(function(){
             var now = new Date();
             var todayStr = now.getDate() + "." + now.getMonth() + "." + now.getFullYear();
-            if(this.children("header").first().text().indexOf(todayStr) !== -1)
-            {
-                menu = parseMenu(this);
+            if(this.text().indexOf(todayStr) !== -1)
+            {          
+                menu.push(normalize(this.prev().contents().eq(1).text()));
+                menu.push(normalize(this.text().replace(todayStr, "")));
+                menu.push(normalize(this.next().text()));
                 return false;
             }
         });
-
+        
         return menu;
-
-        function parseMenu(elem) {
-            var arr = new Array();
-            elem.find('li').each(function() {
-                arr.push(normalize(this.text()));
-            });
-            return arr;
-        }
 
         function normalize(str) {
             return str.trim()
