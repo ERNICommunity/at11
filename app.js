@@ -30,7 +30,7 @@ function loadRestaurants(callback) {
 
 	var done = function(restaurant) {
         result.push(restaurant);
-		if (result.length === 5) {
+		if (result.length === 6) {
 			callback(result);
 		}
 	};
@@ -49,4 +49,7 @@ function loadRestaurants(callback) {
         
     menuFetcher.fetchMenu('http://jedalen.vysnivany.sk/ukazka-strany',
         'Škôlka', skolka.parse, done);
+        
+    menuFetcher.fetchMenu('http://www.obedovat.sk/restauracia/8845-pizza-pazza-vienna-gate/denne-menu',
+        'Pizza Pazza', obedovat.parse, done);
 };
