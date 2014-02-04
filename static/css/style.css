@@ -45,6 +45,17 @@ div.daily {
 div.daily h2 {
     font-size: 2em;
 }
+div.daily h2 a {
+    color: inherit;
+}
+div.daily h2 a:hover {
+    text-decoration: none;
+}
+div.daily h2 a:hover:after {
+    content: " >";
+    color: rgb(210,210,210);
+}
+
 footer {
     display: block;
     background-color: rgb(210,210,210);

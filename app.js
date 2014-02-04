@@ -1,52 +1,65 @@
-var config = require('./config');
 var express = require('express');
 var hbs = require('hbs');
 
 //our modules
+var config = require('./config');
 var menuFetcher = require('./menuFetcher');
-var obedovat = require('./obedovat');
-var giuliano = require('./giuliano');
-var itb = require('./itb');
-var skolka = require('./skolka');
+
+console.log("Initializing...");
+var actions = new Array();
+for (var i = 0; i < config.restaurants.length; i++) {
+    console.log(config.restaurants[i]);
+    try
+    {
+        var module = require("./parsers/" + config.restaurants[i].module);
+        if(typeof module.parse !== "function")
+            throw "Module is missing parse method";
+        var url = config.restaurants[i].url;
+        var name = config.restaurants[i].name;
+        var action = (function(name, url, parseCallback){
+            return function(fetchedCallback)
+                {
+                    menuFetcher.fetchMenu(url, name, parseCallback, fetchedCallback);
+                };
+        })(name, url, module.parse);
+        actions.push(action);
+    }
+    catch(e)
+    {
+        console.log(e);
+    }
+}
+
+if(actions.length === 0)
+{
+    console.log("Initialization failed, exiting");
+    process.exit(1);
+}
+
+console.log("Initialization successful (" + actions.length + " of " + config.restaurants.length + ")");
 
 var app = express();
-
 app.set('view engine', 'html');
 app.engine('html', hbs.__express);
 app.use(express.static('static'));
-
 app.get('/', function(req, res) {
 	loadRestaurants(function(restaurants){
 		res.render('index', {restaurants: restaurants});
 	});
 });
-
 app.listen(config.port);
-
-console.log('Listening on port ' + config.port + '.');
+console.log('Listening on port ' + config.port + '...');
 
 function loadRestaurants(callback) {
-	var result = [];
+	var results = [];
+    var menuLoaded = function(restaurant) {
+        results.push(restaurant);
+        if (results.length === actions.length) {
+            callback(results);
+        }
+    };
 
-	var done = function(restaurant) {
-        result.push(restaurant);
-		if (result.length === 5) {
-			callback(result);
-		}
-	};
-
-    menuFetcher.fetchMenu('http://www.obedovat.sk/restauracia/6801-u-danovaka/denne-menu',
-        'U Daňováka', obedovat.parse, done);
-
-    menuFetcher.fetchMenu('http://www.giuliano.sk/sk/denne-menu/',
-        'Giuliano', giuliano.parse, done);
-
-    menuFetcher.fetchMenu('http://itbfood.sk/index.php?id=1&type=main_menu&t=1',
-        'ITB', itb.parse, done);
-
-    menuFetcher.fetchMenu('http://www.obedovat.sk/restauracia/150-alfa/denne-menu',
-        'Alfa', obedovat.parse, done);
-        
-    menuFetcher.fetchMenu('http://jedalen.vysnivany.sk/ukazka-strany',
-        'Škôlka', skolka.parse, done);
+    for(var i = 0; i < actions.length; i++) {
+        actions[i](menuLoaded);
+    }
 };

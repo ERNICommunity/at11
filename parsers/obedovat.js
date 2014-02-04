@@ -9,7 +9,7 @@ module.exports = new (function() {
 
         $('.daily-menu-for-day').each(function() {
             var now = new Date();
-            var todayStr = now.getDate() + "." + now.getMonth() + "." + now.getFullYear();
+            var todayStr = now.getDate() + "." + (now.getMonth() + 1) + "." + now.getFullYear();
             if(this.children("header").first().text().indexOf(todayStr) !== -1)
             {
                 menu = parseMenu(this);
