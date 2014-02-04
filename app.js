@@ -44,6 +44,8 @@ app.engine('html', hbs.__express);
 app.use(express.static('static'));
 app.get('/', function(req, res) {
 	loadRestaurants(function(restaurants){
+        res.setHeader('Content-Type', 'text/html; charset=UTF-8');
+        res.setHeader('Content-Language', 'en');
 		res.render('index', {restaurants: restaurants});
 	});
 });
@@ -51,7 +53,7 @@ app.listen(config.port);
 console.log('Listening on port ' + config.port + '...');
 
 function loadRestaurants(callback) {
-	var results = [];
+    var results = [];
     var menuLoaded = function(restaurant) {
         results.push(restaurant);
         if (results.length === actions.length) {
