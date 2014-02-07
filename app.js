@@ -45,8 +45,10 @@ app.use(express.static('static'));
 app.get('/', function(req, res) {
 	loadRestaurants(function(restaurants){
         res.setHeader('Content-Type', 'text/html; charset=UTF-8');
-        res.setHeader('Content-Language', 'en');
-		res.render('index', {restaurants: restaurants});
+        res.setHeader('Content-Language', 'sk');
+        var now = new Date();
+        var date = now.getDate() + ". " + (now.getMonth() + 1) + ". " + now.getFullYear();
+		res.render('index', { date: date, restaurants: restaurants});
 	});
 });
 app.listen(config.port);
