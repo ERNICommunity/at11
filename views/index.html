@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html lang="sk">
     <head>
+        <meta charset="UTF-8">
         <title>@11</title>
-        <link rel="icon" type="image/png" href="img/favicon.png" />
-        <meta name="description" content="Denné menu v blízkosti ERNI SK">
+        <link rel="icon" type="image/ico" href="img/favicon.ico" />
+        <meta name="description" content="Obedové menu pri ERNI SK">
         <link href="css/style.css" type="text/css" rel="stylesheet">
     </head>
     <body>
         <header>
-            <h1>Dnešné menu ({{date}})</h1>
+            <h1>Dnešné menu <span>({{date}})</span></h1>
         </header>
 
         <div>
@@ -19,7 +20,7 @@
                     {{#each this.menu}}
                     <li>{{this}}</li>
                     {{else}}
-                    Sorry no lunch today :-(
+                    <li>Smola, dnes žiaden obed :-(</li>
                     {{/each}}
                 </ul>
             </section>

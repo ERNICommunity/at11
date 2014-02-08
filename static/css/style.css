@@ -17,6 +17,10 @@ header {
 h1 {
     font-size: 4em;
 }
+h1 span {
+    text-align: right;
+    color: rgb(180,180,180);
+}
 header > h1, footer > div {
     margin: 0 50px;
     padding: 0.5em 0;
