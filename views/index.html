@@ -1,33 +1,35 @@
 <!DOCTYPE html>
-<html>
+<html lang="sk">
     <head>
+        <meta charset="UTF-8">
         <title>@11</title>
+        <link rel="icon" type="image/ico" href="img/favicon.ico" />
+        <meta name="description" content="Obedové menu pri ERNI SK">
         <link href="css/style.css" type="text/css" rel="stylesheet">
-        <script src="js/jquery.min.js"></script>
     </head>
     <body>
         <header>
-            <h1>Daily lunch menu</h1>
+            <h1>Dnešné menu <span>({{date}})</span></h1>
         </header>
 
         <div>
             {{#each restaurants}}
-            <div class="daily">
+            <section>
                 <h2><a href="{{this.url}}" target="_blank">{{this.name}}</a></h2>
                 <ul>
                     {{#each this.menu}}
                     <li>{{this}}</li>
                     {{else}}
-                    Sorry no lunch today :-(
+                    <li>Smola, dnes žiaden obed :-(</li>
                     {{/each}}
                 </ul>
-            </div>
+            </section>
             {{/each}}
         </div>
 
         <footer>
             <div>
-                <span style="float: left">© ERNI <script type="text/javascript">document.write(new Date().getFullYear());</script></span> <a style="float: right" href="https://github.com/jakub-sturc/at11" target="_blank">Source</a>
+                <span style="float: left">© ERNI <script type="text/javascript">document.write(new Date().getFullYear());</script></span> <a style="float: right" href="https://github.com/jakub-sturc/at11" target="_blank">GitHub</a>
                 <div style="clear: both;"></div>
             </div>
         </footer>

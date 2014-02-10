@@ -44,14 +44,18 @@ app.engine('html', hbs.__express);
 app.use(express.static('static'));
 app.get('/', function(req, res) {
 	loadRestaurants(function(restaurants){
-		res.render('index', {restaurants: restaurants});
+        res.setHeader('Content-Type', 'text/html; charset=UTF-8');
+        res.setHeader('Content-Language', 'sk');
+        var now = new Date();
+        var date = now.getDate() + ". " + (now.getMonth() + 1) + ". " + now.getFullYear();
+		res.render('index', { date: date, restaurants: restaurants});
 	});
 });
 app.listen(config.port);
 console.log('Listening on port ' + config.port + '...');
 
 function loadRestaurants(callback) {
-	var results = [];
+    var results = [];
     var menuLoaded = function(restaurant) {
         results.push(restaurant);
         if (results.length === actions.length) {
