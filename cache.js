@@ -3,7 +3,6 @@ var config = require('./config');
 module.exports = new (function() {
 	var values = { };
 	var expirations = { };
-	var now = function() { return ; };
 
 	this.set = function(key, value) {		
 		values[key] = value;

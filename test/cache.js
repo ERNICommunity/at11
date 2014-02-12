@@ -1,8 +1,8 @@
 var assert = require('assert'),
 	cache = require('../cache.js');
 
-describe('cache', function() {	
-	describe('set', function() {	
+describe('cache', function() {
+	describe('set', function() {
 			
 		it("should exists", function() {
 			assert(cache.set);
@@ -15,30 +15,31 @@ describe('cache', function() {
 		});
 	});
 
-	describe('get', function() {	
+	describe('get', function() {
 			
 		it("should exists", function() {
 			assert(cache.get);
 		});
 
-		it("should not found what wasn't stored", function() {			
+		it("should not found what wasn't stored", function() {
 			assert(!(cache.get('xyz')));
 		});
 
 		it("should found what was stored", function() {
-			var value = {};
-			cache.set("obj", value);			
+			var value = {prop: 'value'};
+			cache.set("obj", value);
 			assert.strictEqual(cache.get("obj"), value);
 		});
 
 		it("should expire", function(done) {
-			var value = {};
-			cache.set("obj", value, 1);			
+            var config = require('../config');
+            config.cacheExpiration = 1;//set expiraion time to 1ms
+			cache.set("obj", {});
 			
 			setTimeout(function() {
-				assert(!(cache.get('obj')));				
+				assert(!(cache.get('obj')));
 				done();
-			}, 2);			
+			}, 2);
 		});
 	});
 });

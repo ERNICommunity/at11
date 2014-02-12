@@ -8,6 +8,12 @@
         "hbs": "*",
         "request": "*"
     },
+    "devDependencies": {
+        "mocha": "*"
+    },
+    "scripts": {
+        "test": "mocha"
+    },
     "author": {
         "name": "Jakub  Šturc",
         "email": "jakub.sturc@erni.sk"
