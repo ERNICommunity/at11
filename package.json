@@ -12,7 +12,7 @@
         "mocha": "*"
     },
     "scripts": {
-        "test": "mocha"
+        "test": "mocha --reporter spec"
     },
     "author": {
         "name": "Jakub  Šturc",
