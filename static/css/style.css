@@ -6,7 +6,7 @@ html, body {
     color: rgb(50,50,50);
 }
 a, a:active, a:visited {
-    text-decoration: none;
+    text-decoration: inherit;
 	color: inherit;
 }
 header {
@@ -42,12 +42,6 @@ section h2 {
     font-size: 2em;
     margin: 0.5em 0;
 }
-section h2 a {
-    color: inherit;
-}
-section h2 a:hover {
-    text-decoration: none;
-}
 section h2 a:hover:after {
     content: " >";
     color: rgb(210,210,210);
@@ -61,7 +55,6 @@ footer {
 }
 footer a.github  {
     font-weight: bold;
-    color: black;
     padding-left: 20px;
     background: url('../img/github.png') transparent left center no-repeat;
 }
