@@ -1,12 +1,12 @@
+var config = require('./config');
+
 module.exports = new (function() {
 	var values = { };
 	var expirations = { };
-	var defulatTtl = 10 * 60 * 1000; // 10 min
-	var now = function() { return Date.now(); };
 
-	this.set = function(key, value, ttl) {		
+	this.set = function(key, value) {		
 		values[key] = value;
-		expirations[key] = now() + (ttl || defulatTtl);
+		expirations[key] = Date.now() + config.cacheExpiration;
 	};
 
 	this.get = function(key) {
@@ -15,12 +15,11 @@ module.exports = new (function() {
 
 	this.isValid = function(key) {
 		var expiration =  expirations[key];		
-		return !!expiration && (now() < expiration);
+		return !!expiration && (Date.now() < expiration);
 	};
 
 	this.clear = function() {
 		values = { };
-		expiration = { };
+		expirations = { };
 	};
-
 })();
