@@ -21,6 +21,7 @@ h1 {
 h1 span {
     text-align: right;
     color: rgb(180,180,180);
+    white-space: nowrap;
 }
 header > h1, footer > div {
     margin: 0 50px;
