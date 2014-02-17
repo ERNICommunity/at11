@@ -1,5 +1,5 @@
 module.exports = {
-    port: 54321,
+    port:  process.env.PORT || 54321,
     cacheExpiration: 2*60*60*1000, //2h
     restaurants: [
         {name: "U Daňováka", url: "http://www.obedovat.sk/restauracia/6801-u-danovaka/denne-menu", module: "obedovat"},
