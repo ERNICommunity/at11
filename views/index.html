@@ -11,8 +11,8 @@
         <header>
             <h1>Dnešné menu <wbr><span>({{date}})</span></h1>
         </header>
-        <div id="container" class="js-masonry">
-            {{#each restaurants}}<section class="item">
+        <div class="js-masonry">
+            {{#each restaurants}}<section>
                 <h2><a href="{{this.url}}" target="_blank">{{this.name}}</a></h2>
                 <ul>
                     {{#each this.menu}}<li>{{this}}</li>{{else}}<li>Smola, dnes žiaden obed :-(</li>{{/each}}
@@ -22,7 +22,7 @@
         <footer>
             <div>
                 <span style="float: left">
-					<a href="http://en.wikipedia.org/wiki/Copyleft" target="_blank" title="copyleft" style="display: inline-block; transform: scaleX(-1);">©</a>
+					<a href="http://en.wikipedia.org/wiki/Copyleft" target="_blank" title="copyleft" style="display: inline-block; -webkit-transform: scaleX(-1); transform: scaleX(-1);">©</a>
 					ALL WRONGS RESERVED
 				</span>
 				<a style="float: right" href="https://github.com/jakub-sturc/at11" target="_blank" class="github">GitHub</a>
