@@ -1,7 +1,10 @@
 at11
 ==========
 
-Simple web application that fetches daily lunch menus from popular restaurants near ERNI Slovakia office.
+Simple web application that fetches daily lunch menus from popular restaurants near [ERNI Slovakia office](http://erni.sk).
+
+Application is running at [http://at11.azurewebsites.net/](http://at11.azurewebsites.net/).
+
 
 Installation instructions
 ---
