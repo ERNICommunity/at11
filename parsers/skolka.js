@@ -16,7 +16,7 @@ module.exports = new (function() {
 			var todayReg = new RegExp("^\\s*0?" + now.getDate() + "\\.\\s*0?" + (now.getMonth() + 1) + "\\.\\s*" + now.getFullYear());
 			if (todayReg.test(lines[i]))
 			{
-				menu.push(normalize(lines[i - 1].replace(/^\s*\w+\s+/, "")));
+				menu.push(normalize(lines[i - 1].replace(/^\s*\S+\s+/, "")));
 				menu.push(normalize(lines[i].replace(todayReg, "")));
 				menu.push(normalize(lines[i + 1]));
 				break;
