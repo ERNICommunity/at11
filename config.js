@@ -8,5 +8,6 @@ module.exports = {
         {name: "Alfa", url: "http://www.obedovat.sk/restauracia/150-alfa/denne-menu", module: "obedovat"},
         {name: "Škôlka", url: "http://jedalen.vysnivany.sk/ukazka-strany", module: "skolka"},
         {name: "Pizza Pazza", url: "http://www.pizzapazza.sk/sk/denne-menu/", module: "pizzapazza"}
+        {name: "Kamenica - Corleone Pizza", url: "http://restauracie.sme.sk/restauracia/kamenica-corleone-pizza_660-petrzalka_664/denne-menu", module: "obedovat"}
     ]
 };
