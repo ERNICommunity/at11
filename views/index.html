@@ -15,7 +15,7 @@
             {{#each restaurants}}<section>
                 <h2><a href="{{this.url}}" target="_blank">{{this.name}}</a></h2>
                 <ul>
-                    {{#each this.menu}}<li>{{this}}</li>{{else}}<li>Smola, dnes žiaden obed :-(</li>{{/each}}
+                    {{#each this.menu}}<li>{{{this}}}</li>{{else}}<li>Smola, dnes žiaden obed :-(</li>{{/each}}
                 </ul>
             </section>{{/each}}
         </div>

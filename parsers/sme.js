@@ -6,11 +6,18 @@ module.exports = new (function() {
         var $ = cheerio.load(html);
 
         var menu = new Array();
+        var soupPattern = new RegExp("[0-9,]+l$");
 
         $('.jedlo_polozka', '.dnesne_menu').each(function() {
 			if(this.find('b').length === 0)
 				menu.push(normalize(this.text()));
         });
+
+        for (menuLine in menu){
+            if (soupPattern.test(menu[menuLine])){
+                 menu[menuLine] = "<div class=\"soup\">" + menu[menuLine] + "</div>";
+            }
+        }
 
         return menu;
 

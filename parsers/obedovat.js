@@ -13,6 +13,10 @@ module.exports = new (function() {
             if(this.children("header").first().text().indexOf(todayStr) !== -1)
             {
                 menu = parseMenu(this);
+                //I think it is safe enough to assume that the first item in menu is the soup
+                if (menu.length > 0){
+                    menu[0] = "<div class=\"soup\">" + menu[0] + "</div>";
+                }
                 return false;
             }
         });

@@ -59,3 +59,7 @@ footer a.github  {
     padding-left: 20px;
     background: url('../img/github.png') transparent left center no-repeat;
 }
+
+div .soup{
+    font-weight: bold;
+}

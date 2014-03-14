@@ -26,6 +26,10 @@ module.exports = new (function() {
 			table.prevUntil('table').each(function() {
 				txt = this.text() + txt;
 			});
+
+            //format the soup
+            txt = txt.replace(/Polievk.*:(.+)Špec.*:(.+)delená.*:(.+)$/ig, 'Polievk.*:<div class="soup">$1</div>Špec.*:$2delená.*:$3$')
+
 			var m = /Polievk.*:(.+)Špec.*:(.+)delená.*:(.+)$/ig.exec(txt);
 			for (var i = m.length - 1; i > 0; i--)
 			{
