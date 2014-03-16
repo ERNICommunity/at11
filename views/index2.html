@@ -43,9 +43,9 @@
 </script>
 
 
-<div class="content">
+<div class="content" style="margin-top: 0px;">
     <div class="top_block header">
-        <div class="content">
+        <div class="content" style="padding-left: 20px;">
             <h1>Dnešné menu
                 <wbr>
                 <span>({{date}})</span></h1>
@@ -100,8 +100,8 @@
 </div>
 
 
-<footer>
-    <div>
+<div class="footer">
+    <div class="footer_contents">
                 <span style="float: left">
 					<a href="http://en.wikipedia.org/wiki/Copyleft" target="_blank" title="copyleft"
                        style="display: inline-block; -webkit-transform: scaleX(-1); transform: scaleX(-1);">©</a>
@@ -111,58 +111,6 @@
 
         <div style="clear: both;"></div>
     </div>
-</footer>
-<!--
-
-<header>
-
-    <h1>Dnešné menu
-        <wbr>
-        <span>({{date}})</span>
-    </h1>
-    <div id="flipPad">
-
-        <a href="#" class="restaurantChanger" data-restaurant="{{this.id}}">{{this.name}}</a>
-
-    </div>
-</header>
-
-<form style="float: right; margin-right: 20px;">
-    <input type="hidden" name="theme" value="index"/>
-    <button type="submit" class="themeSwitcher">Prepnúť tému</button>
-</form>
-
-<div id="tabs">
-    <ul>
-        {{#each restaurants}}
-        <li><a href="#tabs-{{this.id}}">{{this.name}}</a></li>
-        {{/each}}
-
-    </ul>
-    {{#each restaurants}}
-    <div id="tabs-{{this.id}}">
-        <a href="{{this.url}}" target="_blank" class="homepage">Homepage</a>
-        {{#each this.menu}}
-        <li>{{{this}}}</li>
-        {{else}}
-        <li>Smola, dnes žiaden obed :-(</li>
-        {{/each}}
-    </div>
-    {{/each}}
-
 </div>
-
-<div style="position: absolute; bottom: 20px;"><pre>Tip: na navigáciu medzi reštauráciami môžete použiť šípky <i>hore</i> a <i>dole</i></pre></div>
-
-<div id="footer" style="position: absolute; bottom: 0px;">
-    <div>
-                <span style="float: left">
-					<a href="http://en.wikipedia.org/wiki/Copyleft" target="_blank" title="copyleft" style="display: inline-block; -webkit-transform: scaleX(-1); transform: scaleX(-1);">©</a>
-					ALL WRONGS RESERVED
-				</span>
-        <a style="float: right" href="https://github.com/jakub-sturc/at11" target="_blank" class="github">GitHub</a>
-        <div style="clear: both;"></div>
-    </div>
-</div>-->
 </body>
 </html>
