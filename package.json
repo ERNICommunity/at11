@@ -10,7 +10,8 @@
         "url": "*",
         "passport":"*",
         "passport-local":"*",
-        "connect-flash":"*"
+        "connect-flash":"*",
+        "sqlite3":"*"
 
 	},
 	"devDependencies": {
