@@ -49,6 +49,10 @@
             <h1>Dnešné menu
                 <wbr>
                 <span>({{date}})</span></h1>
+            <form style="float: right; margin-right: 20px;">
+                <input type="hidden" name="theme" value="index"/>
+                <button type="submit" class="themeSwitcher">Prepnúť tému</button>
+            </form>
         </div>
     </div>
 
@@ -76,6 +80,7 @@
                 {{#each restaurants}}
                 <div id="tabs-{{this.id}}" style="display: none;">
                     <h3>{{this.name}}</h3>
+
                     <div style="clear: both;">
                         <a href="{{this.url}}" target="_blank" class="homepage">Homepage</a>
                     </div>
