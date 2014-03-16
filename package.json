@@ -6,7 +6,12 @@
 		"cheerio": "*",
 		"express": "3.x",
 		"hbs": "*",
-		"request": "*"
+		"request": "*",
+        "url": "*",
+        "passport":"*",
+        "passport-local":"*",
+        "connect-flash":"*"
+
 	},
 	"devDependencies": {
 		"mocha": "*"
