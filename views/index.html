@@ -11,7 +11,13 @@
         <header>
             <h1>Dnešné menu <wbr><span>({{date}})</span></h1>
         </header>
-        <div class="js-masonry">
+
+        <form style="float: right; margin-right: 20px;">
+            <input type="hidden" name="theme" value="index2"/>
+            <button type="submit" class="themeSwitcher">Prepnúť tému</button>
+        </form>
+
+        <div class="js-masonry" style="margin-top: 50px;">
             {{#each restaurants}}<section>
                 <h2><a href="{{this.url}}" target="_blank">{{this.name}}</a></h2>
                 <ul>

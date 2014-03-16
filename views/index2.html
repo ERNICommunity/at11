@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+    <meta charset="UTF-8">
+    <title>@11</title>
+    <link rel="icon" type="image/x-icon" href="img/favicon.ico"/>
+    <meta name="description" content="Obedové menu pri ERNI SK">
+
+
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script type="text/javascript" src="js/jquery.jpanelmenu.min.js"></script>
+
+    <link href="css/style2.css" type="text/css" rel="stylesheet">
+
+</head>
+
+<body>
+
+
+<script>
+    $(function () {
+        $('.menu-item').each(function () {
+            $(this).on("click", function () {
+                var restaurantClickedId = $(this).attr("id")
+                var restaurantCurrentlyVisible = $("div[id^=tabs-]:visible").attr("id")
+
+                if (restaurantClickedId === restaurantCurrentlyVisible) {
+                    //restaurant is already selected - nothing to do anymore
+                    return;
+                }
+                //hide previously selected restaurant
+                $('#' + restaurantCurrentlyVisible).css('display', "none");
+
+                //show new selected restaurant
+                $('#tabs-' + restaurantClickedId).fadeIn();
+            });
+        });
+
+        $('.menu-item').first().click();
+    });
+
+
+</script>
+
+
+<div class="content">
+    <div class="top_block header">
+        <div class="content">
+            <h1>Dnešné menu
+                <wbr>
+                <span>({{date}})</span></h1>
+        </div>
+    </div>
+
+    <div class="left_block left_menu">
+        <div class="content">
+            <div>
+                <ul id="menu">
+                    {{#each restaurants}}
+                    <li>
+                        <button class="menu-item" style="width: 100%;" id="{{this.id}}">
+                            {{this.name}}
+                        </button>
+                    </li>
+                    {{/each}}
+                </ul>
+            </div>
+
+
+        </div>
+    </div>
+
+    <div class="center_block restaurant">
+        <div class="content">
+            <div id="tabs">
+                {{#each restaurants}}
+                <div id="tabs-{{this.id}}" style="display: none;">
+                    <h3>{{this.name}}</h3>
+                    <div style="clear: both;">
+                        <a href="{{this.url}}" target="_blank" class="homepage">Homepage</a>
+                    </div>
+                    <div style="clear: both; margin-top: 20px;">
+                        {{#each this.menu}}
+                        <li>{{{this}}}</li>
+                        {{else}}
+                        <li>Smola, dnes žiaden obed :-(</li>
+                        {{/each}}
+                    </div>
+                </div>
+                {{/each}}
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<footer>
+    <div>
+                <span style="float: left">
+					<a href="http://en.wikipedia.org/wiki/Copyleft" target="_blank" title="copyleft"
+                       style="display: inline-block; -webkit-transform: scaleX(-1); transform: scaleX(-1);">©</a>
+					ALL WRONGS RESERVED
+				</span>
+        <a style="float: right" href="https://github.com/jakub-sturc/at11" target="_blank" class="github">GitHub</a>
+
+        <div style="clear: both;"></div>
+    </div>
+</footer>
+<!--
+
+<header>
+
+    <h1>Dnešné menu
+        <wbr>
+        <span>({{date}})</span>
+    </h1>
+    <div id="flipPad">
+
+        <a href="#" class="restaurantChanger" data-restaurant="{{this.id}}">{{this.name}}</a>
+
+    </div>
+</header>
+
+<form style="float: right; margin-right: 20px;">
+    <input type="hidden" name="theme" value="index"/>
+    <button type="submit" class="themeSwitcher">Prepnúť tému</button>
+</form>
+
+<div id="tabs">
+    <ul>
+        {{#each restaurants}}
+        <li><a href="#tabs-{{this.id}}">{{this.name}}</a></li>
+        {{/each}}
+
+    </ul>
+    {{#each restaurants}}
+    <div id="tabs-{{this.id}}">
+        <a href="{{this.url}}" target="_blank" class="homepage">Homepage</a>
+        {{#each this.menu}}
+        <li>{{{this}}}</li>
+        {{else}}
+        <li>Smola, dnes žiaden obed :-(</li>
+        {{/each}}
+    </div>
+    {{/each}}
+
+</div>
+
+<div style="position: absolute; bottom: 20px;"><pre>Tip: na navigáciu medzi reštauráciami môžete použiť šípky <i>hore</i> a <i>dole</i></pre></div>
+
+<div id="footer" style="position: absolute; bottom: 0px;">
+    <div>
+                <span style="float: left">
+					<a href="http://en.wikipedia.org/wiki/Copyleft" target="_blank" title="copyleft" style="display: inline-block; -webkit-transform: scaleX(-1); transform: scaleX(-1);">©</a>
+					ALL WRONGS RESERVED
+				</span>
+        <a style="float: right" href="https://github.com/jakub-sturc/at11" target="_blank" class="github">GitHub</a>
+        <div style="clear: both;"></div>
+    </div>
+</div>-->
+</body>
+</html>

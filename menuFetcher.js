@@ -2,14 +2,14 @@ var request = require('request');
 var cache = require('./cache');
 
 module.exports = new (function() {
-	this.fetchMenu = function(url, name, parseCallback, doneCallback) {
+	this.fetchMenu = function(id, url, name, parseCallback, doneCallback) {
 		var menuObj = cache.get(url);
 		if (menuObj)
-			doneCallback({name: name, url: url, menu: menuObj});
+			doneCallback({id: id, name: name, url: url, menu: menuObj});
 		else
 			load(url, parseCallback, function(menuObj) {
 				cache.set(url, menuObj);
-				doneCallback({name: name, url: url, menu: menuObj});
+				doneCallback({id: id, name: name, url: url, menu: menuObj});
 			});
 	};
 })();
