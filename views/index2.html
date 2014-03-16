@@ -33,9 +33,40 @@
 
                 //show new selected restaurant
                 $('#tabs-' + restaurantClickedId).fadeIn();
+
+                $('#selected_restaurant').val(restaurantClickedId);
             });
         });
 
+        $(document).keyup(function (e) {
+            e.preventDefault();
+
+            //the main problem with this feature is, that order of the restaurant buttons is not the same as the order of restaurants in config.js
+            //so it is hard to use "id" attribute defined in config.js to determine next/previous restaurant to be selected
+
+            var selectedRestaurant = parseInt($('#selected_restaurant').val());
+            var restaurantCount = $(".menu-item").length + 1;
+
+            if (e.keyCode == 38) { //UP arrow
+                selectedRestaurant = (selectedRestaurant - 1 + restaurantCount) % restaurantCount;
+                if (selectedRestaurant == 0) selectedRestaurant = restaurantCount - 1;
+
+            }
+            if (e.keyCode == 40) { //DOWN arrow
+                selectedRestaurant = (selectedRestaurant + 1) % restaurantCount;
+                if (selectedRestaurant == 0) selectedRestaurant = 1;
+            }
+
+            //save value of currently selected restaurant
+            $('#selected_restaurant').val(selectedRestaurant);
+
+            //click on selected restaurant
+            $('.menu-item[id='+selectedRestaurant+']').click();
+
+        });
+
+
+        //first restaurant is selected by default
         $('.menu-item').first().click();
     });
 
@@ -58,6 +89,7 @@
 
     <div class="left_block left_menu">
         <div class="content">
+            <input type="hidden" id="selected_restaurant" value="1"/>
             <div>
                 <ul id="menu">
                     {{#each restaurants}}
@@ -102,6 +134,7 @@
 
 <div class="footer">
     <div class="footer_contents">
+        <pre style="margin-left: 20px;">Tip: na navigáciu medzi reštauráciami môžete použiť šípky <i>HORE</i> a <i>DOLE</i></pre>
                 <span style="float: left">
 					<a href="http://en.wikipedia.org/wiki/Copyleft" target="_blank" title="copyleft"
                        style="display: inline-block; -webkit-transform: scaleX(-1); transform: scaleX(-1);">©</a>

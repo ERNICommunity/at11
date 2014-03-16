@@ -151,7 +151,6 @@ html, body {
 }
 
 .footer {
-
     height: 24px;
     width: 100%;
     background-image: none;
@@ -159,9 +158,8 @@ html, body {
     background-attachment: scroll;
     background-position: 0% 0%;
     position: fixed;
-    bottom: 0pt;
+    bottom: 40px;
     left: 0pt;
-
 }
 
 .footer_contents {
