@@ -1,3 +1,4 @@
+
 var cheerio = require('cheerio');
 
 module.exports = new (function() {
@@ -25,16 +26,26 @@ module.exports = new (function() {
 
         function parseMenu(elem) {
             var arr = new Array();
+
+            var header = normalize(elem.find('header.rm').first().text());
+            if (header && !endsWith(header, 'menu')){
+                arr.push(header);
+            }
+
             elem.find('li').each(function() {
                 arr.push(normalize(this.text()));
             });
             return arr;
         }
 
+        function endsWith(str, suffix) {
+            return str.indexOf(suffix, str.length - suffix.length) !== -1;
+        }
+
         function normalize(str) {
             return str.trim()
-                    .replace(/\s\s+/g, ' ')
-                    .replace(/^\d\.\s*/, '');
+                .replace(/\s\s+/g, ' ')
+                .replace(/^\d\.\s*/, '');
         }
     };
 })();
