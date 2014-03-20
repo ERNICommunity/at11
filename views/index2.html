@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+    <meta charset="UTF-8">
+    <title>@11</title>
+    <link rel="icon" type="image/x-icon" href="img/favicon.ico"/>
+    <meta name="description" content="Obedové menu pri ERNI SK">
+
+    <link href="css/style2.css" type="text/css" rel="stylesheet">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+
+</head>
+<body>
+<script type="text/javascript">
+    $(function () {
+        selectRestaurant(1);
+
+        $(document).keyup(function (e) {
+            e.preventDefault();
+
+            if (e.keyCode == 38) { //UP arrow
+                var selectedRestaurant = parseInt(findSelectedRestaurantId());
+                var restaurantCount = $('#navigationBar li').length + 1;
+
+                unSelectRestaurant(selectedRestaurant);
+                selectedRestaurant = (selectedRestaurant - 1 + restaurantCount) % restaurantCount;
+                if (selectedRestaurant == 0) selectedRestaurant = restaurantCount - 1;
+                selectRestaurant(selectedRestaurant)
+
+            }
+            if (e.keyCode == 40) { //DOWN arrow
+                var selectedRestaurant = parseInt(findSelectedRestaurantId());
+                var restaurantCount = $('#navigationBar li').length + 1;
+
+                unSelectRestaurant(selectedRestaurant);
+                selectedRestaurant = (selectedRestaurant + 1) % restaurantCount;
+                if (selectedRestaurant == 0) selectedRestaurant = 1;
+                selectRestaurant(selectedRestaurant)
+            }
+
+        });
+    });
+
+    function selectRestaurant(id) {
+        $('#navigationBar li a[href="\\#restaurant' + id + '"]').parent().addClass('active');
+        $('#restaurant' + id).addClass('active');
+    }
+
+    function unSelectRestaurant(id) {
+        $('#navigationBar li a[href="\\#restaurant' + id + '"]').parent().removeClass('active');
+        $('#restaurant' + id).removeClass('active');
+    }
+
+    function findSelectedRestaurantId() {
+        var activeRestaurant = $('#navigationBar .active').children().get(0);
+        return $(activeRestaurant).attr('href').slice("#restaurant".length)
+    }
+
+</script>
+
+<div class="well"><h1>Dnešné menu</h1>
+<h3>{{date}}</h3>
+</div>
+<div class="row-fluid" style="margin-left: 20px;">
+
+    <ul id="navigationBar" class="nav nav-pills nav-stacked col-md-2">
+        {{#each restaurants}}
+        <li><a href="#restaurant{{this.id}}" style="outline: 0;" data-toggle="pill">{{this.name}}</a></li>
+        {{/each}}
+    </ul>
+    <div class="tab-content col-md-10">
+        {{#each restaurants}}
+        <div class="tab-pane" id="restaurant{{this.id}}">
+            <h3>{{this.name}}</h3>
+            <ul>
+                {{#each this.menu}}
+                <li>{{{this}}}</li>
+                {{else}}
+                <li>Smola, dnes žiaden obed :-(</li>
+                {{/each}}
+            </ul>
+
+        </div>
+        {{/each}}
+    </div>
+</div>
+
+
+<div class="row-fluid" style="position: absolute; bottom: 0;">
+    <div class="col-md2">
+        <a href="http://en.wikipedia.org/wiki/Copyleft" target="_blank" title="copyleft"
+           style="display: inline-block; -webkit-transform: scaleX(-1); transform: scaleX(-1);">©</a>
+        ALL WRONGS RESERVED
+    </div>
+    <div class="col-md1">
+        <a style="float: right" href="https://github.com/jakub-sturc/at11" target="_blank" class="github">GitHub</a>
+    </div>
+</div>
+
+</body>
+</html>

@@ -16,12 +16,13 @@ for (var i = 0; i < config.restaurants.length; i++) {
             throw "Module is missing parse method";
         var url = config.restaurants[i].url;
         var name = config.restaurants[i].name;
-        var action = (function(name, url, parseCallback){
+        var id = config.restaurants[i].id;
+        var action = (function(id, name, url, parseCallback){
             return function(fetchedCallback)
                 {
-                    menuFetcher.fetchMenu(url, name, parseCallback, fetchedCallback);
+                    menuFetcher.fetchMenu(id, url, name, parseCallback, fetchedCallback);
                 };
-        })(name, url, module.parse);
+        })(id, name, url, module.parse);
         actions.push(action);
     }
     catch(e)
