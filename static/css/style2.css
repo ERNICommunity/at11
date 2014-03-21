@@ -1,3 +1,19 @@
 .soup{
     font-weight: bold;
 }
+
+a.github  {
+    font-weight: bold;
+    padding-left: 20px;
+    background: url('../img/github.png') transparent left center no-repeat;
+}
+
+body{
+    font-size: 25px;
+}
+
+.vcenter {
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
+}

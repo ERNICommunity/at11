@@ -49,7 +49,7 @@ app.get('/', function(req, res) {
         res.setHeader('Content-Language', 'sk');
         var now = new Date();
         var date = now.getDate() + ". " + (now.getMonth() + 1) + ". " + now.getFullYear();
-		res.render('index', { date: date, restaurants: restaurants});
+		res.render('index2', { date: date, restaurants: restaurants});
 	});
 });
 app.listen(config.port);
