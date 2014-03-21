@@ -35,6 +35,9 @@
                 var selectedRestaurant = parseInt(findSelectedRestaurantId());
                 var restaurantCount = $('#navigationBar li').length + 1;
 
+                console.log("selectedRestaurant = " + selectedRestaurant )
+                console.log("restaurantCount = " + restaurantCount )
+
                 unSelectRestaurant(selectedRestaurant);
                 selectedRestaurant = (selectedRestaurant + 1) % restaurantCount;
                 if (selectedRestaurant == 0) selectedRestaurant = 1;

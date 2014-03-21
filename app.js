@@ -54,7 +54,8 @@ app.get('/', function(req, res) {
         var theme = parseTheme(req);
 
         res.setHeader("Set-Cookie", ["theme="+ theme]);
-        res.render(theme, { date: date, restaurants: restaurants});
+
+        res.render(theme, { date: date, restaurants: restaurants.sort(function(a,b) { return a.id - b.id })});
 	});
 });
 app.listen(config.port);

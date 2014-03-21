@@ -1,5 +1,6 @@
 var request = require('request');
 var cache = require('./cache');
+var parserUtil = require('./parsers/parserUtil.js');
 
 module.exports = new (function() {
 	this.fetchMenu = function(id, url, name, parseCallback, doneCallback) {
@@ -22,6 +23,11 @@ function load(url, parseCallback, doneCallback) {
 			try
 			{
 				menu = parseCallback(body);
+
+                menu = menu.map(function(item){
+                    return parserUtil.removeMetrics(item);
+                });
+
 				if (!Array.isArray(menu))
 					throw "Invalid menu returned (expected array, got " + typeof menu + ")";
 			}
