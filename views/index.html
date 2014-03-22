@@ -17,12 +17,19 @@
             <button type="submit" class="themeSwitcher">Prepnúť tému</button>
         </form>
 
-        <div class="js-masonry" style="margin-top: 50px;">
-            {{#each restaurants}}<section>
+        <div class="js-masonry" style="margin-top: 50px; ">
+            {{#each restaurants}}
+            <section>
                 <h2><a href="{{this.url}}" target="_blank">{{this.name}}</a></h2>
-                <ul>
-                    {{#each this.menu}}<li>{{{this}}}</li>{{else}}<li>Smola, dnes žiaden obed :-(</li>{{/each}}
-                </ul>
+            <ul class="ulClass">
+                {{#each this.menu}}
+                <li>
+                    {{{this.menuItem}}}
+                </li>
+                {{else}}
+                <li>Smola, dnes žiaden obed :-(</li>
+                {{/each}}
+            </ul>
             </section>{{/each}}
         </div>
         <footer>

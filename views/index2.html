@@ -35,9 +35,6 @@
                 var selectedRestaurant = parseInt(findSelectedRestaurantId());
                 var restaurantCount = $('#navigationBar li').length + 1;
 
-                console.log("selectedRestaurant = " + selectedRestaurant )
-                console.log("restaurantCount = " + restaurantCount )
-
                 unSelectRestaurant(selectedRestaurant);
                 selectedRestaurant = (selectedRestaurant + 1) % restaurantCount;
                 if (selectedRestaurant == 0) selectedRestaurant = 1;
@@ -97,10 +94,15 @@
         </ul>
         <div class="tab-content col-md-10">
             {{#each restaurants}}
-            <div class="tab-pane" id="restaurant{{this.id}}">
+            <div class="tab-pane" id="restaurant{{this.id}}" style="max-width: 1200px;">
                 <ul>
                     {{#each this.menu}}
-                    <li>{{{this}}}</li>
+                    <li>
+                        {{{this.menuItemWithoutPrice}}}
+                        <div style="float: right; display: inline-block;">
+                        {{{this.price}}}
+                        </div>
+                    </li>
                     {{else}}
                     <li>Smola, dnes žiaden obed :-(</li>
                     {{/each}}

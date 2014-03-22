@@ -25,7 +25,9 @@ function load(url, parseCallback, doneCallback) {
 				menu = parseCallback(body);
 
                 menu = menu.map(function(item){
-                    return parserUtil.removeMetrics(item);
+                    var removedMetrics =  parserUtil.removeMetrics(item);
+                    var priced = parserUtil.parsePrice(removedMetrics);
+                    return priced;
                 });
 
 				if (!Array.isArray(menu))

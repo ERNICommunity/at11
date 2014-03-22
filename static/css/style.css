@@ -62,6 +62,7 @@ footer a.github  {
 
 div .soup{
     font-weight: bold;
+    display: inline-block;
 }
 
 button.themeSwitcher {
