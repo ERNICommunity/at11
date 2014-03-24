@@ -4,7 +4,7 @@ module.exports.removeMetrics = function(item){
 
 module.exports.parsePrice = function(item){
     var match = item.match(/[0-9]{1,2}(?:[,.] *[0-9]{1,2})? *€/);
-    if (match.length>0){
+    if (match && match.length>0){
         var price = match[0];
         var withoutPrice = item.replace(price,"");
         return {
