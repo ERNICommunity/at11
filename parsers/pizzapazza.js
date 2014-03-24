@@ -13,7 +13,8 @@ module.exports = new (function() {
 				menu = menu.concat(parseDaily(this));
 			}
 			if (this.text().indexOf('VIP menu') !== -1 ||
-				this.text().indexOf('Týždenné menu') !== -1)
+				this.text().indexOf('Týždenné menu') !== -1 ||
+                this.text().indexOf('FIT menu') !== -1)
 				menu = menu.concat(parseOne(this));
 			if (this.text().indexOf('Šalátové menu') !== -1 ||
 				this.text().indexOf('Pizza menu') !== -1)
@@ -22,18 +23,20 @@ module.exports = new (function() {
 				return false;
 		});
 
-        //I think it is safe enough to assume that the first item in menu is the soup
-        if (menu.length > 0){
-            menu[0] = "<div class=\"soup\">" + menu[0] + "</div>";
-        }
-
 		return menu;
 
 		function parseDaily(elem) {
 			var arr = new Array();
+
 			arr.push(elem.text().replace(/^[\s\S]+polievka:\s+/i, ''));
 			arr.push(normalize(elem.next().text()));
 			arr.push(normalize(elem.next().next().text()));
+
+            //I think it is safe enough to assume that the first item in daily menu is the soup
+            if (arr.length > 0){
+                arr[0] = "<div class=\"soup\">" + arr[0] + "</div>";
+            }
+
 			return arr;
 		}
 
