@@ -9,6 +9,6 @@ module.exports = {
         {id: 5, name: "Škôlka", url: "http://jedalen.vysnivany.sk/ukazka-strany", module: "skolka"},
         {id: 6, name: "Pizza Pazza", url: "http://www.pizzapazza.sk/sk/denne-menu/", module: "pizzapazza"},
         {id: 7, name: "Kamenica - Corleone Pizza", url: "http://restauracie.sme.sk/restauracia/kamenica-corleone-pizza_660-petrzalka_664/denne-menu", module: "sme"},
-        {id: 8, name: "Numero Uno", url: "http://www.obedovat.sk/restauracia/6498-numero-uno/denne-menu", module: "obedovat"}
+        {id: 8, name: "Numero Uno", url: "http://www.numerouno.sk/denne-menu-5/", module: "numerouno"}
     ]
 };
