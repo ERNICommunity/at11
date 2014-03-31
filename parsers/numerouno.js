@@ -12,8 +12,7 @@ module.exports = new (function () {
 
         var menu = parseDailyMenu(menuText);
         if (!menu || menu.length==0) return menu;
-        //remove name of the day from the first menu entry
-        menu[0] = menu[0].substring(todayName.length).trim();
+
 
         //the first menu entry is also a soup
         menu[0] = '<div class="soup">' + menu[0] + '</div>';
@@ -74,7 +73,10 @@ module.exports = new (function () {
                 return [];
             }
 
-            return menuText.slice(startLine, endLine);
+            var menuResult = menuText.slice(startLine, endLine);
+            //remove name of the day from the first menu entry
+            menuResult[0] = menuResult[0].substring(todayName.length).trim();
+            return  menuResult;
         }
 
         function startsWith(str, substring) {
