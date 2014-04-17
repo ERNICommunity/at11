@@ -1,7 +1,7 @@
 {
 	"name": "at11",
 	"description": "Daily lunch menu application",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"dependencies": {
 		"cheerio": "*",
 		"express": "3.x",
@@ -22,6 +22,14 @@
 	"contributors": [{
 		"name": "Ján Neščivera",
 		"email": "jan.nescivera@erni.sk"
+	},
+	{
+		"name": "Matúš Brliť",
+		"email": "matus.brlit@erni.sk"
+	},
+	{
+		"name": "Igor Kvasnička",
+		"email": "igor.kvasnicka@erni.sk"
 	}],
 	"keywords": ["lunch", "menu", "at11", "erni"],
 	"repository": {
