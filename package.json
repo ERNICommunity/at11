@@ -3,7 +3,7 @@
 	"description": "Daily lunch menu application",
 	"version": "0.0.2",
 	"dependencies": {
-		"cheerio": "*",
+		"cheerio": "0.15.0",
 		"express": "3.x",
 		"hbs": "*",
 		"request": "*",
