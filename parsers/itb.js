@@ -1,15 +1,15 @@
 var cheerio = require('cheerio');
 
-module.exports = new (function() {
-    this.parse = function(html) {
+module.exports = new (function () {
+    this.parse = function (html) {
 
         var $ = cheerio.load(html);
 
         var menu = new Array();
 
-        $('td.cnt', '#contentBox').children('table').each(function(index) {
-            if (index === new Date().getDay() - 1) {
-                menu = parseMenu(this);
+        $('td.cnt', '#contentBox').children('table').each(function (index) {
+            if (index === global.todaysDate.getDay() - 1) {
+                menu = parseMenu($(this));
                 return false;
             }
         });
@@ -18,12 +18,12 @@ module.exports = new (function() {
 
         function parseMenu(table) {
             var temp = [];
-            table.find('tr').each(function() {
-                temp.push(normalize(this.text().replace(/\w\)/, '')));
+            table.find('tr').each(function () {
+                temp.push(normalize($(this).text().replace(/\w\)/, '')));
             });
             var txt = "";
-            table.prevUntil('table').each(function() {
-                txt = this.text() + txt;
+            table.prevUntil('table').each(function () {
+                txt = $(this).text() + txt;
             });
 
             //format the soup

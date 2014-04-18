@@ -1,11 +1,12 @@
 var cheerio = require('cheerio');
 
-module.exports = new (function() {
-    this.parse = function(html) {
+module.exports = new (function () {
+    this.parse = function (html) {
 
         var $ = cheerio.load(html);
 
-        var menuText = $('.entry-content div').first().text().trim().match(/[^\r\n]+/g).map(function(line) {
+
+        var menuText = $('.entry-content div').first().text().trim().match(/[^\r\n]+/g).map(function (line) {
             return line.replace(/\t/g, '')
         });
 
@@ -17,13 +18,13 @@ module.exports = new (function() {
         menu[0] = '<div class="soup">' + menu[0] + '</div>';
 
         //prize is written the other way around than usual e.g. € 5.10 instead of 5.10 €
-        menu = menu.map(function(line) {
+        menu = menu.map(function (line) {
             return line.replace(/€ ([0-9]{1,2},[0-9]{2})/, '$1 €');
         });
 
 
         //remove leading numbering
-        menu = menu.map(function(line) {
+        menu = menu.map(function (line) {
             return line.replace(/^[1-3]\. (.*)/, '$1');
         });
 
@@ -39,6 +40,7 @@ module.exports = new (function() {
             }
         }
 
+
         //remove unnecessary menu items
         for (var item in menu) {
             if (startsWith(menu[item], "menu č.4")) {
@@ -51,8 +53,8 @@ module.exports = new (function() {
 
         function parseDailyMenu(menuText) {
             var days = ['nedeľa', 'pondelok', 'utorok', 'streda', 'štvrtok', 'piatok', 'sobota'];
-            var todayName = days[new Date().getDay()];
-            var tomorrowName = days[new Date().getDay() + 1];
+            var todayName = days[global.todaysDate.getDay()];
+            var tomorrowName = days[global.todaysDate.getDay() + 1];
 
             var startLine, endLine;
             for (var line in menuText) {
