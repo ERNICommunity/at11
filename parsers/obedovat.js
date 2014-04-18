@@ -1,21 +1,20 @@
 
 var cheerio = require('cheerio');
 
-module.exports = new (function() {
-    this.parse = function(html) {
+module.exports = new (function () {
+    this.parse = function (html) {
 
         var $ = cheerio.load(html);
 
         var menu = new Array();
+        var now = global.todaysDate;
+        var todayStr = now.getDate() + "." + (now.getMonth() + 1) + "." + now.getFullYear();
 
-        $('.daily-menu-for-day').each(function() {
-            var now = new Date();
-            var todayStr = now.getDate() + "." + (now.getMonth() + 1) + "." + now.getFullYear();
-            if(this.children("header").first().text().indexOf(todayStr) !== -1)
-            {
-                menu = parseMenu(this);
+        $('.daily-menu-for-day').each(function () {
+            if ($(this).children("header").first().text().indexOf(todayStr) !== -1) {
+                menu = parseMenu($(this));
                 //I think it is safe enough to assume that the first item in menu is the soup
-                if (menu.length > 0){
+                if (menu.length > 0) {
                     menu[0] = "<div class=\"soup\">" + menu[0] + "</div>";
                 }
                 return false;
@@ -28,12 +27,12 @@ module.exports = new (function() {
             var arr = new Array();
 
             var header = normalize(elem.find('header.rm').first().text());
-            if (header && !endsWith(header, 'menu')){
+            if (header && !endsWith(header, 'menu')) {
                 arr.push(header);
             }
 
-            elem.find('li').each(function() {
-                arr.push(normalize(this.text()));
+            elem.find('li').each(function () {
+                arr.push(normalize($(this).text()));
             });
             return arr;
         }

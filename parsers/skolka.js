@@ -12,7 +12,7 @@ module.exports = new (function() {
 		});
 		for (var i = 0; i < lines.length; i++)
 		{
-			var now = new Date();
+		    var now = global.todaysDate;
 			var todayReg = new RegExp("^\\s*0?" + now.getDate() + "\\.\\s*0?" + (now.getMonth() + 1) + "\\.\\s*" + now.getFullYear());
 			if (todayReg.test(lines[i]))
 			{
