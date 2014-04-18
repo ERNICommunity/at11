@@ -1,5 +1,5 @@
 
-global.devMode = true; //if set to true, cache is disabled
+global.devMode = false; //if set to true, cache is disabled
 global.todaysDate = new Date(); //if setting the date manually, remember that months start with 0
 
 var express = require('express');
