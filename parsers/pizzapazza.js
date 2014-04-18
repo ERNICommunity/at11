@@ -8,19 +8,18 @@ module.exports = new (function() {
 		var menu = new Array();
 
 		var days = ['nedeľa', 'pondelok', 'utorok', 'streda', 'štvrtok', 'piatok', 'sobota'];
-		$('.editor-content > div:nth-child(2) > table:nth-child(1) > tbody').children('tr').each(function () {
-		    $this = $(this);
-		    if (new RegExp(days[global.todaysDate.getDay()], 'i').test($this.text())) {
+		$('.editor-content > div:nth-child(2) > table:nth-child(1) > tbody').children('tr').each(function() {
+			if (new RegExp(days[new Date().getDay()], 'i').test(this.text())) {
 				menu = menu.concat(parseDaily(this));
 			}
-		    if ($this.text().indexOf('VIP menu') !== -1 ||
-				$this.text().indexOf('Týždenné menu') !== -1 ||
-                $this.text().indexOf('FIT menu') !== -1)
+			if (this.text().indexOf('VIP menu') !== -1 ||
+				this.text().indexOf('Týždenné menu') !== -1 ||
+                this.text().indexOf('FIT menu') !== -1)
 				menu = menu.concat(parseOne(this));
-		    if ($this.text().indexOf('Šalátové menu') !== -1 ||
-				$this.text().indexOf('Pizza menu') !== -1)
+			if (this.text().indexOf('Šalátové menu') !== -1 ||
+				this.text().indexOf('Pizza menu') !== -1)
 				menu = menu.concat(parseThree(this));
-		    if ($this.children('th').length > 0 && this.text().indexOf("Hron") !== -1)//too far
+			if (this.children('th').length > 0 && this.text().indexOf("Hron") !== -1)//too far
 				return false;
 		});
 

@@ -11,7 +11,7 @@ module.exports = new (function () {
         });
 
         var menu = parseDailyMenu(menuText);
-        if (!menu || menu.length == 0) return menu;
+        if (!menu || menu.length==0) return menu;
 
 
         //the first menu entry is also a soup
@@ -53,8 +53,8 @@ module.exports = new (function () {
 
         function parseDailyMenu(menuText) {
             var days = ['nedeľa', 'pondelok', 'utorok', 'streda', 'štvrtok', 'piatok', 'sobota'];
-            var todayName = days[global.todaysDate.getDay()];
-            var tomorrowName = days[global.todaysDate.getDay() + 1];
+            var todayName = days[new Date().getDay()];
+            var tomorrowName = days[new Date().getDay() + 1];
 
             var startLine, endLine;
             for (var line in menuText) {
@@ -76,7 +76,7 @@ module.exports = new (function () {
             var menuResult = menuText.slice(startLine, endLine);
             //remove name of the day from the first menu entry
             menuResult[0] = menuResult[0].substring(todayName.length).trim();
-            return menuResult;
+            return  menuResult;
         }
 
         function startsWith(str, substring) {
