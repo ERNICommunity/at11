@@ -1,10 +1,10 @@
-module.exports.removeMetrics = function(item){
-    return item.replace(/([0-9,]+ *\/?)+[gl]\.? ?/g,"");
+module.exports.removeMetrics = function(item) {
+    return item.replace(/([0-9,]+ *\/?)+[gl]\.? ?/g, "");
 };
 
-module.exports.parsePrice = function(item){
+module.exports.parsePrice = function(item) {
     var match = item.match(/ ?[0-9]{1,2}(?:[,.] *[0-9]{1,2})? *€/g);
-    if (match && match.length>0){
+    if (match && match.length > 0) {
 
         var withoutPrice = item;
         for (var p in match) {
@@ -18,7 +18,7 @@ module.exports.parsePrice = function(item){
             menuItemWithoutPrice: withoutPrice,
             menuItem: item
         }
-    }else{
+    } else {
         return {
             price: "",
             menuItemWithoutPrice: item,
@@ -26,8 +26,8 @@ module.exports.parsePrice = function(item){
         }
     }
 
-    function normalizePriceArray(prices){
-        for (var p in prices){
+    function normalizePriceArray(prices) {
+        for (var p in prices) {
             prices[p] = prices[p].trim();
         }
         return prices;
