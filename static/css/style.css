@@ -7,7 +7,7 @@ html, body {
 }
 a, a:active, a:visited {
     text-decoration: inherit;
-	color: inherit;
+    color: inherit;
 }
 header {
     display: block;
@@ -19,7 +19,6 @@ h1 {
     font-size: 4em;
 }
 h1 span {
-    text-align: right;
     color: rgb(180,180,180);
     white-space: nowrap;
 }
@@ -46,6 +45,9 @@ section h2 {
 section h2 a:hover:after {
     content: " >";
     color: rgb(210,210,210);
+}
+section li > span {
+    float: right;
 }
 footer {
     display: block;
@@ -115,7 +117,7 @@ li.error {
     background-color: #f2dede;
 }
 
-    li.error p {
-        padding: 10px 15px;
-        color: #a94442;
-    }
+li.error p {
+    padding: 10px 15px;
+    color: #a94442;
+}

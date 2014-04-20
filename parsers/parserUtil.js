@@ -15,15 +15,13 @@ module.exports.parsePrice = function(item) {
 
         return {
             price: price,
-            menuItemWithoutPrice: withoutPrice,
-            menuItem: item
-        }
+            menuItemWithoutPrice: withoutPrice
+        };
     } else {
         return {
             price: "",
-            menuItemWithoutPrice: item,
-            menuItem: item
-        }
+            menuItemWithoutPrice: item
+        };
     }
 
     function normalizePriceArray(prices) {
@@ -32,5 +30,4 @@ module.exports.parsePrice = function(item) {
         }
         return prices;
     }
-
 };

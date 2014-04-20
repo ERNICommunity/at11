@@ -21,15 +21,15 @@ function load(url, parseCallback, doneCallback) {
         if (!error && response.statusCode === 200) {
             try {
                 menu = parseCallback(body);
-
+                
+                if (!Array.isArray(menu))
+                    throw "Invalid menu returned (expected array, got " + typeof menu + ")";
+                
                 menu = menu.map(function (item) {
                     var removedMetrics = parserUtil.removeMetrics(item);
                     var priced = parserUtil.parsePrice(removedMetrics);
                     return priced;
-                });
-
-                if (!Array.isArray(menu))
-                    throw "Invalid menu returned (expected array, got " + typeof menu + ")";
+                });     
             }
             catch (e) {
                 menu = ["Parser error", e];

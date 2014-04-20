@@ -9,7 +9,7 @@
     </head>
     <body>
         <header>
-            <h1>Dnešné menu <wbr><span>({{date}})</span></h1>
+            <h1>Dnešné menu <span>({{date}})</span></h1>
         </header>
 
         <form style="float: right; margin-right: 20px;">
@@ -21,15 +21,16 @@
             {{#each restaurants}}
             <section>
                 <h2><a href="{{this.url}}" target="_blank">{{this.name}}</a></h2>
-            <ul class="ulClass">
-                {{#each this.menu}}
-                <li>
-                    {{{this.menuItem}}}
-                </li>
-                {{else}}
-                <li class="error"><p>Nepodarilo sa načítať menu, skús pozrieť priamo na stránke reštaurácie.</p></li>
-                {{/each}}
-            </ul>
+                <ul class="ulClass">
+                    {{#each this.menu}}
+                    <li>
+                        {{{this.menuItemWithoutPrice}}}
+                        <span>{{this.price}}</span>
+                    </li>
+                    {{else}}
+                    <li class="error"><p>Nepodarilo sa načítať menu, skús pozrieť priamo na stránke reštaurácie.</p></li>
+                    {{/each}}
+                </ul>
             </section>{{/each}}
         </div>
         <footer>
