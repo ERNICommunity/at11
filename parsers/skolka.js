@@ -23,10 +23,10 @@ module.exports = new (function() {
 			}
 		}
 
-        //I think it is safe enough to assume that the first item in menu is the soup
-        if (menu.length > 0){
-            menu[0] = "<div class=\"soup\">" + menu[0] + "</div>";
-        }
+        //convert to menu item object
+        menu = menu.map(function(item, index){
+            return {isSoup: index === 0, text: item};
+        });
 
 		return menu;
 

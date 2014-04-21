@@ -13,11 +13,10 @@ module.exports = new (function () {
                 menu.push(normalize($(this).text()));
         });
 
-        for (menuLine in menu) {
-            if (soupPattern.test(menu[menuLine])) {
-                menu[menuLine] = "<div class=\"soup\">" + menu[menuLine] + "</div>";
-            }
-        }
+        //convert to menu item object
+        menu = menu.map(function(item){
+            return {isSoup: soupPattern.test(item), text: item};
+        });
 
         return menu;
 

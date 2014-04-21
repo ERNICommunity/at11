@@ -23,12 +23,17 @@
                 <h2><a href="{{this.url}}" target="_blank">{{this.name}}</a></h2>
                 <ul class="ulClass">
                     {{#each this.menu}}
-                    <li>
-                        {{{this.menuItemWithoutPrice}}}
-                        <span>{{this.price}}</span>
-                    </li>
+                        {{#if this.isError}}
+                        <li class="error">
+                            {{this.text}}
+                        </li>
+                        {{else}}
+                        <li {{#if this.isSoup}}class="soup"{{/if}}>
+                            {{this.text}}<span>{{this.price}}</span>
+                        </li>
+                        {{/if}}
                     {{else}}
-                    <li class="error"><p>Nepodarilo sa načítať menu, skús pozrieť priamo na stránke reštaurácie.</p></li>
+                    <li class="error">Nepodarilo sa načítať menu, skús pozrieť priamo na stránke reštaurácie.</li>
                     {{/each}}
                 </ul>
             </section>{{/each}}

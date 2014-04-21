@@ -7,15 +7,14 @@ module.exports = new (function () {
         var $ = cheerio.load(html);
 
         var menu = new Array();
-        var now = global.todaysDate;
-        var todayStr = now.getDate() + "." + (now.getMonth() + 1) + "." + now.getFullYear();
+        var todayStr = global.todaysDate.getDate() + "." + (global.todaysDate.getMonth() + 1) + "." + global.todaysDate.getFullYear();
 
         $('.daily-menu-for-day').each(function () {
             if ($(this).children("header").first().text().indexOf(todayStr) !== -1) {
                 menu = parseMenu($(this));
                 //I think it is safe enough to assume that the first item in menu is the soup
                 if (menu.length > 0) {
-                    menu[0] = "<div class=\"soup\">" + menu[0] + "</div>";
+                    menu[0].isSoup = true;
                 }
                 return false;
             }
@@ -32,7 +31,7 @@ module.exports = new (function () {
             }
 
             elem.find('li').each(function () {
-                arr.push(normalize($(this).text()));
+                arr.push({isSoup: false, text: normalize($(this).text())});
             });
             return arr;
         }

@@ -1,4 +1,5 @@
 var cheerio = require('cheerio');
+var parserUtil = require('./parserUtil');
 
 module.exports = new (function() {
     this.parse = function(html) {
@@ -6,24 +7,19 @@ module.exports = new (function() {
         var $ = cheerio.load(html);
 
         var menuText = $('.entry-content div').first().text().trim().match(/[^\r\n]+/g).map(function(line) {
-            return line.replace(/\t/g, '')
+            return line.replace(/\t/g, '');
         });
 
         var menu = parseDailyMenu(menuText);
-        if (!menu || menu.length == 0) return menu;
-
+        if (!menu || menu.length === 0) return menu;
 
         //the first menu entry is also a soup
         menu[0] = menu[0] == '' ? 'Dnes v menu chýba polievka' : menu[0];
-        menu[0] = '<div class="soup">' + menu[0] + '</div>';
 
-        //prize is written the other way around than usual e.g. € 5.10 instead of 5.10 €
         menu = menu.map(function(line) {
-            return line.replace(/€ ([0-9]{1,2},[0-9]{2})/, '$1 €');
-        });
-
-        //remove leading numbering
-        menu = menu.map(function(line) {
+            //prize is written the other way around than usual e.g. € 5.10 instead of 5.10 €
+            line = line.replace(/€ ([0-9]{1,2},[0-9]{2})/, '$1 €');
+            //remove leading numbering
             return line.replace(/^[1-3]\. (.*)/, '$1');
         });
 
@@ -47,12 +43,16 @@ module.exports = new (function() {
             }
         }
 
+        //convert to objects
+        menu = menu.map(function(item, index){
+            return {isSoup: index===0, text: item};
+        });
+
         return menu;
 
         function parseDailyMenu(menuText) {
-            var days = ['nedeľa', 'pondelok', 'utorok', 'streda', 'štvrtok', 'piatok', 'sobota'];
-            var todayName = days[global.todaysDate.getDay()];
-            var tomorrowName = days[global.todaysDate.getDay() + 1];
+            var todayName = parserUtil.dayNameMap[global.todaysDate.getDay()];
+            var tomorrowName = parserUtil.dayNameMap[global.todaysDate.getDay() + 1];
 
             var startLine, endLine;
             for (var line in menuText) {

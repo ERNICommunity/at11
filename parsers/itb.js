@@ -19,28 +19,27 @@ module.exports = new (function() {
         function parseMenu(table) {
             var temp = [];
             table.find('tr').each(function() {
-                temp.push(normalize($(this).text().replace(/\w\)/, '')));
+                temp.push({isSoup: false, text: normalize($(this).text())});
             });
-            temp = temp.filter(function(x) { return x != ""; });
-            var txt = "";
+            
+            var mixedText = "";
             table.prevUntil('table').each(function() {
-                txt = $(this).text() + txt;
+                mixedText = $(this).text() + mixedText;
             });
-
-            //format the soup
-            txt = txt.replace(/Polievk.*:(.+)Špec.*:(.+)delená.*:(.+)$/ig, 'Polievk.*:<div class="soup">$1</div>Špec.*:$2delená.*:$3')
-
-            var m = /Polievk.*:(.+)Špec.*:(.+)delená.*:(.+)$/ig.exec(txt);
+            var m = /Polievk.*:(.+)Špec.*:(.+)delená.*:(.+)$/i.exec(mixedText);
             for (var i = m.length - 1; i > 0; i--) {
-                temp.unshift(normalize(m[i]));
+                temp.unshift({isSoup: false, text: normalize(m[i])});
             }
+            if(m.length === 4)//if all groups were matched first must be soup
+                temp[0].isSoup = true;
+            
             return temp;
         }
 
         function normalize(str) {
             return str.trim()
 				.replace(/\s\s+/g, ' ')
-				.replace(/^\d\.\s*/, '')
+				.replace(/^\s*[A-Z]\)\s*/, '')
 				.toLowerCase();
         }
     };
