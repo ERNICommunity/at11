@@ -43,7 +43,7 @@ module.exports = new (function () {
         function normalize(str) {
             return str.trim()
                 .replace(/\s\s+/g, ' ')
-                .replace(/^\d\s*\.\s*/, '');
+                .replace(/^\d\s*\.\s*\)*\s*/, '');
         }
     };
 })();

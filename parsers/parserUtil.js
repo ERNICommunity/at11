@@ -1,5 +1,5 @@
 module.exports.removeMetrics = function(item) {
-    return item.replace(/([0-9]+ *\/?)+[gl]\.? ?/g, "").replace(/^(,* *)/g, "");
+    return item.replace(/\d+ *,?\d+ *[lg].? */g, "");
 };
 
 module.exports.parsePrice = function(item) {
@@ -26,7 +26,7 @@ module.exports.parsePrice = function(item) {
 
     function normalizePriceArray(prices) {
         for (var p in prices) {
-            prices[p] = prices[p].trim();
+            prices[p] = prices[p].trim().replace(/ *€/g," €");
         }
         return prices;
     }
