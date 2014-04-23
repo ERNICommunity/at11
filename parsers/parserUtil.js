@@ -26,7 +26,7 @@ module.exports.parsePrice = function(item) {
 
     function normalizePriceArray(prices) {
         for (var p in prices) {
-            prices[p] = prices[p].trim();
+            prices[p] = prices[p].trim().replace(/ *€/g," €");
         }
         return prices;
     }
