@@ -1,5 +1,5 @@
 module.exports.removeMetrics = function(item) {
-    return item.replace(/([0-9]+ *\/?)+[gl]\.? ?/g, "").replace(/^(,* *)/g, "");
+    return item.replace(/\d+ *,?\d+ *[lg].? */g, "");
 };
 
 module.exports.parsePrice = function(item) {

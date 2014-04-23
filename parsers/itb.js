@@ -25,24 +25,25 @@ module.exports = new (function() {
         function parseMenu(table, mixedText) {
             var temp = [];
             table.find('tr').each(function() {
-                temp.push({isSoup: false, text: normalize($(this).text())});
+                temp.push({ isSoup: false, text: normalize($(this).text()) });
             });
-            
+
             var m = /Polievk.*:(.+)Špec.*:(.+)delená.*:(.+)$/i.exec(mixedText);
             for (var i = m.length - 1; i > 0; i--) {
-                temp.unshift({isSoup: false, text: normalize(m[i])});
+                temp.unshift({ isSoup: false, text: normalize(m[i]) });
             }
-            if(m.length === 4)//if all groups were matched first must be soup
+            if (m.length === 4)//if all groups were matched first must be soup
                 temp[0].isSoup = true;
-            
+
             return temp;
         }
 
         function normalize(str) {
-            return str.trim()
+            return parserUtil.removeMetrics(str.trim()
 				.replace(/\s\s+/g, ' ')
 				.replace(/^\s*[A-Z]\)\s*/, '')
-				.toLowerCase();
+				.toLowerCase())
+                .replace(/(^[A-Za-z\u00C0-\u017F])/, function(a) { return a.toUpperCase(); });
         }
     };
 })();
