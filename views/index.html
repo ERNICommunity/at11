@@ -21,7 +21,7 @@
             {{#each restaurants}}
             <section>
                 <h2><a href="{{this.url}}" target="_blank">{{this.name}}</a></h2>
-                <ul class="ulClass">
+                <ul>
                     {{#each this.menu}}
                         {{#if this.isError}}
                         <li class="error">
@@ -29,7 +29,7 @@
                         </li>
                         {{else}}
                         <li {{#if this.isSoup}}class="soup"{{/if}}>
-                            {{this.text}}<span>{{this.price}}</span>
+                            <span>{{this.text}}</span><span class="price">{{this.price}}</span>
                         </li>
                         {{/if}}
                     {{else}}

@@ -46,13 +46,31 @@ section h2 a:hover:after {
     content: " >";
     color: rgb(210,210,210);
 }
-section li > span {
-    float: right;
+section ul {
+    display: table;
+    width: 27em;
+    padding-left: 3em;
 }
-section li.soup {
+section ul li {
+    display: table-row
+}
+section ul li:before {
+    margin-left: -10px;
+    margin-right: 10px;
+    content: "●";
+}
+section ul li > span {
+    display: table-cell;
+}
+section ul li span.price {
+    white-space: nowrap;
+    text-align: right;
+}
+section ul li.soup {
     font-weight: bold;
 }
-section li.error {
+section ul li.error {
+    display: list-item;
     list-style: none;
     border-radius: 4px;
     background-color: #f2dede;
