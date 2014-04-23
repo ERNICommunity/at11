@@ -48,8 +48,8 @@ section h2 a:hover:after {
 }
 section ul {
     display: table;
-    width: 27em;
-    padding-left: 3em;
+    width: 29em;
+    padding-left: 1em;
 }
 section ul li {
     display: table-row
