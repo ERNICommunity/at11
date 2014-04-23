@@ -2,7 +2,7 @@ var cheerio = require('cheerio');
 var parserUtil = require('./parserUtil');
 
 module.exports = new (function() {
-    this.parse = function(html) {
+    this.parse = function(html, doneCallback) {
 
         var $ = cheerio.load(html);
 
@@ -11,7 +11,10 @@ module.exports = new (function() {
         });
 
         var menu = parseDailyMenu(menuText);
-        if (!menu || menu.length === 0) return menu;
+        if (!menu || menu.length === 0){
+            doneCallback([]);
+            return;
+        }
 
         //the first menu entry is also a soup
         menu[0] = menu[0] == '' ? 'Dnes v menu chýba polievka' : menu[0];
@@ -48,7 +51,7 @@ module.exports = new (function() {
             return {isSoup: index===0, text: item};
         });
 
-        return menu;
+        doneCallback(menu);
 
         function parseDailyMenu(menuText) {
             var todayName = parserUtil.dayNameMap[global.todaysDate.getDay()];

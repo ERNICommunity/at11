@@ -1,63 +1,43 @@
 var cheerio = require('cheerio');
 var parserUtil = require('./parserUtil');
+var path = require('path');
+var request = require('request');
+var fs = require('fs');
+var dv = require('dv');//ocr (tesseract)
+process.env['TESSDATA_PREFIX'] = path.normalize(__dirname + "/..");
 
 module.exports = new (function() {
-	this.parse = function(html) {
+	this.parse = function(html, doneCallback) {
 
 		var $ = cheerio.load(html);
 
 		var menu = new Array();
 
-		$('.editor-content > div:nth-child(2) > table:nth-child(1) > tbody').children('tr').each(function () {
-		    $this = $(this);
-		    if (new RegExp(parserUtil.dayNameMap[global.todaysDate.getDay()], 'i').test($this.text())) {
-				menu = menu.concat(parseDaily($this));
-			}
-		    if ($this.text().indexOf('VIP menu') !== -1 ||
-				$this.text().indexOf('Týždenné menu') !== -1 ||
-                $this.text().indexOf('FIT menu') !== -1)
-				menu = menu.concat(parseOne($this));
-		    if ($this.text().indexOf('Šalátové menu') !== -1 ||
-				$this.text().indexOf('Pizza menu') !== -1)
-				menu = menu.concat(parseThree($this));
-		    if ($this.children('th').length > 0 && $this.text().indexOf("Hron") !== -1)//too far
-				return false;
-		});
-
-        //convert to menu item object
-        menu = menu.map(function(item, index){
-            return {isSoup: index === 0, text: item};
+		var imgurl = $('div#content').find('img').first().attr('src');
+        var extension = path.extname(imgurl);
+        request({url : imgurl, encoding : null/*buffer the response*/}, function(error, response, buffer){
+            if(error)
+                throw error;
+            var image = new dv.Image(extension.substring(1), buffer);
+            var tesseract = new dv.Tesseract('slk', image);
+            var menu = parseDaily(tesseract.findText('plain'));            
+            doneCallback(menu);
         });
-        
-		return menu;
 
-		function parseDaily(elem) {
-			var arr = new Array();
-
-			arr.push(elem.text().replace(/^[\s\S]+polievka:\s+/i, ''));
-			arr.push(normalize(elem.next().text()));
-			arr.push(normalize(elem.next().next().text()));
-
-            //I think it is safe enough to assume that the first item in daily menu is the soup
-            if (arr.length > 0){
-                arr[0] = "<div class=\"soup\">" + arr[0] + "</div>";
+		function parseDaily(text) {
+			var todayName = parserUtil.dayNameMap[global.todaysDate.getDay()];
+            var stopSequence = global.todaysDate.getDay() === 5? "[sš]a[l/][aá]to.{2,3}\\s+menu" : parserUtil.dayNameMap[global.todaysDate.getDay()+1];
+            var regex = new RegExp(todayName + "\\s+polievk.\\s*:\\s*(.+)\\n\\s+([\\s\\S]+)" + stopSequence, "i");
+            var matches = regex.exec(text);
+            
+            var temp = [{isSoup: true, text: matches[1]}];
+            var foods = matches[2].split("\n");
+            for (var i = 0; i < foods.length ; i++) {
+                var food = normalize(foods[i]);
+                if(food !== "")
+                    temp.push({isSoup: false, text: food});
             }
-
-			return arr;
-		}
-
-		function parseOne(elem) {
-			var arr = new Array();
-			arr.push(normalize(elem.next().text()));
-			return arr;
-		}
-
-		function parseThree(elem) {
-			var arr = new Array();
-			arr.push(normalize(elem.next().text()));
-			arr.push(normalize(elem.next().next().text()));
-			arr.push(normalize(elem.next().next().next().text()));
-			return arr;
+            return temp;
 		}
 
 		function normalize(str) {

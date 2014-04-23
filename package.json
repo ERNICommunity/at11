@@ -1,45 +1,45 @@
 {
-	"name": "at11",
-	"description": "Daily lunch menu application",
-	"version": "0.0.2",
-	"dependencies": {
-		"cheerio": "*",
-		"express": "*",
-		"hbs": "*",
-		"request": "*",
-        	"url":"*"
-	},
-	"devDependencies": {
-		"mocha": "*"
-	},
-	"scripts": {
-		"test": "mocha --reporter spec"
-	},
-	"author": {
-		"name": "Jakub  Šturc",
-		"email": "jakub.sturc@erni.sk"
-	},
-	"contributors": [{
-		"name": "Ján Neščivera",
-		"email": "jan.nescivera@erni.sk"
-	},{
-		"name": "Matúš Brliť",
-		"email": "matus.brlit@erni.sk"
-	},{
-		"name": "Igor Kvasnička",
-		"email": "igor.kvasnicka@erni.sk"
-	}],
-	"keywords": ["lunch", "menu", "at11", "erni", "obed"],
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/jakub-sturc/at11.git"
-	},
-	"bugs": {
-		"url": "https://github.com/jakub-sturc/at11/issues"
-	},
-	"licenses": [{
-		"type": "Unlicense",
-		"url": "http://unlicense.org"
-	}],
-	"main": "app.js"
+    "name": "at11",
+    "description": "Daily lunch menu application",
+    "version": "0.0.2",
+    "dependencies": {
+        "cheerio": "*",
+        "express": "*",
+        "hbs": "*",
+        "request": "*",
+        "dv": "*"
+    },
+    "devDependencies": {
+        "mocha": "*"
+    },
+    "scripts": {
+        "test": "mocha --reporter spec"
+    },
+    "author": {
+        "name": "Jakub  Šturc",
+        "email": "jakub.sturc@erni.sk"
+    },
+    "contributors": [{
+            "name": "Ján Neščivera",
+            "email": "jan.nescivera@erni.sk"
+        }, {
+            "name": "Matúš Brliť",
+            "email": "matus.brlit@erni.sk"
+        }, {
+            "name": "Igor Kvasnička",
+            "email": "igor.kvasnicka@erni.sk"
+        }],
+    "keywords": ["lunch", "menu", "at11", "erni", "obed"],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/jakub-sturc/at11.git"
+    },
+    "bugs": {
+        "url": "https://github.com/jakub-sturc/at11/issues"
+    },
+    "licenses": [{
+            "type": "Unlicense",
+            "url": "http://unlicense.org"
+        }],
+    "main": "app.js"
 }

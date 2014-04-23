@@ -1,4 +1,3 @@
-
 global.devMode = false; //if set to true, cache is disabled
 global.todaysDate = new Date(); //if setting the date manually, remember that months start with 0
 
@@ -19,6 +18,8 @@ for (var i = 0; i < config.restaurants.length; i++) {
         var module = require("./parsers/" + config.restaurants[i].module);
         if(typeof module.parse !== "function")
             throw "Module is missing parse method";
+        if(module.parse.length !==2)
+            throw "Module parse(..) method should have 2 parameters (html, doneCallback)";
         var url = config.restaurants[i].url;
         var name = config.restaurants[i].name;
         var id = config.restaurants[i].id;

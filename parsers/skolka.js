@@ -1,7 +1,7 @@
 var cheerio = require('cheerio');
 
 module.exports = new (function() {
-	this.parse = function(html) {
+	this.parse = function(html, doneCallback) {
 
 		var $ = cheerio.load(html);
 
@@ -28,7 +28,7 @@ module.exports = new (function() {
             return {isSoup: index === 0, text: item};
         });
 
-		return menu;
+		doneCallback(menu);
 
 		function normalize(str) {
 			return str.trim()
