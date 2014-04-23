@@ -2,7 +2,6 @@ var cheerio = require('cheerio');
 var parserUtil = require('./parserUtil');
 var path = require('path');
 var request = require('request');
-var fs = require('fs');
 var dv = require('dv');//ocr (tesseract)
 process.env['TESSDATA_PREFIX'] = path.normalize(__dirname + "/..");
 
