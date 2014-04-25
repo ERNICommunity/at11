@@ -54,10 +54,13 @@ section ul {
 section ul li {
     display: table-row
 }
-section ul li:before {
+section ul li:not(.error):before {
     margin-left: -10px;
     margin-right: 10px;
-    content: "●";
+    content: "\f0f5";
+    font-family: FontAwesome;
+    font-weight: normal;
+    font-size: 14px;
 }
 section ul li > span {
     display: table-cell;

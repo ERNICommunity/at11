@@ -11,6 +11,7 @@
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 
     <link href="css/style2.css" type="text/css" rel="stylesheet">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
 </head>
 <body>
     <script type="text/javascript">
@@ -129,7 +130,7 @@
             <div class="tab-content col-md-10">
                 {{#each restaurants}}
             <div class="tab-pane" id="restaurant{{this.id}}" style="max-width: 1200px;">
-                <ul>
+                <ul class="food">
                     {{#each this.menu}}
                         {{#if this.isError}}
                         <li class="bg-danger error text-danger">
