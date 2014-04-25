@@ -2,7 +2,7 @@
 var cheerio = require('cheerio');
 
 module.exports = new (function () {
-    this.parse = function (html, doneCallback) {
+    this.parse = function (html) {
 
         var $ = cheerio.load(html);
 
@@ -20,7 +20,7 @@ module.exports = new (function () {
             }
         });
 
-        doneCallback(menu);
+        return menu;
 
         function parseMenu(elem) {
             var arr = new Array();

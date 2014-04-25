@@ -18,8 +18,8 @@ for (var i = 0; i < config.restaurants.length; i++) {
         var module = require("./parsers/" + config.restaurants[i].module);
         if(typeof module.parse !== "function")
             throw "Module is missing parse method";
-        if(module.parse.length !==2)
-            throw "Module parse(..) method should have 2 parameters (html, doneCallback)";
+        if(module.parse.length !== 1)
+            throw "Module parse(..) method should have 1 parameter (html)";
         var url = config.restaurants[i].url;
         var name = config.restaurants[i].name;
         var id = config.restaurants[i].id;
@@ -50,18 +50,15 @@ app.set('view engine', 'html');
 app.engine('html', hbs.__express);
 app.use(express.static('static'));
 app.get('/', function(req, res) {
-	loadRestaurants(function(restaurants){
+    loadRestaurants(function(restaurants){
         res.setHeader('Content-Type', 'text/html; charset=UTF-8');
         res.setHeader('Content-Language', 'sk');
-        var now = new Date();
-        var date = now.getDate() + ". " + (now.getMonth() + 1) + ". " + now.getFullYear();
-
+        var dateStr = global.todaysDate.getDate() + ". " + (global.todaysDate.getMonth() + 1) + ". " + global.todaysDate.getFullYear();
         var theme = parseTheme(req);
 
         res.setHeader("Set-Cookie", ["theme="+ theme]);
-
-        res.render(theme, { date: date, restaurants: restaurants.sort(function(a,b) { return a.id - b.id })});
-	});
+        res.render(theme, { date: dateStr, restaurants: restaurants.sort(function(a,b) { return a.id - b.id })});
+    });
 });
 app.listen(config.port);
 console.log('Listening on port ' + config.port + '...');

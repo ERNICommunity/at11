@@ -6,8 +6,7 @@
         "cheerio": "*",
         "express": "*",
         "hbs": "*",
-        "request": "*",
-        "dv": "*"
+        "request": "*"
     },
     "devDependencies": {
         "mocha": "*"

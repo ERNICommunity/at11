@@ -20,26 +20,26 @@ function load(url, parseCallback, doneCallback) {
         if (!error && response.statusCode === 200) 
         {
             try {
-                parseCallback(body, function(menu) {
-                    if (!Array.isArray(menu))
-                        throw "Invalid menu returned (expected array, got " + typeof menu + ")";
+                var menuItems = parseCallback(body);
 
-                    //check if each menu item has isSoup and text attributes
-                    menu.forEach(function(item){
-                        if(typeof item !== "object")
-                            throw "Each item should be object, but got " + typeof item;
-                        if(typeof item.isSoup !== "boolean")
-                            throw "Menu item does not contain 'isSoup' flag";
-                        if(typeof item.text !== "string")
-                            throw "Menu item does not contain 'text' property";
+                if (!Array.isArray(menuItems))
+                    throw "Invalid menu returned (expected array, got " + typeof menuItems + ")";
 
-                        var removedMetrics = parserUtil.removeMetrics(item.text);
-                        var priced = parserUtil.parsePrice(removedMetrics);
-                        item.price = priced.price;
-                        item.text = priced.menuItemWithoutPrice;
-                    });
-                    doneCallback(menu);
+                //check if each menu item has isSoup and text attributes
+                menuItems.forEach(function(item){
+                    if(typeof item !== "object")
+                        throw "Each item should be object, but got " + typeof item;
+                    if(typeof item.isSoup !== "boolean")
+                        throw "Menu item does not contain 'isSoup' flag";
+                    if(typeof item.text !== "string")
+                        throw "Menu item does not contain 'text' property";
+
+                    var removedMetrics = parserUtil.removeMetrics(item.text);
+                    var priced = parserUtil.parsePrice(removedMetrics);
+                    item.price = priced.price;
+                    item.text = priced.menuItemWithoutPrice;
                 });
+                doneCallback(menuItems);
             }
             catch (err) {
                 doneCallback([{isError: true, text: err}]);
@@ -52,6 +52,7 @@ function load(url, parseCallback, doneCallback) {
                 menu.push({isError: true, text: error});
             if (response)
                 menu.push({isError: true, text: "StatusCode: " + response.statusCode});
+            doneCallback(menu);
         }
     });
 }

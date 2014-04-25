@@ -2,7 +2,7 @@ var cheerio = require('cheerio');
 var parserUtil = require('./parserUtil');
 
 module.exports = new (function() {
-    this.parse = function(html, doneCallback) {
+    this.parse = function(html) {
 
         var $ = cheerio.load(html);
 
@@ -20,7 +20,7 @@ module.exports = new (function() {
             }
         });
 
-        doneCallback(menu);
+        return menu;
 
         function parseMenu(table, mixedText) {
             var temp = [];
@@ -40,9 +40,9 @@ module.exports = new (function() {
 
         function normalize(str) {
             return parserUtil.removeMetrics(str.trim()
-				.replace(/\s\s+/g, ' ')
-				.replace(/^\s*[A-Z]\)\s*/, '')
-				.toLowerCase())
+                .replace(/\s\s+/g, ' ')
+                .replace(/^\s*[A-Z]\)\s*/, '')
+                .toLowerCase())
                 .replace(/(^[A-Za-z\u00C0-\u017F])/, function(a) { return a.toUpperCase(); });
         }
     };
