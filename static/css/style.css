@@ -52,15 +52,11 @@ section ul {
     padding-left: 1em;
 }
 section ul li {
-    display: table-row
+    display: table-row;
 }
-section ul li:not(.error):before {
-    margin-left: -10px;
-    margin-right: 10px;
-    content: "\f0f5";
-    font-family: FontAwesome;
-    font-weight: normal;
-    font-size: 14px;
+section ul li > span:first-child {
+    padding-left: 20px;
+    background: transparent url("../img/cutlery.svg") no-repeat left top; 
 }
 section ul li > span {
     display: table-cell;
