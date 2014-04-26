@@ -15,8 +15,18 @@
 </head>
 <body>
     <script type="text/javascript">
+        (function($) {
+            $.fn.hasScrollBar = function() {
+                return this.get(0).scrollHeight > this.get(0).clientHeight;
+            }
+        })(jQuery);
+
         $(function() {
             selectRestaurant(GetCookie("restaurant") || 1);
+
+            if (!$('html').hasScrollBar()) {
+                $('#padding').addClass('hidden');
+            }
 
             $(document).keyup(function(e) {
                 e.preventDefault();
@@ -133,14 +143,14 @@
                         {{#if this.isError}}
                         <li class="bg-danger error text-danger">{{this.text}}
                         </li>
-                        {{else}}                       
+                    {{else}}                       
                         <li {{#if this.isSoup}}class="soup"{{/if}}>
                             {{{this.text}}}
                             <div style="float: right; display: inline-block;">
                                 {{this.price}}
                             </div>
                         </li>
-                        {{/if}}
+                    {{/if}}
                     {{else}}
                     <li class="bg-danger error">
                         <p class="text-danger">Nepodarilo sa načítať menu, skús pozrieť priamo na stránke reštaurácie.</p>
@@ -153,39 +163,33 @@
             </div>
         </div>
     </div>
-      <div class="container-fluid" style="font-size: 15px;">
-          <div class="row" style="min-height:15px;"></div>
-                <div class="alert alert-warning visible-md visible-lg row">
-                    <b>Tip:</b> na navigáciu medzi reštauráciami môžete použiť šípky <i>HORE</i>
-                    a
-                    <i>DOLE</i>, <i>ENTER</i> alebo druhé kliknutie na reštauráciu otvorí web vybranej reštaurácie.
-                </div>
-                <div class="row well" style="margin-bottom: 0px;">
-                
-                        <span>.</span>
-                 
-
-                </div>
-          
+    <div class="container-fluid" id="padding" style="font-size: 15px;">
+        <div class="row" style="min-height: 15px;"></div>
+        <div class="alert alert-warning visible-md visible-lg row">
+            <b>Tip:</b> na navigáciu medzi reštauráciami môžete použiť šípky <i>HORE</i>
+            a <i>DOLE</i>, <i>ENTER</i> alebo druhé kliknutie na reštauráciu otvorí web vybranej reštaurácie.
         </div>
+        <div class="row well" style="margin-bottom: 0px;">
+            <span>.</span>
+        </div>
+    </div>
     <nav class="navbar navbar-default navbar-fixed-bottom" role="navigation" style="font-size: 15px;">
         <div class="container-fluid">
-                <div class="alert alert-warning visible-md visible-lg row">
-                    <b>Tip:</b> na navigáciu medzi reštauráciami môžete použiť šípky <i>HORE</i>
-                    a
-                    <i>DOLE</i>, <i>ENTER</i> alebo druhé kliknutie na reštauráciu otvorí web vybranej reštaurácie.
+            <div class="alert alert-warning visible-md visible-lg row">
+                <b>Tip:</b> na navigáciu medzi reštauráciami môžete použiť šípky <i>HORE</i>
+                a <i>DOLE</i>, <i>ENTER</i> alebo druhé kliknutie na reštauráciu otvorí web vybranej reštaurácie.
+            </div>
+            <div class="row well" style="margin-bottom: 0px;">
+                <div class="col-xs-6">
+                    <a href="http://en.wikipedia.org/wiki/Copyleft" target="_blank" title="copyleft"
+                        style="display: inline-block; -webkit-transform: scaleX(-1); transform: scaleX(-1);">©</a>
+                    ALL WRONGS RESERVED
                 </div>
-                <div class="row well" style="margin-bottom: 0px;">
-                    <div class="col-xs-6">
-                        <a href="http://en.wikipedia.org/wiki/Copyleft" target="_blank" title="copyleft"
-                            style="display: inline-block; -webkit-transform: scaleX(-1); transform: scaleX(-1);">©</a>
-                        ALL WRONGS RESERVED
-                    </div>
-                    <div class="col-xs-1 col-xs-offset-5">
-                        <a style="float: right" href="https://github.com/jakub-sturc/at11" target="_blank"
-                            class="github">GitHub</a>
-                    </div>
+                <div class="col-xs-1 col-xs-offset-5">
+                    <a style="float: right" href="https://github.com/jakub-sturc/at11" target="_blank"
+                        class="github">GitHub</a>
                 </div>
+            </div>
         </div>
     </nav>
 </body>
