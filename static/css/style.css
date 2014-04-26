@@ -9,25 +9,41 @@ a, a:active, a:visited {
     text-decoration: inherit;
     color: inherit;
 }
-header {
-    display: block;
+header, footer {
+    width: 100%;
+    display: table;
     background-color: rgb(210,210,210);
-    margin: 0 0 10px 0;
-    padding: 0;
 }
-h1 {
+header > *, footer > * {
+    display: table-cell;
+    vertical-align: middle;
+    padding: 0.5em 0;
+}
+header > *:first-child, footer > *:first-child {
+    text-align: left;
+    padding-left: 50px;
+}
+header > *:last-child, footer > *:last-child {
+    text-align: right;
+    padding-right: 50px;
+}
+header h1 {
     font-size: 4em;
 }
-h1 span {
+header h1 > span {
     color: rgb(180,180,180);
     white-space: nowrap;
 }
-header > h1, footer > div {
-    margin: 0 50px;
-    padding: 0.5em 0;
+footer {
+    font-size: 0.8em;
+}
+footer a.github  {
+    font-weight: bold;
+    padding-left: 20px;
+    background: transparent url('../img/github.png') no-repeat left center;
 }
 body > div {
-    margin: 0 40px;
+    margin: 10px 40px;
 }
 section {
     display: inline-block;
@@ -55,20 +71,17 @@ section ul li {
     display: table-row;
 }
 section ul li:not(.error):before {
-    margin-left: -10px;
-    margin-right: 10px;
     content: "\f0f5";
     font-family: FontAwesome;
     font-weight: normal;
-    font-size: 14px;
+    font-size: 0.875em;
     display: table-cell;
-    width: 11px;
+    width: 1.5em;
 }
-section ul li > span {
+section ul li > * {
     display: table-cell;
-    padding-left: 1em;
 }
-section ul li span.price {
+section ul li > *.price {
     white-space: nowrap;
     text-align: right;
     padding-left: 0.5em;
@@ -83,18 +96,6 @@ section ul li.error {
     background-color: #f2dede;
     padding: 10px 15px;
     color: #a94442;
-}
-footer {
-    display: block;
-    background-color: rgb(210,210,210);
-    margin: 10px 0 0 0;
-    padding: 0;
-    font-size: 0.8em;
-}
-footer a.github  {
-    font-weight: bold;
-    padding-left: 20px;
-    background: url('../img/github.png') transparent left center no-repeat;
 }
 
 /* theme switching */

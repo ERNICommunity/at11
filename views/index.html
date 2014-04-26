@@ -11,14 +11,13 @@
     <body>
         <header>
             <h1>Dnešné menu <span>({{date}})</span></h1>
+            <form>
+                <input type="hidden" name="theme" value="index2"/>
+                <button type="submit" class="themeSwitcher">Prepnúť tému</button>
+            </form>
         </header>
 
-        <form style="float: right; margin-right: 20px;">
-            <input type="hidden" name="theme" value="index2"/>
-            <button type="submit" class="themeSwitcher">Prepnúť tému</button>
-        </form>
-
-        <div class="js-masonry" style="margin-top: 50px; ">
+        <div class="js-masonry">
             {{#each restaurants}}
             <section>
                 <h2><a href="{{this.url}}" target="_blank">{{this.name}}</a></h2>
@@ -39,15 +38,15 @@
                 </ul>
             </section>{{/each}}
         </div>
+        
         <footer>
-            <div>
-                <span style="float: left">
-					<a href="http://en.wikipedia.org/wiki/Copyleft" target="_blank" title="copyleft" style="display: inline-block; -webkit-transform: scaleX(-1); transform: scaleX(-1);">©</a>
-					ALL WRONGS RESERVED
-				</span>
-				<a style="float: right" href="https://github.com/jakub-sturc/at11" target="_blank" class="github">GitHub</a>
-                <div style="clear: both;"></div>
-            </div>
+            <span>
+                <a href="http://en.wikipedia.org/wiki/Copyleft" target="_blank" title="copyleft" style="display: inline-block; -webkit-transform: scaleX(-1); transform: scaleX(-1);">©</a>
+                ALL WRONGS RESERVED
+            </span>
+            <span>
+				<a href="https://github.com/jakub-sturc/at11" target="_blank" class="github">GitHub</a>
+            </span>
         </footer>
         <script src="//cdnjs.cloudflare.com/ajax/libs/masonry/3.1.2/masonry.pkgd.min.js"></script>
     </body>
