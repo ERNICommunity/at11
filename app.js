@@ -78,9 +78,9 @@ function loadRestaurants(callback) {
 }
 
 function parseTheme(req) {
-    if (isMobileDevice(req)) {
-        return "index";
-    }
+    //if (isMobileDevice(req)) {
+    //    return "index";
+    //}
 
     var parsedUrl = urlModule.parse(req.url, true);
     var cookies = parseCookies(req);
