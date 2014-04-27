@@ -15,7 +15,7 @@ module.exports = new (function () {
 
         //convert to menu item object
         menu = menu.map(function(item){
-            return {isSoup: soupPattern.test(item), text: item};
+            return {isSoup: soupPattern.test(item), text: item, price: NaN};
         });
 
         return menu;

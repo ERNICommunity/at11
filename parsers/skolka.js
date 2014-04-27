@@ -25,7 +25,7 @@ module.exports = new (function() {
 
         //convert to menu item object
         menu = menu.map(function(item, index){
-            return {isSoup: index === 0, text: item};
+            return {isSoup: index === 0, text: item, price: NaN};
         });
 
 		return menu;

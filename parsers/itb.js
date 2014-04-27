@@ -25,24 +25,36 @@ module.exports = new (function() {
         function parseMenu(table, mixedText) {
             var temp = [];
             table.find('tr').each(function() {
-                temp.push({ isSoup: false, text: normalize($(this).text()) });
+                var txt = normalize($(this).text());
+                var priced = parserUtil.parsePrice(txt);
+                temp.push({ isSoup: false, text: priced.text, price: priced.price });
             });
 
             var m = /Polievk.*:(.+)Špec.*:(.+)delená.*:(.+)$/i.exec(mixedText);
-            for (var i = m.length - 1; i > 0; i--) {
-                temp.unshift({ isSoup: false, text: normalize(m[i]) });
+            if(m)
+            {
+                for (var i = 3; i > 1; i--) {
+                    var txt = normalize(normalize(m[i]));
+                    var priced = parserUtil.parsePrice(txt);
+                    temp.unshift({ isSoup: false, text: priced.text, price: priced.price });
+                }
+                //soups (group 1)
+                var soups = m[1].split(/€ ?,/);
+                for(var i = soups.length -1; i >=0; i--)
+                {
+                    var txt = normalize(soups[i] + (i !== soups.length-1?"€":""));//add back € to all items except last
+                    var priced = parserUtil.parsePrice(txt);
+                    temp.unshift({ isSoup: true, text: priced.text, price: priced.price });
+                }
             }
-            if (m.length === 4)//if all groups were matched first must be soup
-                temp[0].isSoup = true;
-
             return temp;
         }
 
         function normalize(str) {
-            return parserUtil.removeMetrics(str.trim()
+            return str.trim()
                 .replace(/\s\s+/g, ' ')
                 .replace(/^\s*[A-Z]\)\s*/, '')
-                .toLowerCase())
+                .toLowerCase()
                 .replace(/(^[A-Za-z\u00C0-\u017F])/, function(a) { return a.toUpperCase(); });
         }
     };

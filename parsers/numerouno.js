@@ -46,7 +46,8 @@ module.exports = new (function() {
 
         //convert to objects
         menu = menu.map(function(item, index){
-            return {isSoup: index===0, text: item};
+            var priced = parserUtil.parsePrice(item);
+            return {isSoup: index===0, text: priced.text, price: priced.price};
         });
 
         return menu;

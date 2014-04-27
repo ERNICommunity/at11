@@ -27,11 +27,14 @@ module.exports = new (function () {
 
             var header = normalize(elem.find('header.rm').first().text());
             if (header && !endsWith(header, 'menu')) {
-                arr.push(header);
+                arr.push({isSoup: false, text: header, price: NaN});
             }
 
             elem.find('li').each(function () {
-                arr.push({isSoup: false, text: normalize($(this).text())});
+                var text = normalize($(this).children(".name").first().text());
+                var priceMatch = /(\d+[\.,]\d+) ?€/.exec($(this).children(".price").first().text());
+                var price = priceMatch ? parseFloat(priceMatch[1]) : NaN;
+                arr.push({isSoup: false, text: text, price: price});
             });
             return arr;
         }

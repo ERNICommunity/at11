@@ -3,33 +3,16 @@ module.exports.removeMetrics = function(item) {
 };
 
 module.exports.parsePrice = function(item) {
-    var match = item.match(/ ?[0-9]{1,2}(?:[,.] *[0-9]{1,2})? *€/g);
-    if (match && match.length > 0) {
-
-        var withoutPrice = item;
-        for (var p in match) {
-            withoutPrice = withoutPrice.replace(match[p], "");
-        }
-
-        var price = normalizePriceArray(match).join("/");
-
-        return {
-            price: price,
-            menuItemWithoutPrice: withoutPrice
-        };
-    } else {
-        return {
-            price: "",
-            menuItemWithoutPrice: item
-        };
-    }
-
-    function normalizePriceArray(prices) {
-        for (var p in prices) {
-            prices[p] = prices[p].trim().replace(/ *€/g," €");
-        }
-        return prices;
-    }
+    var priceRegex = /(\d{1,2}(?:[,\.] *\d{1,2})?) *€/;
+    var price = NaN;
+    var text = item.replace(priceRegex, function(matchStr, group1, offset, originalStr){
+        price = parseFloat(group1.replace(/\s/g, "").replace(",", "."));
+        return "";
+    });
+    return {
+        price: price,
+        text: text
+    };
 };
 
 module.exports.dayNameMap = ['nedeľa', 'pondelok', 'utorok', 'streda', 'štvrtok', 'piatok', 'sobota'];
