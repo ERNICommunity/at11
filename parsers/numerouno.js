@@ -19,9 +19,7 @@ module.exports = new (function() {
 
         menu = menu.map(function(line) {
             //prize is written the other way around than usual e.g. € 5.10 instead of 5.10 €
-            line = line.replace(/€ ([0-9]{1,2},[0-9]{2})/, '$1 €');
-            //remove leading numbering
-            return line.replace(/^[1-3]\. (.*)/, '$1');
+            return line.replace(/€ ([0-9]{1,2},[0-9]{2})/, '$1 €');
         });
 
         //sometimes one menu item is scattered across multiple lines of HTML
@@ -46,7 +44,7 @@ module.exports = new (function() {
 
         //convert to objects
         menu = menu.map(function(item, index){
-            var priced = parserUtil.parsePrice(item);
+            var priced = parserUtil.parsePrice(normalize(item));
             return {isSoup: index===0, text: priced.text, price: priced.price};
         });
 
