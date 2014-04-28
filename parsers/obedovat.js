@@ -32,7 +32,7 @@ module.exports = new (function () {
 
             elem.find('li').each(function () {
                 var text = normalize($(this).children(".name").first().text());
-                var priceMatch = /(\d+[\.,]\d+) ?€/.exec($(this).children(".price").first().text());
+                var priceMatch = /(\d+[\.,]\d+) ?€/.exec($(this).children(".price").first().text().replace(",", "."));
                 var price = priceMatch ? parseFloat(priceMatch[1]) : NaN;
                 arr.push({isSoup: false, text: text, price: price});
             });
