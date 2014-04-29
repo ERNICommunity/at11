@@ -40,6 +40,9 @@ ul.food li:not(.error):before {
     font-weight: normal;
     font-size: 20px;
 }
+ul.food li.soup:not(.error):before {
+    content: "\f0f4";
+}
 @media screen and ( max-width: 1170px ) {
   body {
      font-size: 20px;

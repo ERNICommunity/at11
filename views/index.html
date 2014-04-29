@@ -25,7 +25,7 @@
                     {{#each this.menu}}
                         {{#if this.isError}}
                         <li class="error">
-                            {{this.text}}
+                            <span>{{this.text}}</span>
                         </li>
                         {{else}}
                         <li{{#if this.isSoup}} class="soup"{{/if}}>
@@ -33,7 +33,9 @@
                         </li>
                         {{/if}}
                     {{else}}
-                    <li class="error">Nepodarilo sa načítať menu, skús pozrieť priamo na stránke reštaurácie.</li>
+                    <li class="error">
+                        <span>Nepodarilo sa načítať menu, skús pozrieť priamo na stránke reštaurácie</span>
+                    </li>
                     {{/each}}
                 </ul>
             </section>{{/each}}
