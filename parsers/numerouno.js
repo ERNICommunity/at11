@@ -6,7 +6,7 @@ module.exports = new (function() {
 
         var $ = cheerio.load(html);
 
-        var menuText = $('.entry-content div').first().text().trim().match(/[^\r\n]+/g).map(function(line) {
+        var menuText = $('div.entry-content').first().text().trim().split(/\n/).map(function(line) {
             return line.replace(/\t/g, '');
         });
 
@@ -24,21 +24,21 @@ module.exports = new (function() {
 
         //sometimes one menu item is scattered across multiple lines of HTML
         //lines with extra indentation should be merged with previous line
-        for (var i in menu) {
-            if (startsWith(menu[i], "    ")) {
+        for (var i = 0; i < menu.length; i++) {
+            if (/^\s{4,}/.test(menu[i]))
+            {
                 menu[i - 1] = menu[i - 1] + " " + menu[i].trim();
                 menu.splice(i, 1);
-                i = i - 1;
-            } else {
-                menu[i] = menu[i].trim();
+                i--;
             }
-        }
-
-        //remove unnecessary menu items
-        for (var item in menu) {
-            if (startsWith(menu[item], "menu č.4")) {
-                menu = menu.slice(0, item);
-                break;
+            else if (/^\s*menu č\. ?4/i.test(menu[i])) {
+                if(i+1 < menu.length)//prepend it to the next item
+                    menu[i+1] = menu[i].trim() + ": " + menu[i+1].trim();
+                menu.splice(i, 1);
+            }
+            else
+            {
+                menu[i] = menu[i].trim();
             }
         }
 
@@ -58,31 +58,20 @@ module.exports = new (function() {
             for (var line in menuText) {
                 if (menuText[line].toLowerCase().indexOf(todayName) !== -1) {
                     startLine = line;
-                    endLine = undefined;
                 }
-                if (tomorrowName && menuText[line].toLowerCase().indexOf(tomorrowName) !== -1) {
-                    endLine = line;
-                }
-                if (!endLine && menuText[line].trim() === "") {
+                if (menuText[line].toLowerCase().indexOf(tomorrowName) !== -1) {
                     endLine = line;
                 }
             }
-            if (!startLine) {
+            if (!startLine || (startLine >= endLine)) {
                 return [];
             }
 
             var menuResult = menuText.slice(startLine, endLine);
+            menuResult = menuResult.filter(function(line){ return /\S/.test(line)});//remove empty lines
             //remove name of the day from the first menu entry
             menuResult[0] = menuResult[0].substring(todayName.length).trim();
             return menuResult;
-        }
-
-        function startsWith(str, substring) {
-            return str.slice(0, substring.length) == substring;
-        }
-
-        function endsWith(str, suffix) {
-            return str.indexOf(suffix, str.length - suffix.length) !== -1;
         }
 
         function normalize(str) {
