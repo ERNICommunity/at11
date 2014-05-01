@@ -24,10 +24,15 @@ module.exports = new (function() {
 
         function parseMenu(table, mixedText) {
             var temp = [];
+            if (mixedText.match(/zatvorené/i))
+            {
+                temp.push({ isSoup: false, text: "Dnes nie je menu", price: NaN });
+                return temp;
+            }
             table.find('tr').each(function() {
                 var txt = normalize($(this).text());
                 var priced = parserUtil.parsePrice(txt);
-                temp.push({ isSoup: false, text: priced.text, price: priced.price });
+                if (txt) temp.push({ isSoup: false, text: priced.text, price: priced.price });
             });
 
             var m = /Polievk.*:(.+)Špec.*:(.+)delená.*:(.+)$/i.exec(mixedText);
