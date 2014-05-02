@@ -7,7 +7,7 @@ module.exports = new (function() {
         var $ = cheerio.load(html);
 
         var menu = new Array();
-        var todayNameRegex = new RegExp("^\\s*" + parserUtil.dayNameMap[global.todaysDate.getDay()], "i");
+        var todayNameRegex = new RegExp("^\\s*" + global.todaysDate.format("dddd"), "i");
 
         $('td.cnt', '#contentBox').children('table').each(function() {
             var precedingText = "";

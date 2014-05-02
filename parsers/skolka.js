@@ -1,5 +1,4 @@
 var cheerio = require('cheerio');
-var parserUtil = require('./parserUtil');
 
 module.exports = new (function() {
     this.parse = function(html) {
@@ -12,8 +11,8 @@ module.exports = new (function() {
             return !/^\s*$/.test(val);
         });
         var now = global.todaysDate;
-        var todayReg = new RegExp("^\\s*0?" + now.getDate() + "\\.\\s*0?" + (now.getMonth() + 1) + "\\.\\s*" + now.getFullYear());
-        var dayReg = new RegExp("^" + parserUtil.dayNameMap[now.getDay()], "i");
+        var todayReg = new RegExp("^\\s*0?" + now.date() + "\\.\\s*0?" + (now.month() + 1) + "\\.\\s*" + now.year());
+        var dayReg = new RegExp("^" + now.format("dddd"), "i");
         for (var i = 0; i < lines.length; i++)
         {
             if (dayReg.test(lines[i]))

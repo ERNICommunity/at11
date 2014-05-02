@@ -6,7 +6,9 @@
         "cheerio": "*",
         "express": "*",
         "hbs": "*",
-        "request": "*"
+        "request": "*",
+        "moment": "*",
+        "moment-timezone": "*"
     },
     "devDependencies": {
         "mocha": "*"

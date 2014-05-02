@@ -14,5 +14,3 @@ module.exports.parsePrice = function(item) {
         text: text
     };
 };
-
-module.exports.dayNameMap = ['nedeľa', 'pondelok', 'utorok', 'streda', 'štvrtok', 'piatok', 'sobota'];

@@ -51,8 +51,8 @@ module.exports = new (function() {
         return menu;
 
         function parseDailyMenu(menuText) {
-            var todayName = parserUtil.dayNameMap[global.todaysDate.getDay()];
-            var tomorrowName = parserUtil.dayNameMap[global.todaysDate.getDay() + 1];
+            var todayName = global.todaysDate.format("dddd");
+            var tomorrowName = global.todaysDate.clone().add("days", 1).format("dddd");
 
             var startLine, endLine;
             for (var line in menuText) {

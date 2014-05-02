@@ -6,9 +6,7 @@ module.exports = new (function () {
         var $ = cheerio.load(html);
 
         var menu = new Array();
-        var todayStr = ("0" + global.todaysDate.getDate()).slice(-2)
-            + ". " + ("0" + (global.todaysDate.getMonth() + 1)).slice(-2)
-            + ". " + global.todaysDate.getFullYear();
+        var todayStr = global.todaysDate.format("DD. MM. YYYY");
 
         $('.menublock').each(function () {
             var leftCellText = $(this).children("div").first().text();

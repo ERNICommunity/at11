@@ -141,23 +141,22 @@
                 <ul class="food">
                     {{#each this.menu}}
                         {{#if this.isError}}
-                        <li class="bg-danger error text-danger">{{this.text}}
-                        </li>
-                    {{else}}                       
-                        <li {{#if this.isSoup}}class="soup"{{/if}}>
-                            {{{this.text}}}
+                        <li class="bg-danger error text-danger">{{this.text}}</li>
+                        {{else}}                       
+                        <li{{#if this.isSoup}} class="soup"{{/if}}>
+                            {{this.text}}
                             <div style="float: right; display: inline-block;">
                                 {{this.price}}
                             </div>
                         </li>
-                    {{/if}}
+                        {{/if}}
                     {{else}}
                     <li class="bg-danger error">
                         <p class="text-danger">Nepodarilo sa načítať menu, skús pozrieť priamo na stránke reštaurácie.</p>
                     </li>
                     {{/each}}
                 </ul>
-
+                <i>{{this.timeago}}</i>
             </div>
                 {{/each}}
             </div>

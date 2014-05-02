@@ -27,9 +27,9 @@ li.error {
     border-radius: 4px;
 }
 
-    li.error p {
-        padding: 10px 15px;
-    }
+li.error p {
+    padding: 10px 15px;
+}
 
 ul.food li:not(.error):before {
     vertical-align: text-bottom;
@@ -42,6 +42,11 @@ ul.food li:not(.error):before {
 }
 ul.food li.soup:not(.error):before {
     content: "\f0f4";
+}
+div.tab-pane i {
+    display: block;
+    font-size: 0.7em;
+    text-align: right;
 }
 @media screen and ( max-width: 1170px ) {
   body {

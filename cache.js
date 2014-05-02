@@ -1,25 +1,25 @@
 var config = require('./config');
 
 module.exports = new (function() {
-	var values = { };
-	var expirations = { };
+	var values = [];
 
-	this.set = function(key, value) {		
+	this.set = function(key, value) {
+        if(typeof value !== "object")
+            throw "Only objects can be cached";
+        value.cacheTime =  Date.now();
 		values[key] = value;
-		expirations[key] = Date.now() + config.cacheExpiration;
 	};
 
 	this.get = function(key) {
-		return this.isValid(key) ? values[key] : null;
+		return isValid(key) ? values[key] : null;
 	};
 
-	this.isValid = function(key) {
-		var expiration =  expirations[key];		
-		return !!expiration && (Date.now() < expiration);
+	function isValid(key) {
+		var enterTime =  values[key] && values[key].cacheTime;
+		return !!enterTime && (enterTime + config.cacheExpiration > Date.now());
 	};
 
 	this.clear = function() {
-		values = { };
-		expirations = { };
+		values = [];
 	};
 })();

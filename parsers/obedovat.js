@@ -7,7 +7,7 @@ module.exports = new (function () {
         var $ = cheerio.load(html);
 
         var menu = new Array();
-        var todayStr = global.todaysDate.getDate() + "." + (global.todaysDate.getMonth() + 1) + "." + global.todaysDate.getFullYear();
+        var todayStr = global.todaysDate.format("D.M.YYYY");
 
         $('.daily-menu-for-day').each(function () {
             if ($(this).children("header").first().text().indexOf(todayStr) !== -1) {

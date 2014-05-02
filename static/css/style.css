@@ -109,6 +109,11 @@ section ul li.error > * {
     border-bottom-right-radius: 4px;
     background-color: #f2dede;
 }
+section i {
+    display: block;
+    font-size: 0.7em;
+    text-align: right;
+}
 
 /* theme switching */
 button.themeSwitcher {
