@@ -3,7 +3,7 @@ module.exports.removeMetrics = function(item) {
 };
 
 module.exports.parsePrice = function(item) {
-    var priceRegex = /(\d{1,2}(?:[,\.] *\d{1,2})?) *€/;
+    var priceRegex = /([\d,.,,]*[\s]*)€/;
     var price = NaN;
     var text = item.replace(priceRegex, function(matchStr, group1, offset, originalStr){
         price = parseFloat(group1.replace(/\s/g, "").replace(",", "."));

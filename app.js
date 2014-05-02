@@ -57,7 +57,7 @@ app.get('/', function(req, res) {
     loadRestaurants(function(restaurants){
         res.setHeader('Content-Type', 'text/html; charset=UTF-8');
         res.setHeader('Content-Language', 'sk');
-        var dateStr = global.todaysDate.format("dd D. M. YYYY");
+        var dateStr = global.todaysDate.format("D.M.YYYY");
         var theme = parseTheme(req);
 
         res.setHeader("Set-Cookie", ["theme="+ theme]);

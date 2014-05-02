@@ -35,7 +35,7 @@ function load(url, parseCallback, doneCallback) {
                         throw "Menu item has wrong 'text' property (" + typeof item.text + ")";
                     if(typeof item.price !== "number")
                         throw "Menu item has wrong 'price' property (" + typeof item.price + ")";
-                    item.price = isNaN(item.price) ? "" : item.price.toFixed(2) + " €";//convert to presentable form
+                    item.price = isNaN(item.price) ? "" : item.price.toFixed(2).replace(".",",") + " €";//convert to presentable form
                 });
                 doneCallback(menuItems);
             }
