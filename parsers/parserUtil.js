@@ -18,11 +18,11 @@ global.String.prototype.removeDoubleWhitespace = function() {
 };
 
 global.String.prototype.correctCommaSpacing = function() {
-    return this.replace(/(\S)(,|\.)(\S)/g, '\$1\$2 \$3');
+    return this.replace(/(\S) *(,|\.) *(\S)/g, '\$1\$2 \$3');
 };
 
 global.String.prototype.removeMetrics = function() {
-    return this.replace(/\((\d*\/)*\d+ *,?\d+ *[lg].? */g, '');
+    return this.replace(/\(?(\d*\/)*\d+ *,?\d+ *[lg]\)? */g, '');
 };
 
 global.String.prototype.capitalizeFirstLetter = function() {
@@ -30,7 +30,7 @@ global.String.prototype.capitalizeFirstLetter = function() {
 };
 
 global.String.prototype.removeItemNumbering = function() {
-    return this.replace(/^[\w,\d][\),\.]\s*/m, '');
+    return this.replace(/^[\w\d][\)\.]+\s*/m, '');
 };
 
 module.exports.parseTheme = function(req) {
