@@ -28,5 +28,5 @@ global.String.prototype.capitalizeFirstLetter = function() {
 };
 
 global.String.prototype.removeItemNumbering = function() {
-    return this.replace(/^[\w,\d][\),\.]\s*/m, '');
+    return this.replace(/^[\w\d][\)\.]*\s*/m, '');
 };
