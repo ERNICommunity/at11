@@ -1,15 +1,15 @@
 var express = require('express');
 var hbs = require('hbs');
-var urlModule = require('url');
 var moment = require("moment");
 var momentTz = require("moment-timezone");
 
 //our modules
 var config = require('./config');
 var menuFetcher = require('./menuFetcher');
+var parserUtil = require('./parsers/parserUtil');
 
 console.log("Initializing...");
-var actions = new Array();
+var actions = {};
 for (var i = 0; i < config.restaurants.length; i++) {
     console.log(config.restaurants[i]);
     try
@@ -19,16 +19,17 @@ for (var i = 0; i < config.restaurants.length; i++) {
             throw "Module is missing parse method";
         if(module.parse.length !== 1)
             throw "Module parse(..) method should have 1 parameter (html)";
-        var url = config.restaurants[i].url;
-        var name = config.restaurants[i].name;
         var id = config.restaurants[i].id;
-        var action = (function(id, name, url, parseCallback){
+        if(typeof actions[id] !== "undefined")
+            throw "Non unique id '" + id + "' provided";
+        var url = config.restaurants[i].url;
+        var action = (function(url, parseCallback){
             return function(fetchedCallback)
                 {
-                    menuFetcher.fetchMenu(id, url, name, parseCallback, fetchedCallback);
+                    menuFetcher.fetchMenu(url, parseCallback, fetchedCallback);
                 };
-        })(id, name, url, module.parse);
-        actions.push(action);
+        })(url, module.parse);
+        actions[id] = action;
     }
     catch(e)
     {
@@ -36,13 +37,12 @@ for (var i = 0; i < config.restaurants.length; i++) {
     }
 }
 
-if(actions.length === 0)
+if(Object.keys(actions).length === 0)
 {
     console.log("Initialization failed, exiting");
     process.exit(1);
 }
-
-console.log("Initialization successful (" + actions.length + " of " + config.restaurants.length + ")");
+console.log("Initialization successful (" + Object.keys(actions).length + " of " + config.restaurants.length + ")");
 
 /* global setup */
 global.devMode = false; //if set to true, cache is disabled
@@ -54,56 +54,26 @@ app.set('view engine', 'html');
 app.engine('html', hbs.__express);
 app.use(express.static('static'));
 app.get('/', function(req, res) {
-    loadRestaurants(function(restaurants){
-        res.setHeader('Content-Type', 'text/html; charset=UTF-8');
-        res.setHeader('Content-Language', 'sk');
-        var dateStr = global.todaysDate.format("D.M.YYYY");
-        var theme = parseTheme(req);
+    res.setHeader('Content-Type', 'text/html; charset=UTF-8');
+    res.setHeader('Content-Language', 'sk');
+    var dateStr = global.todaysDate.format("D.M.YYYY");
+    var theme = parserUtil.parseTheme(req);
 
-        res.setHeader("Set-Cookie", ["theme="+ theme]);
-        res.render(theme, { date: dateStr, restaurants: restaurants});
-    });
+    res.setHeader("Set-Cookie", ["theme="+ theme]);
+    res.render(theme, { date: dateStr, restaurants: config.restaurants});
+});
+app.get('/menu/:id', function(req, res){
+    if(typeof actions[req.params.id] === "undefined")
+    {
+        res.statusCode = 404;
+        res.send('No menu found');
+    }
+    else
+    {
+        actions[req.params.id](function(menu){
+            res.json({menu: menu, timeago: moment(menu.cacheTime).fromNow()});
+        });
+    }
 });
 app.listen(config.port);
 console.log('Listening on port ' + config.port + '...');
-
-function loadRestaurants(callback) {
-    var results = [];
-    var menuLoaded = function(restaurant) {
-        restaurant.timeago = moment(restaurant.menu.cacheTime).fromNow();
-        results.push(restaurant);
-        if (results.length === actions.length) {
-            results = results.sort(function(a,b) { return a.id - b.id });
-            callback(results);
-        }
-    };
-
-    for(var i = 0; i < actions.length; i++) {
-        actions[i](menuLoaded);
-    }
-}
-
-function parseTheme(req) {
-    var parsedUrl = urlModule.parse(req.url, true);
-    var cookies = parseCookies(req);
-
-    //if no parameter is defined in URL, use cookies (if any)
-    if (!parsedUrl.query.theme && typeof(cookies.theme) != "undefined") {
-        return cookies.theme;
-    }
-
-    //use parameter from URL or default if not defined
-    return (parsedUrl.query && parsedUrl.query.theme) || "index";
-}
-
-function parseCookies (request) {
-    var list = {},
-        rc = request.headers.cookie;
-
-    rc && rc.split(';').forEach(function( cookie ) {
-        var parts = cookie.split('=');
-        list[parts.shift().trim()] = unescape(parts.join('='));
-    });
-
-    return list;
-}

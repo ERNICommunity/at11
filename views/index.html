@@ -7,6 +7,8 @@
         <meta name="description" content="Obedové menu pri ERNI SK">
         <link href="css/style.css" type="text/css" rel="stylesheet">
         <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+        <script src="js/script.js"></script>
     </head>
     <body>
         <header>
@@ -17,28 +19,11 @@
             </form>
         </header>
 
-        <div class="js-masonry">
+        <div id="container">
             {{#each restaurants}}
-            <section>
+            <section data-restaurant-id="{{this.id}}">
                 <h2><a href="{{this.url}}" target="_blank">{{this.name}}</a></h2>
-                <ul>
-                    {{#each this.menu}}
-                        {{#if this.isError}}
-                        <li class="error">
-                            <span>{{this.text}}</span>
-                        </li>
-                        {{else}}
-                        <li{{#if this.isSoup}} class="soup"{{/if}}>
-                            <span>{{this.text}}</span><span class="price">{{this.price}}</span>
-                        </li>
-                        {{/if}}
-                    {{else}}
-                    <li class="error">
-                        <span>Nepodarilo sa načítať menu, skús pozrieť priamo na stránke reštaurácie</span>
-                    </li>
-                    {{/each}}
-                </ul>
-                <i>{{this.timeago}}</i>
+                <div class="fa fa-spinner fa-spin"></div>
             </section>{{/each}}
         </div>
         

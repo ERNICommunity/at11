@@ -1,3 +1,5 @@
+var urlModule = require('url');
+
 module.exports.parsePrice = function(item) {
     var priceRegex = /([\d,.,,]*[\s]*)(€|Eur)/;
     var price = NaN;
@@ -29,4 +31,29 @@ global.String.prototype.capitalizeFirstLetter = function() {
 
 global.String.prototype.removeItemNumbering = function() {
     return this.replace(/^[\w,\d][\),\.]\s*/m, '');
+};
+
+module.exports.parseTheme = function(req) {
+    var parsedUrl = urlModule.parse(req.url, true);
+    var cookies = this.parseCookies(req);
+
+    //if no parameter is defined in URL, use cookies (if any)
+    if (!parsedUrl.query.theme && typeof(cookies.theme) != "undefined") {
+        return cookies.theme;
+    }
+
+    //use parameter from URL or default if not defined
+    return (parsedUrl.query && parsedUrl.query.theme) || "index";
+};
+
+module.exports.parseCookies = function(request) {
+    var list = {},
+        rc = request.headers.cookie;
+
+    rc && rc.split(';').forEach(function( cookie ) {
+        var parts = cookie.split('=');
+        list[parts.shift().trim()] = unescape(parts.join('='));
+    });
+
+    return list;
 };
