@@ -1,5 +1,5 @@
-
 var cheerio = require('cheerio');
+var parserUtil = require('./parserUtil');
 
 module.exports = new (function () {
     this.parse = function (html) {
@@ -45,8 +45,9 @@ module.exports = new (function () {
 
         function normalize(str) {
             return str.trim()
-                .replace(/\s\s+/g, ' ')
-                .replace(/^\d\s*\.\s*\)*\s*/, '');
+                .removeDoubleWhitespace()
+                .removeItemNumbering()
+                .removeMetrics();
         }
     };
 })();

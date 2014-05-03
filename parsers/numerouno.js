@@ -24,16 +24,18 @@ module.exports = new (function() {
 
         //sometimes one menu item is scattered across multiple lines of HTML
         //lines with extra indentation should be merged with previous line
-        for (var i = 0; i < menu.length; i++) {
+        for (var i = 0; i < menu.length; i++)
+        {
             if (/^\s{4,}/.test(menu[i]))
             {
                 menu[i - 1] = menu[i - 1] + " " + menu[i].trim();
                 menu.splice(i, 1);
                 i--;
             }
-            else if (/^\s*menu č\. ?4/i.test(menu[i])) {
-                if(i+1 < menu.length)//prepend it to the next item
-                    menu[i+1] = menu[i].trim() + ": " + menu[i+1].trim();
+            else if (/^\s*menu č\. ?4/i.test(menu[i]))
+            {
+                if (i + 1 < menu.length)//prepend it to the next item
+                    menu[i + 1] = menu[i].trim() + ": " + menu[i + 1].trim();
                 menu.splice(i, 1);
             }
             else
@@ -43,9 +45,9 @@ module.exports = new (function() {
         }
 
         //convert to objects
-        menu = menu.map(function(item, index){
-            var priced = parserUtil.parsePrice(normalize(item));
-            return {isSoup: index===0, text: priced.text, price: priced.price};
+        menu = menu.map(function(item, index) {
+            var priced = parserUtil.parsePrice(item);
+            return { isSoup: index === 0, text: normalize(priced.text), price: priced.price };
         });
 
         return menu;
@@ -55,20 +57,25 @@ module.exports = new (function() {
             var tomorrowName = global.todaysDate.clone().add("days", 1).format("dddd");
 
             var startLine, endLine;
-            for (var line in menuText) {
-                if (menuText[line].toLowerCase().indexOf(todayName) !== -1) {
+            for (var line in menuText)
+            {
+                if (menuText[line].toLowerCase().indexOf(todayName) !== -1)
+                {
                     startLine = line;
                 }
-                if (menuText[line].toLowerCase().indexOf(tomorrowName) !== -1) {
+                if (menuText[line].toLowerCase().indexOf(tomorrowName) !== -1)
+                {
                     endLine = line;
                 }
             }
-            if (!startLine || (startLine >= endLine)) {
+            if (!startLine || (startLine >= endLine))
+            {
                 return [];
             }
 
             var menuResult = menuText.slice(startLine, endLine);
-            menuResult = menuResult.filter(function(line){ return /\S/.test(line)});//remove empty lines
+            menuResult = menuResult.filter(function(line) { return /\S/.test(line) });//remove empty lines
+            menuResult = menuResult.filter(function(line) { return !/(Výmena prílohy|Pri účte 30 eur)/.test(line) });//remove bonus information
             //remove name of the day from the first menu entry
             menuResult[0] = menuResult[0].substring(todayName.length).trim();
             return menuResult;
@@ -76,8 +83,10 @@ module.exports = new (function() {
 
         function normalize(str) {
             return str.trim()
-                .replace(/\s\s+/g, ' ')
-                .replace(/^\d\.\s*/, '');
+                .removeDoubleWhitespace()
+                .removeItemNumbering()
+                .removeMetrics()
+                .correctCommaSpacing();
         }
     };
 })();

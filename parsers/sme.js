@@ -1,4 +1,5 @@
 var cheerio = require('cheerio');
+var parserUtil = require('./parserUtil');
 
 module.exports = new (function() {
     this.parse = function(html) {
@@ -17,20 +18,21 @@ module.exports = new (function() {
         {
             dnesneMenu.each(function() {
                 if ($(this).find('b').length === 0)
-                    menu.push(normalize($(this).text()));
+                    menu.push($(this).text());
             });
         }
         //convert to menu item object
         menu = menu.map(function(item) {
-            return { isSoup: soupPattern.test(item), text: item, price: NaN };
+            return { isSoup: soupPattern.test(item.trim()), text: normalize(item), price: NaN };
         });
 
         return menu;
 
         function normalize(str) {
             return str.trim()
-                    .replace(/\s\s+/g, ' ')
-                    .replace(/^[A-C]\.\s*/, '');
+                    .removeDoubleWhitespace()
+                    .removeMetrics()
+                    .correctCommaSpacing();
         }
     };
 })();

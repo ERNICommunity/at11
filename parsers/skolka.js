@@ -1,4 +1,5 @@
 var cheerio = require('cheerio');
+var parserUtil = require('./parserUtil');
 
 module.exports = new (function() {
     this.parse = function(html) {
@@ -13,6 +14,7 @@ module.exports = new (function() {
         var now = global.todaysDate;
         var todayReg = new RegExp("^\\s*0?" + now.date() + "\\.\\s*0?" + (now.month() + 1) + "\\.\\s*" + now.year());
         var dayReg = new RegExp("^" + now.format("dddd"), "i");
+        var price;
         for (var i = 0; i < lines.length; i++)
         {
             if (dayReg.test(lines[i]))
@@ -21,21 +23,25 @@ module.exports = new (function() {
                 if (menu[0] == "Dnes nie je menu") { break; }
                 menu.push(normalize(lines[i + 1].replace(todayReg, "")));
                 menu.push(normalize(lines[i + 2]));
-                break;
+            }
+            if (/Hodnota stravy/.test(lines[i]))
+            {
+                price = parserUtil.parsePrice(lines[i]).price;
             }
         }
 
         //convert to menu item object
         menu = menu.map(function(item, index) {
-            return { isSoup: index === 0 && item != "Dnes nie je menu", text: item, price: NaN };
+            return { isSoup: index === 0 && item != "Dnes nie je menu", text: item, price: index === 0 ? NaN : price };
         });
 
         return menu;
 
         function normalize(str) {
             return str.trim()
-				.replace(/\s\s+/g, ' ')
-				.replace(/^\d\.\s*/, '');
+				.removeDoubleWhitespace()
+				.removeItemNumbering()
+                .removeMetrics();
         }
     };
 })();

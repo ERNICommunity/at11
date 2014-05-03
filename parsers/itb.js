@@ -58,11 +58,12 @@ module.exports = new (function() {
         }
 
         function normalize(str) {
-            return parserUtil.removeMetrics(str.trim()
-                .replace(/\s\s+/g, ' ')
-                .replace(/^\s*[A-Z]\)\s*/, '')
-                .toLowerCase())
-                .replace(/(^[A-Za-z\u00C0-\u017F])/, function(a) { return a.toUpperCase(); });
+            return str.trim()
+                .removeDoubleWhitespace()
+                .removeItemNumbering()
+                .removeMetrics()
+                .toLowerCase()
+                .capitalizeFirstLetter();
         }
     };
 })();
