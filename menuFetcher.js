@@ -3,14 +3,14 @@ var cache = require('./cache');
 var parserUtil = require('./parsers/parserUtil.js');
 
 module.exports = new (function () {
-    this.fetchMenu = function (id, url, name, parseCallback, doneCallback) {
+    this.fetchMenu = function (url, parseCallback, doneCallback) {
         var menuObj = cache.get(url);
         if (menuObj && !global.devMode)
-            doneCallback({ id: id, name: name, url: url, menu: menuObj });
+            doneCallback(menuObj);
         else
             load(url, parseCallback, function (menuObj) {
                 cache.set(url, menuObj);
-                doneCallback({ id: id, name: name, url: url, menu: menuObj });
+                doneCallback(menuObj);
             });
     };
 })();
