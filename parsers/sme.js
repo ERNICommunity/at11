@@ -29,12 +29,11 @@ module.exports = new (function() {
         return menu;
 
         function normalize(str) {
-            return str.trim()
-                    .removeDoubleWhitespace()
-                    .replace(soupPattern,'')
-                    .removeMetrics()
-                    .correctCommaSpacing()
-                    .removeItemNumbering();
+            return str.normalizeWhitespace()
+                .replace(soupPattern,'')
+                .removeMetrics()
+                .correctCommaSpacing()
+                .removeItemNumbering();
         }
     };
 })();

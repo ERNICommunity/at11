@@ -82,8 +82,7 @@ module.exports = new (function() {
         }
 
         function normalize(str) {
-            return str.trim()
-                .removeDoubleWhitespace()
+            return str.normalizeWhitespace()
                 .removeItemNumbering()
                 .removeMetrics()
                 .correctCommaSpacing();

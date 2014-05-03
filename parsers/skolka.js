@@ -38,8 +38,7 @@ module.exports = new (function() {
         return menu;
 
         function normalize(str) {
-            return str.trim()
-				.removeDoubleWhitespace()
+            return str.normalizeWhitespace()
 				.removeItemNumbering()
                 .removeMetrics();
         }

@@ -13,8 +13,10 @@ module.exports.parsePrice = function(item) {
     };
 };
 
-global.String.prototype.removeDoubleWhitespace = function() {
-    return this.replace(/\s\s+/g, ' ');
+global.String.prototype.normalizeWhitespace = function() {
+    // also single spaces are replaced as there are different charcodes for space (32 vs. 160)
+    // and we need to be consistent because of comparisons in tests
+    return this.trim().replace(/\s+/g, ' ');
 };
 
 global.String.prototype.correctCommaSpacing = function() {
