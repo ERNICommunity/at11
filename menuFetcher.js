@@ -1,6 +1,5 @@
 var request = require('request');
 var cache = require('./cache');
-var parserUtil = require('./parsers/parserUtil.js');
 
 module.exports = new (function () {
     this.fetchMenu = function (url, parseCallback, doneCallback) {
