@@ -1,4 +1,5 @@
 var cheerio = require('cheerio');
+var parserUtil = require('./parserUtil');
 
 module.exports = new (function () {
     this.parse = function (html) {
@@ -15,7 +16,7 @@ module.exports = new (function () {
                 var price = match ? parseFloat(match[1]) : NaN;
                 var items = $(this).children("div").eq(1).text().match(/[^\r\n]+/g);
                 menu = items.map(function(item, index){
-                    var tmp = {isSoup: false, text: item, price: price };
+                    var tmp = {isSoup: false, text: item.removeMetrics(), price: price };
                     if(index === 0) {//I think it is safe enough to assume that the first item in menu is the soup
                         tmp.isSoup = true;
                         tmp.price = NaN;

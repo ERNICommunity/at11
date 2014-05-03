@@ -20,7 +20,7 @@ global.String.prototype.correctCommaSpacing = function() {
 };
 
 global.String.prototype.removeMetrics = function() {
-    return this.replace(/(\d*\/)*\d+ *,?\d+ *[lg].? */g, '');
+    return this.replace(/\((\d*\/)*\d+ *,?\d+ *[lg].? */g, '');
 };
 
 global.String.prototype.capitalizeFirstLetter = function() {
