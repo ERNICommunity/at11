@@ -13,7 +13,7 @@ module.exports = new (function() {
 
         options = {
             headers: { 'user-agent': 'Mozilla/5.0' },
-            url: 'http://at11ocr.azurewebsites.net/api/process?path=' + parserUtil.htmlEncode(menuPic)
+            url: 'http://at11ocr.azurewebsites.net/api/process?path=' + encodeURIComponent(menuPic)
         };
 
         request(options, function(error, response, body) {

@@ -1,11 +1,5 @@
 var urlModule = require('url');
 
-module.exports.htmlEncode = function(str) {
-    return String(str)
-            .replace(/:/g, '%3A')
-            .replace(/\//g, '%2F')
-}
-
 module.exports.parsePrice = function(item) {
     var priceRegex = /([\d,.,,]*[\s]*)(€|Eur)/;
     var price = NaN;
