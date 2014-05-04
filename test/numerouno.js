@@ -11,11 +11,12 @@ describe('numerouno', function() {
         var html = fs.readFileSync(__dirname + '/samples/NumeroUno.2014-04-29.html', {encoding:"utf-8"});
         var menu;
 
-        it("should not throw exception", function() {
+        before(function(done) {
             global.todaysDate = moment("2014-04-29");
-            assert.doesNotThrow(function() {
-                menu = numerouno.parse(html);
-            });
+            numerouno.parse(html, function(menuItems) {
+                menu = menuItems;
+                done();
+            })
         });
 
         it("should return 5 items", function() {
@@ -58,11 +59,12 @@ describe('numerouno', function() {
         var html = fs.readFileSync(__dirname + '/samples/NumeroUno.2014-05-02.html', {encoding:"utf-8"});
         var menu;
 
-        it("should not throw exception", function() {
+        before(function(done) {
             global.todaysDate = moment("2014-05-02");
-            assert.doesNotThrow(function() {
-                menu = numerouno.parse(html);
-            });
+            numerouno.parse(html, function(menuItems) {
+                menu = menuItems;
+                done();
+            })
         });
 
         it("should return 4 items", function() {

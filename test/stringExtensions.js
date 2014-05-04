@@ -1,5 +1,5 @@
 ﻿var assert = require('assert'),
-	cache = require('../parsers/parserUtil.js');
+	cache = require('../parsers/parserUtil');
 
 var removeNumberingTests = [
     { input: "1.) Kurací steak s bylinkovou omáčkou, pečené zemiaky, obloha", result: "Kurací steak s bylinkovou omáčkou, pečené zemiaky, obloha" },
