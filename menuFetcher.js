@@ -1,5 +1,6 @@
 var request = require('request');
 var cache = require('./cache');
+var config = require('./config');
 
 module.exports = new (function () {
     this.fetchMenu = function (url, parseCallback, doneCallback) {
@@ -18,9 +19,18 @@ function load(url, parseCallback, doneCallback) {
     request(url, function (error, response, body) {
         if (!error && response.statusCode === 200) 
         {
+            var called = false;
+            var timer = setTimeout(function(){
+                    called = true;
+                    doneCallback([{isError: true, text: "Parser timeout", price: ""}]);
+                }, config.parserTimeout);
             try {
                 parseCallback(body, function(menuItems) {
-
+                    if(called === true)
+                        return;//aditional calls must be ignored (multiple calls in parser or parser finishing after timeout)
+                    called = true;
+                    clearTimeout(timer);
+                    
                     if (!Array.isArray(menuItems))
                         throw "Invalid menu returned (expected array, got " + typeof menuItems + ")";
 
@@ -40,16 +50,15 @@ function load(url, parseCallback, doneCallback) {
                 });
             }
             catch (err) {
-                doneCallback([{isError: true, text: err}]);
+                clearTimeout(timer);
+                doneCallback([{isError: true, text: err, price: ""}]);
             }
         }
         else 
         {
             var menu = new Array();
-            if (error)
-                menu.push({isError: true, text: error});
-            if (response)
-                menu.push({isError: true, text: "StatusCode: " + response.statusCode});
+            if (error || response)
+                menu.push({isError: true, text: error|"", price: response?response.statusCode:""});
             doneCallback(menu);
         }
     });
