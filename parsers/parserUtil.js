@@ -1,9 +1,15 @@
 var urlModule = require('url');
 
+module.exports.htmlEncode = function(str) {
+    return String(str)
+            .replace(/:/g, '%3A')
+            .replace(/\//g, '%2F')
+}
+
 module.exports.parsePrice = function(item) {
     var priceRegex = /([\d,.,,]*[\s]*)(€|Eur)/;
     var price = NaN;
-    var text = item.replace(priceRegex, function(matchStr, group1, offset, originalStr){
+    var text = item.replace(priceRegex, function(matchStr, group1, offset, originalStr) {
         price = parseFloat(group1.replace(/\s/g, "").replace(",", "."));
         return "";
     });
@@ -40,7 +46,8 @@ module.exports.parseTheme = function(req) {
     var cookies = this.parseCookies(req);
 
     //if no parameter is defined in URL, use cookies (if any)
-    if (!parsedUrl.query.theme && typeof(cookies.theme) != "undefined") {
+    if (!parsedUrl.query.theme && typeof (cookies.theme) != "undefined")
+    {
         return cookies.theme;
     }
 
@@ -52,7 +59,7 @@ module.exports.parseCookies = function(request) {
     var list = {},
         rc = request.headers.cookie;
 
-    rc && rc.split(';').forEach(function( cookie ) {
+    rc && rc.split(';').forEach(function(cookie) {
         var parts = cookie.split('=');
         list[parts.shift().trim()] = unescape(parts.join('='));
     });

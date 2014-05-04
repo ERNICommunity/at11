@@ -17,8 +17,8 @@ for (var i = 0; i < config.restaurants.length; i++) {
         var module = require("./parsers/" + config.restaurants[i].module);
         if(typeof module.parse !== "function")
             throw "Module is missing parse method";
-        if(module.parse.length !== 1)
-            throw "Module parse(..) method should have 1 parameter (html)";
+        if(module.parse.length !== 2)
+            throw "Module parse(..) method should have 2 parameters (html, callback)";
         var id = config.restaurants[i].id;
         if(typeof actions[id] !== "undefined")
             throw "Non unique id '" + id + "' provided";

@@ -2,7 +2,7 @@ var cheerio = require('cheerio');
 var parserUtil = require('./parserUtil');
 
 module.exports = new (function() {
-    this.parse = function(html) {
+    this.parse = function(html, callback) {
 
         var $ = cheerio.load(html);
 
@@ -21,7 +21,7 @@ module.exports = new (function() {
             }
         });
 
-        return menu;
+        callback(menu);
 
         function parseMenu(table, mixedText) {
             var temp = [];

@@ -2,7 +2,7 @@ var cheerio = require('cheerio');
 var parserUtil = require('./parserUtil');
 
 module.exports = new (function () {
-    this.parse = function (html) {
+    this.parse = function (html, callback) {
 
         var $ = cheerio.load(html);
 
@@ -23,7 +23,7 @@ module.exports = new (function () {
                     }
                     return tmp;
                 });
-                return false;
+                callback(false);
             }
         });
 
@@ -32,6 +32,6 @@ module.exports = new (function () {
                 .removeMetrics();
         }
         
-        return menu;
+        callback(menu);
     };
 })();

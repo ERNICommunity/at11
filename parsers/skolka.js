@@ -2,7 +2,7 @@ var cheerio = require('cheerio');
 var parserUtil = require('./parserUtil');
 
 module.exports = new (function() {
-    this.parse = function(html) {
+    this.parse = function(html, callback) {
 
         var $ = cheerio.load(html);
 
@@ -35,7 +35,7 @@ module.exports = new (function() {
             return { isSoup: index === 0 && item != "Dnes nie je menu", text: item, price: index === 0 ? NaN : price };
         });
 
-        return menu;
+        callback(menu);
 
         function normalize(str) {
             return str.normalizeWhitespace()
