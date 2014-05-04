@@ -19,17 +19,17 @@ function load(url, parseCallback, doneCallback) {
     request(url, function (error, response, body) {
         if (!error && response.statusCode === 200) 
         {
-            var called = false;
             var timer = setTimeout(function(){
-                    called = true;
+                    timer = null;//clear needed as value is kept even after timeout fired
                     doneCallback([{isError: true, text: "Parser timeout", price: ""}]);
                 }, config.parserTimeout);
             try {
                 parseCallback(body, function(menuItems) {
-                    if(called === true)
-                        return;//aditional calls must be ignored (multiple calls in parser or parser finishing after timeout)
-                    called = true;
+                    if(!timer){
+                        return;//call must be ignored (multiple calls in parser or parser finishing after timeout/error)
+                    }
                     clearTimeout(timer);
+                    timer = null;//clearTimeout does not null the value
                     
                     if (!Array.isArray(menuItems))
                         throw "Invalid menu returned (expected array, got " + typeof menuItems + ")";
@@ -51,6 +51,7 @@ function load(url, parseCallback, doneCallback) {
             }
             catch (err) {
                 clearTimeout(timer);
+                timer = null;//clearTimeout does not null the value
                 doneCallback([{isError: true, text: err, price: ""}]);
             }
         }
