@@ -7,7 +7,7 @@ var removeNumberingTests = [
 ];
 
 var removeMetricsTests = [
-    { input: "1.   Znojemská hovädzia pečienka 64/150g, tarhoňa 190g", result: "1.   Znojemská hovädzia pečienka , tarhoňa " },
+    { input: "1.   Znojemská hovädzia pečienka 64/150g, tarhoňa 190g", result: "1.   Znojemská hovädzia pečienka , tarhoňa" },
     { input: "Držková polievka, chlieb", result: "Držková polievka, chlieb" }
 ];
 
@@ -27,7 +27,8 @@ var correctCommaSpacingTests = [
     { input: "Znojemská hovädzia pečienka , tarhoňa ", result: "Znojemská hovädzia pečienka, tarhoňa " },
     { input: "Držková polievka, chlieb", result: "Držková polievka, chlieb" },
     { input: "Držková polievka,chlieb", result: "Držková polievka, chlieb" },
-    { input: "menu č.4 po vypredaní menu č. 1 a 2 do 13:00 h", result: "menu č. 4 po vypredaní menu č. 1 a 2 do 13:00 h" }
+    { input: "menu č.4 po vypredaní menu č. 1 a 2 do 13:00 h", result: "menu č. 4 po vypredaní menu č. 1 a 2 do 13:00 h" },
+    { input: "text without comma", result: "text without comma"}
 ];
 
 var capitalizeFirstLetter = [
