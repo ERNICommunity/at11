@@ -15,18 +15,18 @@ module.exports = new (function() {
                 menu = parseMenu($(this));
                 //I think it is safe enough to assume that the first item in menu is the soup
                 //for Ergenau on weekends, the first item is "Vikendove menu"
-                if (menu.length > 0)
+                if (menu.length == 0) return false;
+                if (/menu/.test(menu[0].text))
                 {
-                    if (/menu/.test(menu[0].text))
+                    if (menu.length > 1)
                     {
                         menu[1].isSoup = true;
                         menu[1].price = menu[0].price;
-                        menu.splice(0, 1);
                     }
-                    else
-                    { menu[0].isSoup = true; }
+                    menu.splice(0, 1);
                 }
-                return false;
+                else
+                { menu[0].isSoup = true; }
             }
         });
 

@@ -11,7 +11,7 @@ var removeMetricsTests = [
     { input: "Držková polievka, chlieb", result: "Držková polievka, chlieb" }
 ];
 
-var removeDoubleWhitespaceTests = [
+var normalizeWhitespaceTests = [
     { input: "1.   Znojemská hovädzia pečienka 64/150g, tarhoňa 190g", result: "1. Znojemská hovädzia pečienka 64/150g, tarhoňa 190g" },
     { input: "Držková polievka, chlieb", result: "Držková polievka, chlieb" }
 ];
@@ -51,8 +51,8 @@ describe('Text extension methods', function() {
         }
         );
     });
-    describe('Remove double whitespace', function() {
-        removeDoubleWhitespaceTests.forEach(function(item) {
+    describe('Normalize whitespace', function() {
+        normalizeWhitespaceTests.forEach(function(item) {
             it(item.input, function() {
                 assert.equal(item.input.normalizeWhitespace(), item.result);
             });
