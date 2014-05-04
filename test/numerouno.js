@@ -69,7 +69,28 @@ describe('numerouno', function() {
             assert.equal(menu.length, 4);
         });
         
-        //more tests on parsing result
-
+        it("1st item correct", function() {
+            assert.equal(menu[0].isSoup, true);
+            assert.equal(menu[0].text, "Hovädzí vývar s haluškami");
+            assert.equal(isNaN(menu[0].price), true);
+        });
+        
+        it("2nd item correct", function() {
+            assert.equal(menu[1].isSoup, false);
+            assert.equal(menu[1].text.trim(), "Vyprážaný kurací Cordon Bleu s opekanými zemiakmi, tatárska omáčka");
+            assert.equal(menu[1].price, 3.90);
+        });
+        
+        it("3rd item correct", function() {
+            assert.equal(menu[2].isSoup, false);
+            assert.equal(menu[2].text, "Zeleninové rizoto so syrom, šalátik");
+            assert.equal(menu[2].price, 3.50);
+        });
+        
+        it("4th item correct", function() {
+            assert.equal(menu[3].isSoup, false);
+            assert.equal(menu[3].text, "menu č. 4 po vypredaní menu č. 1 a 2 do 13:00 h: Vyprážaný syr s hranolkami, tatárska omáčka");
+            assert.equal(menu[3].price, 4.50);
+        });
     });
 });
