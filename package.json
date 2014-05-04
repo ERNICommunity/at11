@@ -1,7 +1,7 @@
 {
     "name": "at11",
     "description": "Daily lunch menu application",
-    "version": "0.0.2",
+    "version": "1.0.0",
     "dependencies": {
         "cheerio": "*",
         "express": "*",
