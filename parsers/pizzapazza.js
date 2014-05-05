@@ -11,12 +11,11 @@ module.exports = new (function() {
 
         var menuPic = $('img[src*="ponuka"]').attr('src');
 
-        options = {
-            headers: { 'user-agent': 'Mozilla/5.0' },
-            url: 'http://at11ocr.azurewebsites.net/api/process?path=' + encodeURIComponent(menuPic)
-        };
-
-        request(options, function(error, response, body) {
+        request.post({
+            headers: { 'Content-type': 'application/x-www-form-urlencoded' },
+            url: 'http://at11ocr.azurewebsites.net/api/process/url',
+            body: "=" + encodeURIComponent(menuPic)
+        }, function(error, response, body) {
             if (!error)
             {
                 //do the real parsing here
