@@ -1,7 +1,7 @@
 var urlModule = require('url');
 
 module.exports.parsePrice = function(item) {
-    var priceRegex = /([\d,.,,]*[\s]*)(€|Eur)/;
+    var priceRegex = /([\d,.,,]*[\s]*)(:?€|Eur)/;//second group is nonmatching
     var price = NaN;
     var text = item.replace(priceRegex, function(matchStr, group1, offset, originalStr) {
         price = parseFloat(group1.replace(/\s/g, "").replace(",", "."));
@@ -9,7 +9,7 @@ module.exports.parsePrice = function(item) {
     });
     return {
         price: price,
-        text: text
+        text: text.trim()//after price removal there might be whitespaces to trim
     };
 };
 

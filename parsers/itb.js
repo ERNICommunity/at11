@@ -31,9 +31,8 @@ module.exports = new (function() {
                 return temp;
             }
             table.find('tr').each(function() {
-                var txt = normalize($(this).text());
-                var priced = parserUtil.parsePrice(txt);
-                if (txt) temp.push({ isSoup: false, text: priced.text, price: priced.price });
+                var priced = parserUtil.parsePrice($(this).text());
+                if (priced.text) temp.push({ isSoup: false, text: normalize(priced.text), price: priced.price });
             });
 
             var m = /Polievk.*:(.+)Špec.*:(.+)delená.*:(.+)$/i.exec(mixedText);
@@ -41,17 +40,16 @@ module.exports = new (function() {
             {
                 for (var i = 3; i > 1; i--)
                 {
-                    var txt = normalize(normalize(m[i]));
-                    var priced = parserUtil.parsePrice(txt);
-                    temp.unshift({ isSoup: false, text: priced.text, price: priced.price });
+                    var priced = parserUtil.parsePrice(m[i]);
+                    temp.unshift({ isSoup: false, text: normalize(priced.text), price: priced.price });
                 }
                 //soups (group 1)
                 var soups = m[1].split(/€ ?,/);
                 for (var i = soups.length - 1; i >= 0; i--)
                 {
-                    var txt = normalize(soups[i] + (i !== soups.length - 1 ? "€" : "")); //add back € to all items except last
+                    var txt = soups[i] + (i !== soups.length - 1 ? "€" : ""); //add back € to all items except last
                     var priced = parserUtil.parsePrice(txt);
-                    temp.unshift({ isSoup: true, text: priced.text, price: priced.price });
+                    temp.unshift({ isSoup: true, text: normalize(priced.text), price: priced.price });
                 }
             }
             return temp;
@@ -61,6 +59,7 @@ module.exports = new (function() {
             return str.normalizeWhitespace()
                 .removeItemNumbering()
                 .removeMetrics()
+                .correctCommaSpacing()
                 .toLowerCase()
                 .capitalizeFirstLetter();
         }
