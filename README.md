@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/at11/at11.svg?branch=master)](https://travis-ci.org/at11/at11)
+
 at11
 ==========
 
