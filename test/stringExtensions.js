@@ -8,7 +8,8 @@ var removeNumberingTests = [
 
 var removeMetricsTests = [
     { input: "1.   Znojemská hovädzia pečienka 64/150g, tarhoňa 190g", result: "1.   Znojemská hovädzia pečienka , tarhoňa" },
-    { input: "Držková polievka, chlieb", result: "Držková polievka, chlieb" }
+    { input: "Držková polievka, chlieb", result: "Držková polievka, chlieb" },
+    { input: "150g.GRILOVANÁ PANENKA, OMÁČKA Z LESNÝCH KURIATOK, PEČENÉ ZEMIAKY 4,20€", result: "GRILOVANÁ PANENKA, OMÁČKA Z LESNÝCH KURIATOK, PEČENÉ ZEMIAKY 4,20€" }
 ];
 
 var normalizeWhitespaceTests = [
