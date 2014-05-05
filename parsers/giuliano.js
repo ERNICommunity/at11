@@ -23,7 +23,7 @@ module.exports = new (function () {
                     }
                     return tmp;
                 });
-                callback(false);
+                return false;
             }
         });
 
