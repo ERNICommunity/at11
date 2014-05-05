@@ -1,7 +1,8 @@
 module.exports = {
     port:  process.env.PORT || 54321,
     cacheExpiration: 2*60*60*1000, //2h
-    parserTimeout: 20*1000, //20s
+    globalTickInterval: 2*60*1000, //2m
+    parserTimeout: 20*1000, //20s 
     restaurants: [
         {id: 1, name: "U Daňováka", url: "http://www.obedovat.sk/restauracia/6801-u-danovaka/denne-menu", module: "obedovat"},
         {id: 2, name: "Giuliano", url: "http://www.giuliano.sk/sk/denne-menu/", module: "giuliano"},

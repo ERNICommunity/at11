@@ -1,6 +1,6 @@
 var assert = require('assert'),
     fs = require('fs'),
-    moment = require('moment'),
+    moment = require('moment-timezone'),
     itb = require('../parsers/itb');
 
 moment.lang('sk');

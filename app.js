@@ -1,7 +1,6 @@
 var express = require('express');
 var hbs = require('hbs');
-var moment = require("moment");
-var momentTz = require("moment-timezone");
+var moment = require("moment-timezone");
 
 //our modules
 var config = require('./config');
@@ -48,12 +47,15 @@ console.log("Initialization successful (" + Object.keys(actions).length + " of "
 global.devMode = false; //if set to true, cache is disabled
 moment.lang('sk');
 global.todaysDate = moment().tz("Europe/Bratislava");
+setInterval(function(){//periodically refresh global time
+    global.todaysDate = moment().tz("Europe/Bratislava");
+}, config.globalTickInterval);
 
 var app = express();
 app.set('view engine', 'html');
 app.engine('html', hbs.__express);
 app.use(express.static('static'));
-app.get('/', function(req, res) {
+app.get('/', function(req, res) {    
     res.setHeader('Content-Type', 'text/html; charset=UTF-8');
     res.setHeader('Content-Language', 'sk');
     var dateStr = global.todaysDate.format("D.M.YYYY");
