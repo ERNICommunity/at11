@@ -44,7 +44,6 @@ if(Object.keys(actions).length === 0)
 console.log("Initialization successful (" + Object.keys(actions).length + " of " + config.restaurants.length + ")");
 
 /* global setup */
-global.devMode = false; //if set to true, cache is disabled
 moment.lang('sk');
 global.todaysDate = moment().tz("Europe/Bratislava");
 setInterval(function(){//periodically refresh global time
@@ -55,7 +54,7 @@ var app = express();
 app.set('view engine', 'html');
 app.engine('html', hbs.__express);
 app.use(express.static('static'));
-app.get('/', function(req, res) {    
+app.get('/', function(req, res) {
     res.setHeader('Content-Type', 'text/html; charset=UTF-8');
     res.setHeader('Content-Language', 'sk');
     var dateStr = global.todaysDate.format("D.M.YYYY");

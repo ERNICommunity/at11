@@ -5,11 +5,11 @@ var config = require('./config');
 module.exports = new (function () {
     this.fetchMenu = function (url, parseCallback, doneCallback) {
         var menuObj = cache.get(url);
-        if (menuObj && !global.devMode)
+        if (menuObj && !process.env['AT11_NO_CACHE'])
             doneCallback(menuObj);
         else
             load(url, parseCallback, function (menuObj) {
-                if (menuObj.length > 0 && !(menuObj.length == 1 && menuObj[0].isError == true))
+                if (menuObj.filter(function(item){ return !item.isError; }).length > 0)
                 {
                     cache.set(url, menuObj);
                 }
