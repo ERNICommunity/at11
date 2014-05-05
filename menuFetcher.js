@@ -9,7 +9,10 @@ module.exports = new (function () {
             doneCallback(menuObj);
         else
             load(url, parseCallback, function (menuObj) {
-                cache.set(url, menuObj);
+                if (menuObj.length > 0 && !(menuObj.length == 1 && menuObj[0].isError == true))
+                {
+                    cache.set(url, menuObj);
+                }
                 doneCallback(menuObj);
             });
     };
@@ -17,25 +20,27 @@ module.exports = new (function () {
 
 function load(url, parseCallback, doneCallback) {
     request(url, function (error, response, body) {
-        if (!error && response.statusCode === 200) 
+        if (!error && response.statusCode === 200)
         {
-            var timer = setTimeout(function(){
-                    timer = null;//clear needed as value is kept even after timeout fired
-                    doneCallback([{isError: true, text: "Parser timeout", price: ""}]);
-                }, config.parserTimeout);
-            try {
-                parseCallback(body, function(menuItems) {
-                    if(!timer){
+            var timer = setTimeout(function () {
+                timer = null;//clear needed as value is kept even after timeout fired
+                doneCallback([{ isError: true, text: "Parser timeout", price: "" }]);
+            }, config.parserTimeout);
+            try
+            {
+                parseCallback(body, function (menuItems) {
+                    if (!timer)
+                    {
                         return;//call must be ignored (multiple calls in parser or parser finishing after timeout/error)
                     }
                     clearTimeout(timer);
                     timer = null;//clearTimeout does not null the value
-                    
+
                     if (!Array.isArray(menuItems))
                         throw "Invalid menu returned (expected array, got " + typeof menuItems + ")";
 
                     //check if each menu item has required attributes
-                    menuItems.forEach(function(item) {
+                    menuItems.forEach(function (item) {
                         if (typeof item !== "object")
                             throw "Each item should be object, but got " + typeof item;
                         if (typeof item.isSoup !== "boolean")
@@ -49,17 +54,18 @@ function load(url, parseCallback, doneCallback) {
                     doneCallback(menuItems);
                 });
             }
-            catch (err) {
+            catch (err)
+            {
                 clearTimeout(timer);
                 timer = null;//clearTimeout does not null the value
-                doneCallback([{isError: true, text: err, price: ""}]);
+                doneCallback([{ isError: true, text: err, price: "" }]);
             }
         }
-        else 
+        else
         {
             var menu = new Array();
             if (error || response)
-                menu.push({isError: true, text: error|"", price: response?response.statusCode:""});
+                menu.push({ isError: true, text: error | "", price: response ? response.statusCode : "" });
             doneCallback(menu);
         }
     });
