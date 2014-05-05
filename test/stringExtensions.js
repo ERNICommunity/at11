@@ -1,4 +1,4 @@
-﻿var assert = require('assert'),
+var assert = require('assert'),
 	cache = require('../parsers/parserUtil');
 
 var removeNumberingTests = [
