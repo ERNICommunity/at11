@@ -9,7 +9,7 @@ module.exports = new (function() {
 
         var menu = new Array();
 
-        var menuPic = $('img[src*="ponuka"]').attr('src');
+        var menuPic = $('img[src*="dm-vg"]').attr('src');
 
         request.post({
             headers: { 'Content-type': 'application/x-www-form-urlencoded' },
@@ -18,15 +18,45 @@ module.exports = new (function() {
         }, function(error, response, body) {
             if (!error)
             {
-                //do the real parsing here
-                menu.push({ isSoup: false, text: "success (sort of)", price: NaN });
+                parseMenu(body);
             }
             callback(menu);
         });
 
+        function parseMenu(menuString) {
+
+            var lines = menuString.split('\n');
+            var todayRegEx = new RegExp(global.todaysDate.format('dddd'), 'i');
+            var tomorrowRegEx = new RegExp(global.todaysDate.add('days', 1).format('dddd'), 'i');
+            for (var i = 0; i < lines.length; i++)
+            {
+                if (todayRegEx.test(lines[i]))
+                {
+                    i++;
+                    while (!tomorrowRegEx.test(lines[i]))
+                    {
+                        if (lines[i].trim() != "") { menu.push(lines[i]); }
+                        i++;
+                    }
+                    break;
+                }
+            }
+
+            menu = menu.map(function(item) {
+                var priced = parserUtil.parsePrice(normalize(item));
+                return { isSoup: /polievka/i.test(priced.text), text: priced.text.replace(/polievka:\s*/i, ""), price: priced.price };
+            });
+
+            callback(menu);
+
+        }
+
         function normalize(str) {
             return str.normalizeWhitespace()
-				.removeItemNumbering();
+                .removeItemNumbering()
+                .tidyAfterOCR()
+                .replace(/[\d\s,]*$/, "")
+                .removeMetrics();
         }
     };
 })();

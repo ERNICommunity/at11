@@ -4,16 +4,21 @@ var assert = require('assert'),
 var removeNumberingTests = [
     { input: "1.) Kurací steak s bylinkovou omáčkou, pečené zemiaky, obloha", result: "Kurací steak s bylinkovou omáčkou, pečené zemiaky, obloha" },
     { input: "Držková polievka, chlieb", result: "Držková polievka, chlieb" },
-    { input: "3 .350g Zapekaná brokolica so syrom, varené zemiaky, šalát", result: "350g Zapekaná brokolica so syrom, varené zemiaky, šalát" }
+    { input: "3 .350g Zapekaná brokolica so syrom, varené zemiaky, šalát", result: "350g Zapekaná brokolica so syrom, varené zemiaky, šalát" },
+    { input: " l. Sviečková na smotane", result: "Sviečková na smotane" },
+    { input: "2.A 200 g Šošovicová omáčka s volským okom, chlieb € 3,50", result: "200 g Šošovicová omáčka s volským okom, chlieb € 3,50" }
+    
 ];
 
 var removeMetricsTests = [
     { input: "1.   Znojemská hovädzia pečienka 64/150g, tarhoňa 190g", result: "1.   Znojemská hovädzia pečienka , tarhoňa" },
+    { input: "Sviečková na smotane 64/ 1 50g, knedľa 160g", result: "Sviečková na smotane , knedľa" },
     { input: "Držková polievka, chlieb", result: "Držková polievka, chlieb" },
     { input: "150g.GRILOVANÁ PANENKA, OMÁČKA Z LESNÝCH KURIATOK, PEČENÉ ZEMIAKY 4,20€", result: "GRILOVANÁ PANENKA, OMÁČKA Z LESNÝCH KURIATOK, PEČENÉ ZEMIAKY 4,20€" },
     { input: "1o0g bravčové pečené, kapusta, knedľa", result: "bravčové pečené, kapusta, knedľa" },
     { input: "1OOg bravčové pečené, kapusta, knedľa", result: "bravčové pečené, kapusta, knedľa" },
-    { input: "10Og bravčové pečené, kapusta, knedľa", result: "bravčové pečené, kapusta, knedľa" }
+    { input: "10Og bravčové pečené, kapusta, knedľa", result: "bravčové pečené, kapusta, knedľa" },
+    { input: "menu č.4  po vypredaní menu č. 1 a 2 do 13:00 h: 180 g Vyprážaný kurací rezeň s opekanými zemiakmi, tatárska omáčka", result: "menu č.4  po vypredaní menu č. 1 a 2 do 13:00 h: Vyprážaný kurací rezeň s opekanými zemiakmi, tatárska omáčka" }
 ];
 
 var normalizeWhitespaceTests = [

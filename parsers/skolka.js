@@ -63,10 +63,10 @@ module.exports = new (function() {
         }
 
         function normalize(str) {
-            return str.normalizeWhitespace()
-                .tidyAfterOCR()
+            return str.tidyAfterOCR()
 				.removeItemNumbering()
                 .removeMetrics()
+                .normalizeWhitespace()
                 .correctCommaSpacing();
         }
     };

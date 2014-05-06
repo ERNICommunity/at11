@@ -25,16 +25,21 @@ function charToUnicode(character) {
 
 var accentPairs = [
 { key: 'a', value: 'á' },
-{ key: 'e', value: 'é' }
+{ key: 'e', value: 'é' },
+{ key: 'i', value: 'í' },
+{ key: 'o', value: 'ó' },
+{ key: 'u', value: 'ú' }
 ];
 
 global.String.prototype.tidyAfterOCR = function () {
-    return this.replace(/(\w)[`']/g, function(m,g) {
-        var pair= accentPairs.filter(function(item) { return item.key == g; });
-        if (pair.length > 0) {
+    return this.replace(/(\w)[`']/g, function(m, g) {
+        var pair = accentPairs.filter(function(item) { return item.key == g; });
+        if (pair.length > 0)
+        {
             return pair[0].value;
-        } else return "";
-    });
+        }
+        else return "";
+    }).replace('%:', '€');
 };
 
 global.String.prototype.normalizeWhitespace = function () {
@@ -49,7 +54,7 @@ global.String.prototype.correctCommaSpacing = function () {
 
 global.String.prototype.removeMetrics = function () {
     //after metrics removal there might be whitespaces left at the ends so trim it afterwards
-    return this.replace(/\(?(\d*\/)*[\doO]+ *,?[\doO]+ *[lg]\)?\.? */g, '').trim();
+    return this.replace(/\(?(\d*\/)*[\doO\s]+ *,?[\doO]+ *[lg]\)?\.?/g, '').trim();
 };
 
 global.String.prototype.capitalizeFirstLetter = function () {
@@ -57,7 +62,7 @@ global.String.prototype.capitalizeFirstLetter = function () {
 };
 
 global.String.prototype.removeItemNumbering = function () {
-    return this.replace(/^[\w\d] *[\)\.]+\s*/m, '');
+    return this.trim().replace(/^[\w\d] *[\)\.]+[AB]?\s*/, '').trim();
 };
 
 module.exports.parseTheme = function (req) {
