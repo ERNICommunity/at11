@@ -3,13 +3,17 @@ var assert = require('assert'),
 
 var removeNumberingTests = [
     { input: "1.) Kurací steak s bylinkovou omáčkou, pečené zemiaky, obloha", result: "Kurací steak s bylinkovou omáčkou, pečené zemiaky, obloha" },
-    { input: "Držková polievka, chlieb", result: "Držková polievka, chlieb" }
+    { input: "Držková polievka, chlieb", result: "Držková polievka, chlieb" },
+    { input: "3 .350g Zapekaná brokolica so syrom, varené zemiaky, šalát", result: "350g Zapekaná brokolica so syrom, varené zemiaky, šalát" }
 ];
 
 var removeMetricsTests = [
     { input: "1.   Znojemská hovädzia pečienka 64/150g, tarhoňa 190g", result: "1.   Znojemská hovädzia pečienka , tarhoňa" },
     { input: "Držková polievka, chlieb", result: "Držková polievka, chlieb" },
-    { input: "150g.GRILOVANÁ PANENKA, OMÁČKA Z LESNÝCH KURIATOK, PEČENÉ ZEMIAKY 4,20€", result: "GRILOVANÁ PANENKA, OMÁČKA Z LESNÝCH KURIATOK, PEČENÉ ZEMIAKY 4,20€" }
+    { input: "150g.GRILOVANÁ PANENKA, OMÁČKA Z LESNÝCH KURIATOK, PEČENÉ ZEMIAKY 4,20€", result: "GRILOVANÁ PANENKA, OMÁČKA Z LESNÝCH KURIATOK, PEČENÉ ZEMIAKY 4,20€" },
+    { input: "1o0g bravčové pečené, kapusta, knedľa", result: "bravčové pečené, kapusta, knedľa" },
+    { input: "1OOg bravčové pečené, kapusta, knedľa", result: "bravčové pečené, kapusta, knedľa" },
+    { input: "10Og bravčové pečené, kapusta, knedľa", result: "bravčové pečené, kapusta, knedľa" }
 ];
 
 var normalizeWhitespaceTests = [
