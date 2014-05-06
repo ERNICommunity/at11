@@ -15,6 +15,7 @@ module.exports = new (function() {
         {
             request.post({
                 headers: { 'Content-type': 'application/x-www-form-urlencoded' },
+                //url: 'http://localhost:64581/api/process/encoded',
                 url: 'http://localhost:64581/api/process/encoded',
                 body: "=" + encodeURIComponent(pic)
             }, function(error, response, body) {
@@ -64,8 +65,10 @@ module.exports = new (function() {
 
         function normalize(str) {
             return str.normalizeWhitespace()
+                .tidyAfterOCR()
 				.removeItemNumbering()
-                .removeMetrics();
+                .removeMetrics()
+                .correctCommaSpacing();
         }
     };
 })();
