@@ -1,6 +1,7 @@
 var cheerio = require('cheerio');
 var parserUtil = require('./parserUtil');
 var request = require('request');
+var moment = require('moment-timezone');
 
 module.exports = new (function() {
     this.parse = function(html, callback) {
@@ -27,7 +28,7 @@ module.exports = new (function() {
 
             var lines = menuString.split('\n');
             var todayRegEx = new RegExp(global.todaysDate.format('dddd'), 'i');
-            var tomorrowRegEx = new RegExp(global.todaysDate.add('days', 1).format('dddd'), 'i');
+            var tomorrowRegEx = new RegExp(moment(global.todaysDate).add('days', 1).format('dddd'), 'i');
             for (var i = 0; i < lines.length; i++)
             {
                 if (todayRegEx.test(lines[i]))
