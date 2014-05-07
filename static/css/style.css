@@ -1,7 +1,7 @@
 html, body {
     margin: 0;
     padding: 0;
-    font-family: Arial, Helvetica, "Sans serif";
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     background-color: white;
     color: rgb(50,50,50);
 }
