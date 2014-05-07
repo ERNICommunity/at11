@@ -24,11 +24,13 @@ module.exports = new (function() {
             callback(menu);
         });
 
-        function parseMenu(menuString) {
-
-            var lines = menuString.split('\n');
+        function parseMenu(menuString)
+        {
+            var lines = menuString.split('\n').filter(function(val) {
+                return val.trim();
+            });
             var todayRegEx = new RegExp(global.todaysDate.format('dddd'), 'i');
-            var tomorrowRegEx = new RegExp(moment(global.todaysDate).add('days', 1).format('dddd'), 'i');
+            var tomorrowRegEx = new RegExp(global.todaysDate.clone().add('days', 1).format('dddd')+ "|šalát", 'i');//friday ends with salatove menu
             for (var i = 0; i < lines.length; i++)
             {
                 if (todayRegEx.test(lines[i]))
@@ -36,7 +38,7 @@ module.exports = new (function() {
                     i++;
                     while (!tomorrowRegEx.test(lines[i]))
                     {
-                        if (lines[i].trim() != "") { menu.push(lines[i]); }
+                        menu.push(lines[i]);
                         i++;
                     }
                     break;

@@ -30,23 +30,30 @@ module.exports = new (function() {
             parseMenu($('div.entry-content', '#post-2').text());
         }
 
-        function parseMenu(menuString) {
-
+        function parseMenu(menuString)
+        {
             var lines = menuString.split("\n").filter(function(val) {
-                return !/^\s*$/.test(val);
+                return val.trim();
             });
             var now = global.todaysDate;
-            var todayReg = new RegExp("^\\s*0?" + now.date() + "\\.\\s*0?" + (now.month() + 1) + "\\.\\s*" + now.year());
-            var dayReg = new RegExp("^" + now.format("dddd"), "i");
+            var dateReg = new RegExp("^\\s*0?" + now.date() + "\\.\\s*0?" + (now.month() + 1) + "\\.\\s*" + now.year());
+            var todayNameReg = new RegExp("^" + now.format("dddd"), "i");
             var price;
             for (var i = 0; i < lines.length; i++)
             {
-                if (dayReg.test(lines[i]))
+                if (todayNameReg.test(lines[i]))
                 {
-                    menu.push(normalize(lines[i].replace(dayReg, "")) || "Dnes nie je menu");
-                    if (menu[0] == "Dnes nie je menu") { break; }
-                    menu.push(normalize(lines[i + 1].replace(todayReg, "")));
-                    menu.push(normalize(lines[i + 2]));
+                    for(var offset = 0; offset < 3; offset++)//3 menu lines each day
+                    {
+                        var txt = lines[i+offset];
+                        if(offset === 0)
+                            txt = txt.replace(todayNameReg, "");
+                        if(offset === 1)
+                            txt = txt.replace(dateReg, "");   
+                        txt = normalize(txt);
+                        if(txt)
+                            menu.push(txt);
+                    }
                 }
                 if (/Hodnota stravy/.test(lines[i]))
                 {
@@ -56,7 +63,7 @@ module.exports = new (function() {
 
             //convert to menu item object
             menu = menu.map(function(item, index) {
-                return { isSoup: index === 0 && item != "Dnes nie je menu", text: item, price: index === 0 ? NaN : price };
+                return { isSoup: /polievka/i.test(item), text: item, price: index === 0 ? NaN : price };
             });
 
             callback(menu);
