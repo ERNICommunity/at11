@@ -18,12 +18,29 @@ var parsePriceTests = [
     { input: "text 1eur3.50 text", result: { price: 1, text: "text 3.50 text" } }
 ];
 
-describe('Parse price', function() {
+var ocrCleanup = [
+    { input: "texta' textl`", result: "textá textľ" },
+    { input: "pri'prava môže trvat' 10 minu't", result: "príprava môže trvať 10 minút" },
+    { input: "hlavne' jedlo", result: "hlavné jedlo" },
+    { input: "duseny` po`r", result: "dusený pór" }
+];
+
+describe('Parser Utils', function() {
+    
+    describe('Parse price', function() {
         parsePriceTests.forEach(function(item) {
             it(item.input, function() {
                 var priced = parserUtil.parsePrice(item.input);
                 assert.deepEqual(priced, item.result);
             });
-        }
-        );
+        });
     });
+
+    describe('OCR cleanup', function() {
+        ocrCleanup.forEach(function(item) {
+            it(item.input, function() {
+                assert.equal(item.input.tidyAfterOCR(), item.result);
+            });
+        });
+    });
+});

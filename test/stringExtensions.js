@@ -46,29 +46,29 @@ var capitalizeFirstLetter = [
 ];
 
 describe('Text extension methods', function() {
+    
     describe('Remove item numbering', function() {
         removeNumberingTests.forEach(function(item) {
             it(item.input, function() {
                 assert.equal(item.input.removeItemNumbering(), item.result);
             });
-        }
-        );
+        });
     });
+    
     describe('Remove metrics', function() {
         removeMetricsTests.forEach(function(item) {
             it(item.input, function() {
                 assert.equal(item.input.removeMetrics(), item.result);
             });
-        }
-        );
+        });
     });
+    
     describe('Normalize whitespace', function() {
         normalizeWhitespaceTests.forEach(function(item) {
             it(item.input, function() {
                 assert.equal(item.input.normalizeWhitespace(), item.result);
             });
-        }
-        );
+        });
     });
     
     describe('Consistent whitespace used', function() {
@@ -76,8 +76,7 @@ describe('Text extension methods', function() {
             it(item.input, function() {
                 assert.equal(item.input.normalizeWhitespace(), item.result);
             });
-        }
-        );
+        });
     });
 
     describe('Correct comma spacing', function() {
@@ -85,8 +84,7 @@ describe('Text extension methods', function() {
             it(item.input, function() {
                 assert.equal(item.input.correctCommaSpacing(), item.result);
             });
-        }
-        );
+        });
     });
 
     describe('Capitalize first letter', function() {
@@ -94,7 +92,6 @@ describe('Text extension methods', function() {
             it(item.input, function() {
                 assert.equal(item.input.capitalizeFirstLetter(), item.result);
             });
-        }
-        );
+        });
     });
 });

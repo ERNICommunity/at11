@@ -13,32 +13,11 @@ module.exports.parsePrice = function (item) {
     };
 };
 
-function charToUnicode(character) {
-    var codeHex = character.toString(16).toUpperCase();
-    while (codeHex.length < 4)
-    {
-        codeHex = "0" + codeHex;
-    }
-
-    return codeHex;
-}
-
-var accentPairs = [
-{ key: 'a', value: 'á' },
-{ key: 'e', value: 'é' },
-{ key: 'i', value: 'í' },
-{ key: 'o', value: 'ó' },
-{ key: 'u', value: 'ú' }
-];
+var accentPairs = {'a': "á", 'e': 'é', 'i': 'í', 'o': 'ó', 'u': 'ú', 'y': 'ý', 't': 'ť', 'l': 'ľ'};
 
 global.String.prototype.tidyAfterOCR = function () {
     return this.replace(/(\w)[`']/g, function(m, g) {
-        var pair = accentPairs.filter(function(item) { return item.key == g; });
-        if (pair.length > 0)
-        {
-            return pair[0].value;
-        }
-        else return "";
+        return accentPairs[g] || m;
     }).replace('%:', '€');
 };
 
