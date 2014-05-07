@@ -6,9 +6,7 @@ describe('Moment', function() {
         var m = moment().tz("Europe/Bratislava");
 
         it(m.toString(), function() {
-            assert.equal(m.format('dddd'), moment(Date.now()).format('dddd'));
+            assert.equal(m.format('dddd'), moment(Date.now()).tz("Europe/Bratislava").format('dddd'));
         });
-
-
     });
 });
