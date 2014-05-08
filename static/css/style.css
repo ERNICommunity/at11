@@ -78,56 +78,43 @@ section ul li > *.price {
     text-align: right;
     padding-left: 0.5em;
 }
-section ul li:before {
-    content: "\f0f5";
+section ul li > *:first-child {
     font-family: FontAwesome;
     font-weight: normal;
     font-size: 0.875em;
-    display: table-cell;
-    width: 1em;
     text-align: center;
-    padding: 0 0.5em;
+    width: 2em;
 }
 section ul li.soup {
     font-weight: bold;
 }
-section ul li.soup:before {
-    content: "\f0f4";
-}
 section ul li.error {
     color: #a94442;
 }
-section ul li.error:before {
-    content: "\f06a";
-    border-top-left-radius: 4px;
-    border-bottom-left-radius: 4px;
+section ul li.error > * {
+    padding: 0.5em 0;
     background-color: #f2dede;
 }
-section ul li.error > * {
-    padding: 10px 0.5em 10px 0;
+section ul li.error > *:first-child {
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+}
+section ul li.error > *:last-child {
     border-top-right-radius: 4px;
-    border-bottom-right-radius: 4px;
-    background-color: #f2dede;
+    border-bottom-right-radius: 4px;   
 }
 section i {
     display: block;
     font-size: 0.7em;
     text-align: right;
+    margin-right: 0.5em;
 }
 
 /* theme switching */
 button.themeSwitcher {
     background-color: rgb(210,210,210);
-    border: 1px outset rgb(50,50,50);
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
-    border-radius: 3px;
-    line-height: 1;
+    border: 1px solid rgb(50,50,50);
     padding: 8px 0;
     text-align: center;
     width: 150px;
-}
-
-button.themeSwitcher:active {
-    border-style: inset;
 }
