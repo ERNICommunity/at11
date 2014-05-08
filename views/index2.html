@@ -7,14 +7,13 @@
     <meta name="description" content="Obedové menu pri ERNI SK">
 
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-
     <link href="css/style2.css" type="text/css" rel="stylesheet">
     <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
     <script src="js/script2.js"></script>
-</head>
-<body>
+
     <script type="text/javascript">
         (function($) {
             $.fn.hasScrollBar = function() {
@@ -25,14 +24,16 @@
         $(function() {
             selectRestaurant(GetCookie("restaurant") || 1);
 
-            if (!$('html').hasScrollBar()) {
+            if (!$('html').hasScrollBar())
+            {
                 $('#padding').addClass('hidden');
             }
 
             $(document).keyup(function(e) {
                 e.preventDefault();
 
-                if (e.keyCode == 38) { //UP arrow
+                if (e.keyCode == 38)
+                { //UP arrow
                     var selectedRestaurant = parseInt(findSelectedRestaurantId());
                     var restaurantCount = $('#navigationBar li').length + 1;
 
@@ -42,7 +43,8 @@
                     selectRestaurant(selectedRestaurant)
 
                 }
-                if (e.keyCode == 40) { //DOWN arrow
+                if (e.keyCode == 40)
+                { //DOWN arrow
                     var selectedRestaurant = parseInt(findSelectedRestaurantId());
                     var restaurantCount = $('#navigationBar li').length + 1;
 
@@ -52,7 +54,8 @@
                     selectRestaurant(selectedRestaurant)
                 }
 
-                if (e.keyCode == 13) { //ENTER
+                if (e.keyCode == 13)
+                { //ENTER
                     window.open($("li.active > a").data("url"), '_blank');
                 }
 
@@ -62,11 +65,18 @@
                 SetCookie("restaurant", $(this).attr("href").slice("#restaurant".length), 365);
             })
             $('a[data-toggle="pill"]').parent().on('click', function(e) {
-                if ($(this).hasClass("active")) {
+                if ($(this).hasClass("active"))
+                {
                     window.open($("li.active > a").data("url"), '_blank');
                 }
             })
 
+            $("header, footer").contents().each(function() {
+                if (this.nodeType == 3)
+                {
+                    this.remove();
+                }
+            });
         });
 
         function selectRestaurant(id) {
@@ -96,36 +106,23 @@
 
         function GetCookie(cookieName) {
             var i, x, y, ARRcookies = document.cookie.split("; ");
-            for (i = 0; i < ARRcookies.length; i++) {
+            for (i = 0; i < ARRcookies.length; i++)
+            {
                 x = ARRcookies[i].substr(0, ARRcookies[i].indexOf("="));
                 y = ARRcookies[i].substr(ARRcookies[i].indexOf("=") + 1);
                 x = x.replace(/^\s+|\s+$/g, "");
-                if (x == cookieName) {
+                if (x == cookieName)
+                {
                     return unescape(y);
                 }
             }
         }
     </script>
-    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
-        <div class="row">
-            <div class="col-xs-1 visible-xs" style="width: 15px;"></div>
-            <div class="col-xs-1 hidden-xs"></div>
-            <div class="col-xs-5 col-md-3">
-                <h1>Dnešné menu</h1>
-            </div>
-            <div class="col-xs-3 col-md-5" style="margin-top: 13px;">
-                <h3>{{date}}</h3>
-            </div>
-            <div class="col-xs-1 visible-xs"></div>
-            <div class="col-xs-3"></div>
-            <div class="col-xs-3" style="margin-top: 12px;">
-                <form style="margin-right: 15px;">
-                    <input type="hidden" name="theme" value="index" />
-                    <button type="submit" class="btn btn-lg">Prepnúť tému</button>
-                </form>
-            </div>
-        </div>
-    </nav>
+</head>
+<body>
+    <header>
+        {{> header}}
+    </header>
     <div class="container-fluid" style="margin-top: 89px;">
         <div class="row">
             <div class="col-xs-3">
@@ -155,24 +152,6 @@
             <span>.</span>
         </div>
     </div>
-    <nav class="navbar navbar-default navbar-fixed-bottom" role="navigation" style="font-size: 15px;">
-        <div class="container-fluid">
-            <div class="alert alert-warning visible-md visible-lg row">
-                <b>Tip:</b> na navigáciu medzi reštauráciami môžete použiť šípky <i>HORE</i>
-                a <i>DOLE</i>, <i>ENTER</i> alebo druhé kliknutie na reštauráciu otvorí web vybranej reštaurácie.
-            </div>
-            <div class="row well" style="margin-bottom: 0px;">
-                <div class="col-xs-6">
-                    <a href="http://en.wikipedia.org/wiki/Copyleft" target="_blank" title="copyleft"
-                        style="display: inline-block; -webkit-transform: scaleX(-1); transform: scaleX(-1);">©</a>
-                    ALL WRONGS RESERVED
-                </div>
-                <div class="col-xs-1 col-xs-offset-5">
-                    <a style="float: right" href="https://github.com/at11/at11/issues" target="_blank"
-                        class="github">GitHub</a>
-                </div>
-            </div>
-        </div>
-    </nav>
+    <footer>{{> footer}}</footer>
 </body>
 </html>

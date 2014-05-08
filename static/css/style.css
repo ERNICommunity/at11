@@ -5,46 +5,57 @@ html, body {
     background-color: white;
     color: rgb(50,50,50);
 }
+
 a, a:active, a:visited {
     text-decoration: inherit;
     color: inherit;
 }
+
 header, footer {
     width: 100%;
     display: table;
     background-color: rgb(210,210,210);
 }
-header > *, footer > * {
-    display: table-cell;
-    vertical-align: middle;
-    padding: 0.5em 0;
-}
-header > *:first-child, footer > *:first-child {
-    text-align: left;
-    padding-left: 50px;
-}
-header > *:last-child, footer > *:last-child {
-    text-align: right;
-    padding-right: 50px;
-}
-header h1 {
-    font-size: 4em;
-}
-header h1 > span {
-    color: rgb(180,180,180);
-    white-space: nowrap;
-}
+
+    header > *, footer > * {
+        display: table-cell;
+        vertical-align: middle;
+        padding: 0.5em 0;
+    }
+
+        header > *:first-child, footer > *:first-child {
+            text-align: left;
+            padding-left: 50px;
+        }
+
+        header > *:last-child, footer > *:last-child {
+            text-align: right;
+            padding-right: 50px;
+        }
+
+    header h1 {
+        font-size: 4em;
+    }
+
+        header h1 > span {
+            color: rgb(180,180,180);
+            white-space: nowrap;
+        }
+
 footer {
     font-size: 0.8em;
 }
-footer a.github  {
-    font-weight: bold;
-    padding-left: 20px;
-    background: transparent url('../img/github.png') no-repeat left center;
-}
+
+    footer a.github {
+        font-weight: bold;
+        padding-left: 20px;
+        background: transparent url('../img/github.png') no-repeat left center;
+    }
+
 body > div {
     margin: 10px 40px;
 }
+
 section {
     display: inline-block;
     vertical-align: top;
@@ -54,61 +65,74 @@ section {
     border: 1px solid gray;
     background-color: rgb(250,250,250);
 }
-section h2 {
-    font-size: 2em;
-    margin: 0.5em 0;
-}
-section h2 a:hover:after {
-    content: " >";
-    color: rgb(210,210,210);
-}
-section ul {
-    display: table;
-    width: 29em;
-    padding-left: 0.5em;
-}
-section ul li {
-    display: table-row;
-}
-section ul li > * {
-    display: table-cell;
-}
-section ul li > *.price {
-    white-space: nowrap;
-    text-align: right;
-    padding-left: 0.5em;
-}
-section ul li > *:first-child {
-    font-family: FontAwesome;
-    font-weight: normal;
-    font-size: 0.875em;
-    text-align: center;
-    width: 2em;
-}
-section ul li.soup {
-    font-weight: bold;
-}
-section ul li.error {
-    color: #a94442;
-}
-section ul li.error > * {
-    padding: 0.5em 0;
-    background-color: #f2dede;
-}
-section ul li.error > *:first-child {
-    border-top-left-radius: 4px;
-    border-bottom-left-radius: 4px;
-}
-section ul li.error > *:last-child {
-    border-top-right-radius: 4px;
-    border-bottom-right-radius: 4px;   
-}
-section i {
-    display: block;
-    font-size: 0.7em;
-    text-align: right;
-    margin-right: 0.5em;
-}
+
+    section h2 {
+        font-size: 2em;
+        margin: 0.5em 0;
+    }
+
+        section h2 a:hover:after {
+            content: " >";
+            color: rgb(210,210,210);
+        }
+
+    section ul {
+        display: table;
+        width: 29em;
+        padding-left: 0.5em;
+    }
+
+        section ul li {
+            display: table-row;
+        }
+
+            section ul li > * {
+                display: table-cell;
+            }
+
+                section ul li > *.price {
+                    white-space: nowrap;
+                    text-align: right;
+                    padding-left: 0.5em;
+                }
+
+                section ul li > *:first-child {
+                    font-family: FontAwesome;
+                    font-weight: normal;
+                    font-size: 0.875em;
+                    text-align: center;
+                    width: 2em;
+                }
+
+            section ul li.soup {
+                font-weight: bold;
+            }
+
+            section ul li.error {
+                color: #a94442;
+            }
+
+                section ul li.error > * {
+                    padding: 0.5em 0;
+                    background-color: #f2dede;
+                }
+
+                    section ul li.error > *:first-child {
+                        border-top-left-radius: 4px;
+                        border-bottom-left-radius: 4px;
+                    }
+
+                    section ul li.error > *:last-child {
+                        border-top-right-radius: 4px;
+                        border-bottom-right-radius: 4px;
+                    }
+
+    section i {
+        display: block;
+        font-size: 0.7em;
+        text-align: right;
+        margin-right: 0.5em;
+    }
 
 /* theme switching */
 button.themeSwitcher {
@@ -117,4 +141,68 @@ button.themeSwitcher {
     padding: 8px 0;
     text-align: center;
     width: 150px;
+}
+
+.dropdown-menu {
+    position: absolute;
+    right: 0;
+    z-index: 1000;
+    display: none;
+    float: left;
+    min-width: 160px;
+    padding: 5px 0;
+    margin: 2px 0 0;
+    list-style: none;
+    font-size: 14px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border: 1px solid rgba(0,0,0,.15);
+    border-radius: 4px;
+    -webkit-box-shadow: 0 6px 12px rgba(0,0,0,.175);
+    box-shadow: 0 6px 12px rgba(0,0,0,.175);
+    background-clip: padding-box;
+    background-color: rgb(210,210,210);
+    text-align: left;
+}
+
+.open > .dropdown-menu {
+    display: block;
+}
+
+.caret {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    margin-left: 2px;
+    vertical-align: middle;
+    border-top: 4px solid;
+    border-right: 4px solid transparent;
+    border-left: 4px solid transparent;
+}
+
+.btn-link, .btn-link:hover, .btn-link:focus, .btn-link:active {
+    border-color: transparent;
+    background-color: transparent;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+.btn {
+    display: inline-block;
+    margin-bottom: 0;
+    font-weight: 400;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    background-image: none;
+    border: 1px solid transparent;
+    white-space: nowrap;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    border-radius: 4px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }

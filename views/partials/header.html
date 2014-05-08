@@ -1,0 +1,33 @@
+﻿<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="row">
+        <div class="col-xs-1 visible-xs" style="width: 15px;"></div>
+        <div class="col-xs-1 hidden-xs"></div>
+        <div class="col-xs-5 col-md-3">
+            <h1>Dnešné menu</h1>
+        </div>
+        <div class="col-xs-3 col-md-5" style="margin-top: 13px;">
+            <h3>{{date}}</h3>
+        </div>
+        <div class="col-xs-1 visible-xs"></div>
+        <div class="col-xs-3"></div>
+        <div class="col-xs-3" style="margin-top: 12px;">
+            <ul class="nav nav-pills">
+                <li class="dropdown">
+                    <a role="button" data-toggle="dropdown" href="#">Prepnúť tému
+                    <b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                        {{#each themes}}
+                        <li role="presentation">
+                            <form style="margin-right: 15px;">
+                                <input type="hidden" name="theme" value="{{this.id}}" />
+                                <button type="submit" class="btn btn-link">{{this.name}}</button>
+                            </form>
+                        </li>
+                        {{/each}}
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
