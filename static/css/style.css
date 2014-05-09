@@ -11,10 +11,16 @@ a, a:active, a:visited {
     color: inherit;
 }
 
+header, footer, section {
+    border-width: 1px;
+    border-color: gray;
+    background-color: rgb(250,250,250);
+    box-shadow: 0.1em 0.1em gray; 
+}
+
 header, footer {
     width: 100%;
     display: table;
-    background-color: rgb(210,210,210);
 }
 
     header > *, footer > * {
@@ -31,19 +37,24 @@ header, footer {
         header > *:last-child, footer > *:last-child {
             text-align: right;
             padding-right: 50px;
-        }
+        }       
+
+header {
+    border-bottom-style: solid;
+}
 
     header h1 {
-        font-size: 4em;
+        font-size: 3em;
     }
 
         header h1 > span {
-            color: rgb(180,180,180);
+            color: rgb(210,210,210);
             white-space: nowrap;
         }
 
 footer {
     font-size: 0.8em;
+    border-top-style: solid;
 }
 
     footer a.github {
@@ -62,8 +73,7 @@ section {
     width: 30em;
     margin: 10px;
     padding: 1em;
-    border: 1px solid gray;
-    background-color: rgb(250,250,250);
+    border-style: solid;
 }
 
     section h2 {
@@ -146,18 +156,14 @@ section {
     margin: 2px 0 0;
     list-style: none;
     font-size: 0.8em;
-    background-color: rgb(210,210,210);
+    background-color: white;
     border: 1px solid gray;
-    -webkit-box-shadow: 0 6px 12px rgba(0,0,0,.175);
     box-shadow: 0 6px 12px rgba(0,0,0,.175);
-    background-clip: padding-box;
-    text-align: left
+    text-align: left;
 }
-
 .open > .dropdown-menu {
     display: block;
 }
-
 .caret {
     display: inline-block;
     width: 0;
