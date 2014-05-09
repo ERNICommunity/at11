@@ -2,12 +2,12 @@ var express = require('express');
 var hbs = require('hbs');
 var moment = require("moment-timezone");
 var fs = require('fs');
-var themes=require('./themes')
 
 //our modules
 var config = require('./config');
 var menuFetcher = require('./menuFetcher');
 var parserUtil = require('./parsers/parserUtil');
+var themes = require('./themes')
 
 console.log("Initializing...");
 var actions = {};
@@ -45,13 +45,22 @@ if (Object.keys(actions).length === 0)
 }
 console.log("Initialization successful (" + Object.keys(actions).length + " of " + config.restaurants.length + ")");
 
-/* global setup */
+console.log("Registering partials...");
+var template = fs.readFileSync(__dirname + '/views/partials/header.html', { encoding: "utf-8" });
+hbs.registerPartial("header", template);
+template = fs.readFileSync(__dirname + '/views/partials/footer.html', { encoding: "utf-8" });
+hbs.registerPartial("footer", template);
+console.log("Done");
+
+console.log("Global setup...");
 moment.lang('sk');
 global.todaysDate = moment().tz("Europe/Bratislava");
 setInterval(function() {//periodically refresh global time
     global.todaysDate = moment().tz("Europe/Bratislava");
 }, config.globalTickInterval);
+console.log("Done");
 
+console.log("Express setup...");
 var app = express();
 app.set('view engine', 'html');
 app.engine('html', hbs.__express);
@@ -63,10 +72,6 @@ app.get('/', function(req, res) {
     var theme = parserUtil.parseTheme(req);
 
     res.setHeader("Set-Cookie", ["theme=" + theme.id]);
-    var template = fs.readFileSync(__dirname + '/views/partials/header.html', { encoding: "utf-8" });
-    hbs.registerPartial("header", template);
-    template = fs.readFileSync(__dirname + '/views/partials/footer.html', { encoding: "utf-8" });
-    hbs.registerPartial("footer", template);
     res.render(theme.template, { date: dateStr, restaurants: config.restaurants, themes: themes.themes });
 });
 app.get('/menu/:id', function(req, res) {
@@ -82,5 +87,7 @@ app.get('/menu/:id', function(req, res) {
         });
     }
 });
+console.log("Done");
+
 app.listen(config.port);
 console.log('Listening on port ' + config.port + '...');
