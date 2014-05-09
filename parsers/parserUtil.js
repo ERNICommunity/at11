@@ -1,5 +1,4 @@
-var urlModule = require('url');
-var themes = require('../themes');
+var config = require('../config');
 
 module.exports.parsePrice = function(item) {
     var priceRegex = /(\d+(?:[\.,]\d+)?)[\.,]?\s*(?:€|Eur)/i;
@@ -46,17 +45,16 @@ global.String.prototype.removeItemNumbering = function() {
 };
 
 module.exports.parseTheme = function(req) {
-    var parsedUrl = urlModule.parse(req.url, true);
     var cookies = this.parseCookies(req);
 
-    //if no parameter is defined in URL, use cookies (if any)
-    if (!parsedUrl.query.theme && typeof (cookies.theme) != "undefined")
+    //if no theme parameter is defined in URL, but it is in cookies
+    if (!req.params.theme && typeof cookies.theme !== "undefined")
     {
-        return themes.themes[cookies.theme] || themes.themes[1];
+        return config.themes[cookies.theme] ? cookies.theme : "jano";
     }
 
     //use parameter from URL or default if not defined
-    return themes.themes[(parsedUrl.query && parsedUrl.query.theme)] || themes.themes[1];
+    return config.themes[req.params.theme] ? req.params.theme : "jano";
 };
 
 module.exports.parseCookies = function(request) {

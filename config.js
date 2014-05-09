@@ -13,5 +13,10 @@ module.exports = {
         {id: 7, name: "Kamenica - Corleone Pizza", url: "http://restauracie.sme.sk/restauracia/kamenica-corleone-pizza_660-petrzalka_664/denne-menu", module: "sme"},
         {id: 8, name: "Numero Uno", url: "http://www.numerouno.sk/denne-menu-5/", module: "numerouno"},
         {id: 9, name: "Engerau restaurant", url: "http://www.obedovat.sk/restauracia/241-engerau-restaurant/denne-menu", module: "obedovat"}
-    ]
+    ],
+    themes: {
+        "jano": { name: "Jano", template: "../views/index.html" },
+        "igor": { name: "Igor", template: "../views/index2.html" },
+        "matus": { name: "Matúš", template: "../views/index3.html" }
+    }
 };

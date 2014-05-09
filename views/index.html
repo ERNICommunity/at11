@@ -14,21 +14,16 @@
     <body>
         <header>
             <h1>Dnešné menu <span>({{date}})</span></h1>
-               <div>
-                    <a role="button" data-toggle="dropdown" href="#">Prepnúť tému
-                    <b class="caret"></b>
-                    </a>
-                    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                        {{#each themes}}
-                        <li role="presentation">
-                            <form style="margin-right: 15px;">
-                                <input type="hidden" name="theme" value="{{this.id}}" />
-                                <button type="submit" class="btn btn-link">{{this.name}}</button>
-                            </form>
-                        </li>
-                        {{/each}}
-                    </ul>
-            </div>
+            <div>
+                 <a id="dLabel" role="button" data-toggle="dropdown" href="#">Prepnúť tému<b class="caret"></b></a>
+                 <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                     {{#each themes}}
+                     <li role="presentation">
+                         <a href="/{{@key}}" class="btn">{{this.name}}</a>
+                     </li>
+                     {{/each}}
+                 </ul>
+             </div>
         </header>
 
         <div id="container">

@@ -7,7 +7,6 @@ var fs = require('fs');
 var config = require('./config');
 var menuFetcher = require('./menuFetcher');
 var parserUtil = require('./parsers/parserUtil');
-var themes = require('./themes')
 
 console.log("Initializing...");
 var actions = {};
@@ -65,14 +64,14 @@ var app = express();
 app.set('view engine', 'html');
 app.engine('html', hbs.__express);
 app.use(express.static('static'));
-app.get('/', function(req, res) {
+app.get('/:theme?', function(req, res) {
     res.setHeader('Content-Type', 'text/html; charset=UTF-8');
     res.setHeader('Content-Language', 'sk');
     var dateStr = global.todaysDate.format("D.M.YYYY");
     var theme = parserUtil.parseTheme(req);
 
-    res.setHeader("Set-Cookie", ["theme=" + theme.id]);
-    res.render(theme.template, { date: dateStr, restaurants: config.restaurants, themes: themes.themes });
+    res.setHeader("Set-Cookie", ["theme=" + theme]);
+    res.render(config.themes[theme].template, { date: dateStr, restaurants: config.restaurants, themes: config.themes });
 });
 app.get('/menu/:id', function(req, res) {
     if (typeof actions[req.params.id] === "undefined")
