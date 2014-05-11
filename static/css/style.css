@@ -82,14 +82,16 @@ section {
     }
 
         section h2 a:hover:after {
-            content: " >";
+            font-family: FontAwesome;
+            content: " \f08e";
             color: rgb(210,210,210);
         }
 
     section ul {
         display: table;
-        width: 29em;
+        width: 29.5em;
         padding-left: 0.5em;
+        border-collapse: collapse;
     }
 
         section ul li {
@@ -109,6 +111,7 @@ section {
                 section ul li > *:first-child {
                     font-family: FontAwesome;
                     font-weight: normal;
+                    font-style: normal;
                     font-size: 0.875em;
                     text-align: center;
                     width: 2em;
@@ -118,7 +121,7 @@ section {
                 font-weight: bold;
             }
 
-    section i {
+    section > i {
         display: block;
         font-size: 0.7em;
         text-align: right;
@@ -150,16 +153,6 @@ div#dLabel{
 }
 div#dLabel:hover > .dropdown-menu {
     display: block;
-}
-.caret {
-    display: inline-block;
-    width: 0;
-    height: 0;
-    margin-left: 0.5em;
-    vertical-align: middle;
-    border-top: 4px solid;
-    border-right: 4px solid transparent;
-    border-left: 4px solid transparent;
 }
 .btn {
     display: block;

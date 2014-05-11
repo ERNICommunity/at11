@@ -51,6 +51,7 @@ section {
                 section ul li > *:first-child {
                     font-family: FontAwesome;
                     font-weight: normal;
+                    font-style: normal;
                     font-size: 0.875em;
                     text-align: center;
                     width: 2em;
@@ -79,7 +80,7 @@ section {
                         border-bottom-right-radius: 4px;
                     }
 
-    section i {
+    section > i {
         display: block;
         font-size: 0.7em;
         text-align: right;

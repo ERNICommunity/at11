@@ -67,7 +67,7 @@ app.use(express.static('static'));
 app.get('/:theme?', function(req, res) {
     res.setHeader('Content-Type', 'text/html; charset=UTF-8');
     res.setHeader('Content-Language', 'sk');
-    var dateStr = global.todaysDate.format("D.M.YYYY");
+    var dateStr = global.todaysDate.format("D. M. YYYY");
     var theme = parserUtil.parseTheme(req);
 
     res.setHeader("Set-Cookie", ["theme=" + theme]);

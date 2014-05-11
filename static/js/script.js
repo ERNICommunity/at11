@@ -10,7 +10,7 @@ $(document).ready(function() {
                 var ul = $("<ul></ul>");
                 if($.isEmptyObject(data.menu))
                 {
-                    ul.append("<li class=\"error\"><span>\uf06a</span><span>Nepodarilo sa načítať menu, skús pozrieť priamo na stránke reštaurácie</span></li>");
+                    ul.append("<li class='error'><i>\uf071</i><span>Nepodarilo sa načítať menu, skús pozrieť priamo na stránke reštaurácie</span></li>");
                 }
                 else
                 {
@@ -18,17 +18,17 @@ $(document).ready(function() {
                         var li = $("<li></li>");
                         if(item.isSoup) {
                             li.addClass("soup");
-                            li.append("<span>\uf0f4</span>");
+                            li.append("<i>\uf0f4</i>");
                         }
                         else if(item.isError){
                             li.addClass("error");
-                            li.append("<span>\uf06a</span>");
+                            li.append("<i>\uf071</i>");
                         }
                         else 
-                            li.append("<span>\uf0f5</span>");
+                            li.append("<i>\uf0f5</i>");
                         li.append("<span>" + item.text + "</span>");
                         if(item.price)
-                            li.append("<span class=\"price\">" + item.price + "</span>");
+                            li.append("<span class='price'>" + item.price + "</span>");
                         ul.append(li);
                     });
                 }
@@ -36,7 +36,7 @@ $(document).ready(function() {
                 section.append("<i>" + data.timeago + "</i>");
             })
             .fail(function(jqXHR, textStatus, errorThrown) {
-                section.append("<ul><li class=\"error\"><span>\uf06a</span><span>" + textStatus + "</span></li></ul>");
+                section.append("<ul><li class='error'><i>\uf071</i><span>" + textStatus + "</span></li></ul>");
             })
             .always(function(){
                 section.find(".fa-spin").remove();
