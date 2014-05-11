@@ -32,10 +32,10 @@
     "keywords": ["lunch", "menu", "at11", "erni", "obed"],
     "repository": {
         "type": "git",
-        "url": "https://github.com/jakub-sturc/at11.git"
+        "url": "https://github.com/at11/at11.git"
     },
     "bugs": {
-        "url": "https://github.com/jakub-sturc/at11/issues"
+        "url": "https://github.com/at11/at11/issues"
     },
     "licenses": [{
             "type": "Unlicense",
