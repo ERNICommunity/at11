@@ -3,7 +3,7 @@ html, body {
     padding: 0;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     background-color: white;
-    color: rgb(50,50,50);
+    color: black;
 }
 
 a, a:active, a:visited {
@@ -13,9 +13,9 @@ a, a:active, a:visited {
 
 header, footer, section {
     border-width: 1px;
-    border-color: gray;
+    border-color: black;
     background-color: rgb(250,250,250);
-    box-shadow: 0.1em 0.1em gray; 
+    box-shadow: 0.1em 0.1em black; 
 }
 
 header, footer {
@@ -118,25 +118,6 @@ section {
                 font-weight: bold;
             }
 
-            section ul li.error {
-                color: #a94442;
-            }
-
-                section ul li.error > * {
-                    padding: 0.5em 0;
-                    background-color: #f2dede;
-                }
-
-                section ul li.error > *:first-child {
-                    border-top-left-radius: 4px;
-                    border-bottom-left-radius: 4px;
-                }
-
-                section ul li.error > *:last-child {
-                    border-top-right-radius: 4px;
-                    border-bottom-right-radius: 4px;
-                }
-
     section i {
         display: block;
         font-size: 0.7em;
@@ -160,8 +141,8 @@ div#dLabel{
     min-width: 100%;
     list-style: none;
     background-color: white;
-    border: 1px solid gray;
-    box-shadow: 0.1em 0.1em gray;
+    border: 1px solid black;
+    box-shadow: 0.1em 0.1em black;
     text-align: left;
     margin: 0;
     padding: 0;
