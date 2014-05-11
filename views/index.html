@@ -8,21 +8,21 @@
         <link href="css/style.css" type="text/css" rel="stylesheet">
         <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-        <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
         <script src="js/script.js"></script>
     </head>
     <body>
         <header>
             <h1>Dnešné menu <span>({{date}})</span></h1>
             <div>
-                 <a id="dLabel" role="button" data-toggle="dropdown" href="#">Prepnúť tému<b class="caret"></b></a>
-                 <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                     {{#each themes}}
-                     <li role="presentation">
-                         <a href="/{{@key}}" class="btn">{{this.name}}</a>
-                     </li>
-                     {{/each}}
-                 </ul>
+                <div id="dLabel" role="button">Prepnúť tému<b class="caret"></b>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                        {{#each themes}}
+                        <li role="presentation">
+                            <a href="/{{@key}}" class="btn">{{this.name}}</a>
+                        </li>
+                        {{/each}}
+                    </ul>
+                </div>
              </div>
         </header>
 
