@@ -11,18 +11,51 @@ module.exports = new (function() {
         var menu = new Array();
 
         var menuPic = $('img[src*="dm-vg"]').attr('src');
-
-        request.post({
-            headers: { 'Content-type': 'application/x-www-form-urlencoded' },
-            url: 'http://at11ocr.azurewebsites.net/api/process/url',
-            body: "=" + encodeURIComponent(menuPic)
-        }, function(error, response, body) {
-            if (!error)
-            {
-                parseMenu(body);
-            }
+        if(menuPic)
+        {
+            request.post({
+                headers: { 'Content-type': 'application/x-www-form-urlencoded' },
+                url: 'http://at11ocr.azurewebsites.net/api/process/url',
+                body: "=" + encodeURIComponent(menuPic)
+            }, function(error, response, body) {
+                if (!error)
+                {
+                    parseMenu(body);
+                }
+                callback(menu);
+            });
+        }
+        else//no picture, try to parse html
+        {
+            var todayNameReg = new RegExp("^\\s*" + global.todaysDate.format("dddd"), "i");
+            $("table","div#content").first().find("tr").each(function(){
+                var row = $(this);
+                if(todayNameReg.test(row.text()))
+                {
+                    row = row.next();
+                    while(row.text().trim() !== "")
+                    {
+                        var item = parseItem(row);
+                        if(item)
+                            menu.push(item);
+                        row = row.next(); 
+                    }
+                    return false;
+                }
+            });
             callback(menu);
-        });
+        }
+        
+        function parseItem(row)
+        {
+            var item = {isSoup: false};
+            item.text = row.children('td').first().text().normalizeWhitespace().replace(/^polievka:?\s*/i, function(){
+                item.isSoup = true;
+                return "";
+            });
+            item.price = parseFloat(row.children('td').eq(3).text()); 
+            return item;
+        }
 
         function parseMenu(menuString)
         {
