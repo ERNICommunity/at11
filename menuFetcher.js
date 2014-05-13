@@ -57,7 +57,7 @@ function load(url, parseCallback, doneCallback) {
                     }
                     catch(err)//catches callback errors
                     {
-                        doneCallback([{ isError: true, text: err, price: "" }]);
+                        doneCallback([{ isError: true, text: err.toString(), price: "" }]);
                     }
                 });
             }
@@ -65,14 +65,13 @@ function load(url, parseCallback, doneCallback) {
             {
                 clearTimeout(timer);
                 timer = null;//clearTimeout does not null the value
-                doneCallback([{ isError: true, text: err, price: "" }]);
+                doneCallback([{ isError: true, text: err.toString(), price: "" }]);
             }
         }
         else
         {
             var menu = new Array();
-            if (error || response)
-                menu.push({ isError: true, text: error | "", price: response ? response.statusCode : "" });
+            menu.push({ isError: true, text: error && error.toString() || "", price: response && response.statusCode || "" });
             doneCallback(menu);
         }
     });
