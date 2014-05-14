@@ -7,7 +7,7 @@ module.exports = new (function() {
         var $ = cheerio.load(html);
 
         var menu = new Array();
-        var soupPattern = new RegExp("[0-9,]+l?$");
+        var soupPattern = /0[\.,]\d+\s?l?$/;
 
         var dnesneMenu = $('.jedlo_polozka', '.dnesne_menu');
         if (dnesneMenu.length == 1)
