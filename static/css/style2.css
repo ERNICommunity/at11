@@ -1,7 +1,6 @@
 a.github {
     font-weight: bold;
-    padding-left: 20px;
-    background: url('../img/github.png') transparent left center no-repeat;
+    white-space: nowrap;
 }
 
 body {

@@ -58,8 +58,7 @@ footer {
 
     footer a.github {
         font-weight: bold;
-        padding-left: 20px;
-        background: transparent url('../img/github.png') no-repeat left center;
+        white-space: nowrap;
     }
 
 body > div {
