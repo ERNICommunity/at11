@@ -18,7 +18,7 @@ $(document).ready(function() {
                         var li = $("<li></li>");
                         if(item.isSoup) {
                             li.addClass("soup");
-                            li.append("<i>\uf0f4</i>");
+                            li.append("<i>\uf1b1</i>");
                         }
                         else if(item.isError){
                             li.addClass("error");

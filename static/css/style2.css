@@ -41,7 +41,7 @@ ul.food li:not(.error):before {
     font-size: 20px;
 }
 ul.food li.soup:not(.error):before {
-    content: "\f0f4";
+    content: "\f1b1";
 }
 div.tab-pane i {
     display: block;
