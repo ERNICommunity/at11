@@ -14,13 +14,11 @@
         <header>
             <h1><i class="fa fa-indent"></i> Dnešné menu <span>({{date}})</span></h1>
             <div>
-                <div id="dLabel" role="button">Prepnúť tému <i class="fa fa-bars"></i>
-                    <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                        {{#each themes}}
-                        <li role="presentation">
-                            <a href="/{{@key}}" class="btn">{{this.name}}</a>
-                        </li>
-                        {{/each}}
+                <div id="themeSwitcher">Prepnúť tému <i class="fa fa-bars"></i>
+                    <ul>
+                        {{#each themes}}<li>
+                            <a href="/{{@key}}">{{this.name}}</a>
+                        </li>{{/each}}
                     </ul>
                 </div>
              </div>
@@ -30,7 +28,7 @@
             {{#each restaurants}}
             <section data-restaurant-id="{{this.id}}">
                 <h2><a href="{{this.url}}" target="_blank">{{this.name}}</a></h2>
-                <div class="fa fa-spinner fa-spin"></div>
+                <i class="fa fa-spinner fa-spin"></i>
             </section>
             {{/each}}
         </div>

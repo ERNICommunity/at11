@@ -129,13 +129,14 @@ section {
     }
 
 /* theme switching */
-div#dLabel{
+div#themeSwitcher {
     cursor: pointer;
     display: inline-block;
     position: relative;
-    padding: 0.5em 0;  
+    padding: 0.5em 0;
+    white-space: nowrap;
 }
-.dropdown-menu {
+div#themeSwitcher > ul {
     position: absolute;
     left: 0;
     top: 2.5em;
@@ -150,15 +151,18 @@ div#dLabel{
     padding: 0;
     font-size: 0.8em;
 }
-div#dLabel:hover > .dropdown-menu {
+div#themeSwitcher:hover > ul {
     display: block;
 }
-.btn {
+div#themeSwitcher > ul li {
     display: block;
     white-space: nowrap;
+}
+div#themeSwitcher > ul li a {
+    display: block;
     padding: 0.5em;
 }
-.btn:hover {
+div#themeSwitcher > ul li:hover {
     text-decoration: underline;
     background-color: rgb(250,250,250);
 }
