@@ -81,6 +81,8 @@ section {
 
         section h2 a:hover:after {
             font-family: FontAwesome;
+            font-style: normal;
+            font-weight: normal;
             content: " \f08e";
             color: rgb(210,210,210);
         }
