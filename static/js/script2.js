@@ -23,7 +23,7 @@ $(document).ready(function() {
                     });
                 }
                 section.append(ul);
-                section.append("<i>" + data.timeago + "</i>");
+                section.append("<span class='timeago'><i class='fa fa-refresh'></i> " + data.timeago + "</span>");
             })
             .fail(function(jqXHR, textStatus, errorThrown) {
                 section.append("<ul><li class=\"bg-danger error\"><p class=\"text-danger\">" + textStatus + "</li></ul>");

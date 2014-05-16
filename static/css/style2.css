@@ -42,7 +42,7 @@ ul.food li:not(.error):before {
 ul.food li.soup:not(.error):before {
     content: "\f1b1";
 }
-div.tab-pane i {
+div.tab-pane span.timeago {
     display: block;
     font-size: 0.7em;
     text-align: right;

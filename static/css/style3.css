@@ -79,7 +79,7 @@ section {
                         border-bottom-right-radius: 4px;
                     }
 
-    section > i {
+    section > span.timeago {
         display: block;
         font-size: 0.7em;
         text-align: right;
