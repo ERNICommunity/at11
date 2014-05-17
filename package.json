@@ -1,45 +1,61 @@
 {
-    "name": "at11",
-    "description": "Daily lunch menu application",
-    "version": "1.0.0",
-    "dependencies": {
-        "cheerio": "*",
-        "express": "*",
-        "hbs": "*",
-        "request": "*",
-        "moment-timezone": "*"
+  "name": "at11",
+  "description": "Daily lunch menu application",
+  "version": "1.0.0",
+  "dependencies": {
+    "cheerio": "*",
+    "express": "*",
+    "hbs": "*",
+    "request": "*",
+    "moment-timezone": "*"
+  },
+  "devDependencies": {    
+    "grunt": "~0.4.5",
+    "grunt-contrib-jshint": "~0.10.0",    
+    "jshint": "~2.5.1",
+    "mocha": "~1.18.2"
+  },
+  "scripts": {
+    "pretest": "grunt jshint",
+    "test": "mocha --reporter spec"
+  },
+  "author": {
+    "name": "Jakub Šturc",
+    "email": "jakub.sturc@erni.sk"
+  },
+  "contributors": [
+    {
+      "name": "Ján Neščivera",
+      "email": "jan.nescivera@erni.sk"
     },
-    "devDependencies": {
-        "mocha": "*"
+    {
+      "name": "Matúš Brliť",
+      "email": "matus.brlit@erni.sk"
     },
-    "scripts": {
-        "test": "mocha --reporter spec"
-    },
-    "author": {
-        "name": "Jakub  Šturc",
-        "email": "jakub.sturc@erni.sk"
-    },
-    "contributors": [{
-            "name": "Ján Neščivera",
-            "email": "jan.nescivera@erni.sk"
-        }, {
-            "name": "Matúš Brliť",
-            "email": "matus.brlit@erni.sk"
-        }, {
-            "name": "Igor Kvasnička",
-            "email": "igor.kvasnicka@erni.sk"
-        }],
-    "keywords": ["lunch", "menu", "at11", "erni", "obed"],
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/at11/at11.git"
-    },
-    "bugs": {
-        "url": "https://github.com/at11/at11/issues"
-    },
-    "licenses": [{
-            "type": "Unlicense",
-            "url": "http://unlicense.org"
-        }],
-    "main": "app.js"
+    {
+      "name": "Igor Kvasnička",
+      "email": "igor.kvasnicka@erni.sk"
+    }
+  ],
+  "keywords": [
+    "lunch",
+    "menu",
+    "at11",
+    "erni",
+    "obed"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/at11/at11.git"
+  },
+  "bugs": {
+    "url": "https://github.com/at11/at11/issues"
+  },
+  "licenses": [
+    {
+      "type": "Unlicense",
+      "url": "http://unlicense.org"
+    }
+  ],
+  "main": "app.js"
 }
