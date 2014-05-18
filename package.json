@@ -9,15 +9,13 @@
     "request": "*",
     "moment-timezone": "*"
   },
-  "devDependencies": {    
-    "grunt": "~0.4.5",
-    "grunt-contrib-jshint": "~0.10.0",    
-    "jshint": "~2.5.1",
-    "mocha": "~1.18.2"
+  "devDependencies": {
+    "mocha": "^1.18.2",
+    "jshint": "^2.5.1"    
   },
   "scripts": {
-    "pretest": "grunt jshint",
-    "test": "mocha --reporter spec"
+    "test": "mocha --reporter spec",
+    "posttest": "jshint --verbose *.js parsers/*.js"
   },
   "author": {
     "name": "Jakub Šturc",
