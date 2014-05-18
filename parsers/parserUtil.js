@@ -3,7 +3,7 @@ var config = require('../config');
 module.exports.parsePrice = function(item) {
     var priceRegex = /(\d+(?:[\.,]\d+)?)[\.,]?\s*(?:€|Eur)/i;
     var price = NaN;
-    var text = item.replace(priceRegex, function(matchStr, group1, offset, originalStr) {
+    var text = item.replace(priceRegex, function(matchStr, group1) {
         price = parseFloat(group1.replace(/\s/g, "").replace(",", "."));
         return "";
     });
@@ -62,7 +62,7 @@ module.exports.parseCookies = function(request) {
         rc = request.headers.cookie;
 
     rc && rc.split(';').forEach(function(cookie) {
-        var parts = cookie.split('=');
+        var parts = cookie.split('='); 
         list[parts.shift().trim()] = unescape(parts.join('='));
     });
 

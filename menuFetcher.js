@@ -2,21 +2,19 @@ var request = require('request');
 var cache = require('./cache');
 var config = require('./config');
 
-module.exports = new (function () {
-    this.fetchMenu = function (url, parseCallback, doneCallback) {
-        var menuObj = cache.get(url);
-        if (menuObj && !process.env.AT11_NO_CACHE)
+module.exports.fetchMenu = function (url, parseCallback, doneCallback) {
+    var menuObj = cache.get(url);
+    if (menuObj && !process.env.AT11_NO_CACHE)
+        doneCallback(menuObj);
+    else
+        load(url, parseCallback, function (menuObj) {
+            if (menuObj.filter(function(item){ return !item.isError; }).length > 0)
+            {
+                cache.set(url, menuObj);
+            }
             doneCallback(menuObj);
-        else
-            load(url, parseCallback, function (menuObj) {
-                if (menuObj.filter(function(item){ return !item.isError; }).length > 0)
-                {
-                    cache.set(url, menuObj);
-                }
-                doneCallback(menuObj);
-            });
-    };
-})();
+        });
+};
 
 function load(url, parseCallback, doneCallback) {
     request(url, function (error, response, body) {

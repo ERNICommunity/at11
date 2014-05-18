@@ -1,0 +1,12 @@
+{
+    "expr": true,
+    "noarg": true,
+    "indent": 4,
+    "trailing": true,
+    "nonbsp": true,
+    "camelcase": true,
+    "undef": true,
+    "unused": true,
+    "node": true,
+    "nonstandard": true
+}

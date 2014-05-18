@@ -1,6 +1,6 @@
 var config = require('./config');
 
-module.exports = new (function() {
+module.exports = new (function() { // jshint ignore:line
 	var values = [];
 
 	this.set = function(key, value) {

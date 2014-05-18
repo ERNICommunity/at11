@@ -10,26 +10,27 @@ var parserUtil = require('./parsers/parserUtil');
 
 console.log("Initializing...");
 var actions = {};
+function createAction(url, parseCallback)
+{
+    return function(fetchedCallback) {
+                menuFetcher.fetchMenu(url, parseCallback, fetchedCallback);
+            };
+}
 for (var i = 0; i < config.restaurants.length; i++)
 {
     console.log(config.restaurants[i]);
     try
     {
-        var module = require("./parsers/" + config.restaurants[i].module);
-        if (typeof module.parse !== "function")
+        var parserModule = require("./parsers/" + config.restaurants[i].module);
+        if (typeof parserModule.parse !== "function")
             throw "Module is missing parse method";
-        if (module.parse.length !== 2)
+        if (parserModule.parse.length !== 2)
             throw "Module parse(..) method should have 2 parameters (html, callback)";
         var id = config.restaurants[i].id;
         if (typeof actions[id] !== "undefined")
             throw "Non unique id '" + id + "' provided";
         var url = config.restaurants[i].url;
-        var action = (function(url, parseCallback) {
-            return function(fetchedCallback) {
-                menuFetcher.fetchMenu(url, parseCallback, fetchedCallback);
-            };
-        })(url, module.parse);
-        actions[id] = action;
+        actions[id] = createAction(url, parserModule.parse);
     }
     catch (e)
     {
