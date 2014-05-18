@@ -7,7 +7,7 @@ module.exports = new (function() {
 
         var $ = cheerio.load(html);
 
-        var menu = new Array();
+        var menu = [];
 
         var pic = $('.entry-content img').attr('src');
 

@@ -6,11 +6,11 @@ module.exports = new (function() {
 
         var $ = cheerio.load(html);
 
-        var menu = new Array();
+        var menu = [];
         var soupPattern = /0[\.,]\d+\s?l?$/;
 
         var dnesneMenu = $('.jedlo_polozka', '.dnesne_menu');
-        if (dnesneMenu.length == 1)
+        if (dnesneMenu.length === 1)
         {
             menu.push("Dnes nie je menu");
         }

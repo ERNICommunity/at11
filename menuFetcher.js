@@ -5,7 +5,7 @@ var config = require('./config');
 module.exports = new (function () {
     this.fetchMenu = function (url, parseCallback, doneCallback) {
         var menuObj = cache.get(url);
-        if (menuObj && !process.env['AT11_NO_CACHE'])
+        if (menuObj && !process.env.AT11_NO_CACHE)
             doneCallback(menuObj);
         else
             load(url, parseCallback, function (menuObj) {
@@ -70,9 +70,7 @@ function load(url, parseCallback, doneCallback) {
         }
         else
         {
-            var menu = new Array();
-            menu.push({ isError: true, text: error && error.toString() || "", price: response && response.statusCode || "" });
-            doneCallback(menu);
+            doneCallback([{ isError: true, text: error && error.toString() || "", price: response && response.statusCode || "" }]);
         }
     });
 }

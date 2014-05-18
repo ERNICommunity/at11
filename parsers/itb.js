@@ -6,7 +6,7 @@ module.exports = new (function() {
 
         var $ = cheerio.load(html);
 
-        var menu = new Array();
+        var menu = [];
         var todayNameRegex = new RegExp("^\\s*" + global.todaysDate.format("dddd"), "i");
 
         $('td.cnt', '#contentBox').children('table').each(function() {
@@ -45,7 +45,7 @@ module.exports = new (function() {
                 }
                 //soups (group 1)
                 var soups = m[1].split(/€ ?,/);
-                for (var i = soups.length - 1; i >= 0; i--)
+                for (i = soups.length - 1; i >= 0; i--)
                 {
                     var txt = soups[i] + (i !== soups.length - 1 ? "€" : ""); //add back € to all items except last
                     var priced = parserUtil.parsePrice(txt);

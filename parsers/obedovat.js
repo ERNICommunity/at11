@@ -6,7 +6,7 @@ module.exports = new (function() {
 
         var $ = cheerio.load(html);
 
-        var menu = new Array();
+        var menu = [];
         var todayStr = global.todaysDate.format("D.M.YYYY");
 
         $('.daily-menu-for-day').each(function() {
@@ -15,7 +15,7 @@ module.exports = new (function() {
                 menu = parseMenu($(this));
                 //I think it is safe enough to assume that the first item in menu is the soup
                 //for Ergenau on weekends, the first item is "Vikendove menu"
-                if (menu.length == 0) return false;
+                if (menu.length === 0) return false;
                 if (/menu/.test(menu[0].text))
                 {
                     if (menu.length > 1)
@@ -33,7 +33,7 @@ module.exports = new (function() {
         callback(menu);
 
         function parseMenu(elem) {
-            var arr = new Array();
+            var arr = [];
 
             var header = normalize(elem.find('header.rm').first().text());
             if (header && !endsWith(header, 'menu'))

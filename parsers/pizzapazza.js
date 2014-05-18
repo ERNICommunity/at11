@@ -8,7 +8,7 @@ module.exports = new (function() {
 
         var $ = cheerio.load(html);
 
-        var menu = new Array();
+        var menu = [];
 
         var menuPic = $('img[src*="dm-vg"]').attr('src');
         if(menuPic)

@@ -28,7 +28,7 @@ global.String.prototype.normalizeWhitespace = function() {
 };
 
 global.String.prototype.correctCommaSpacing = function() {
-    return this.replace(/(\S) *(,|\.) *(\S)/g, '\$1\$2 \$3');
+    return this.replace(/(\S) *(,|\.) *(\S)/g, '$1$2 $3');
 };
 
 global.String.prototype.removeMetrics = function() {
@@ -37,7 +37,7 @@ global.String.prototype.removeMetrics = function() {
 };
 
 global.String.prototype.capitalizeFirstLetter = function() {
-    return this.replace(/(^[A-Za-z\u00C0-\u017F])/, function(a) { return a.toUpperCase(); })
+    return this.replace(/(^[A-Za-z\u00C0-\u017F])/, function(a) { return a.toUpperCase(); });
 };
 
 global.String.prototype.removeItemNumbering = function() {

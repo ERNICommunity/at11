@@ -18,7 +18,7 @@ module.exports = new (function() {
         }
 
         //the first menu entry is also a soup
-        menu[0] = menu[0] == '' ? 'Dnes v menu chýba polievka' : menu[0];
+        menu[0] = menu[0] === '' ? 'Dnes v menu chýba polievka' : menu[0];
 
         menu = menu.map(function(line) {
             //prize is written the other way around than usual e.g. € 5.10 instead of 5.10 €
@@ -77,8 +77,8 @@ module.exports = new (function() {
             }
 
             var menuResult = menuText.slice(startLine, endLine);
-            menuResult = menuResult.filter(function(line) { return /\S/.test(line) });//remove empty lines
-            menuResult = menuResult.filter(function(line) { return !/(Výmena prílohy|Pri účte 30 eur)/.test(line) });//remove bonus information
+            menuResult = menuResult.filter(function(line) { return /\S/.test(line); });//remove empty lines
+            menuResult = menuResult.filter(function(line) { return !/(Výmena prílohy|Pri účte 30 eur)/.test(line); });//remove bonus information
             //remove name of the day from the first menu entry
             menuResult[0] = menuResult[0].substring(todayName.length).trim();
             return menuResult;

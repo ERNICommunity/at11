@@ -17,7 +17,7 @@ module.exports = new (function() {
 	function isValid(key) {
 		var enterTime =  values[key] && values[key].cacheTime;
 		return !!enterTime && (enterTime + config.cacheExpiration > Date.now());
-	};
+	}
 
 	this.clear = function() {
 		values = [];

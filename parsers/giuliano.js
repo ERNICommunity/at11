@@ -6,7 +6,7 @@ module.exports = new (function () {
 
         var $ = cheerio.load(html);
 
-        var menu = new Array();
+        var menu = [];
         var todayStr = global.todaysDate.format("DD. MM. YYYY");
 
         $('.menublock').each(function () {
