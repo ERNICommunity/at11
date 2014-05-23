@@ -12,7 +12,8 @@ module.exports = {
         {id: 6, name: "Pizza Pazza", url: "http://www.pizzapazza.sk/sk/denne-menu/", module: "pizzapazza"},
         {id: 7, name: "Kamenica - Corleone Pizza", url: "http://restauracie.sme.sk/restauracia/kamenica-corleone-pizza_660-petrzalka_664/denne-menu", module: "sme"},
         {id: 8, name: "Numero Uno", url: "http://www.numerouno.sk/denne-menu-5/", module: "numerouno"},
-        {id: 9, name: "Engerau restaurant", url: "http://www.obedovat.sk/restauracia/241-engerau-restaurant/denne-menu", module: "obedovat"}
+        {id: 9, name: "Engerau restaurant", url: "http://www.obedovat.sk/restauracia/241-engerau-restaurant/denne-menu", module: "obedovat"},
+        {id:10, name: "Jedáleň Albatros", url: "http://www.obedovat.sk/restauracia/7088-albatros-jedalen/denne-menu", module: "obedovat"}
     ],
     themes: {
         "jano": { name: "Jano", template: "../views/index.html" },
