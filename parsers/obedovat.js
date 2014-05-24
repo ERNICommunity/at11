@@ -11,21 +11,8 @@ module.exports.parse = function(html, callback) {
     $('.daily-menu-for-day').each(function() {
         if ($(this).children("header").first().text().indexOf(todayStr) !== -1)
         {
-            menu = parseMenu($(this));
-            //I think it is safe enough to assume that the first item in menu is the soup
-            //for Ergenau on weekends, the first item is "Vikendove menu"
-            if (menu.length === 0) return false;
-            if (/menu/.test(menu[0].text))
-            {
-                if (menu.length > 1)
-                {
-                    menu[1].isSoup = true;
-                    menu[1].price = menu[0].price;
-                }
-                menu.splice(0, 1);
-            }
-            else
-            { menu[0].isSoup = true; }
+            menu = parseMenu($(this));            
+            return false;
         }
     });
 
@@ -33,24 +20,31 @@ module.exports.parse = function(html, callback) {
 
     function parseMenu(elem) {
         var arr = [];
+        var haveSoupAlready = false;
 
-        var header = normalize(elem.find('header.rm').first().text());
-        if (header && !endsWith(header, 'menu'))
-        {
-            arr.push({ isSoup: false, text: header, price: NaN });
-        }
+        elem.find('header.rm').each(function() {//Albatros puts soup in header
+            var text = normalize($(this).children("h3").first().text());
+            if(text === "")
+                return;
+            var priceMatch = /(\d+[\.,]\d+) ?€/.exec($(this).children(".price").first().text().replace(",", "."));
+            var price = priceMatch ? parseFloat(priceMatch[1]) : NaN;
+            arr.push({ isSoup: true, text: text, price: price });
+            haveSoupAlready = true;
+        });
 
         elem.find('li').each(function() {
             var text = normalize($(this).children(".name").first().text());
             var priceMatch = /(\d+[\.,]\d+) ?€/.exec($(this).children(".price").first().text().replace(",", "."));
             var price = priceMatch ? parseFloat(priceMatch[1]) : NaN;
-            arr.push({ isSoup: false, text: text, price: price });
+            var isSoup = false;
+            if(!haveSoupAlready && !/ menu/.test(text))
+            {
+                haveSoupAlready = true;
+                isSoup = true;
+            }
+            arr.push({ isSoup: isSoup, text: text, price: price });
         });
         return arr;
-    }
-
-    function endsWith(str, suffix) {
-        return str.indexOf(suffix, str.length - suffix.length) !== -1;
     }
 
     function normalize(str) {
