@@ -70,13 +70,6 @@
                     window.open($("li.active > a").data("url"), '_blank');
                 }
             })
-
-            $("header, footer").contents().each(function() {
-                if (this.nodeType == 3)
-                {
-                    this.remove();
-                }
-            });
         });
 
         function selectRestaurant(id) {
