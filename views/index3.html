@@ -15,12 +15,6 @@
     <script src="js/script.js"></script>
     <script>
         $(function() {
-            $("header, footer").contents().each(function() {
-                if (this.nodeType == 3)
-                {
-                    this.remove();
-                }
-            });
             $('.navigation-info').remove();
         });
     </script>
