@@ -8,5 +8,7 @@
     "undef": true,
     "unused": true,
     "node": true,
-    "nonstandard": true
+    "browser": true,
+    "nonstandard": true,
+    "jquery": true
 }
