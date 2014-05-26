@@ -34,7 +34,7 @@ module.exports.parse = function(html, callback) {
             menu.splice(i, 1);
             i--;
         }
-        else if (/^\s*menu č\. ?4/i.test(menu[i]))
+        else if (/\s*menu č\. ?4/i.test(menu[i]))
         {
             if (i + 1 < menu.length)//prepend it to the next item
                 menu[i + 1] = menu[i].trim() + ": " + menu[i + 1].trim();
