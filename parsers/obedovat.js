@@ -24,7 +24,7 @@ module.exports.parse = function(html, callback) {
 
         elem.find('header.rm').each(function() {//Albatros puts soup in header
             var text = normalize($(this).children("h3").first().text());
-            if(text === "")
+            if(text === "" || $(this).children('.price').text()==='')
                 return;
             var priceMatch = /(\d+[\.,]\d+) ?€/.exec($(this).children(".price").first().text().replace(",", "."));
             var price = priceMatch ? parseFloat(priceMatch[1]) : NaN;
