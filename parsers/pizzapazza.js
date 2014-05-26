@@ -51,7 +51,7 @@ module.exports.parse = function(html, callback) {
             item.isSoup = true;
             return "";
         });
-        item.price = parseFloat(row.children('td').eq(3).text()); 
+        item.price = parseFloat(row.children('td').eq(3).text().replace(",", ".")); 
         return item;
     }
 
