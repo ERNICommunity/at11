@@ -1,7 +1,7 @@
 var assert = require('assert'),
     fs = require('fs'),
     moment = require('moment-timezone'),
-    sme = require('../parsers/sme');
+    parser = require('../parsers/sme');
 
 moment.lang('sk');
 
@@ -13,7 +13,7 @@ describe('kamenica', function() {
 
         before(function(done) {
             global.todaysDate = moment("2014-04-29");
-            sme.parse(html, function(menuItems) {
+            parser.parse(html, function(menuItems) {
                 menu = menuItems;
                 done();
             });
@@ -61,7 +61,7 @@ describe('kamenica', function() {
 
         before(function(done) {
             global.todaysDate = moment("2014-05-14");
-            sme.parse(html, function(menuItems) {
+            parser.parse(html, function(menuItems) {
                 menu = menuItems;
                 done();
             });

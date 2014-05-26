@@ -1,7 +1,7 @@
 var assert = require('assert'),
     fs = require('fs'),
     moment = require('moment-timezone'),
-    numerouno = require('../parsers/numerouno');
+    parser = require('../parsers/numerouno');
 
 moment.lang('sk');
 
@@ -13,10 +13,10 @@ describe('numerouno', function() {
 
         before(function(done) {
             global.todaysDate = moment("2014-04-29");
-            numerouno.parse(html, function(menuItems) {
+            parser.parse(html, function(menuItems) {
                 menu = menuItems;
                 done();
-            })
+            });
         });
 
         it("should return 5 items", function() {
@@ -61,10 +61,10 @@ describe('numerouno', function() {
 
         before(function(done) {
             global.todaysDate = moment("2014-05-02");
-            numerouno.parse(html, function(menuItems) {
+            parser.parse(html, function(menuItems) {
                 menu = menuItems;
                 done();
-            })
+            });
         });
 
         it("should return 4 items", function() {

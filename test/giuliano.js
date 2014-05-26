@@ -1,7 +1,7 @@
 var assert = require('assert'),
     fs = require('fs'),
     moment = require('moment-timezone'),
-    obedovat = require('../parsers/giuliano');
+    parser = require('../parsers/giuliano');
 
 moment.lang('sk');
 
@@ -13,7 +13,7 @@ describe('giuliano', function() {
 
         before(function(done) {
             global.todaysDate = moment("2014-05-26");
-            obedovat.parse(html, function(menuItems) {
+            parser.parse(html, function(menuItems) {
                 menu = menuItems;
                 done();
             });

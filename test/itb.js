@@ -1,7 +1,7 @@
 var assert = require('assert'),
     fs = require('fs'),
     moment = require('moment-timezone'),
-    itb = require('../parsers/itb');
+    parser = require('../parsers/itb');
 
 moment.lang('sk');
 
@@ -13,7 +13,7 @@ describe('itb', function() {
 
         before(function(done) {
             global.todaysDate = moment("2014-05-05");
-            itb.parse(html, function(menuItems) {
+            parser.parse(html, function(menuItems) {
                 menu = menuItems;
                 done();
             });

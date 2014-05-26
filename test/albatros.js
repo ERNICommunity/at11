@@ -1,7 +1,7 @@
 var assert = require('assert'),
     fs = require('fs'),
     moment = require('moment-timezone'),
-    obedovat = require('../parsers/obedovat');
+    parser = require('../parsers/obedovat');
 
 moment.lang('sk');
 
@@ -13,7 +13,7 @@ describe('albatros', function() {
 
         before(function(done) {
             global.todaysDate = moment("2014-05-23");
-            obedovat.parse(html, function(menuItems) {
+            parser.parse(html, function(menuItems) {
                 menu = menuItems;
                 done();
             });

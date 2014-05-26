@@ -1,7 +1,7 @@
 var assert = require('assert'),
     fs = require('fs'),
     moment = require('moment-timezone'),
-    itb = require('../parsers/pizzapazza');
+    parser = require('../parsers/pizzapazza');
 
 moment.lang('sk');
 
@@ -13,7 +13,7 @@ describe('pizzapazza', function() {
 
         before(function(done) {
             global.todaysDate = moment("2014-05-13");
-            itb.parse(html, function(menuItems) {
+            parser.parse(html, function(menuItems) {
                 menu = menuItems;
                 done();
             });
@@ -49,7 +49,7 @@ describe('pizzapazza', function() {
 
         before(function(done) {
             global.todaysDate = moment("2014-05-26");
-            itb.parse(html, function(menuItems) {
+            parser.parse(html, function(menuItems) {
                 menu = menuItems;
                 done();
             });
