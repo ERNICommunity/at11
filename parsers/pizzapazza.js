@@ -47,7 +47,7 @@ module.exports.parse = function(html, callback) {
     function parseItem(row)
     {
         var item = {isSoup: false};
-        item.text = row.children('td').first().text().normalizeWhitespace().replace(/^polievka:?\s*/i, function(){
+        item.text = normalize(row.children('td').first().text()).replace(/^polievka:?\s*/i, function(){
             item.isSoup = true;
             return "";
         });
