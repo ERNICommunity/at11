@@ -85,3 +85,11 @@ section {
         text-align: right;
         margin-right: 0.5em;
     }
+
+a.checkbox > input[type=checkbox] {
+    margin: 10px 0 0 0;
+}
+
+a.checkbox > span:hover {
+    text-decoration: none;
+}
