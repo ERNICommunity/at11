@@ -67,17 +67,9 @@ app.get('/:theme?', function(req, res) {
     res.setHeader('Content-Language', 'sk');
     var dateStr = global.todaysDate.format("D. M. YYYY");
     var theme = parserUtil.parseTheme(req);
-    var restFilter = parserUtil.parseCookies(req).restaurantsFilter;
-    if (restFilter == undefined || restFilter.split(',').length == 0) {
-        restFilter = [];
-        config.restaurants.forEach(function(item) {
-             restFilter.push(item.id.toString());
-        });
-    } else restFilter = restFilter.split(',');
-    var restaurants = config.restaurants.map(function(item) { return { id: item.id, name: item.name, url: item.url, module: item.module, show: restFilter.indexOf(item.id.toString())>-1 }; });
 
     res.setHeader("Set-Cookie", ["theme=" + theme]);
-    res.render(config.themes[theme].template, { date: dateStr, restaurants: restaurants, themes: config.themes });
+    res.render(config.themes[theme].template, { date: dateStr, restaurants: config.restaurants, themes: config.themes });
 });
 app.get('/menu/:id', function(req, res) {
     if (typeof actions[req.params.id] === "undefined")

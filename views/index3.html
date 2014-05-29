@@ -12,14 +12,15 @@
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-    <script src="js/script.js"></script>
+    <script src="js/script3.js"></script>
     <script>
         $(function () {
             $('.navigation-info').remove();
             $(document).ready(function () {
-                var container = $("#container");
-                container.masonry({ columnWidth: 500 });
+                var container = $("#container");    
                 loadRestaurants(container);
+                initialHide(container);
+                container.masonry();
             });
         });
     </script>
@@ -28,7 +29,7 @@
     <header>{{> header}}</header>
     <div id="container" style="margin: 79px 40px 71px;">
         {{#each restaurants}}
-        <section data-restaurant-id="{{this.id}}" {{#if this.show}}{{else}}style="display:none;"{{/if}}>
+        <section data-restaurant-id="{{this.id}}">
             <h2><a href="{{this.url}}" target="_blank">{{this.name}}</a></h2>
             <div class="fa fa-spinner fa-spin"></div>
         </section>
