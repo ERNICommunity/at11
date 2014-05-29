@@ -13,17 +13,6 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
     <script src="js/script3.js"></script>
-    <script>
-        $(function () {
-            $('.navigation-info').remove();
-            $(document).ready(function () {
-                var container = $("#container");    
-                loadRestaurants(container);
-                initialHide(container);
-                container.masonry();
-            });
-        });
-    </script>
 </head>
 <body>
     <header>{{> header}}</header>

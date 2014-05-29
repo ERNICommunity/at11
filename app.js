@@ -1,7 +1,6 @@
 var express = require('express');
 var hbs = require('hbs');
 var moment = require("moment-timezone");
-var fs = require('fs');
 
 //our modules
 var config = require('./config');

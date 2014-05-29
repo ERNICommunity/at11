@@ -1,9 +1,18 @@
+$(document).ready(function () {
+    $('.navigation-info').remove();
+    
+    var container = $("#container");    
+    loadRestaurants(container);
+    initialHide(container);
+    container.masonry();
+});
+
 function loadRestaurants(container) {
     $("section", container).each(function () {
         var section = $(this);
         var restaurantId = section.data("restaurantId");
         $.ajax("/menu/" + restaurantId)
-            .done(function (data, textStatus, jqXHR) {
+            .done(function (data) {
                 var ul = $("<ul></ul>");
                 if ($.isEmptyObject(data.menu))
                 {
@@ -34,7 +43,7 @@ function loadRestaurants(container) {
                 section.append(ul);
                 section.append("<span class='timeago'><i class='fa fa-refresh'></i> " + data.timeago + "</span>");
             })
-            .fail(function (jqXHR, textStatus, errorThrown) {
+            .fail(function (jqXHR, textStatus) {
                 section.append("<ul><li class='error'><i>\uf071</i><span>" + textStatus + "</span></li></ul>");
             })
             .always(function () {

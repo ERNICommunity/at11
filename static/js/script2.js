@@ -3,7 +3,7 @@ $(document).ready(function() {
         var section = $(this);
         var restaurantId = section.data("restaurantId");
         $.ajax("/menu/" + restaurantId)
-            .done(function(data, textStatus, jqXHR) {
+            .done(function(data) {
                 var ul = $("<ul class=\"food\"></ul>");
                 if($.isEmptyObject(data.menu))
                 {
@@ -25,7 +25,7 @@ $(document).ready(function() {
                 section.append(ul);
                 section.append("<span class='timeago'><i class='fa fa-refresh'></i> " + data.timeago + "</span>");
             })
-            .fail(function(jqXHR, textStatus, errorThrown) {
+            .fail(function(jqXHR, textStatus) {
                 section.append("<ul><li class=\"bg-danger error\"><p class=\"text-danger\">" + textStatus + "</li></ul>");
             })
             .always(function(){
