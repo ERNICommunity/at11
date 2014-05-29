@@ -28,7 +28,8 @@ module.exports.parse = function (html, callback) {
 
     function normalize(str) {
         return str.normalizeWhitespace()
-            .removeMetrics();
+            .removeMetrics()
+            .correctCommaSpacing();
     }
 
     callback(menu);
