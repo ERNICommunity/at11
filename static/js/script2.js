@@ -1,4 +1,15 @@
-$(document).ready(function() {    
+(function($) {
+    $.fn.hasScrollBar = function() {
+        return this.get(0).scrollHeight > this.get(0).clientHeight;
+    };
+})(jQuery);
+
+$(document).ready(function(){
+    initialize();
+    loadMenus();
+});
+
+function loadMenus() {    
     $(".tab-pane").each(function(){
         var section = $(this);
         var restaurantId = section.data("restaurantId");
@@ -32,4 +43,93 @@ $(document).ready(function() {
                 section.find(".fa-spin").remove();
             });
         });
-});
+}
+
+function initialize() {
+    selectRestaurant(readCookie("restaurant") || 1);
+
+    if (!$('html').hasScrollBar())
+    {
+        $('#padding').addClass('hidden');
+    }
+
+    $(document).keyup(function(e) {
+        e.preventDefault();
+
+        if (e.keyCode === 38 || e.keyCode === 40)//UP or DOWN
+        {
+            var selectedRestaurant = parseInt(findSelectedRestaurantId());
+            var restaurantCount = $('#navigationBar li').length + 1;
+
+            unSelectRestaurant(selectedRestaurant);
+
+            if (e.keyCode === 38)
+            { //UP arrow
+                selectedRestaurant = (selectedRestaurant - 1 + restaurantCount) % restaurantCount;
+                if (selectedRestaurant === 0) selectedRestaurant = restaurantCount - 1;
+            }
+            if (e.keyCode === 40)
+            { //DOWN arrow
+                selectedRestaurant = (selectedRestaurant + 1) % restaurantCount;
+                if (selectedRestaurant === 0) selectedRestaurant = 1;
+            }
+
+            selectRestaurant(selectedRestaurant);
+        }
+
+        if (e.keyCode === 13)
+        { //ENTER
+            window.open($("li.active > a").data("url"), '_blank');
+        }
+
+    });
+
+    $('a[data-toggle="pill"]').on('shown.bs.tab', function() {
+        writeCookie("restaurant", $(this).attr("href").slice("#restaurant".length), 365);
+    });
+    $('a[data-toggle="pill"]').parent().on('click', function() {
+        if ($(this).hasClass("active"))
+        {
+            window.open($("li.active > a").data("url"), '_blank');
+        }
+    });
+    $("#select-restaurants").remove();
+}
+
+function selectRestaurant(id) {
+    $('#navigationBar li a[href="\\#restaurant' + id + '"]').parent().addClass('active');
+    $('#restaurant' + id).addClass('active');
+    writeCookie("restaurant", id, 365);
+}
+
+function unSelectRestaurant(id) {
+    $('#navigationBar li a[href="\\#restaurant' + id + '"]').parent().removeClass('active');
+    $('#restaurant' + id).removeClass('active');
+}
+
+function findSelectedRestaurantId() {
+    var activeRestaurant = $('#navigationBar .active').children().get(0);
+    return $(activeRestaurant).attr('href').slice("#restaurant".length);
+}
+
+function writeCookie(cookieName, cookieValue, nDays) {
+    var today = new Date();
+    var expire = new Date();
+    if (!nDays) { nDays = 1; }
+    expire.setTime(today.getTime() + 3600000 * 24 * nDays);
+    document.cookie = cookieName + "=" + escape(cookieValue) + ";expires=" + expire.toGMTString() + ";path=/";
+}
+
+function readCookie(cookieName) {
+    var i, x, y, ARRcookies = document.cookie.split("; ");
+    for (i = 0; i < ARRcookies.length; i++)
+    {
+        x = ARRcookies[i].substr(0, ARRcookies[i].indexOf("="));
+        y = ARRcookies[i].substr(ARRcookies[i].indexOf("=") + 1);
+        x = x.replace(/^\s+|\s+$/g, "");
+        if (x === cookieName)
+        {
+            return unescape(y);
+        }
+    }
+}
