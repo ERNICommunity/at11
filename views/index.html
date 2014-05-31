@@ -14,13 +14,22 @@
         <header>
             <h1><i class="fa fa-indent"></i> Dnešné menu <span>({{date}})</span></h1>
             <div>
-                <div id="themeSwitcher">Prepnúť tému <i class="fa fa-bars"></i>
-                    <ul>
-                        {{#each themes}}<li>
-                            <a href="/{{@key}}">{{this.name}}</a>
-                        </li>{{/each}}
-                    </ul>
-                </div>
+                <div id="settings"><i class="fa fa-gears"></i>
+                    <div>
+                        <span><i class="fa fa-wrench"></i> Reštaurácie</span>
+                        <ul id="restaurantSelector">
+                            {{#each restaurants}}<li data-restaurant-id="{{this.id}}">
+                                <i class="fa fa-fw fa-check-square-o"></i> {{this.name}}      
+                            </li>{{/each}}
+                        </ul>
+                        <span><i class="fa fa-bars"></i> Téma</span>
+                        <ul id="themeSwitcher">
+                            {{#each themes}}<li>
+                                <a href="/{{@key}}">{{this.name}}</a>
+                            </li>{{/each}}
+                        </ul>
+                    </div>
+                 </div>
              </div>
         </header>
 

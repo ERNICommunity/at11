@@ -2,7 +2,7 @@ $(document).ready(function () {
     $('.navigation-info').remove();
     
     var container = $("#container");    
-    loadRestaurants(container);
+    loadMenus(container);
     initialHide(container);
     container.masonry();
     
@@ -44,7 +44,7 @@ $(document).ready(function () {
     });
 });
 
-function loadRestaurants(container) {
+function loadMenus(container) {
     $("section", container).each(function () {
         var section = $(this);
         var restaurantId = section.data("restaurantId");
