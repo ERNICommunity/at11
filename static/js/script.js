@@ -1,4 +1,6 @@
- $(document).ready(function() {
+/* global writeCookie, readCookie */
+
+$(document).ready(function() {
     var container = $("#container");
     loadMenus(container);
     initialHide(container);

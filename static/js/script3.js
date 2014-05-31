@@ -1,3 +1,5 @@
+/* global writeCookie, readCookie */
+
 $(document).ready(function () {
     $('.navigation-info').remove();
     

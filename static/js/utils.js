@@ -1,3 +1,5 @@
+/* exported writeCookie, readCookie */
+
 function writeCookie(cookieName, cookieValue, nDays) {
     var today = new Date();
     var expire = new Date();
