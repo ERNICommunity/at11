@@ -168,6 +168,9 @@ div#settings ul {
 div#settings li:hover {
     background-color: rgb(250,250,250);
 }
+div#settings li i.fa-fw {
+    text-align: left;
+}
 
 ul#restaurantSelector {
     overflow-y: scroll;
