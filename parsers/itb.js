@@ -35,7 +35,7 @@ module.exports.parse = function(html, callback) {
             if (priced.text) temp.push({ isSoup: false, text: priced.text, price: priced.price });
         });
 
-        var m = /Polievk.*:(.+)Špec.*:(.+)delená.*:(.+)$/i.exec(mixedText);
+        var m = /Polievk[ay] ?0[,\.]33l:?(.+)Špec.*:(.+)delená.*:(.+)$/i.exec(mixedText);
         if (m)
         {
             var priced;
