@@ -55,9 +55,9 @@ module.exports.parse = function(html, callback) {
                 }
             }
             if (/Hodnota stravy/.test(lines[i]))
-            {
                 price = parserUtil.parsePrice(lines[i]).price;
-            }
+            else
+                price = NaN;
         }
 
         //convert to menu item object
