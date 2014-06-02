@@ -56,7 +56,6 @@ module.exports.parse = function(html, callback) {
 
     function parseDailyMenu(menuText) {
         var todayName = global.todaysDate.format("dddd");
-        var tomorrowName = global.todaysDate.clone().add("days", 1).format("dddd");
 
         var startLine, endLine;
         for (var line in menuText)
@@ -65,9 +64,10 @@ module.exports.parse = function(html, callback) {
             {
                 startLine = line;
             }
-            if (menuText[line].toLowerCase().indexOf(tomorrowName) !== -1)
+            if (startLine && /^–+$/.test(menuText[line].trim()))//dashed separator line
             {
                 endLine = line;
+                break;
             }
         }
         if (!startLine || (startLine >= endLine))
@@ -77,7 +77,6 @@ module.exports.parse = function(html, callback) {
 
         var menuResult = menuText.slice(startLine, endLine);
         menuResult = menuResult.filter(function(line) { return /\S/.test(line); });//remove empty lines
-        menuResult = menuResult.filter(function(line) { return !/(Výmena prílohy|Pri účte 30 eur)/.test(line); });//remove bonus information
         //remove name of the day from the first menu entry
         menuResult[0] = menuResult[0].substring(todayName.length).trim();
         return menuResult;
