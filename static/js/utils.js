@@ -1,4 +1,5 @@
 /* exported writeCookie, readCookie, CurrentDay */
+/* global moment */
 
 function writeCookie(cookieName, cookieValue, nDays) {
     var today = new Date();
