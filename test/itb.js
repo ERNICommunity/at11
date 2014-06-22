@@ -144,10 +144,10 @@ describe('itb', function() {
         var html = fs.readFileSync(__dirname + '/samples/ITB.2014-06-11.html', { encoding: "utf-8" });
         var menu;
 
-        before(function(done) {
-            global.todaysDate = moment("2014-06-11");
+        before(function (done) {
+            testHelpers.setWeekDates(moment("2014-06-11"));
             parser.parse(html, function(menuItems) {
-                menu = menuItems;
+                menu = menuItems.filter(function (x) { if (x.day == moment().day(3).format('dddd')) return true; })[0].menu;
                 done();
             });
         });
