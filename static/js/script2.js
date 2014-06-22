@@ -1,4 +1,4 @@
-/* global writeCookie, readCookie */
+/* global writeCookie, readCookie, CurrentDay */
 
 (function($) {
     $.fn.hasScrollBar = function() {

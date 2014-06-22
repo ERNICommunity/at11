@@ -20,7 +20,7 @@ module.exports.parse = function(html, callback) {
             {
                 parseMenu(body);
             }
-            callback(menu);
+            callback(weekMenu);
         });
     }
     else//no picture, try to parse html

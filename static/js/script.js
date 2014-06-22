@@ -1,4 +1,4 @@
-/* global writeCookie, readCookie */
+/* global writeCookie, readCookie, CurrentDay */
 
 $(document).ready(function() {
     var container = $("#container");

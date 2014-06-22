@@ -1,4 +1,4 @@
-/* exported writeCookie, readCookie */
+/* exported writeCookie, readCookie, CurrentDay */
 
 function writeCookie(cookieName, cookieValue, nDays) {
     var today = new Date();

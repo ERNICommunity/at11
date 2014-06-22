@@ -1,6 +1,5 @@
 var cheerio = require('cheerio');
 require('./parserUtil');
-var moment = require('moment-timezone');
 
 module.exports.parse = function(html, callback) {
 

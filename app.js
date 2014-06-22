@@ -89,7 +89,7 @@ app.get('/menu/:id/:day', function(req, res) {
         day = moment().day(day).format("dddd");
         actions[req.params.id](function(weekMenu) {
             var dayMenu = weekMenu.filter(function(x) { if (x.day == day) return true; })[0];
-            if (dayMenu == undefined)
+            if (dayMenu === undefined)
             {
                 res.json({});
             }
