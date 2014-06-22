@@ -1,7 +1,8 @@
 var assert = require('assert'),
     fs = require('fs'),
     moment = require('moment-timezone'),
-    parser = require('../parsers/skolka');
+    parser = require('../parsers/skolka'),
+    testHelpers = require('../test/testHelpers');
 
 moment.lang('sk');
 
@@ -12,9 +13,9 @@ describe('skolka', function() {
         var menu;
 
         before(function(done) {
-            global.todaysDate = moment("2014-06-02");
+            testHelpers.setWeekDates(moment("2014-06-02"));
             parser.parse(html, function(menuItems) {
-                menu = menuItems;
+                menu = menuItems.filter(function(x) { if(x.day == moment().day(1).format('dddd')) return true; })[0].menu;
                 done();
             });
         });

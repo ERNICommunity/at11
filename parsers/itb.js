@@ -5,22 +5,26 @@ module.exports.parse = function(html, callback) {
 
     var $ = cheerio.load(html);
 
-    var menu = [];
-    var todayNameRegex = new RegExp("^\\s*" + global.todaysDate.format("dddd"), "i");
+    var weekMenu = [];
+    var dayMenu = [];
 
-    $('td.cnt', '#contentBox').children('table').each(function() {
-        var precedingText = "";
-        $(this).prevUntil('table').each(function() {
-            precedingText = $(this).text() + precedingText;
+    global.dates.forEach(function(date) {
+        var todayNameRegex = new RegExp("^\\s*" + date.format("dddd"), "i");
+
+        $('td.cnt', '#contentBox').children('table').each(function() {
+            var precedingText = "";
+            $(this).prevUntil('table').each(function() {
+                precedingText = $(this).text() + precedingText;
+            });
+            if (todayNameRegex.test(precedingText)) {
+                dayMenu = parseMenu($(this), precedingText);
+                return false;
+            }
         });
-        if (todayNameRegex.test(precedingText))
-        {
-            menu = parseMenu($(this), precedingText);
-            return false;
-        }
-    });
 
-    callback(menu);
+        weekMenu.push({ day: date.format("dddd"), menu: dayMenu });
+    });
+    callback(weekMenu);
 
     function parseMenu(table, mixedText) {
         var temp = [];

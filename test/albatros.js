@@ -1,7 +1,8 @@
 var assert = require('assert'),
     fs = require('fs'),
     moment = require('moment-timezone'),
-    parser = require('../parsers/obedovat');
+    parser = require('../parsers/obedovat'),
+    testHelpers = require('../test/testHelpers');
 
 moment.lang('sk');
 
@@ -12,9 +13,9 @@ describe('albatros', function() {
         var menu;
 
         before(function(done) {
-            global.todaysDate = moment("2014-05-23");
+            testHelpers.setWeekDates(moment("2014-05-23"));
             parser.parse(html, function(menuItems) {
-                menu = menuItems;
+                menu = menuItems.filter(function(x) { if(x.day == moment().day(5).format('dddd')) return true; })[0].menu;
                 done();
             });
         });

@@ -6,25 +6,23 @@
     };
 })(jQuery);
 
-$(document).ready(function(){
+$(document).ready(function() {
     initialize();
     loadMenus();
 });
 
-function loadMenus() {    
-    $(".tab-pane").each(function(){
+function loadMenus() {
+    $(".tab-pane").each(function() {
         var section = $(this);
         var restaurantId = section.data("restaurantId");
-        $.ajax("/menu/" + restaurantId)
+        $.ajax("/menu/" + restaurantId + "/" + CurrentDay())
             .done(function(data) {
                 var ul = $("<ul class=\"food\"></ul>");
-                if($.isEmptyObject(data.menu))
-                {
+                if($.isEmptyObject(data.menu)) {
                     ul.append("<li class=\"bg-danger error\"><p class=\"text-danger\">Nepodarilo sa načítať menu, skús pozrieť priamo na stránke reštaurácie</span></li>");
                 }
-                else
-                {
-                    data.menu.forEach(function(item){
+                else {
+                    data.menu.forEach(function(item) {
                         var li = $("<li></li>");
                         if(item.isSoup)
                             li.addClass("soup");
@@ -41,57 +39,52 @@ function loadMenus() {
             .fail(function(jqXHR, textStatus) {
                 section.append("<ul><li class=\"bg-danger error\"><p class=\"text-danger\">" + textStatus + "</li></ul>");
             })
-            .always(function(){
+            .always(function() {
                 section.find(".fa-spin").remove();
             });
-        });
+    });
 }
 
 function initialize() {
     selectRestaurant(readCookie("restaurant") || 1);
 
-    if (!$('html').hasScrollBar())
-    {
+    if(!$('html').hasScrollBar()) {
         $('#padding').addClass('hidden');
     }
 
     $(document).keyup(function(e) {
         e.preventDefault();
 
-        if (e.keyCode === 38 || e.keyCode === 40)//UP or DOWN
+        if(e.keyCode === 38 || e.keyCode === 40)//UP or DOWN
         {
             var selectedRestaurant = parseInt(findSelectedRestaurantId());
             var restaurantCount = $('#navigationBar li').length + 1;
 
             unSelectRestaurant(selectedRestaurant);
 
-            if (e.keyCode === 38)
-            { //UP arrow
+            if(e.keyCode === 38) { //UP arrow
                 selectedRestaurant = (selectedRestaurant - 1 + restaurantCount) % restaurantCount;
-                if (selectedRestaurant === 0) selectedRestaurant = restaurantCount - 1;
+                if(selectedRestaurant === 0) selectedRestaurant = restaurantCount - 1;
             }
-            if (e.keyCode === 40)
-            { //DOWN arrow
+            if(e.keyCode === 40) { //DOWN arrow
                 selectedRestaurant = (selectedRestaurant + 1) % restaurantCount;
-                if (selectedRestaurant === 0) selectedRestaurant = 1;
+                if(selectedRestaurant === 0) selectedRestaurant = 1;
             }
 
             selectRestaurant(selectedRestaurant);
         }
 
-        if (e.keyCode === 13)
-        { //ENTER
+        if(e.keyCode === 13) { //ENTER
             window.open($("li.active > a").data("url"), '_blank');
         }
 
     });
 
     $('a[data-toggle="pill"]').on('shown.bs.tab', function() {
-        writeCookie("restaurant", $(this).attr("href").slice("#restaurant".length), 365);
+        writeCookie("restaurant", $(this).attr("href").slice("#restaurant".length), 10 * 365);
     });
     $('a[data-toggle="pill"]').parent().on('click', function() {
-        if ($(this).hasClass("active"))
-        {
+        if($(this).hasClass("active")) {
             window.open($("li.active > a").data("url"), '_blank');
         }
     });

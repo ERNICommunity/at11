@@ -6,7 +6,7 @@ module.exports.parse = function(html, callback) {
 
     var $ = cheerio.load(html);
 
-    var menu = [];
+    var weekMenu = [];
 
     var menuPic = $('img[src*="dm-vg"]').attr('src');
     if(menuPic)
@@ -25,23 +25,26 @@ module.exports.parse = function(html, callback) {
     }
     else//no picture, try to parse html
     {
-        var todayNameReg = new RegExp("^\\s*" + global.todaysDate.format("dddd"), "i");
-        $("table","div#content").first().find("tr").each(function(){
-            var row = $(this);
-            if(todayNameReg.test(row.text()))
-            {
-                row = row.next();
-                while(row.text().trim() !== "")
-                {
-                    var item = parseItem(row);
-                    if(item)
-                        menu.push(item);
-                    row = row.next(); 
+        global.dates.forEach(function(date) {
+            var dayMenu = [];
+            var todayNameReg = new RegExp("^\\s*" + date.format("dddd"), "i");
+            $("table", "div#content").first().find("tr").each(function() {
+                var row = $(this);
+                if(todayNameReg.test(row.text())) {
+                    row = row.next();
+                    while(row.text().trim() !== "") {
+                        var item = parseItem(row);
+                        if(item)
+                            dayMenu.push(item);
+                        row = row.next();
+                    }
+                    return false;
                 }
-                return false;
-            }
+            });
+            weekMenu.push({ day: date.format('dddd'), menu: dayMenu });
         });
-        callback(menu);
+
+        callback(weekMenu);
     }
 
     function parseItem(row)
@@ -60,29 +63,30 @@ module.exports.parse = function(html, callback) {
         var lines = menuString.split('\n').filter(function(val) {
             return val.trim();
         });
-        var todayRegEx = new RegExp(global.todaysDate.format('dddd'), 'i');
-        var tomorrowRegEx = new RegExp(global.todaysDate.clone().add('days', 1).format('dddd')+ "|šalát", 'i');//friday ends with salatove menu
-        for (var i = 0; i < lines.length; i++)
-        {
-            if (todayRegEx.test(lines[i]))
-            {
-                i++;
-                while (!tomorrowRegEx.test(lines[i]))
-                {
-                    menu.push(lines[i]);
+        global.dates.forEach(function(date) {
+            var dayMenu = [];
+            var todayRegEx = new RegExp(date.format('dddd'), 'i');
+            var tomorrowRegEx = new RegExp(date.clone().add('days', 1).format('dddd') + "|šalát", 'i');//friday ends with salatove menu
+            for(var i = 0; i < lines.length; i++) {
+                if(todayRegEx.test(lines[i])) {
                     i++;
+                    while(!tomorrowRegEx.test(lines[i])) {
+                        dayMenu.push(lines[i]);
+                        i++;
+                    }
+                    break;
                 }
-                break;
             }
-        }
 
-        menu = menu.map(function(item) {
-            var priced = parserUtil.parsePrice(normalize(item));
-            return { isSoup: /polievka/i.test(priced.text), text: priced.text.replace(/polievka:\s*/i, ""), price: priced.price };
+            dayMenu = dayMenu.map(function(item) {
+                var priced = parserUtil.parsePrice(normalize(item));
+                return { isSoup: /polievka/i.test(priced.text), text: priced.text.replace(/polievka:\s*/i, ""), price: priced.price };
+            });
+
+            weekMenu.push({ day: date.format('dddd'), menu: dayMenu });
         });
 
-        callback(menu);
-
+        callback(weekMenu);
     }
 
     function normalize(str) {

@@ -1,7 +1,8 @@
 var assert = require('assert'),
     fs = require('fs'),
     moment = require('moment-timezone'),
-    parser = require('../parsers/sme');
+    parser = require('../parsers/sme'),
+    testHelpers = require('../test/testHelpers');
 
 moment.lang('sk');
 
@@ -12,9 +13,9 @@ describe('kamenica', function() {
         var menu;
 
         before(function(done) {
-            global.todaysDate = moment("2014-04-29");
+            testHelpers.setWeekDates(moment("2014-04-29"));
             parser.parse(html, function(menuItems) {
-                menu = menuItems;
+                menu = menuItems.filter(function(x) { if(x.day == moment().day(2).format('dddd')) return true; })[0].menu;
                 done();
             });
         });
@@ -60,9 +61,9 @@ describe('kamenica', function() {
         var menu;
 
         before(function(done) {
-            global.todaysDate = moment("2014-05-14");
+            testHelpers.setWeekDates(moment("2014-05-14"));
             parser.parse(html, function(menuItems) {
-                menu = menuItems;
+                menu = menuItems.filter(function(x) { if(x.day == moment().day(3).format('dddd')) return true; })[0].menu;
                 done();
             });
         });

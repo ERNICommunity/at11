@@ -1,7 +1,8 @@
 var assert = require('assert'),
     fs = require('fs'),
     moment = require('moment-timezone'),
-    parser = require('../parsers/pizzapazza');
+    parser = require('../parsers/pizzapazza'),
+    testHelpers = require('../test/testHelpers');
 
 moment.lang('sk');
 
@@ -12,9 +13,9 @@ describe('pizzapazza', function() {
         var menu;
 
         before(function(done) {
-            global.todaysDate = moment("2014-05-13");
+            testHelpers.setWeekDates(moment("2014-05-13"));
             parser.parse(html, function(menuItems) {
-                menu = menuItems;
+                menu = menuItems.filter(function(x) { if(x.day == moment().day(2).format('dddd')) return true; })[0].menu;
                 done();
             });
         });
@@ -48,9 +49,9 @@ describe('pizzapazza', function() {
         var menu;
 
         before(function(done) {
-            global.todaysDate = moment("2014-05-26");
+            testHelpers.setWeekDates(moment("2014-05-26"));
             parser.parse(html, function(menuItems) {
-                menu = menuItems;
+                menu = menuItems.filter(function(x) { if(x.day == moment().day(1).format('dddd')) return true; })[0].menu;
                 done();
             });
         });
