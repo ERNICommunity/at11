@@ -34,7 +34,7 @@ function loadMenus() {
                     });
                 }
                 section.append(ul);
-                section.append("<span class='timeago'><i class='fa fa-refresh'></i> " + data.timeago + "</span>");
+                if(data.timeago !== undefined) { section.append("<span class='timeago'><i class='fa fa-refresh'></i> " + data.timeago + "</span>"); }
             })
             .fail(function(jqXHR, textStatus) {
                 section.append("<ul><li class=\"bg-danger error\"><p class=\"text-danger\">" + textStatus + "</li></ul>");

@@ -33,7 +33,7 @@ module.exports.parse = function(html, callback) {
         global.dates.forEach(function(date) {
             var dayMenu = [];
             var dateReg = new RegExp("^\\s*0?" + date.date() + "\\.\\s*0?" + (date.month() + 1) + "\\.\\s*" + date.year());
-            var todayNameReg = new RegExp("^" + date.format("dddd"), "i");
+            var todayNameReg = new RegExp("^\\s*" + date.format("dddd"), "i");
             var price;
             for(var i = 0; i < lines.length; i++) {
                 if(todayNameReg.test(lines[i])) {

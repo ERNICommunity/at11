@@ -35,7 +35,7 @@ module.exports.parse = function(html, callback) {
                 i--;
             }
             else if(/\s*menu č\. ?4/i.test(dayMenu[i])) {
-                if(i + 1 < dayMenu.length)//prepend it to the next item
+                if(i + 1 < dayMenu.length) //prepend it to the next item
                     dayMenu[i + 1] = dayMenu[i].trim() + ": " + dayMenu[i + 1].trim();
                 dayMenu.splice(i, 1);
             }
@@ -56,13 +56,15 @@ module.exports.parse = function(html, callback) {
 
     function parseDailyMenu(menuText, date) {
         var todayName = date.format("dddd");
+        var tomorrowName = date.clone().add("days", 1).format("dddd");
 
         var startLine, endLine;
         for(var line in menuText) {
             if(menuText[line].toLowerCase().indexOf(todayName) !== -1) {
                 startLine = line;
             }
-            if(startLine && /^–+$/.test(menuText[line].trim()))//dashed separator line
+            if(startLine && /^–+$/.test(menuText[line].trim()) //dashed separator line
+                || (menuText[line].toLowerCase().indexOf(tomorrowName) !== -1)) //next day name
             {
                 endLine = line;
                 break;
@@ -73,7 +75,8 @@ module.exports.parse = function(html, callback) {
         }
 
         var menuResult = menuText.slice(startLine, endLine);
-        menuResult = menuResult.filter(function(line) { return /\S/.test(line); });//remove empty lines
+        menuResult = menuResult.filter(function(line) { return /\S/.test(line); }); //remove empty lines
+        menuResult = menuResult.filter(function(line) { return !/(Výmena prílohy|Pri účte 30 eur)/.test(line); }); //remove bonus information
         //remove name of the day from the first menu entry
         menuResult[0] = menuResult[0].substring(todayName.length).trim();
         return menuResult;
