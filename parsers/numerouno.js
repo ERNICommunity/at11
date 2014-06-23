@@ -63,8 +63,8 @@ module.exports.parse = function(html, callback) {
             if(menuText[line].toLowerCase().indexOf(todayName) !== -1) {
                 startLine = line;
             }
-            if(startLine && /^–+$/.test(menuText[line].trim()) //dashed separator line
-                || (menuText[line].toLowerCase().indexOf(tomorrowName) !== -1)) //next day name
+            if(startLine && /^–+$/.test(menuText[line].trim()) || //dashed separator line
+                (menuText[line].toLowerCase().indexOf(tomorrowName) !== -1)) //next day name
             {
                 endLine = line;
                 break;
