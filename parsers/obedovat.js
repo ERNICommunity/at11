@@ -1,4 +1,4 @@
-var cheerio = require('cheerio');
+﻿var cheerio = require('cheerio');
 require('./parserUtil');
 
 module.exports.parse = function(html, callback) {
@@ -14,10 +14,9 @@ module.exports.parse = function(html, callback) {
         $('.daily-menu-for-day').each(function() {
             if($(this).children("header").first().text().indexOf(todayStr) !== -1) {
                 dayMenu = parseMenu($(this));
-                return false;
+                weekMenu.push({ day: date.format('dddd'), menu: dayMenu });
             }
         });
-        weekMenu.push({ day: date.format('dddd'), menu: dayMenu });
     });
 
     callback(weekMenu);

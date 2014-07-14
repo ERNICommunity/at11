@@ -1,4 +1,4 @@
-var cheerio = require('cheerio');
+﻿var cheerio = require('cheerio');
 var parserUtil = require('./parserUtil');
 var request = require('request');
 
@@ -28,11 +28,12 @@ module.exports.parse = function(html, callback) {
         global.dates.forEach(function(date) {
             var dayMenu = [];
             var todayNameReg = new RegExp("^\\s*" + date.format("dddd"), "i");
+	    var nextNameReg = new RegExp("^\\s*" + date.clone().add("days",1).format("dddd"), "i");
             $("table", "div#content").first().find("tr").each(function() {
                 var row = $(this);
                 if(todayNameReg.test(row.text())) {
                     row = row.next();
-                    while(row.text().trim() !== "") {
+                    while(!nextNameReg.test(row.text()) && !/Šalátové menu/.test(row.text())) {
                         var item = parseItem(row);
                         if(item)
                             dayMenu.push(item);
