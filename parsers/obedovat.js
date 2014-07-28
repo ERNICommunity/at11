@@ -36,10 +36,11 @@ module.exports.parse = function(html, callback) {
         });
 
         elem.find('li').each(function() {
-            var text = normalize($(this).children(".name").first().text());
+            var rawText = $(this).children(".name").first().text();
+            var isSoup = /0,33l/.test(rawText);
+            var text = normalize(rawText);
             var priceMatch = /(\d+[\.,]\d+) ?€/.exec($(this).children(".price").first().text().replace(",", "."));
             var price = priceMatch ? parseFloat(priceMatch[1]) : NaN;
-            var isSoup = false;
             if(!haveSoupAlready && !/ menu/.test(text))
             {
                 haveSoupAlready = true;
