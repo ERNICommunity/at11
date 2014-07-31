@@ -33,6 +33,8 @@ $(document).ready(function() {
         });
         writeCookie('hiddenRestaurants', hiddenRestaurantsIds.join(','), 10 * 365);
     });
+    
+    $('body').bind('touchstart', function() {});
 });
 
 function loadMenus(container) {
