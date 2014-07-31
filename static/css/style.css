@@ -147,12 +147,8 @@ div#settings > div {
     text-align: left;
     font-size: 0.5em;
 }
-div#settings:hover > div, div.hover-effect > div {
+div#settings:hover > div, div#settings.hover-effect > div {
     display: block;
-}
-.hover{
-    -webkit-user-select: none;
-    -webkit-touch-callout: none;     
 }
 div#settings span, div#settings li{
     white-space: nowrap;
