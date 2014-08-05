@@ -34,7 +34,7 @@ $(document).ready(function() {
         writeCookie('hiddenRestaurants', hiddenRestaurantsIds.join(','), 10 * 365);
     });
 
-    $('.hover').on('touchstart', function(e) {
+    $('.hover').on('touchstart', function() {
         $(this).toggleClass('hover-effect');
     });
 });
