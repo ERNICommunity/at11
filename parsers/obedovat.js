@@ -1,4 +1,4 @@
-﻿var cheerio = require('cheerio');
+var cheerio = require('cheerio');
 require('./parserUtil');
 
 module.exports.parse = function(html, callback) {

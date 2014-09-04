@@ -1,4 +1,4 @@
-﻿var cheerio = require('cheerio');
+var cheerio = require('cheerio');
 var parserUtil = require('./parserUtil');
 var request = require('request');
 
