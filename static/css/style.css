@@ -3,7 +3,13 @@ html, body {
     padding: 0;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     background-color: white;
-    color: rgb(50,50,50);;
+    color: rgb(50,50,50);
+}
+
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
 }
 
 a, a:active, a:visited {
@@ -61,7 +67,12 @@ footer {
         white-space: nowrap;
     }
 
-body > div {
+main {
+    flex: 1;
+    -ms-flex-preferred-size: auto;
+}
+
+div#container {
     margin: 10px 40px;
 }
 

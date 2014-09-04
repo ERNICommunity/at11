@@ -34,16 +34,20 @@
                  </div>
              </div>
         </header>
-
-        <div id="container">
-            {{#each restaurants}}
-            <section data-restaurant-id="{{this.id}}">
-                <h2><a href="{{this.url}}" target="_blank">{{this.name}}</a></h2>
-                <i class="fa fa-spinner fa-spin"></i>
-            </section>
-            {{/each}}
-        </div>
         
+        <main>
+        
+            <div id="container">
+                {{#each restaurants}}
+                <section data-restaurant-id="{{this.id}}">
+                    <h2><a href="{{this.url}}" target="_blank">{{this.name}}</a></h2>
+                    <i class="fa fa-spinner fa-spin"></i>
+                </section>
+                {{/each}}
+            </div>
+        
+        </main>
+            
         <footer>
             <span>
                 <a href="http://en.wikipedia.org/wiki/Copyleft" target="_blank" title="copyleft" style="display: inline-block; -webkit-transform: scaleX(-1); transform: scaleX(-1);">©</a>
