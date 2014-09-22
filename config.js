@@ -14,7 +14,7 @@ module.exports = {
         {id: 8, name: "Numero Uno", url: "http://www.numerouno.sk/denne-menu-5/", module: "numerouno"},
         {id: 9, name: "Engerau restaurant", url: "http://www.obedovat.sk/restauracia/241-engerau-restaurant/denne-menu", module: "obedovat"},
         {id: 10, name: "Jedáleň Albatros", url: "http://www.obedovat.sk/restauracia/7088-albatros-jedalen/denne-menu", module: "obedovat"},
-        {id: 11, name: "Jedáleň u Daňováka", url: "http://www.obedovat.sk/restauracia/9812-jedalenudanovaka2/denne-menu", module: "obedovat"}
+        {id: 11, name: "Jedáleň u Daňováka II", url: "http://www.obedovat.sk/restauracia/9812-jedalenudanovaka2/denne-menu", module: "obedovat"}
     ],
     themes: {
         "jano": { name: "Jano", template: "../views/index.html" },
