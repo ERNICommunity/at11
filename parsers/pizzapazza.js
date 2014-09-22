@@ -33,7 +33,7 @@ module.exports.parse = function(html, callback) {
                 var row = $(this);
                 if(todayNameReg.test(row.text())) {
                     row = row.next();
-                    while(!nextNameReg.test(row.text()) && !/Šalátové menu/.test(row.text())) {
+                    while(row.length == 1 && !nextNameReg.test(row.text()) && !/Šalátové menu/.test(row.text())) {
                         var item = parseItem(row);
                         if(item)
                             dayMenu.push(item);
