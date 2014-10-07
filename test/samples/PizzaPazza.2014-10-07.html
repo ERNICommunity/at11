@@ -1,0 +1,1518 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    	<meta name="keywords" content="keyword" />
+	<meta name="description" content="description" />
+	<meta name="copyright" content="copyright" />
+
+    
+    <title>  Denné menu | PizzaPazza.sk
+</title>
+    
+    <link rel="stylesheet" media="screen,projection,tv" href="/libs/blueprint/screen.css" type="text/css" />
+    <!--[if lt IE 8]><link rel="stylesheet" media="screen,projection,tv" href="/libs/blueprint/ie.css" type="text/css"><![endif]-->
+    <link rel="stylesheet" media="print" href="/libs/blueprint/print.css" type="text/css" />
+    <link rel="stylesheet" media="screen,projection,tv" href="/libs/jquery/ui/smoothness/jquery-ui-1.10.3.custom.min.css" type="text/css" />
+  
+  <link rel="stylesheet" media="screen,projection,tv" href="/libs/jgrowl/jgrowl.css" type="text/css" />
+  <link rel="stylesheet" type="text/css" href="/themes/front/css/style.css" />
+    
+            <script>window.jQuery || document.write('<script src="' + "" + '/libs/jquery/jquery-1.7.2.min.js"><\/script>')</script>
+    <script type="text/javascript" src="/libs/js/jquery.address-1.3.1.min.js"></script>
+    <script type="text/javascript" src="/libs/js/jquery.DOMWindow.js"></script>
+    <script type="text/javascript" src="/libs/js/netteForms.js"></script>
+    <script type="text/javascript" src="/libs/jquery/ui/jquery-ui-1.10.3.custom.min.js"></script>
+    <!--
+    <script type="text/javascript" src="/libs/js/jquery.autocomplete.js"></script>
+    <script type="text/javascript" src="/libs/js/jquery.select-autocomlete.js"></script>
+    -->
+    <script type="text/javascript">
+      var serverName = "http:\/\/www.pizzapazza.sk";
+        
+      var shupito = {};
+      shupito.flashesTimeout = 4000; //4 seconds
+    </script>
+	
+	<script type="text/javascript" src="/libs/js/live-form-validation.js"></script>
+	<script type="text/javascript" src="/libs/js/jquery.scrollTo.js"></script>
+	<script type="text/javascript" src="/libs/js/jquery.easing.js"></script>
+	<script type="text/javascript" src="/libs/js/jquery.localscroll.js"></script>
+	<script type="text/javascript" src="/libs/js/swfobject.js"></script>
+	<script type="text/javascript" src="/libs/jgrowl/jquery.jgrowl.js"></script>
+	<script type="text/javascript" src="/libs/js/jquery.tools.min.js"></script>
+	<script type="text/javascript" src="/themes/front/js/shupito.js"></script>
+
+  <script type="text/javascript">
+		$.jGrowl.defaults.closer = false;
+	</script>
+
+  </head>
+  <body>
+
+    <noscript class="noscript">
+      <p>Pre uskutočnenie objednávky je potrebné mať zapnutý Javascript</p>
+    </noscript>
+    <div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/sk_SK/all.js#xfbml=1&appId=144734715618766";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+<div id="container-flag">
+  <div id="header">
+    <div class="container">
+    
+      <div class="span-12">
+        <div id="logo">
+          <a title="PizzaPazza.sk" href="/">PizzaPazza.sk</a>
+        </div>
+      </div>
+      
+      <div class="span-12 last">
+<ul id="language" class="links clearfix">
+  <li class="active first">
+
+    <a href="/">SK</a>
+  </li>
+  <li class="last">
+
+    <a href="/en/">EN</a>
+  </li>
+</ul>
+
+      </div>
+      
+      <div class="span-16">
+          <ul id="nav" class="links clearfix">
+            <li class="first"><a href="/">Domov</a></li>
+            <li class="last"><a href="error: Page with urlId:aboutus and lang:sk not exists">O nás</a>
+
+            <li><a href="/sk/menu/">Jedálny lístok</a></li>
+            <li class="last"><a href="/sk/denne-menu/" class="active">Denné menu</a>
+
+            <li class="last"><a href="/sk/akcie/">Akcie</a>            
+
+            <li class="last"><a href="/sk/donaska/">Donáška</a>
+
+            <li class="last"><a href="/sk/kontakt/">Kontakt</a></li>
+          </ul>
+      </div>
+      
+      <div class="span-8 last">
+<ul id="user-nav" class="links clearfix">
+  <li id="login-dropdown" class="first">
+    <a id="login-dropdown-link" href="/sk/uzivatel/prihlasit/">Prihlásenie</a>
+
+    <div id="login-dropdown-dropdown">
+<form action="/sk/denne-menu/?do=user-loginForm-submit" method="post" id="frm-user-loginForm" novalidate="novalidate">        
+        <div class="form-item">
+          <label class="required" for="frmloginForm-email">Email</label>
+          <input type="text" class="text" name="email" id="frmloginForm-email" required="required" data-nette-rules="{op:':filled',msg:&quot;Pole Email je povinn\u00e9&quot;},{op:':email',msg:&quot;Pole Email m\u00e1 neplatn\u00fd form\u00e1t&quot;}" value="" />
+        </div>
+        <div class="form-item">
+          <label class="required" for="frmloginForm-password">Heslo</label>
+          <input type="password" class="text" name="password" id="frmloginForm-password" required="required" data-nette-rules="{op:':filled',msg:&quot;Pole Heslo je povinn\u00e9&quot;}" />
+        </div>
+        <div class="form-submit">
+          <input type="submit" class="button" name="ok" id="frmloginForm-ok" value="Prihlásiť" />
+          <a href="/sk/uzivatel/heslo/obnovit/" class="lost-pass">Zabudli ste heslo?</a>
+        </div>
+        
+</form>
+    </div>
+  </li>
+  <li class="last"><a href="/sk/uzivatel/registrovat/">Registrácia</a></li>
+</ul>      </div>
+      
+    </div>
+  </div>
+  
+  
+  
+  <div id="main">
+    <div class="container">
+    
+      <div id="page" class="clearfix">
+      
+          <h1 id="title">Denné menu</h1>
+
+        
+        <div id="content" class="clearfix">
+          
+<div class="editor-content clearfix">
+  <p style="text-align: center;">
+	<strong style="text-align: center; font-family: tahoma, geneva, sans-serif;"><span style="color: rgb(147, 3, 3); line-height: 18px;">ROZVOZ DENN&Eacute;HO MENU: 11:00 - 14:00</span></strong></p>
+<p>
+	<span style="font-size: 14px;">Denn&eacute; menu sa rozv&aacute;ža IBA v rozvozov&yacute;ch z&oacute;nach č. 1 <a href="http://www.pizzapazza.sk/sk/donaska/#cennik" target="_blank">(viac info)</a> jednotliv&yacute;ch prev&aacute;dzok Pizza Pazza. Minim&aacute;lny odber s&uacute; 2 ks denn&eacute;ho menu. V pr&iacute;pade objedn&aacute;vky 1 ks denn&eacute;ho menu &uacute;čtujeme poplatok 1&euro; (neplat&iacute; v pr&iacute;pade VIP a FIT menu, ak je ich cena nad 5&euro;). Dovoz do in&yacute;ch lokal&iacute;t po dohode.</span></p>
+<p>
+	&nbsp;</p>
+<p>
+	<a href="http://www.pizzapazza.sk/sk/denne-menu/#vienna" style="text-align: center;"><strong style="line-height: 24px;"><span style="margin: 0px; padding: 0px; border: 0px currentColor; border-image: none; line-height: inherit; font-family: tahoma, geneva, sans-serif; font-size: inherit; font-style: inherit; font-variant: inherit; font-weight: inherit; vertical-align: baseline;"><font color="#930303"><span style="margin: 0px; padding: 0px; border: 0px currentColor; border-image: none; line-height: 18px; font-family: inherit; font-size: inherit; font-style: inherit; font-variant: inherit; font-weight: inherit; vertical-align: baseline;"><span style="margin: 0px; padding: 0px; border: 0px currentColor; border-image: none; line-height: inherit; font-family: inherit; font-size: 16px; font-style: inherit; font-variant: inherit; font-weight: inherit; vertical-align: baseline;">Vienna Gate:</span></span></font></span></strong></a><span style="text-align: center; color: rgb(204, 51, 51); font-family: tahoma, geneva, sans-serif; font-size: 24px;">&nbsp;</span><strong style="text-align: center; line-height: 13px;"><span style="margin: 0px; padding: 0px; border: 0px currentColor; border-image: none; line-height: inherit; font-family: tahoma, geneva, sans-serif; font-size: inherit; font-style: inherit; font-variant: inherit; font-weight: inherit; vertical-align: baseline;"><font color="#930303"><span style="margin: 0px; padding: 0px; border: 0px currentColor; border-image: none; line-height: 18px; font-family: inherit; font-size: inherit; font-style: inherit; font-variant: inherit; font-weight: inherit; vertical-align: baseline;"><span style="margin: 0px; padding: 0px; border: 0px currentColor; border-image: none; line-height: inherit; font-family: inherit; font-size: 16px; font-style: inherit; font-variant: inherit; font-weight: inherit; vertical-align: baseline;">0903 809 049</span></span></font></span></strong><span style="text-align: center; font-family: tahoma, geneva, sans-serif;"><span style="color: rgb(204, 51, 51); font-size: 16px;">&nbsp; &nbsp;</span><span style="color: rgb(204, 51, 51); font-size: 16px;">&nbsp; &nbsp;</span></span><a href="http://www.pizzapazza.sk/sk/denne-menu/#hron" style="text-align: center;"><strong style="line-height: 13px;"><span style="margin: 0px; padding: 0px; border: 0px currentColor; border-image: none; line-height: inherit; font-family: tahoma, geneva, sans-serif; font-size: inherit; font-style: inherit; font-variant: inherit; font-weight: inherit; vertical-align: baseline;"><font color="#930303"><span style="margin: 0px; padding: 0px; border: 0px currentColor; border-image: none; line-height: 18px; font-family: inherit; font-size: inherit; font-style: inherit; font-variant: inherit; font-weight: inherit; vertical-align: baseline;"><span style="margin: 0px; padding: 0px; border: 0px currentColor; border-image: none; line-height: inherit; font-family: inherit; font-size: 16px; font-style: inherit; font-variant: inherit; font-weight: inherit; vertical-align: baseline;">Hron:</span></span></font></span></strong></a><span style="text-align: center; color: rgb(204, 51, 51); font-family: tahoma, geneva, sans-serif; font-size: 16px;">&nbsp;</span><strong style="text-align: center; line-height: 13px;"><span style="margin: 0px; padding: 0px; border: 0px currentColor; border-image: none; line-height: inherit; font-family: tahoma, geneva, sans-serif; font-size: inherit; font-style: inherit; font-variant: inherit; font-weight: inherit; vertical-align: baseline;"><font color="#930303"><span style="margin: 0px; padding: 0px; border: 0px currentColor; border-image: none; line-height: 18px; font-family: inherit; font-size: inherit; font-style: inherit; font-variant: inherit; font-weight: inherit; vertical-align: baseline;"><span style="margin: 0px; padding: 0px; border: 0px currentColor; border-image: none; line-height: inherit; font-family: inherit; font-size: 16px; font-style: inherit; font-variant: inherit; font-weight: inherit; vertical-align: baseline;">0904 489 222</span></span></font></span></strong><span style="text-align: center; color: rgb(204, 51, 51); font-family: tahoma, geneva, sans-serif; font-size: 16px;">&nbsp; &nbsp;</span><strong style="text-align: center; color: rgb(204, 51, 51); font-family: tahoma, geneva, sans-serif; font-size: medium;"><span style="line-height: 13px; font-size: 16px;">&nbsp;&nbsp;</span></strong><span style="text-align: center; color: rgb(204, 51, 51); font-family: tahoma, geneva, sans-serif; font-size: medium;">&nbsp;</span><a href="http://www.pizzapazza.sk/sk/denne-menu/#rovinka" style="text-align: center;"><strong style="line-height: 13px;"><span style="margin: 0px; padding: 0px; border: 0px currentColor; border-image: none; line-height: inherit; font-family: tahoma, geneva, sans-serif; font-size: inherit; font-style: inherit; font-variant: inherit; font-weight: inherit; vertical-align: baseline;"><font color="#930303"><span style="margin: 0px; padding: 0px; border: 0px currentColor; border-image: none; line-height: 18px; font-family: inherit; font-size: inherit; font-style: inherit; font-variant: inherit; font-weight: inherit; vertical-align: baseline;"><span style="margin: 0px; padding: 0px; border: 0px currentColor; border-image: none; line-height: inherit; font-family: inherit; font-size: 16px; font-style: inherit; font-variant: inherit; font-weight: inherit; vertical-align: baseline;">Rovinka:</span></span></font></span></strong></a><strong style="text-align: center; color: rgb(204, 51, 51); font-family: tahoma, geneva, sans-serif; font-size: medium;"><span style="line-height: 13px; font-size: 16px;">&nbsp;</span></strong><strong style="text-align: center; line-height: 13px;"><span style="margin: 0px; padding: 0px; border: 0px currentColor; border-image: none; line-height: inherit; font-family: tahoma, geneva, sans-serif; font-size: inherit; font-style: inherit; font-variant: inherit; font-weight: inherit; vertical-align: baseline;"><font color="#930303"><span style="margin: 0px; padding: 0px; border: 0px currentColor; border-image: none; line-height: 18px; font-family: inherit; font-size: inherit; font-style: inherit; font-variant: inherit; font-weight: inherit; vertical-align: baseline;"><span style="margin: 0px; padding: 0px; border: 0px currentColor; border-image: none; line-height: inherit; font-family: inherit; font-size: 16px; font-style: inherit; font-variant: inherit; font-weight: inherit; vertical-align: baseline;">0903 822 232</span></span></font></span></strong><span style="text-align: center; color: rgb(204, 51, 51); font-family: tahoma, geneva, sans-serif; font-size: 16px;">&nbsp; &nbsp;</span><strong style="text-align: center; color: rgb(204, 51, 51); font-family: tahoma, geneva, sans-serif; font-size: medium;"><span style="line-height: 13px; font-size: 16px;">&nbsp;&nbsp;</span></strong><span style="text-align: center; color: rgb(204, 51, 51); font-family: tahoma, geneva, sans-serif; font-size: medium;">&nbsp;</span><strong style="text-align: center; line-height: 13px;"><a href="http://www.pizzapazza.sk/sk/denne-menu/#dubrawa"><span style="margin: 0px; padding: 0px; border: 0px currentColor; border-image: none; line-height: inherit; font-family: tahoma, geneva, sans-serif; font-size: inherit; font-style: inherit; font-variant: inherit; font-weight: inherit; vertical-align: baseline;"><font color="#930303"><span style="margin: 0px; padding: 0px; border: 0px currentColor; border-image: none; line-height: 18px; font-family: inherit; font-size: inherit; font-style: inherit; font-variant: inherit; font-weight: inherit; vertical-align: baseline;"><span style="margin: 0px; padding: 0px; border: 0px currentColor; border-image: none; line-height: inherit; font-family: inherit; font-size: 16px; font-style: inherit; font-variant: inherit; font-weight: inherit; vertical-align: baseline;">OC Dubrawa:</span></span></font></span></a></strong><span style="text-align: center; color: rgb(204, 51, 51); font-family: tahoma, geneva, sans-serif; font-size: 16px;">&nbsp;</span><strong style="text-align: center; line-height: 13px;"><span style="margin: 0px; padding: 0px; border: 0px currentColor; border-image: none; line-height: inherit; font-family: tahoma, geneva, sans-serif; font-size: inherit; font-style: inherit; font-variant: inherit; font-weight: inherit; vertical-align: baseline;"><font color="#930303"><span style="margin: 0px; padding: 0px; border: 0px currentColor; border-image: none; line-height: 18px; font-family: inherit; font-size: inherit; font-style: inherit; font-variant: inherit; font-weight: inherit; vertical-align: baseline;"><span style="margin: 0px; padding: 0px; border: 0px currentColor; border-image: none; line-height: inherit; font-family: inherit; font-size: 16px; font-style: inherit; font-variant: inherit; font-weight: inherit; vertical-align: baseline;">0910 898 398</span></span></font></span></strong></p>
+<p style="text-align: center;">
+	&nbsp;</p>
+<p>
+	<span style="display: none;">&nbsp;</span></p>
+<p>
+	<strong style="line-height: 18px; font-family: Helvetica, Arial, sans-serif; font-size: 18px;"><strong id="vienna" style="color: rgb(147, 3, 3); line-height: 1; font-size: 24px;">Denn&eacute; menu</strong></strong><span style="font-size: 18px;"><strong style="line-height: 18px; font-family: Helvetica, Arial, sans-serif;"><strong id="vienna" style="color: rgb(147, 3, 3); line-height: 1; font-size: 24px;">&nbsp;Vienna Gate</strong></strong></span></p>
+<table border="0" cellpadding="0" cellspacing="0" style="width:665px;" width="665">
+	<colgroup>
+		<col />
+		<col />
+		<col />
+		<col />
+		<col />
+		<col />
+		<col />
+		<col />
+		<col />
+	</colgroup>
+	<tbody>
+		<tr height="32">
+			<td colspan="9" height="32" style="height:33px;width:665px;">
+				<strong>T&Yacute;ŽDENN&Eacute; MENU 6. - 10. 10. 2014</strong></td>
+		</tr>
+		<tr height="22">
+			<td colspan="5" height="22" style="height:23px;">
+				T&yacute;ždenn&eacute; menu &ndash; polievka z dennej ponuky + Živ&aacute;nska</td>
+			<td>
+				400</td>
+			<td dir="LTR" style="width:7px;">
+				g</td>
+			<td style="width:32px;">
+				5,50&euro;</td>
+			<td>
+				<sub>1</sub></td>
+		</tr>
+		<tr height="26">
+			<td colspan="9" height="26" style="height:27px;">
+				panenka, klob&aacute;sa, slanina, cibuľa, opekan&eacute; zemiaky</td>
+		</tr>
+		<tr height="22">
+			<td colspan="3" height="22" style="height:23px;">
+				VIP menu &ndash; polievka z dennej ponuky + Losos</td>
+			<td>
+				200</td>
+			<td>
+				/</td>
+			<td>
+				200</td>
+			<td dir="LTR" style="width:7px;">
+				g</td>
+			<td style="width:32px;">
+				8,00&euro;</td>
+			<td>
+				<sub>4,7</sub></td>
+		</tr>
+		<tr height="26">
+			<td colspan="9" height="26" style="height:27px;">
+				losos na anglickej zelenine s citr&oacute;nov&yacute;m maslom</td>
+		</tr>
+		<tr height="22">
+			<td colspan="5" height="22" style="height:23px;">
+				FIT menu &ndash; polievka z dennej ponuky + Spaghetti Arabbiata e Rucola</td>
+			<td>
+				350</td>
+			<td dir="LTR" style="width:7px;">
+				g</td>
+			<td style="width:32px;">
+				4,90&euro;</td>
+			<td>
+				<sub>1,3,8</sub></td>
+		</tr>
+		<tr height="26">
+			<td colspan="9" height="26" style="height:27px;">
+				celozrnn&eacute; cestoviny, pomodoro, cesnak, chilli papričky, rukola, ara&scaron;idy, parmez&aacute;n</td>
+		</tr>
+		<tr height="26">
+			<td colspan="9" height="26" style="height:27px;">
+				&Scaron;al&aacute;tov&eacute; menu &ndash; polievka z dennej ponuky + &scaron;al&aacute;t</td>
+		</tr>
+		<tr height="24">
+			<td colspan="5" height="24" style="height:25px;">
+				1. Insalata Salmone</td>
+			<td>
+				300</td>
+			<td dir="LTR" style="width:7px;">
+				g</td>
+			<td>
+				4,00&euro;</td>
+			<td>
+				<sub>1,4</sub></td>
+		</tr>
+		<tr height="24">
+			<td colspan="9" height="24" style="height:24px;">
+				zmes &scaron;al&aacute;tov, paradajky, uhorka, losos, citr&oacute;nov&yacute; olej</td>
+		</tr>
+		<tr height="24">
+			<td colspan="5" height="24" style="height:25px;">
+				2. Insalata Caprese</td>
+			<td>
+				300</td>
+			<td dir="LTR" style="width:7px;">
+				g</td>
+			<td>
+				4,00&euro;</td>
+			<td>
+				<sub>1,7</sub></td>
+		</tr>
+		<tr height="24">
+			<td colspan="9" height="24" style="height:24px;">
+				ľadov&yacute; &scaron;al&aacute;t, paradajky, mozzarella, bazalka, pesto</td>
+		</tr>
+		<tr height="24">
+			<td colspan="5" height="24" style="height:25px;">
+				3. Insalata Pollo di Cocco</td>
+			<td>
+				300</td>
+			<td dir="LTR" style="width:7px;">
+				g</td>
+			<td>
+				4,00&euro;</td>
+			<td>
+				<sub>1</sub></td>
+		</tr>
+		<tr height="30">
+			<td colspan="9" height="30" style="height:30px;">
+				zmes &scaron;al&aacute;tov, lah&ocirc;dkov&aacute; kukurica, uhorka, cherry paradajky, kuracie m&auml;so, kokos</td>
+		</tr>
+		<tr height="26">
+			<td colspan="9" height="26" style="height:27px;">
+				Pizza menu &ndash; polievka z dennej ponuky + pizza</td>
+		</tr>
+		<tr height="24">
+			<td colspan="5" height="24" style="height:25px;">
+				1. Pizza Formaggi</td>
+			<td>
+				400</td>
+			<td dir="LTR" style="width:7px;">
+				g</td>
+			<td>
+				4,00&euro;</td>
+			<td>
+				<sub>1,7</sub></td>
+		</tr>
+		<tr height="24">
+			<td colspan="9" height="24" style="height:24px;">
+				paradajkov&yacute; z&aacute;klad, eidam, &uacute;den&yacute; syr, niva</td>
+		</tr>
+		<tr height="24">
+			<td colspan="5" height="24" style="height:25px;">
+				2. Pizza Golden Eye</td>
+			<td>
+				400</td>
+			<td dir="LTR" style="width:7px;">
+				g</td>
+			<td>
+				4,00&euro;</td>
+			<td>
+				<sub>1,7</sub></td>
+		</tr>
+		<tr height="24">
+			<td colspan="9" height="24" style="height:24px;">
+				paradajkov&yacute; z&aacute;klad, syr, &scaron;unka, vajce</td>
+		</tr>
+		<tr height="24">
+			<td colspan="5" height="24" style="height:25px;">
+				3. Pizza Wurstel</td>
+			<td>
+				400</td>
+			<td dir="LTR" style="width:7px;">
+				g</td>
+			<td>
+				4,00&euro;</td>
+			<td>
+				<sub>1,7</sub></td>
+		</tr>
+		<tr height="33">
+			<td colspan="9" height="33" style="height:33px;">
+				paradajkov&yacute; z&aacute;klad, syr, klob&aacute;sa, kukurica</td>
+		</tr>
+		<tr height="32">
+			<td colspan="9" height="32" style="height:33px;">
+				<strong>DENN&Eacute; MENU 11:00 &ndash; 14:00</strong></td>
+		</tr>
+		<tr height="24">
+			<td height="24" style="height:24px;">
+				PONDELOK</td>
+			<td colspan="7">
+				06.10.2014</td>
+			<td>
+				&nbsp;</td>
+		</tr>
+		<tr height="20">
+			<td colspan="5" height="20" style="height:20px;">
+				Polievka:Zeleninov&yacute; v&yacute;var z čerstvej zeleniny</td>
+			<td>
+				0,33</td>
+			<td dir="LTR" style="width:7px;">
+				l</td>
+			<td>
+				&nbsp;</td>
+			<td>
+				<sub>1,3,9</sub></td>
+		</tr>
+		<tr height="20">
+			<td colspan="3" height="20" style="height:20px;">
+				1. Znojemsk&eacute; kuracie pečienky, ryža</td>
+			<td>
+				150</td>
+			<td>
+				/</td>
+			<td>
+				150</td>
+			<td dir="LTR" style="width:7px;">
+				g</td>
+			<td>
+				4,00&euro;</td>
+			<td>
+				<sub>1,10</sub></td>
+		</tr>
+		<tr height="20">
+			<td colspan="5" height="20" style="height:20px;">
+				2. Pappardelle s parmez&aacute;novou om&aacute;čkou, prosciutto crudo, cherry paradajky</td>
+			<td>
+				330</td>
+			<td dir="LTR" style="width:7px;">
+				g</td>
+			<td>
+				4,80&euro;</td>
+			<td>
+				<sub>1,3,7</sub></td>
+		</tr>
+		<tr height="24">
+			<td height="24" style="height:24px;">
+				UTOROK</td>
+			<td colspan="7">
+				07.10.2014</td>
+			<td>
+				&nbsp;</td>
+		</tr>
+		<tr height="20">
+			<td colspan="5" height="20" style="height:20px;">
+				Polievka:&Scaron;ampiň&oacute;nov&aacute; kr&eacute;mov&aacute;</td>
+			<td>
+				0,33</td>
+			<td dir="LTR" style="width:7px;">
+				l</td>
+			<td>
+				&nbsp;</td>
+			<td>
+				<sub>1,7</sub></td>
+		</tr>
+		<tr height="20">
+			<td height="20" style="height:20px;">
+				1. Fil&eacute; v pivnom cest&iacute;čku, varen&eacute; zemiaky s paž&iacute;tkou, tat&aacute;rska om&aacute;čka</td>
+			<td>
+				150</td>
+			<td>
+				/</td>
+			<td>
+				150</td>
+			<td>
+				/</td>
+			<td>
+				50</td>
+			<td dir="LTR" style="width:7px;">
+				g</td>
+			<td>
+				4,00&euro;</td>
+			<td>
+				<sub>1,3,4,7</sub></td>
+		</tr>
+		<tr height="20">
+			<td colspan="3" height="20" style="height:20px;">
+				2. Bravčov&aacute; rol&aacute;da s karlovarskou plnkou, tarhoňa</td>
+			<td>
+				180</td>
+			<td>
+				/</td>
+			<td>
+				150</td>
+			<td dir="LTR" style="width:7px;">
+				g</td>
+			<td>
+				4,80&euro;</td>
+			<td>
+				<sub>1,3,7</sub></td>
+		</tr>
+		<tr height="24">
+			<td height="24" style="height:24px;">
+				STREDA</td>
+			<td colspan="7">
+				08.10.2014</td>
+			<td>
+				&nbsp;</td>
+		</tr>
+		<tr height="20">
+			<td colspan="5" height="20" style="height:20px;">
+				Polievka:Bor&scaron;č</td>
+			<td>
+				0,33</td>
+			<td dir="LTR" style="width:7px;">
+				l</td>
+			<td>
+				&nbsp;</td>
+			<td>
+				<sub>1,9</sub></td>
+		</tr>
+		<tr height="20">
+			<td colspan="5" height="20" style="height:20px;">
+				1. &Scaron;pen&aacute;tov&eacute; halu&scaron;ky so syrovou om&aacute;čkou</td>
+			<td>
+				300</td>
+			<td dir="LTR" style="width:7px;">
+				g</td>
+			<td>
+				4,00&euro;</td>
+			<td>
+				<sub>1,3,7</sub></td>
+		</tr>
+		<tr height="20">
+			<td colspan="3" height="20" style="height:20px;">
+				2. Jalape&ntilde;os kuracie rezance z wok panvice, jazm&iacute;nov&aacute; ryža</td>
+			<td>
+				180</td>
+			<td>
+				/</td>
+			<td>
+				150</td>
+			<td dir="LTR" style="width:7px;">
+				g</td>
+			<td>
+				4,80&euro;</td>
+			<td>
+				<sub>1,9</sub></td>
+		</tr>
+		<tr height="24">
+			<td height="24" style="height:24px;">
+				&Scaron;TVRTOK</td>
+			<td colspan="7">
+				09.10.2014</td>
+			<td>
+				&nbsp;</td>
+		</tr>
+		<tr height="20">
+			<td colspan="5" height="20" style="height:20px;">
+				Polievka:Hov&auml;dz&iacute; v&yacute;var</td>
+			<td>
+				0,33</td>
+			<td dir="LTR" style="width:7px;">
+				l</td>
+			<td>
+				&nbsp;</td>
+			<td>
+				<sub>1,3,6</sub></td>
+		</tr>
+		<tr height="20">
+			<td colspan="5" height="20" style="height:20px;">
+				1. Zapekan&eacute; cestoviny so zeleninou a dvoma druhmi syra</td>
+			<td>
+				300</td>
+			<td dir="LTR" style="width:7px;">
+				g</td>
+			<td>
+				4,00&euro;</td>
+			<td>
+				<sub>1,3,7</sub></td>
+		</tr>
+		<tr height="20">
+			<td height="20" style="height:20px;">
+				2. Kuracie z&aacute;vitky s paradajkou, &scaron;unkou a bazalkou, opekan&eacute; zemiaky, parad. om.</td>
+			<td>
+				180</td>
+			<td>
+				/</td>
+			<td>
+				150</td>
+			<td>
+				/</td>
+			<td>
+				100</td>
+			<td dir="LTR" style="width:7px;">
+				g</td>
+			<td>
+				4,80&euro;</td>
+			<td>
+				<sub>1</sub></td>
+		</tr>
+		<tr height="24">
+			<td height="24" style="height:24px;">
+				PIATOK</td>
+			<td colspan="7">
+				10.10.2014</td>
+			<td>
+				&nbsp;</td>
+		</tr>
+		<tr height="20">
+			<td colspan="5" height="20" style="height:20px;">
+				Polievka:Zelerov&yacute; kr&eacute;m</td>
+			<td>
+				0,33</td>
+			<td dir="LTR" style="width:7px;">
+				l</td>
+			<td>
+				&nbsp;</td>
+			<td>
+				<sub>1,6,7</sub></td>
+		</tr>
+		<tr height="20">
+			<td colspan="5" height="20" style="height:20px;">
+				1. Vypr&aacute;žan&aacute; cuketa, zemiakov&aacute; ka&scaron;a, bylinkov&yacute; dressing</td>
+			<td>
+				300</td>
+			<td dir="LTR" style="width:7px;">
+				g</td>
+			<td>
+				4,00&euro;</td>
+			<td>
+				<sub>1,3,7</sub></td>
+		</tr>
+		<tr height="20">
+			<td colspan="3" height="20" style="height:20px;">
+				2. Kurac&iacute; steak, provens&aacute;lska om&aacute;čka, ryža</td>
+			<td>
+				180</td>
+			<td>
+				/</td>
+			<td>
+				150</td>
+			<td dir="LTR" style="width:7px;">
+				g</td>
+			<td>
+				4,80&euro;</td>
+			<td>
+				<sub>1,7</sub></td>
+		</tr>
+	</tbody>
+</table>
+<p>
+	<strong style="text-align: right;"><a href="http://www.pizzapazza.sk/sk/denne-menu/#top">Hore</a></strong></p>
+<p>
+	&nbsp;</p>
+<p>
+	<span style="font-family: tahoma, geneva, sans-serif;"><strong style="line-height: 18px; font-family: Helvetica, Arial, sans-serif; font-size: 18px;"><strong id="vienna" style="color: rgb(147, 3, 3); line-height: 1; font-size: 24px;">Denn&eacute; menu Hron</strong></strong></span></p>
+<table border="0" cellpadding="0" cellspacing="0" style="width:665px;" width="665">
+	<colgroup>
+		<col />
+		<col />
+		<col />
+		<col />
+		<col />
+		<col />
+		<col />
+		<col />
+		<col />
+	</colgroup>
+	<tbody>
+		<tr height="33">
+			<td colspan="9" height="33" style="height:33px;width:665px;">
+				<strong>T&Yacute;ŽDENN&Eacute; MENU 6. - 10. 10. 2014</strong></td>
+		</tr>
+		<tr height="26">
+			<td height="26" style="height:27px;">
+				VIP menu &ndash; polievka z dennej ponuky + Kuracie prsia s avok&aacute;dom</td>
+			<td>
+				200</td>
+			<td>
+				/</td>
+			<td>
+				150</td>
+			<td>
+				/</td>
+			<td>
+				50</td>
+			<td dir="LTR" style="width:7px;">
+				g</td>
+			<td style="width:32px;">
+				8,00&euro;</td>
+			<td>
+				<sub>1,7</sub></td>
+		</tr>
+		<tr height="26">
+			<td colspan="9" height="26" style="height:27px;">
+				kuracie prsia s avok&aacute;dom a camembertom, baby zemiaky, &scaron;al&aacute;t</td>
+		</tr>
+		<tr height="26">
+			<td colspan="5" height="26" style="height:27px;">
+				FIT menu &ndash; polievka z dennej ponuky + Spaghetti Pollo</td>
+			<td>
+				350</td>
+			<td dir="LTR" style="width:7px;">
+				g</td>
+			<td style="width:32px;">
+				5,00&euro;</td>
+			<td>
+				<sub>1,7</sub></td>
+		</tr>
+		<tr height="26">
+			<td colspan="9" height="26" style="height:27px;">
+				celozrnn&eacute; &scaron;pagety, baby &scaron;pen&aacute;t, cuketa, mrkva, cesnak, kur. m&auml;so, &scaron;ampiň&oacute;ny, parmez&aacute;n, maslo</td>
+		</tr>
+		<tr height="30">
+			<td colspan="9" height="30" style="height:30px;">
+				&Scaron;al&aacute;tov&eacute; menu &ndash; polievka z dennej ponuky + &scaron;al&aacute;t</td>
+		</tr>
+		<tr height="24">
+			<td colspan="5" height="24" style="height:25px;">
+				1. Insalata Pollo</td>
+			<td>
+				300</td>
+			<td dir="LTR" style="width:7px;">
+				g</td>
+			<td>
+				3,50&euro;</td>
+			<td>
+				<sub>1,7</sub></td>
+		</tr>
+		<tr height="24">
+			<td colspan="9" height="24" style="height:24px;">
+				zmes &scaron;al&aacute;tov, paradajky, uhorka, paprika, feta, kuracie m&auml;so</td>
+		</tr>
+		<tr height="24">
+			<td colspan="5" height="24" style="height:25px;">
+				2. Insalata Cesare I</td>
+			<td>
+				300</td>
+			<td dir="LTR" style="width:7px;">
+				g</td>
+			<td>
+				3,80&euro;</td>
+			<td>
+				<sub>1,3,4,7,10</sub></td>
+		</tr>
+		<tr height="24">
+			<td colspan="9" height="24" style="height:24px;">
+				zmes &scaron;al&aacute;tov, slaninka, krut&oacute;ny, parmez&aacute;n, cesare dressing</td>
+		</tr>
+		<tr height="24">
+			<td colspan="5" height="24" style="height:25px;">
+				3. Insalata Encian</td>
+			<td>
+				300</td>
+			<td dir="LTR" style="width:7px;">
+				g</td>
+			<td>
+				3,80&euro;</td>
+			<td>
+				<sub>1,7</sub></td>
+		</tr>
+		<tr height="30">
+			<td colspan="9" height="30" style="height:30px;">
+				zmes &scaron;al&aacute;tov, paradajky, uhorka, grilovan&yacute; enci&aacute;n, brusnicov&aacute; om&aacute;čka</td>
+		</tr>
+		<tr height="30">
+			<td colspan="9" height="30" style="height:30px;">
+				Pizza menu &ndash; polievka z dennej ponuky + pizza</td>
+		</tr>
+		<tr height="24">
+			<td colspan="5" height="24" style="height:25px;">
+				1. Pizza Romana</td>
+			<td>
+				390</td>
+			<td dir="LTR" style="width:7px;">
+				g</td>
+			<td>
+				3,80&euro;</td>
+			<td>
+				<sub>1,4,7</sub></td>
+		</tr>
+		<tr height="24">
+			<td colspan="9" height="24" style="height:24px;">
+				paradajkov&yacute; z&aacute;klad, syr, &scaron;unka, kukurica</td>
+		</tr>
+		<tr height="24">
+			<td colspan="5" height="24" style="height:25px;">
+				2. Pizza Prosciutto Spinaci</td>
+			<td>
+				410</td>
+			<td dir="LTR" style="width:7px;">
+				g</td>
+			<td>
+				4,00&euro;</td>
+			<td>
+				<sub>1,7</sub></td>
+		</tr>
+		<tr height="24">
+			<td colspan="9" height="24" style="height:24px;">
+				paradajkov&yacute; z&aacute;klad, syr, &scaron;unka, baby &scaron;pen&aacute;t</td>
+		</tr>
+		<tr height="24">
+			<td colspan="5" height="24" style="height:25px;">
+				3. Pizza Mexico</td>
+			<td>
+				410</td>
+			<td dir="LTR" style="width:7px;">
+				g</td>
+			<td>
+				4,00&euro;</td>
+			<td>
+				<sub>1,7</sub></td>
+		</tr>
+		<tr height="33">
+			<td colspan="9" height="33" style="height:33px;">
+				paradajkov&yacute; z&aacute;klad, syr, kuracie prsia, kukurica, fefer&oacute;ny, olivy</td>
+		</tr>
+		<tr height="38">
+			<td colspan="9" height="38" style="height:38px;">
+				<strong>DENN&Eacute; MENU 11:00 &ndash; 14:00</strong></td>
+		</tr>
+		<tr height="26">
+			<td height="26" style="height:27px;">
+				PONDELOK</td>
+			<td colspan="7">
+				06.10.2014</td>
+			<td>
+				&nbsp;</td>
+		</tr>
+		<tr height="20">
+			<td colspan="5" height="20" style="height:20px;">
+				Polievka:Hr&aacute;&scaron;kov&aacute;</td>
+			<td>
+				0,33</td>
+			<td dir="LTR" style="width:7px;">
+				l</td>
+			<td>
+				&nbsp;</td>
+			<td>
+				<sub>1</sub></td>
+		</tr>
+		<tr height="20">
+			<td colspan="5" height="20" style="height:20px;">
+				1. Koložv&aacute;rska kapusta</td>
+			<td>
+				240</td>
+			<td dir="LTR" style="width:7px;">
+				g</td>
+			<td>
+				3,49&euro;</td>
+			<td>
+				<sub>1</sub></td>
+		</tr>
+		<tr height="20">
+			<td colspan="3" height="20" style="height:20px;">
+				2. Kuracie rolky v slanine (&scaron;unka, kapia, syr), americk&eacute; zemiaky, &scaron;al&aacute;t</td>
+			<td>
+				150</td>
+			<td>
+				/</td>
+			<td>
+				150</td>
+			<td dir="LTR" style="width:7px;">
+				g</td>
+			<td>
+				4,80&euro;</td>
+			<td>
+				<sub>7</sub></td>
+		</tr>
+		<tr height="26">
+			<td height="26" style="height:27px;">
+				UTOROK</td>
+			<td colspan="7">
+				07.10.2014</td>
+			<td>
+				&nbsp;</td>
+		</tr>
+		<tr height="20">
+			<td colspan="5" height="20" style="height:20px;">
+				Polievka:Fazuľov&aacute;</td>
+			<td>
+				0,33</td>
+			<td dir="LTR" style="width:7px;">
+				l</td>
+			<td>
+				&nbsp;</td>
+			<td>
+				<sub>1,7</sub></td>
+		</tr>
+		<tr height="20">
+			<td colspan="3" height="20" style="height:20px;">
+				1. Grilovan&yacute; enci&aacute;n, varen&eacute; zemiaky, brusnicov&aacute; om&aacute;čka, &scaron;al&aacute;t</td>
+			<td>
+				120</td>
+			<td>
+				/</td>
+			<td>
+				120</td>
+			<td dir="LTR" style="width:7px;">
+				g</td>
+			<td>
+				3,49&euro;</td>
+			<td>
+				<sub>1,7</sub></td>
+		</tr>
+		<tr height="20">
+			<td colspan="3" height="20" style="height:20px;">
+				2. Ražniči (kur. prsia, &scaron;ampiň&oacute;ny, paprika, cibuľa), opek. zemiaky s rozmar&iacute;nom</td>
+			<td>
+				150</td>
+			<td>
+				/</td>
+			<td>
+				150</td>
+			<td dir="LTR" style="width:7px;">
+				g</td>
+			<td>
+				4,80&euro;</td>
+			<td>
+				<sub>1,7</sub></td>
+		</tr>
+		<tr height="26">
+			<td height="26" style="height:27px;">
+				STREDA</td>
+			<td colspan="7">
+				08.10.2014</td>
+			<td>
+				&nbsp;</td>
+		</tr>
+		<tr height="20">
+			<td colspan="5" height="20" style="height:20px;">
+				Polievka:&Scaron;ampiň&oacute;nov&aacute; kr&eacute;mov&aacute;</td>
+			<td>
+				0,33</td>
+			<td dir="LTR" style="width:7px;">
+				l</td>
+			<td>
+				&nbsp;</td>
+			<td>
+				<sub>1,7</sub></td>
+		</tr>
+		<tr height="20">
+			<td colspan="3" height="20" style="height:20px;">
+				1. Kurac&iacute; rezeň v pivnom cest&iacute;čku, ryža</td>
+			<td>
+				120</td>
+			<td>
+				/</td>
+			<td>
+				120</td>
+			<td dir="LTR" style="width:7px;">
+				g</td>
+			<td>
+				3,49&euro;</td>
+			<td>
+				<sub>1,3,7</sub></td>
+		</tr>
+		<tr height="20">
+			<td colspan="3" height="20" style="height:20px;">
+				2. Seged&iacute;nsky gul&aacute;&scaron;, knedľa</td>
+			<td>
+				150</td>
+			<td>
+				/</td>
+			<td>
+				150</td>
+			<td dir="LTR" style="width:7px;">
+				g</td>
+			<td>
+				4,80&euro;</td>
+			<td>
+				<sub>1,7</sub></td>
+		</tr>
+		<tr height="26">
+			<td height="26" style="height:27px;">
+				&Scaron;TVRTOK</td>
+			<td colspan="7">
+				09.10.2014</td>
+			<td>
+				&nbsp;</td>
+		</tr>
+		<tr height="20">
+			<td colspan="5" height="20" style="height:20px;">
+				Polievka:Cibuľačka s krut&oacute;nmi</td>
+			<td>
+				0,33</td>
+			<td dir="LTR" style="width:7px;">
+				l</td>
+			<td>
+				&nbsp;</td>
+			<td>
+				<sub>1</sub></td>
+		</tr>
+		<tr height="20">
+			<td colspan="5" height="20" style="height:20px;">
+				1. Bravčov&eacute; pečen&eacute;, &scaron;o&scaron;ovica na kyslo, volsk&eacute; oko, chlieb</td>
+			<td>
+				250</td>
+			<td dir="LTR" style="width:7px;">
+				g</td>
+			<td>
+				3,49&euro;</td>
+			<td>
+				<sub>1,3</sub></td>
+		</tr>
+		<tr height="20">
+			<td colspan="3" height="20" style="height:20px;">
+				2. Čertovsk&aacute; panenka (panenka, kapia, olivy, cherry par., &scaron;ampiň&oacute;ny, fefer&oacute;ny), zemiakov&eacute; placky</td>
+			<td>
+				150</td>
+			<td>
+				/</td>
+			<td>
+				150</td>
+			<td dir="LTR" style="width:7px;">
+				g</td>
+			<td>
+				4,80&euro;</td>
+			<td>
+				<sub>1,3,7</sub></td>
+		</tr>
+		<tr height="26">
+			<td height="26" style="height:27px;">
+				PIATOK</td>
+			<td colspan="7">
+				10.10.2014</td>
+			<td>
+				&nbsp;</td>
+		</tr>
+		<tr height="20">
+			<td colspan="5" height="20" style="height:20px;">
+				Polievka:Bramboračka</td>
+			<td>
+				0,33</td>
+			<td dir="LTR" style="width:7px;">
+				l</td>
+			<td>
+				&nbsp;</td>
+			<td>
+				<sub>1</sub></td>
+		</tr>
+		<tr height="20">
+			<td colspan="5" height="20" style="height:20px;">
+				1. &Scaron;pen&aacute;tovo-kuracie rizoto</td>
+			<td>
+				240</td>
+			<td dir="LTR" style="width:7px;">
+				g</td>
+			<td>
+				3,49&euro;</td>
+			<td>
+				<sub>1,7</sub></td>
+		</tr>
+		<tr height="20">
+			<td height="20" style="height:20px;">
+				2. Kuracie na &scaron;ampiň&oacute;noch, zapečen&eacute; v palacinke, varen&eacute; zemiaky, &scaron;al&aacute;t</td>
+			<td>
+				150</td>
+			<td>
+				/</td>
+			<td>
+				150</td>
+			<td>
+				/</td>
+			<td>
+				30</td>
+			<td dir="LTR" style="width:7px;">
+				g</td>
+			<td>
+				4,80&euro;</td>
+			<td>
+				<sub>1,7</sub></td>
+		</tr>
+	</tbody>
+</table>
+<p>
+	<strong style="text-align: right;"><a href="http://www.pizzapazza.sk/sk/denne-menu/#top">Hore</a></strong></p>
+<p>
+	&nbsp;</p>
+<p>
+	<strong style="line-height: 18px; font-family: Helvetica, Arial, sans-serif; font-size: 18px;"><strong id="vienna" style="color: rgb(147, 3, 3); line-height: 1; font-size: 24px;">Denn&eacute; menu Rovinka</strong></strong></p>
+<table border="0" cellpadding="0" cellspacing="0" style="width:665px;" width="665">
+	<colgroup>
+		<col />
+		<col />
+		<col />
+		<col />
+		<col />
+		<col />
+		<col />
+		<col />
+		<col />
+	</colgroup>
+	<tbody>
+		<tr height="33">
+			<td colspan="9" height="33" style="height:33px;width:665px;">
+				T&Yacute;ŽDENN&Eacute; MENU 6. - 10. 10. 2014</td>
+		</tr>
+		<tr height="26">
+			<td colspan="3" height="26" style="height:27px;">
+				VIP menu &ndash; polievka z dennej ponuky + Hov&auml;dz&iacute; hamburger</td>
+			<td>
+				200</td>
+			<td>
+				/</td>
+			<td>
+				150</td>
+			<td dir="LTR" style="width:7px;">
+				g</td>
+			<td style="width:32px;">
+				4,90&euro;</td>
+			<td>
+				<sub>1,3,7,10</sub></td>
+		</tr>
+		<tr height="26">
+			<td colspan="9" height="26" style="height:27px;">
+				hov&auml;dz&iacute; hamburger so zeleninou, dom&aacute;ca om&aacute;čka</td>
+		</tr>
+		<tr height="26">
+			<td colspan="3" height="26" style="height:27px;">
+				FIT menu &ndash; polievka z dennej ponuky + Kuracie na grile</td>
+			<td>
+				150</td>
+			<td>
+				/</td>
+			<td>
+				150</td>
+			<td dir="LTR" style="width:7px;">
+				g</td>
+			<td style="width:32px;">
+				4,80&euro;</td>
+			<td>
+				<sub>1</sub></td>
+		</tr>
+		<tr height="26">
+			<td colspan="9" height="26" style="height:27px;">
+				kuracie prsia na grile, zeleninov&yacute; kuskus</td>
+		</tr>
+		<tr height="30">
+			<td colspan="9" height="30" style="height:30px;">
+				&Scaron;al&aacute;tov&eacute; menu &ndash; polievka z dennej ponuky + &scaron;al&aacute;t</td>
+		</tr>
+		<tr height="24">
+			<td colspan="5" height="24" style="height:25px;">
+				1. Insalata Salmone</td>
+			<td>
+				300</td>
+			<td dir="LTR" style="width:7px;">
+				g</td>
+			<td>
+				3,80&euro;</td>
+			<td>
+				<sub>1,4,7</sub></td>
+		</tr>
+		<tr height="24">
+			<td colspan="9" height="24" style="height:24px;">
+				zmes &scaron;al&aacute;tov, paradajky, paprika, uhorka, feta, losos</td>
+		</tr>
+		<tr height="24">
+			<td colspan="5" height="24" style="height:25px;">
+				2. Insalata Torrone</td>
+			<td>
+				300</td>
+			<td dir="LTR" style="width:7px;">
+				g</td>
+			<td>
+				3,80&euro;</td>
+			<td>
+				<sub>1,7</sub></td>
+		</tr>
+		<tr height="30">
+			<td colspan="9" height="30" style="height:30px;">
+				zmes &scaron;al&aacute;tov, paradajky, uhorka, reďkovka, syrov&eacute; tyčinky, cesnakov&yacute; dressing</td>
+		</tr>
+		<tr height="30">
+			<td colspan="9" height="30" style="height:30px;">
+				Pizza menu &ndash; polievka z dennej ponuky + pizza</td>
+		</tr>
+		<tr height="24">
+			<td colspan="5" height="24" style="height:25px;">
+				1. Pizza Kaja</td>
+			<td>
+				400</td>
+			<td dir="LTR" style="width:7px;">
+				g</td>
+			<td>
+				3,80&euro;</td>
+			<td>
+				<sub>1,7</sub></td>
+		</tr>
+		<tr height="24">
+			<td colspan="9" height="24" style="height:24px;">
+				paradajkov&yacute; z&aacute;klad, syr, &scaron;unka, &scaron;ampiň&oacute;ny, kukurica</td>
+		</tr>
+		<tr height="24">
+			<td colspan="5" height="24" style="height:25px;">
+				2. Pizza Triomasione</td>
+			<td>
+				400</td>
+			<td dir="LTR" style="width:7px;">
+				g</td>
+			<td>
+				3,80&euro;</td>
+			<td>
+				<sub>1,7</sub></td>
+		</tr>
+		<tr height="24">
+			<td colspan="9" height="24" style="height:24px;">
+				paradajkov&yacute; z&aacute;klad, syr, slanina, &scaron;unka, sal&aacute;ma</td>
+		</tr>
+		<tr height="24">
+			<td colspan="5" height="24" style="height:25px;">
+				3. Pizza Lecione</td>
+			<td>
+				400</td>
+			<td dir="LTR" style="width:7px;">
+				g</td>
+			<td>
+				3,80&euro;</td>
+			<td>
+				<sub>1,7</sub></td>
+		</tr>
+		<tr height="33">
+			<td colspan="9" height="33" style="height:33px;">
+				paradajkov&yacute; z&aacute;klad, syr, paradajky, paprika, cibuľa</td>
+		</tr>
+		<tr height="38">
+			<td colspan="9" height="38" style="height:38px;">
+				DENN&Eacute; MENU 11:00 &ndash; 14:00</td>
+		</tr>
+		<tr height="26">
+			<td height="26" style="height:27px;">
+				PONDELOK</td>
+			<td colspan="8">
+				06.10.2014</td>
+		</tr>
+		<tr height="20">
+			<td colspan="5" height="20" style="height:20px;">
+				Polievka:Brokolicov&yacute; kr&eacute;m</td>
+			<td>
+				0,33</td>
+			<td dir="LTR" style="width:7px;">
+				l</td>
+			<td>
+				&nbsp;</td>
+			<td>
+				<sub>1,7</sub></td>
+		</tr>
+		<tr height="20">
+			<td colspan="3" height="20" style="height:20px;">
+				1. Kuracie sot&eacute; s hr&aacute;&scaron;kom, ryža</td>
+			<td>
+				120</td>
+			<td>
+				/</td>
+			<td>
+				150</td>
+			<td dir="LTR" style="width:7px;">
+				g</td>
+			<td>
+				3,30&euro;</td>
+			<td>
+				<sub>1</sub></td>
+		</tr>
+		<tr height="20">
+			<td colspan="3" height="20" style="height:20px;">
+				2. Bravčov&aacute; panenka, zeleninov&yacute; puf (zemiaky, mrkva, &scaron;o&scaron;ovica)</td>
+			<td>
+				150</td>
+			<td>
+				/</td>
+			<td>
+				150</td>
+			<td dir="LTR" style="width:7px;">
+				g</td>
+			<td>
+				4,80&euro;</td>
+			<td>
+				<sub>1,3</sub></td>
+		</tr>
+		<tr height="26">
+			<td height="26" style="height:27px;">
+				UTOROK</td>
+			<td colspan="8">
+				07.10.2014</td>
+		</tr>
+		<tr height="20">
+			<td colspan="5" height="20" style="height:20px;">
+				Polievka:Kurac&iacute; v&yacute;var so zeleninou</td>
+			<td>
+				0,33</td>
+			<td dir="LTR" style="width:7px;">
+				l</td>
+			<td>
+				&nbsp;</td>
+			<td>
+				<sub>1,3,9</sub></td>
+		</tr>
+		<tr height="20">
+			<td colspan="5" height="20" style="height:20px;">
+				1. Zapekan&eacute; cestoviny s brokolicou, &scaron;unka, syr, smotana</td>
+			<td>
+				300</td>
+			<td dir="LTR" style="width:7px;">
+				g</td>
+			<td>
+				3,30&euro;</td>
+			<td>
+				<sub>1,3,7</sub></td>
+		</tr>
+		<tr height="20">
+			<td colspan="5" height="20" style="height:20px;">
+				2. Kuracie kr&iacute;delk&aacute;, BBQ om&aacute;čka, chlieb, kysl&aacute; obloha</td>
+			<td>
+				300</td>
+			<td dir="LTR" style="width:7px;">
+				g</td>
+			<td>
+				4,80&euro;</td>
+			<td>
+				<sub>1</sub></td>
+		</tr>
+		<tr height="26">
+			<td height="26" style="height:27px;">
+				STREDA</td>
+			<td colspan="8">
+				08.10.2014</td>
+		</tr>
+		<tr height="20">
+			<td colspan="5" height="20" style="height:20px;">
+				Polievka: Cesnakov&aacute; kr&eacute;mov&aacute;</td>
+			<td>
+				0,33</td>
+			<td dir="LTR" style="width:7px;">
+				l</td>
+			<td>
+				&nbsp;</td>
+			<td>
+				<sub>1,7</sub></td>
+		</tr>
+		<tr height="20">
+			<td colspan="3" height="20" style="height:20px;">
+				1. Pečen&aacute; klob&aacute;sa, &scaron;o&scaron;ovicov&yacute; pr&iacute;varok, chlieb</td>
+			<td>
+				120</td>
+			<td>
+				/</td>
+			<td>
+				150</td>
+			<td dir="LTR" style="width:7px;">
+				g</td>
+			<td>
+				3,30&euro;</td>
+			<td>
+				<sub>1,7</sub></td>
+		</tr>
+		<tr height="20">
+			<td colspan="3" height="20" style="height:20px;">
+				2. Bačovsk&yacute; o&scaron;tiepok, hranolky, tat&aacute;rska om&aacute;čka</td>
+			<td>
+				150</td>
+			<td>
+				/</td>
+			<td>
+				150</td>
+			<td dir="LTR" style="width:7px;">
+				g</td>
+			<td>
+				4,80&euro;</td>
+			<td>
+				<sub>1,7,10</sub></td>
+		</tr>
+		<tr height="26">
+			<td height="26" style="height:27px;">
+				&Scaron;TVRTOK</td>
+			<td colspan="8">
+				09.10.2014</td>
+		</tr>
+		<tr height="20">
+			<td colspan="5" height="20" style="height:20px;">
+				Polievka:Minestrone</td>
+			<td>
+				0,33</td>
+			<td dir="LTR" style="width:7px;">
+				l</td>
+			<td>
+				&nbsp;</td>
+			<td>
+				<sub>1,9</sub></td>
+		</tr>
+		<tr height="20">
+			<td colspan="5" height="20" style="height:20px;">
+				1. Spaghetti Pomodori</td>
+			<td>
+				300</td>
+			<td dir="LTR" style="width:7px;">
+				g</td>
+			<td>
+				3,30&euro;</td>
+			<td>
+				<sub>1</sub></td>
+		</tr>
+		<tr height="20">
+			<td height="20" style="height:20px;">
+				2. Bravčov&aacute; panenka, pečen&yacute; zemiak so slivkovou om&aacute;čkou</td>
+			<td>
+				150</td>
+			<td>
+				/</td>
+			<td>
+				150</td>
+			<td>
+				/</td>
+			<td>
+				100</td>
+			<td dir="LTR" style="width:7px;">
+				g</td>
+			<td>
+				4,80&euro;</td>
+			<td>
+				<sub>1</sub></td>
+		</tr>
+		<tr height="26">
+			<td height="26" style="height:27px;">
+				PIATOK</td>
+			<td colspan="8">
+				10.10.2014</td>
+		</tr>
+		<tr height="20">
+			<td colspan="5" height="20" style="height:20px;">
+				Polievka:Falo&scaron;n&aacute; gul&aacute;&scaron;ov&aacute;</td>
+			<td>
+				0,33</td>
+			<td dir="LTR" style="width:7px;">
+				l</td>
+			<td>
+				&nbsp;</td>
+			<td>
+				<sub>1</sub></td>
+		</tr>
+		<tr height="20">
+			<td colspan="5" height="20" style="height:20px;">
+				1. Palacinky s džemom a &scaron;ľahačkou</td>
+			<td>
+				200</td>
+			<td dir="LTR" style="width:7px;">
+				g</td>
+			<td>
+				3,30&euro;</td>
+			<td>
+				<sub>1,3,7</sub></td>
+		</tr>
+		<tr height="20">
+			<td colspan="5" height="20" style="height:20px;">
+				2. Zab&iacute;jačkov&yacute; tanier (krvavnica, jaternica, klob&aacute;sa, zemiaky, kysl&aacute; kapusta)</td>
+			<td>
+				300</td>
+			<td dir="LTR" style="width:7px;">
+				g</td>
+			<td>
+				4,80&euro;</td>
+			<td>
+				<sub>1</sub></td>
+		</tr>
+	</tbody>
+</table>
+<p>
+	<strong id="dubrawa" style="line-height: 13px;"><strong style="text-align: right;"><a href="http://www.pizzapazza.sk/sk/denne-menu/#top">Hore</a></strong></strong></p>
+
+</div>
+        </div>
+        
+      </div>
+      
+            
+    </div>
+  </div>
+</div>
+
+<div id="footer">
+
+  <div class="container" id="footer-info">
+    <div class="span-11">
+      <h3>O nás</h3>
+      <p>
+        Pizza Pazza je sieť štýlových pizzerií so širokou ponukou originálnych talianskych jedál. Výbornou chuťou pizze alebo cestovín vám pripomenie gurmánske posedenie v Taliansku počas letnej dovolenky. Pre vyznávačov domácej kuchyne ponúkame tiež pestrú paletu mäsitých aj bezmäsitých jedál, grilovaných špecialít, rýb či ľahkých zeleninových šalátov.
+      </p>
+    </div>
+    <div class="span-3 prepend-1">
+      <h3>Vienna Gate</h3>
+      <p>
+        Kopčianska 10<br />
+        Bratislava<br />
+        <strong>0903 809 049</strong>
+      </p>
+    </div>
+    <div class="span-3">
+      <h3>OC Dubrawa</h3>
+      <p>
+        Pri Hrubej Lúke 2<br />
+        Bratislava<br />
+        <strong>0910 898 398</strong>
+      </p>
+    </div>
+    <div class="span-3">
+      <h3>Hron</h3>
+      <p>
+        Dudvážska 5<br />
+        Bratislava<br />
+        <strong>0904 489 222</strong>
+      </p>
+    </div>    
+    <div class="span-3 last">
+      <h3>Rovinka</h3>
+      <p>
+        Hlavná 470<br />
+        Rovinka<br />
+        <strong>0903 822 232</strong>
+      </p>
+    </div>
+  </div>
+
+  <div class="container">   
+    <div class="span-24">
+      
+      <div class="clearfix">
+        <ul id="footer-nav" class="links">
+          <li class="first"><a href="/">Domov</a></li>
+          <li><a href="/sk/menu/">Menu</a></li>
+          <li><a href="/sk/donaska/">Rozvoz</a></li>
+          <li><a href="/sk/kontakt/">Kontakt</a></li>
+          <li><a href="/sk/vseobecne-obchodne-podmienky-vop/">Všeobecné obchodné podmienky</a></li>
+          <li><a href="/files/alergeny.pdf" target="_blank" title="Alergény">Alergény</a></li>
+          <li class="last"><a target="_blank" class="facebook" href="https://www.facebook.com/pages/Pizza-Pazza/288415827925764">facebook</a></li>
+        </ul>
+        
+        <img id="gastro" src="/themes/front/img/gastrolistky.png" alt="Akceptujeme Gastro lístky" />
+      </div>
+    </div>
+    
+    <div class="span-24">
+      <div id="copyright">
+				&copy; 2014 PizzaPazza.sk, Všetky práva vyhradené.
+			</div>
+			<div id="madeinsven">
+				Generované systémom <a href="http://shupito.com" target="_blank" title="Online objednávkový systém pre reštaurácie Shupito" id="shupito">Shupito</a> od <a id="sven" href="http://www.sven.sk" target="_blank" title="Web by SvenCreative">SvenCreative</a>
+			</div>
+    </div>
+    
+  </div>
+</div>
+
+	<script type="text/javascript">
+
+		/*var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', "UA-jachask");
+		_gaq.push(['_trackPageview']);
+
+		(function() {
+		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();*/
+
+	</script>
+
+
+    
+    
+    
+    <div id="snippet--flashes">	<script type="text/javascript">
+		$(function() {
+		});
+	</script>
+</div>
+  </body>
+
+</html>
