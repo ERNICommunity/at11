@@ -48,7 +48,7 @@ hbs.registerPartials(__dirname + '/views/partials');
 console.log("Done");
 
 console.log("Global setup...");
-moment.lang('sk');
+moment.locale('sk');
 global.dates = [];
 for (var i = 1; i < 6; i++)
 {

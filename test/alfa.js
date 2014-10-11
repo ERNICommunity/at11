@@ -4,7 +4,7 @@ var assert = require('assert'),
     parser = require('../parsers/obedovat'),
     testHelpers = require('../test/testHelpers');
 
-moment.lang('sk');
+moment.locale('sk');
 
 describe('alfa', function () {
     describe('parsing sample 2014-05-26', function () {

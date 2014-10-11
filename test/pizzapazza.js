@@ -4,7 +4,7 @@
     parser = require('../parsers/pizzapazza'),
     testHelpers = require('../test/testHelpers');
 
-moment.lang('sk');
+moment.locale('sk');
 
 describe('pizzapazza', function() {
     describe('parsing sample 2014-07-14', function() {

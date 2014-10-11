@@ -4,7 +4,7 @@ var assert = require('assert'),
     parser = require('../parsers/sme'),
     testHelpers = require('../test/testHelpers');
 
-moment.lang('sk');
+moment.locale('sk');
 
 describe('kamenica', function() {
     describe('parsing sample 2014-04-29', function() {

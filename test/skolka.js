@@ -4,7 +4,7 @@ var assert = require('assert'),
     parser = require('../parsers/skolka'),
     testHelpers = require('../test/testHelpers');
 
-moment.lang('sk');
+moment.locale('sk');
 
 describe('skolka', function() {
     describe('parsing sample 2014-06-02', function() {

@@ -4,7 +4,7 @@ var assert = require('assert'),
     parser = require('../parsers/itb'),
     testHelpers = require('../test/testHelpers');
 
-moment.lang('sk');
+moment.locale('sk');
 
 describe('itb', function() {
     describe('parsing sample 2014-05-05', function() {
