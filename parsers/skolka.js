@@ -11,13 +11,13 @@ module.exports.parse = function (html, callback) {
     var weekMenu = [];
 
     var pic = $('.entry-content img');
+    var link = $('.entry-content a').filter(function () {
+        return $(this).text() !== '' && !/<a/.test($(this).html());
+    });
+
     var action = "";
 
-    if (pic.length === 0) {
-        var link = $('.entry-content a').filter(function () {
-            return $(this).text() !== '' && !/<a/.test($(this).html());
-        });
-
+    if (pic.length === 0 && link.length > 0) {
         var pdfUrl = link.attr('href');
 
         fs.exists(__dirname + "/../temp", function (exists) {
@@ -54,10 +54,10 @@ module.exports.parse = function (html, callback) {
         action = "encoded";
     }
 
-    if (pic && pic.length !== 0) {
+    if (pic.length > 0) {
         callOcr(pic, action);
     }
-    else if (!pic) {
+    else {
         parseMenu($('div.entry-content', '#post-2').text());
     }
 
