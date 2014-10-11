@@ -61,16 +61,16 @@ module.exports.parse = function(html, callback) {
         var startLine, endLine;
         for (var line in menuText) {
             if (menuText[line].toLowerCase().indexOf(todayName) !== -1) {
-                startLine = line;
+                startLine = +line;
             }
             if (startLine && /^–+$/.test(menuText[line].trim()) || //dashed separator line
                     (menuText[line].toLowerCase().indexOf(tomorrowName) !== -1)) //next day name
             {
-                endLine = line;
+                endLine = +line;
                 break;
             }
         }
-        if (!startLine || (startLine >= endLine)) {
+        if (startLine === undefined || (startLine >= endLine)) {
             return [];
         }
 
