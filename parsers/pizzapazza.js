@@ -2,22 +2,20 @@ var cheerio = require('cheerio');
 var parserUtil = require('./parserUtil');
 var request = require('request');
 
-module.exports.parse = function(html, callback) {
+module.exports.parse = function (html, callback) {
 
     var $ = cheerio.load(html);
 
     var weekMenu = [];
 
     var menuPic = $('img[src*="dm-vg"]').attr('src');
-    if(menuPic)
-    {
+    if (menuPic) {
         request.post({
             headers: { 'Content-type': 'application/x-www-form-urlencoded' },
             url: 'http://at11ocr.azurewebsites.net/api/process/url',
             body: "=" + encodeURIComponent(menuPic)
-        }, function(error, response, body) {
-            if (!error)
-            {
+        }, function (error, response, body) {
+            if (!error) {
                 parseMenu(body);
             }
             callback(weekMenu);
@@ -25,17 +23,17 @@ module.exports.parse = function(html, callback) {
     }
     else//no picture, try to parse html
     {
-        global.dates.forEach(function(date) {
+        global.dates.forEach(function (date) {
             var dayMenu = [];
             var todayNameReg = new RegExp("^\\s*" + date.format("dddd"), "i");
-	    var nextNameReg = new RegExp("^\\s*" + date.clone().add("days",1).format("dddd"), "i");
-            $("table", "div#content").first().find("tr").each(function() {
+            var nextNameReg = new RegExp("^\\s*" + date.clone().add("days", 1).format("dddd"), "i");
+            $("table", "div#content").first().find("tr").each(function () {
                 var row = $(this);
-                if(todayNameReg.test(row.text())) {
+                if (todayNameReg.test(row.text())) {
                     row = row.next();
-                    while(row.length == 1 && !nextNameReg.test(row.text()) && !/Šalátové menu/.test(row.text())) {
+                    while (row.length == 1 && !nextNameReg.test(row.text()) && !/Šalátové menu/.test(row.text())) {
                         var item = parseItem(row);
-                        if(item)
+                        if (item)
                             dayMenu.push(item);
                         row = row.next();
                     }
@@ -48,30 +46,28 @@ module.exports.parse = function(html, callback) {
         callback(weekMenu);
     }
 
-    function parseItem(row)
-    {
-        var item = {isSoup: false};
-        item.text = normalize(row.children('td').first().text()).replace(/^polievka:?\s*/i, function(){
+    function parseItem(row) {
+        var item = { isSoup: false };
+        item.text = normalize(row.children('td').first().text()).replace(/^polievka:?\s*/i, function () {
             item.isSoup = true;
             return "";
         });
-        item.price = parseFloat(row.children('td').eq(3).text().replace(",", ".")); 
+        item.price = parseFloat(row.children('td').eq(row.children('td').length - 2).text().replace(",", "."));
         return item;
     }
 
-    function parseMenu(menuString)
-    {
-        var lines = menuString.split('\n').filter(function(val) {
+    function parseMenu(menuString) {
+        var lines = menuString.split('\n').filter(function (val) {
             return val.trim();
         });
-        global.dates.forEach(function(date) {
+        global.dates.forEach(function (date) {
             var dayMenu = [];
             var todayRegEx = new RegExp(date.format('dddd'), 'i');
             var tomorrowRegEx = new RegExp(date.clone().add('days', 1).format('dddd') + "|šalát", 'i');//friday ends with salatove menu
-            for(var i = 0; i < lines.length; i++) {
-                if(todayRegEx.test(lines[i])) {
+            for (var i = 0; i < lines.length; i++) {
+                if (todayRegEx.test(lines[i])) {
                     i++;
-                    while(!tomorrowRegEx.test(lines[i])) {
+                    while (!tomorrowRegEx.test(lines[i])) {
                         dayMenu.push(lines[i]);
                         i++;
                     }
@@ -79,7 +75,7 @@ module.exports.parse = function(html, callback) {
                 }
             }
 
-            dayMenu = dayMenu.map(function(item) {
+            dayMenu = dayMenu.map(function (item) {
                 var priced = parserUtil.parsePrice(normalize(item));
                 return { isSoup: /polievka/i.test(priced.text), text: priced.text.replace(/polievka:\s*/i, ""), price: priced.price };
             });
