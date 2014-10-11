@@ -11,20 +11,33 @@ module.exports.parse = function(html, callback) {
     global.dates.forEach(function(date) {
         var todayNameRegex = new RegExp("^\\s*" + date.format("dddd"), "i");
 
-        $('td.cnt', '#contentBox').children('table').each(function() {
-            var precedingText = "";
-            $(this).prevUntil('table').each(function() {
-                precedingText = $(this).text() + precedingText;
+        if ($('td.cnt', '#contentBox').children('table').children().length > 1) {
+            $('td.cnt', '#contentBox').children('table').each(function() {
+                if (getDailyMenu(this, todayNameRegex))
+                    return false;
             });
-            if (todayNameRegex.test(precedingText)) {
-                dayMenu = parseMenu($(this), precedingText);
-                return false;
-            }
-        });
+        } else {
+            $('td.cnt', '#contentBox').children('table').children('tbody').children('tr').children('td').children('table').each(function() {
+                if (getDailyMenu(this, todayNameRegex))
+                    return false;
+            });
+        }
 
         weekMenu.push({ day: date.format("dddd"), menu: dayMenu });
     });
     callback(weekMenu);
+
+    function getDailyMenu(element, todayNameRegex) {
+        var precedingText = "";
+        $(element).prevUntil('table').each(function () {
+            precedingText = $(this).text() + precedingText;
+        });
+        if (todayNameRegex.test(precedingText)) {
+            dayMenu = parseMenu($(element), precedingText);
+            return true;
+        }
+        return false;
+    }
 
     function parseMenu(table, mixedText) {
         var temp = [];
