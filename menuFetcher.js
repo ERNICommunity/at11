@@ -26,7 +26,7 @@ function load(url, parseCallback, doneCallback) {
             }, config.parserTimeout);
             try
             {
-                parseCallback(body, function (menuItems) {
+                parseCallback(body, function (weekMenu) {
                     if (!timer)
                     {
                         return;//call must be ignored (multiple calls in parser or parser finishing after timeout/error)
@@ -36,13 +36,17 @@ function load(url, parseCallback, doneCallback) {
 
                     try
                     {
-                        if (!Array.isArray(menuItems))
-                            throw "Invalid menu returned (expected array, got " + typeof menuItems + ")";
-                        menuItems.forEach(function(menuItem) {
+                        if (!Array.isArray(weekMenu))
+                            throw "Invalid week menu returned (expected array, got " + typeof weekMenu + ")";
+                        weekMenu.forEach(function(dailyMenu) {   
+                            if (typeof dailyMenu.day !== "string")
+                                    throw "Daily menu has wrong 'day' property (" + typeof dailyMenu.day + ")";
+                            if (!Array.isArray(dailyMenu.menu))
+                                throw "Invalid daily menu returned (expected array, got " + typeof dailyMenu.menu + ")";
                             //check if each menu item has required attributes
-                            menuItem.menu.forEach(function(item) {
+                            dailyMenu.menu.forEach(function(item) {
                                 if (typeof item !== "object")
-                                    throw "Each item should be object, but got " + typeof item;
+                                    throw "Menu item should be object, but got " + typeof item;
                                 if (typeof item.isSoup !== "boolean")
                                     throw "Menu item has wrong 'isSoup' flag (" + typeof item.isSoup + ")";
                                 if (typeof item.text !== "string")
@@ -52,7 +56,7 @@ function load(url, parseCallback, doneCallback) {
                                 item.price = isNaN(item.price) ? "" : item.price.toFixed(2).replace(".", ",") + " €";//convert to presentable form
                             });
                         });
-                        doneCallback(menuItems);
+                        doneCallback(weekMenu);
                     }
                     catch(err)//catches callback errors
                     {
