@@ -3,16 +3,16 @@
   "description": "Daily lunch menu application",
   "version": "1.0.0",
   "dependencies": {
-    "cheerio": "*",
-    "express": "*",
-    "hbs": "*",
-    "request": "*",
-    "moment-timezone": "*",
-	"pdf2png": "*"
+    "cheerio": "^0.17.0",
+    "express": "^4.9.7",
+    "hbs": "^2.7.0",
+    "request": "^2.45.0",
+    "moment-timezone": "^0.2.2",
+	"pdf2png": "^1.0.5"
   },
   "devDependencies": {
-    "mocha": "^1.18.2",
-    "jshint": "^2.5.1"    
+    "mocha": "^1.21.5",
+    "jshint": "^2.5.6"    
   },
   "scripts": {
     "test": "mocha --reporter spec",
