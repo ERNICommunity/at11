@@ -49,18 +49,15 @@ console.log("Done");
 
 console.log("Global setup...");
 moment.locale('sk');
-global.dates = [];
-for (var i = 1; i < 6; i++)
-{
-    global.dates.push(moment().startOf('week').day(i));
-}
-setInterval(function() {//periodically refresh dates
+function populateDates(){
     global.dates = [];
     for (var i = 1; i < 6; i++)
     {
         global.dates.push(moment().startOf('week').day(i));
     }
-}, config.globalTickInterval);
+}
+populateDates();
+setInterval(populateDates, config.globalTickInterval); //periodically refresh dates
 console.log("Done");
 
 console.log("Express setup...");
