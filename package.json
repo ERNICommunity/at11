@@ -8,7 +8,7 @@
     "hbs": "^2.7.0",
     "request": "^2.45.0",
     "moment-timezone": "^0.2.2",
-	"pdf2png": "^1.0.5"
+    "pdf2png": "^1.0.5"
   },
   "devDependencies": {
     "mocha": "^1.21.5",
