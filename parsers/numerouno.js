@@ -56,7 +56,7 @@ module.exports.parse = function(html, callback) {
 
     function parseDailyMenu(menuText, date) {
         var todayName = date.format("dddd");
-        var tomorrowName = date.clone().add("days", 1).format("dddd");
+        var tomorrowName = date.clone().add(1, "days").format("dddd");
 
         var startLine, endLine;
         for (var line in menuText) {

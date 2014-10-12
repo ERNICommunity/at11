@@ -26,7 +26,7 @@ module.exports.parse = function (html, callback) {
         global.dates.forEach(function (date) {
             var dayMenu = [];
             var todayNameReg = new RegExp("^\\s*" + date.format("dddd"), "i");
-            var nextNameReg = new RegExp("^\\s*" + date.clone().add("days", 1).format("dddd"), "i");
+            var nextNameReg = new RegExp("^\\s*" + date.clone().add(1, "days").format("dddd"), "i");
             $("table", "div#content").first().find("tr").each(function () {
                 var row = $(this);
                 if (todayNameReg.test(row.text())) {
@@ -63,7 +63,7 @@ module.exports.parse = function (html, callback) {
         global.dates.forEach(function (date) {
             var dayMenu = [];
             var todayRegEx = new RegExp(date.format('dddd'), 'i');
-            var tomorrowRegEx = new RegExp(date.clone().add('days', 1).format('dddd') + "|šalát", 'i');//friday ends with salatove menu
+            var tomorrowRegEx = new RegExp(date.clone().add(1, 'days').format('dddd') + "|šalát", 'i');//friday ends with salatove menu
             for (var i = 0; i < lines.length; i++) {
                 if (todayRegEx.test(lines[i])) {
                     i++;
