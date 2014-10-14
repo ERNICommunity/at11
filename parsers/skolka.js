@@ -15,8 +15,6 @@ module.exports.parse = function (html, callback) {
         return $(this).text() !== '' && !/<a/.test($(this).html());
     });
 
-    var action = "";
-
     if (pic.length === 0 && link.length > 0) {
         var pdfUrl = link.attr('href');
 
@@ -47,17 +45,12 @@ module.exports.parse = function (html, callback) {
     }
     else if (pic.parent().filter("a").length > 0) {
         pic = pic.parent().attr('href');
-        action = "url";
+        callOcr(pic, "url");
     }
     else if (pic.attr('src') !== undefined) {
         pic = pic.attr('src');
-        action = "encoded";
-    }
-
-    if (pic.length > 0) {
-        callOcr(pic, action);
-    }
-    else {
+        callOcr(pic, "encoded");
+    } else {
         parseMenu($('div.entry-content', '#post-2').text());
     }
 
