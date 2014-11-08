@@ -27,9 +27,9 @@ module.exports.parse = function(html, callback) {
         });
 
         //sometimes one menu item is scattered across multiple lines of HTML
-        //lines with extra indentation should be merged with previous line
-        for (var i = 0; i < dayMenu.length; i++) {
-            if (/^\s{4,}/.test(dayMenu[i])) {
+        //if item does not start with number it should be added to previous one
+        for (var i = 1; i < dayMenu.length; i++) {
+            if (!/^\d/.test(dayMenu[i])) {
                 dayMenu[i - 1] = dayMenu[i - 1] + " " + dayMenu[i].trim();
                 dayMenu.splice(i, 1);
                 i--;
