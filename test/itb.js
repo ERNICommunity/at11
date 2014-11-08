@@ -204,6 +204,7 @@ describe('itb', function() {
             assert.equal(menu[7].price, 3.20);
         });
     });
+    
     describe('parsing sample 2014-10-07', function () {
 
         var html = fs.readFileSync(__dirname + '/samples/ITB.2014-10-07.html', { encoding: "utf-8" });
