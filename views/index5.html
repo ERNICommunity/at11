@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="sk">
+    <head>
+        <meta http-equiv="refresh" content="14400"><!--auto refresh every 4h-->
+        <meta charset="UTF-8">
+        <title>@11</title>
+        <link rel="icon" type="image/x-icon" href="img/favicon.ico" />
+        <meta name="description" content="Obedové menu pri ERNI SK">
+        <link href="css/style5.css" type="text/css" rel="stylesheet">
+        <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.css" rel="stylesheet">
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.6.0/moment.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+        <script src="js/utils.js"></script>
+        <script src="js/script5.js"></script>
+    </head>
+    <body>
+        <header>
+            <span><i class="fa fa-indent"></i> Denné menu</span>
+            <span class="date">({{date}})</span>
+        </header>
+        
+        <main>
+        
+            <div id="container">
+                <div class="carousel-inner">
+                    {{#each restaurants}}
+                    <section data-restaurant-id="{{this.id}}" class="item">
+                        <h2><a href="{{this.url}}" target="_blank">{{this.name}}</a></h2>
+                        <i class="fa fa-spinner fa-spin"></i>
+                    </section>
+                    {{/each}}
+                </div>
+            </div>
+        
+        </main>
+            
+        <footer>
+            <span>
+                <a href="http://en.wikipedia.org/wiki/Copyleft" target="_blank" title="copyleft" style="display: inline-block; -webkit-transform: scaleX(-1); transform: scaleX(-1);">©</a>
+                ALL WRONGS RESERVED
+            </span>
+            <span>
+                <a href="https://github.com/at11/at11/issues" target="_blank" class="github"><i class="fa fa-github fa-lg"></i> GitHub</a>
+            </span>
+        </footer>
+    </body>
+</html>

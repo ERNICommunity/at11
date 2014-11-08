@@ -20,6 +20,7 @@ module.exports = {
         "jano": { name: "Jano", template: "../views/index.html" },
         "igor": { name: "Igor", template: "../views/index2.html" },
         "matus": { name: "Matúš", template: "../views/index3.html" },
-        "iveta": { name: "Iveta", template: "../views/index4.html" }
+        "iveta": { name: "Iveta", template: "../views/index4.html" },
+        "telka": { name: "Telka", template: "../views/index5.html" }
     }
 };
