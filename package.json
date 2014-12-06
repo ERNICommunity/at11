@@ -16,7 +16,7 @@
   },
   "scripts": {
     "test": "mocha --reporter spec",
-    "posttest": "jshint --verbose parsers/  static/js/ views/ --extract=auto"
+    "posttest": "jshint --verbose app.js cache.js config.js menuFetcher.js parsers/  static/js/ views/ --extract=auto"
   },
   "author": {
     "name": "Jakub Šturc",
