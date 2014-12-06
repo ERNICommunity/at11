@@ -1,76 +1,47 @@
 var cheerio = require('cheerio');
 var parserUtil = require('./parserUtil');
 
-module.exports.parse = function(html, callback) {
+module.exports.parse = function (html, callback) {
 
     var $ = cheerio.load(html);
 
     var weekMenu = [];
-    var dayMenu = [];
+    var menuRows = [];
 
-    global.dates.forEach(function(date) {
+    global.dates.forEach(function (date) {
         var todayNameRegex = new RegExp("^\\s*" + date.format("dddd"), "i");
+        var tomorrowNameRegex = new RegExp("^\\s*" + date.clone().add(1, 'days').format('dddd'), "i");
 
-        if ($('td.cnt', '#contentBox').children('table').children().length > 1) {
-            $('td.cnt', '#contentBox').children('table').each(function() {
-                if (getDailyMenu(this, todayNameRegex))
-                    return false;
-            });
-        } else {
-            $('td.cnt', '#contentBox').children('table').children('tbody').children('tr').children('td').children('table').each(function() {
-                if (getDailyMenu(this, todayNameRegex))
-                    return false;
-            });
-        }
+        //get all menu rows in an array
+        menuRows = $('td.cnt', '#contentBox').children('table').children('tbody').children().map(function () { return $(this); });
+
+        var foundCurrentDay = false;
+        var dayMenu = [];
+
+        menuRows.each(function (index, element) {
+            var $row = $(element);
+            if (tomorrowNameRegex.test($row.children().eq(0).text()) || /II\./.test($row.children().eq(0).text()) || $row.children().eq(0).text().trim() === '') {
+                return false;
+            }
+            if (foundCurrentDay) {
+                dayMenu.push(parseMenuRow($row));
+            }
+            if (todayNameRegex.test($row.children().eq(0).text())) {
+                foundCurrentDay = true;
+            }
+        });
 
         weekMenu.push({ day: date.format("dddd"), menu: dayMenu });
     });
     callback(weekMenu);
 
-    function getDailyMenu(element, todayNameRegex) {
-        var precedingText = "";
-        $(element).prevUntil('table').each(function () {
-            precedingText = $(this).text() + precedingText;
-        });
-        if (todayNameRegex.test(precedingText)) {
-            dayMenu = parseMenu($(element), precedingText);
-            return true;
-        }
-        return false;
-    }
+    function parseMenuRow(tablerow) {
+        var menuItem = {};
+        menuItem.isSoup = /polievka/.test(tablerow.children('td').eq(0).text());
+        menuItem.text = normalize(tablerow.children('td').eq(2).text());
+        menuItem.price = parseFloat(tablerow.children('td').eq(3).text().replace(/,/, '.'));
 
-    function parseMenu(table, mixedText) {
-        var temp = [];
-        if (mixedText.match(/zatvorené/i))
-        {
-            temp.push({ isSoup: false, text: "Dnes nie je menu", price: NaN });
-            return temp;
-        }
-        table.find('tr').each(function() {
-            var priced = parserUtil.parsePrice($(this).text());
-            priced.text = normalize(priced.text);
-            if (priced.text) temp.push({ isSoup: false, text: priced.text, price: priced.price });
-        });
-
-        var m = /Polievk[ay] ?0[,\.]33l ?:?(.+)Špec.*:(.+)delená.*:(.+)$/i.exec(mixedText);
-        if (m)
-        {
-            var priced;
-            for (var i = 3; i > 1; i--)
-            {
-                priced = parserUtil.parsePrice(m[i]);
-                temp.unshift({ isSoup: false, text: normalize(priced.text), price: priced.price });
-            }
-            //soups (group 1)
-            var soups = m[1].split(/€ ?,/);
-            for (i = soups.length - 1; i >= 0; i--)
-            {
-                var txt = soups[i] + (i !== soups.length - 1 ? "€" : ""); //add back € to all items except last
-                priced = parserUtil.parsePrice(txt);
-                temp.unshift({ isSoup: true, text: normalize(priced.text), price: priced.price });
-            }
-        }
-        return temp;
+        return menuItem;
     }
 
     function normalize(str) {
