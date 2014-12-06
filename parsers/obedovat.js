@@ -5,51 +5,46 @@ module.exports.parse = function(html, callback) {
 
     var $ = cheerio.load(html);
 
-    var dayMenu = [];
     var weekMenu = [];
 
     global.dates.forEach(function(date) {
-        var todayStr = date.format("D.M.YYYY");
+        var todayRegex = new RegExp("^\\s*" + date.format("dddd"), "i");
 
-        $('.daily-menu-for-day').each(function() {
-            if($(this).children("header").first().text().indexOf(todayStr) !== -1) {
-                dayMenu = parseMenu($(this));
-                weekMenu.push({ day: date.format('dddd'), menu: dayMenu });
+        $('#daily-menu-container').find('.tmi-group').each(function () {
+            var $this = $(this);
+            var dayMenu = [];
+            if (todayRegex.test($this.children('.tmi-group-name').text().trim())) {
+                $this.children('.tmi-daily').each(function (index) {
+                    var text = $(this).find('.tmi-name').text();
+                    if (index === 0 && /\//.test(text)) { // two soups separated by slash
+                        var soup1 = {};
+                        soup1.text = normalize(text.split('/')[0]);
+                        soup1.price = NaN;
+                        soup1.isSoup = true;
+
+                        dayMenu.push(soup1);
+
+                        var soup2 = {};
+                        soup2.text = normalize(text.split('/')[1]);
+                        soup2.price = NaN;
+                        soup2.isSoup = true;
+
+                        dayMenu.push(soup2);
+                    } else {
+                        var menuItem = {};
+                        menuItem.text = normalize(text);
+                        menuItem.price = parseFloat($(this).find('.tmi-price').text().replace(/,/, '.'));
+                        menuItem.isSoup = isNaN(menuItem.price); // soups don't have a price
+
+                        dayMenu.push(menuItem);
+                    }
+                });
             }
+            weekMenu.push({ day: date.format("dddd"), menu: dayMenu });
         });
     });
 
     callback(weekMenu);
-
-    function parseMenu(elem) {
-        var arr = [];
-        var haveSoupAlready = false;
-
-        elem.find('header.rm').each(function() {//Albatros puts soup in header
-            var text = normalize($(this).children("h3").first().text());
-            if(text === "" || $(this).children('.price').text()==='')
-                return;
-            var priceMatch = /(\d+[\.,]\d+) ?€/.exec($(this).children(".price").first().text().replace(",", "."));
-            var price = priceMatch ? parseFloat(priceMatch[1]) : NaN;
-            arr.push({ isSoup: true, text: text, price: price });
-            haveSoupAlready = true;
-        });
-
-        elem.find('li').each(function() {
-            var rawText = $(this).children(".name").first().text();
-            var isSoup = /0,33l/.test(rawText);
-            var text = normalize(rawText);
-            var priceMatch = /(\d+[\.,]\d+) ?€/.exec($(this).children(".price").first().text().replace(",", "."));
-            var price = priceMatch ? parseFloat(priceMatch[1]) : NaN;
-            if(!haveSoupAlready && !/ menu/.test(text))
-            {
-                haveSoupAlready = true;
-                isSoup = true;
-            }
-            arr.push({ isSoup: isSoup, text: text, price: price });
-        });
-        return arr;
-    }
 
     function normalize(str) {
         return str.normalizeWhitespace()

@@ -1,5 +1,5 @@
 var cheerio = require('cheerio');
-var parserUtil = require('./parserUtil');
+require('./parserUtil');
 
 module.exports.parse = function (html, callback) {
 
