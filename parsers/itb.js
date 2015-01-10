@@ -20,7 +20,7 @@ module.exports.parse = function (html, callback) {
 
         menuRows.each(function (index, element) {
             var $row = $(element);
-            if (tomorrowNameRegex.test($row.children().eq(0).text()) || /II\./.test($row.children().eq(0).text()) || $row.children().eq(0).text().trim() === '') {
+            if (tomorrowNameRegex.test($row.children().eq(0).text()) || (foundCurrentDay) && (/II\./.test($row.children().eq(0).text()) || $row.children().eq(0).text().trim() === '')) {
                 return false;
             }
             if (foundCurrentDay) {
