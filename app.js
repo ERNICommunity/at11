@@ -71,7 +71,7 @@ app.get('/:theme?', function(req, res) {
     var dateStr = moment().tz("Europe/Bratislava").format("D. M. YYYY");
     var theme = parserUtil.parseTheme(req);
 
-    res.cookie('theme', theme, { maxAge: 315360000000, httpOnly: true })
+    res.cookie('theme', theme, { maxAge: 315360000000, httpOnly: true });
     res.render(config.themes[theme].template, { date: dateStr, restaurants: config.restaurants, themes: config.themes });
 });
 app.get('/menu/:id/:day', function(req, res) {
