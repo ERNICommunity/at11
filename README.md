@@ -1,5 +1,5 @@
 [![Build Status](https://travis-ci.org/ERNICommunity/at11.svg?branch=master)](https://travis-ci.org/ERNICommunity/at11)
-![Dependencies](https://david-dm.org/ERNICommunity/at11.svg)
+[![Dependency Status](https://david-dm.org/ERNICommunity/at11.svg)](https://david-dm.org/ERNICommunity/at11)
 
 at11
 ==========
