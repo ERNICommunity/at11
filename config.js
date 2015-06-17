@@ -7,7 +7,7 @@ module.exports = {
         { id: 0, name: "Jedáleň u Daňováka II", url: "https://www.zomato.com/sk/bratislava/jed%C3%A1le%C5%88-u-da%C5%88ov%C3%A1ka-2-petr%C5%BEalka-bratislava-v/menu#tabtop", module: "obedovat" },
         { id: 1, name: "U Daňováka", url: "https://www.zomato.com/sk/bratislava/re%C5%A1taur%C3%A1cia-u-da%C5%88ov%C3%A1ka-petr%C5%BEalka-bratislava-v/menu#tabtop", module: "obedovat" },
         { id: 2, name: "Giuliano", url: "http://www.giuliano.sk/sk/denne-menu/", module: "giuliano" },
-        { id: 3, name: "ITB", url: "http://www.citycantina.sk/index.php?id=1&type=main_menu&t=1", module: "itb" },
+        { id: 3, name: "ITB", url: "http://www.citycantina.sk/prevadzka/1", module: "itb" },
         { id: 4, name: "Alfa", url: "http://restauracie.sme.sk/restauracia/restauracia-alfa_2512-petrzalka_664/denne-menu", module: "sme" },
         { id: 5, name: "Škôlka", url: "http://jedalen.vysnivany.sk/ukazka-strany", module: "skolka" },
         { id: 6, name: "Pizza Pazza", url: "http://www.pizzapazza.sk/sk/denne-menu/", module: "pizzapazza" },
