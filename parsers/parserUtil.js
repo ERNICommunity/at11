@@ -41,7 +41,7 @@ global.String.prototype.capitalizeFirstLetter = function() {
 };
 
 global.String.prototype.removeItemNumbering = function() {
-    return this.trim().replace(/^[\w\d] *[\)\.]+[AB]?\s*/, '').trim();
+    return this.trim().replace(/^[\w\d] *[\)\.,]+[AB]?\s*/, '').trim();
 };
 
 module.exports.parseTheme = function(req) {
@@ -62,7 +62,7 @@ module.exports.parseCookies = function(request) {
         rc = request.headers.cookie;
 
     rc && rc.split(';').forEach(function(cookie) {
-        var parts = cookie.split('='); 
+        var parts = cookie.split('=');
         list[parts.shift().trim()] = unescape(parts.join('='));
     });
 
