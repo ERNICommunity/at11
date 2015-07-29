@@ -7,15 +7,15 @@ var assert = require('assert'),
 moment.locale('sk');
 
 describe('giuliano', function() {
-    describe('parsing sample 2014-05-26', function() {
+    describe('parsing sample 2015-07-29', function() {
 
-        var html = fs.readFileSync(__dirname + '/samples/Giuliano.2014-05-26.html', { encoding: "utf-8" });
+        var html = fs.readFileSync(__dirname + '/samples/Giuliano.2015-07-29.html', { encoding: "utf-8" });
         var menu;
 
         before(function(done) {
-            testHelpers.setWeekDates(moment("2014-05-26"));
+            testHelpers.setWeekDates(moment("2015-07-29"));
             parser.parse(html, function(menuItems) {
-                menu = menuItems.filter(function(x) { if(x.day == moment().day(1).format('dddd')) return true; })[0].menu;
+                menu = menuItems.filter(function(x) { if(x.day == moment().day(3).format('dddd')) return true; })[0].menu;
                 done();
             });
         });
@@ -26,13 +26,13 @@ describe('giuliano', function() {
 
         it("1st item correct", function() {
             assert.equal(menu[0].isSoup, true);
-            assert.equal(menu[0].text, "Tekvicová krémová polievka s tekvicovým olejom");
+            assert.equal(menu[0].text, "Hovädzí vývar s krupicovinými haluškami");
             assert.equal(isNaN(menu[0].price), true);
         });
 
         it("2nd item correct", function() {
             assert.equal(menu[1].isSoup, false);
-            assert.equal(menu[1].text.trim(), "Šalátový tanier s restovanou kuracou pečeňou, ľanový osúch");
+            assert.equal(menu[1].text.trim(), "Bravčové soté s čerstvou zeleninou, tekvicové placky");
             assert.equal(menu[1].price, 4.20);
         });
     });

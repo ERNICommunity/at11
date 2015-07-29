@@ -9,47 +9,63 @@ module.exports.parse = function (html, callback) {
     var menuRows = [];
 
     global.dates.forEach(function (date) {
-        var todayNameRegex = new RegExp("^\\s*" + date.format("dddd"), "i");
-        var tomorrowNameRegex = new RegExp("^\\s*" + date.clone().add(1, 'days').format('dddd'), "i");
+        var todayNameRegex = new RegExp(date.format("dddd"), "i");
+        var tomorrowNameRegex = new RegExp(date.clone().add(1, 'days').format('dddd'), "i");
 
-        //get all menu rows in an array
-        menuRows = $('td.cnt', '#contentBox').children('table').children('tbody').children().map(function () { return $(this); });
+        menuRows = $('.tabularmenu').children('div.one-third, div.one-third-last, h2');
 
         var foundCurrentDay = false;
         var dayMenu = [];
 
         menuRows.each(function (index, element) {
             var $row = $(element);
-            if (tomorrowNameRegex.test($row.children().eq(0).text()) || (foundCurrentDay) && (/II\./.test($row.children().eq(0).text()) || $row.children().eq(0).text().trim() === '')) {
+            var text = $($row[0]).text();
+            if (tomorrowNameRegex.test(text) || (foundCurrentDay) && (/II\./.test(text) || $row.children().eq(0).text().trim() === '')) {
                 return false;
             }
             if (foundCurrentDay) {
-                dayMenu.push(parseMenuRow($row));
+                var meal = parseMeal($row);
+                if (!isNaN(meal.price))
+                    dayMenu.push(parseMeal($row));
             }
-            if (todayNameRegex.test($row.children().eq(0).text())) {
+            if (todayNameRegex.test(text)) {
                 foundCurrentDay = true;
+            }
+        });
+        
+        dayMenu.sort(function (item) {
+            if (item.isSoup) {
+                return 0;
+            } else {
+                return 1;
             }
         });
 
         weekMenu.push({ day: date.format("dddd"), menu: dayMenu });
     });
+
     callback(weekMenu);
-
-    function parseMenuRow(tablerow) {
+    
+    function parseMeal(tablerow) {
         var menuItem = {};
-        menuItem.isSoup = /polievka/.test(tablerow.children('td').eq(0).text());
-        menuItem.text = normalize(tablerow.children('td').eq(2).text());
-        menuItem.price = parseFloat(tablerow.children('td').eq(3).text().replace(/,/, '.'));
-
+        menuItem.isSoup = /polievka/i.test(tablerow.children('h3').text());
+        var textParts = tablerow.find('li').children('span').eq(1)[0].children;
+        menuItem.text = normalize($(textParts[0]).text() + "," + $(textParts[2]).text());
+        menuItem.price = parseFloat(tablerow.find('li').children('span').eq(0).text().replace(/,/, '.'));
+        
         return menuItem;
     }
-
+    
+    function removeTrailingAlergens(str) {
+        return str.trim().replace(/,?\s*alerg.*/i, '').trim();
+    }
+    
     function normalize(str) {
-        return str.normalizeWhitespace()
+        return removeTrailingAlergens(str.normalizeWhitespace()
             .removeItemNumbering()
             .removeMetrics()
             .correctCommaSpacing()
             .toLowerCase()
-            .capitalizeFirstLetter();
+            .capitalizeFirstLetter());
     }
 };
