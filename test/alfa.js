@@ -42,5 +42,12 @@ describe('alfa', function() {
             assert.equal(isNaN(menu[2].price), false, "price should be there");
             assert.equal(menu[2].price, 3.8, "price is wrong");
         });
+
+        it("4th item correct", function() {
+            assert.equal(menu[3].isSoup, false, "isSoup should be false");
+            assert.equal(menu[3].text, "Hovad. tokan na vine, tarhoňa");
+            assert.equal(isNaN(menu[3].price), false, "price should be there");
+            assert.equal(menu[3].price, 3.8, "price is wrong");
+        });
     });
 });
