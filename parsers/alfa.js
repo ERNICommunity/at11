@@ -23,9 +23,9 @@ module.exports.parse = function(html, callback) {
         }
         //convert to menu item object
         dayMenu = dayMenu.map(function(item) {
-            var left = $('.left', item).text();
-            var right = $('.right', item).text();
-            return { isSoup: soupPattern.test(left.trim()), text: normalize(left), price: parseFloat(right) };
+            var label = $('.left', item).text();
+            var price = $('.right', item).text();
+            return { isSoup: soupPattern.test(label.trim()), text: normalize(label), price: parseFloat(price) };
         });
 
         weekMenu.push({ day: date.format('dddd'), menu: dayMenu });
