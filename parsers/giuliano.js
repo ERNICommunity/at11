@@ -8,15 +8,18 @@ module.exports.parse = function (html, callback) {
     var weekMenu = [];
     var dayMenu = [];
 
-    $('.menublock').each(function () {
+    $('.menublock > .row').each(function () {
         var $this = $(this);
-        var leftCellText = $this.children("div").first().text();
+        var dateCellText = $this.children(".dayname").first().text();
         global.dates.forEach(function (date) {
-            if (leftCellText.indexOf(date.format("DD. MM. YYYY")) !== -1)
+            if (dateCellText.indexOf(date.format("DD. MM. YYYY")) !== -1)
             {
-                var match = /€(\d[\.,]\d{2})/.exec(leftCellText);
-                var price = match ? parseFloat(match[1]) : NaN;
-                var items = $this.children("div").eq(1).text().match(/[^\r\n]+/g);
+				var items = $this.children("div").eq(1).text().match(/[^\r\n]+/g);
+				
+                var match = /(\d[\.,]\d{2})€/.exec(items[0]);
+                var price = match ? parseFloat(match[1].replace(",", ".")) : NaN;
+				items.shift();
+                
                 dayMenu = items.map(function (item, index) {
                     var tmp = { isSoup: false, text: normalize(item), price: price };
                     if (index === 0)
