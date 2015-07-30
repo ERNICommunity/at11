@@ -56,7 +56,7 @@
     "url": "https://github.com/at11/at11/issues"
   },
   "engines":{
-      "node": "0.12.17"
+      "node": "0.12.x"
   },
   "license": "Unlicense",
   "main": "app.js"
