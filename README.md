@@ -1,7 +1,7 @@
 [![Build Status](https://travis-ci.org/ERNICommunity/at11.svg?branch=master)](https://travis-ci.org/ERNICommunity/at11)
 [![Dependency Status](https://david-dm.org/ERNICommunity/at11.svg)](https://david-dm.org/ERNICommunity/at11)
-[![Pull requests](http://issuestats.com/github/ERNICommunity/at11/badge/pr)](http://issuestats.com/github/ERNICommunity/at11)
-[![Issues](http://issuestats.com/github/ERNICommunity/at11/badge/issue)](http://issuestats.com/github/ERNICommunity/at11)
+[![Issue Stats](http://issuestats.com/github/ERNICommunity/at11/badge/pr?style=flat)](http://issuestats.com/github/ERNICommunity/at11)
+[![Issue Stats](http://issuestats.com/github/ERNICommunity/at11/badge/issue?style=flat)](http://issuestats.com/github/ERNICommunity/at11)
 
 at11
 ==========
