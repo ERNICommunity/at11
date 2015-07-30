@@ -41,7 +41,7 @@ global.String.prototype.capitalizeFirstLetter = function() {
 };
 
 global.String.prototype.removeItemNumbering = function() {
-    return this.trim().replace(/^[\w\d] *[\)\.]+[AB]?\s*/, '').trim();
+    return this.trim().replace(/^\W\s+/, '').replace(/^[\w\d] *[\)\.]+[AB]?\s*/, '').trim();
 };
 
 module.exports.parseTheme = function(req) {
