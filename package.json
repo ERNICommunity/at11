@@ -3,18 +3,19 @@
   "description": "Daily lunch menu application",
   "version": "1.0.0",
   "dependencies": {
-    "cheerio": "^0.17.0",
-    "express": "^4.9.7",
-    "hbs": "^2.7.0",
-    "request": "^2.45.0",
-    "moment-timezone": "^0.2.2",
+    "cheerio": "^0.19.0",
+    "express": "^4.13.1",
+    "hbs": "^3.1.0",
+    "request": "^2.60.0",
+    "moment-timezone": "^0.4.0",
     "pdf2png": "^1.0.5"
   },
   "devDependencies": {
-    "mocha": "^1.21.5",
-    "jshint": "^2.5.6"    
+    "mocha": "^2.2.5",
+    "jshint": "^2.8.0"    
   },
   "scripts": {
+    "start": "node app.js",
     "test": "mocha --reporter spec",
     "posttest": "jshint --verbose app.js cache.js config.js menuFetcher.js parsers/  static/js/ views/ --extract=auto"
   },
@@ -32,8 +33,12 @@
       "email": "matus.brlit@erni.sk"
     },
     {
-      "name": "Igor Kvasnička",
-      "email": "igor.kvasnicka@erni.sk"
+      "name": "Peter Matejka",
+      "email": "peter.matejka@erni.sk"
+    },
+    {
+      "name": "Andrej Mandli",
+      "email": "andrej.mandli@erni.sk"
     }
   ],
   "keywords": [
@@ -50,11 +55,9 @@
   "bugs": {
     "url": "https://github.com/at11/at11/issues"
   },
-  "licenses": [
-    {
-      "type": "Unlicense",
-      "url": "http://unlicense.org"
-    }
-  ],
+  "engines":{
+      "node": "0.12.17"
+  },
+  "license": "Unlicense",
   "main": "app.js"
 }
