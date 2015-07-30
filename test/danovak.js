@@ -6,10 +6,10 @@
 
 moment.locale('sk');
 
-describe('danovak2', function () {
+describe('danovak', function () {
     describe('parsing sample 2015-07-29', function () {
 
-        var html = fs.readFileSync(__dirname + '/samples/Danovak2.2015-07-29.html', { encoding: "utf-8" });
+        var html = fs.readFileSync(__dirname + '/samples/Danovak.2015-07-29.html', { encoding: "utf-8" });
         var menus, streda;
 
         before(function (done) {
@@ -20,8 +20,8 @@ describe('danovak2', function () {
             });
         });
 
-        it("should return 5 items", function () {
-            assert.equal(menus.length, 5);
+        it("should return 3 items", function () {
+            assert.equal(menus.length, 3);
         });
 
         it("should have streda as first day", function () {
@@ -31,50 +31,44 @@ describe('danovak2', function () {
 
         it("1st item correct", function () {
             assert.equal(streda[0].isSoup, true);
-            assert.equal(streda[0].text.trim(), "Špenátová krémová");
+            assert.equal(streda[0].text.trim(), "Kurací vývar so zeleninou, rezance");
             assert(isNaN(streda[0].price));
          });
 
         it("2nd item correct", function () {
              assert.equal(streda[1].isSoup, true);
-             assert.equal(streda[1].text.trim(), "Hrášková s údeninou");
+             assert.equal(streda[1].text.trim(), "Šošovicová na kyslo");
              assert(isNaN(streda[1].price));
         });
 
         it("3rd item correct", function () {
-          assert.equal(streda[2].isSoup, true);
-          assert.equal(streda[2].text.trim(), "Domáci kurací vývar s niťovkami a zeleninou");
-          assert(isNaN(streda[2].price));
+             assert.equal(streda[2].isSoup, false);
+             assert.equal(streda[2].text.trim(), "Kuracie prsia na nivovje omáčke dusená ryža, šalát");
+             assert.equal(streda[2].price, 3.80);
         });
 
         it("4th item correct", function () {
              assert.equal(streda[3].isSoup, false);
-             assert.equal(streda[3].text.trim(), "Vyprážaný kurací Gordon Blue, zemiakové pyré, kyslá uhorka");
+             assert.equal(streda[3].text.trim(), "Španielský vtáčik, tarhoňa, šalát");
              assert.equal(streda[3].price, 3.80);
         });
 
         it("5th item correct", function () {
              assert.equal(streda[4].isSoup, false);
-             assert.equal(streda[4].text.trim(), "Pečené bravčové karé s kosťou špikované slaninkou a cibuľkou, varené zemiaky, kyslá uhorka");
+             assert.equal(streda[4].text.trim(), "Bryndzové halušky s domácou slaninkou a pažítkou");
              assert.equal(streda[4].price, 3.80);
         });
 
         it("6th item correct", function () {
              assert.equal(streda[5].isSoup, false);
-             assert.equal(streda[5].text.trim(), "Penne 4 druhy syra so šampiňónmi a kuracinkou");
+             assert.equal(streda[5].text.trim(), "Grilovaný Encián s brusnicovou omáčkou, hranolky, šalát");
              assert.equal(streda[5].price, 3.80);
         });
 
         it("7th item correct", function () {
              assert.equal(streda[6].isSoup, false);
-             assert.equal(streda[6].text.trim(), "Vyprážané kuracie krídelka v pikant obale, dusená ryža, kyslá uhorka");
-             assert.equal(streda[6].price, 3.80);
-        });
-
-        it("8th item correct", function () {
-             assert.equal(streda[7].isSoup, false);
-             assert.equal(streda[7].text.trim(), "Dusená panenka na nivovej omáčke, 1/2 dusená ryža, 1/2 hrnolky, šalát alebo koláčik, kávička");
-             assert.equal(streda[7].price, 5.50);
+             assert.equal(streda[6].text.trim(), "Daňovákov burger, hranolky, BBQ omáčka");
+             assert.equal(streda[6].price, 5.50);
         });
     });
 });

@@ -13,6 +13,7 @@ module.exports.parse = function(html, callback) {
 
     global.dates.forEach(function(date) {
         var dayMenu = parseDailyMenu(menuText, date);
+        
         if (!dayMenu || dayMenu.length === 0) {
             callback(dayMenu);
             return;
@@ -21,11 +22,6 @@ module.exports.parse = function(html, callback) {
         //the first menu entry is also a soup
         dayMenu[0] = dayMenu[0] === '' ? 'Dnes v menu chýba polievka' : dayMenu[0];
 
-        dayMenu = dayMenu.map(function(line) {
-            //prize is written the other way around than usual e.g. € 5.10 instead of 5.10 €
-            return line.replace(/€ ([0-9]{1,2},[0-9]{2})/, '$1 €');
-        });
-
         //sometimes one menu item is scattered across multiple lines of HTML
         //if item does not start with number it should be added to previous one
         for (var i = 1; i < dayMenu.length; i++) {
@@ -33,11 +29,6 @@ module.exports.parse = function(html, callback) {
                 dayMenu[i - 1] = dayMenu[i - 1] + " " + dayMenu[i].trim();
                 dayMenu.splice(i, 1);
                 i--;
-            }
-            else if (/\s*menu č\. ?4/i.test(dayMenu[i])) {
-                if (i + 1 < dayMenu.length) //prepend it to the next item
-                    dayMenu[i + 1] = dayMenu[i].trim() + ": " + dayMenu[i + 1].trim();
-                dayMenu.splice(i, 1);
             }
             else {
                 dayMenu[i] = dayMenu[i].trim();
@@ -61,12 +52,13 @@ module.exports.parse = function(html, callback) {
         var startLine, endLine;
         for (var line in menuText) {
             if (menuText[line].toLowerCase().indexOf(todayName) !== -1) {
-                startLine = +line;
+                startLine = line;
             }
-            if (startLine && /^–+$/.test(menuText[line].trim()) || //dashed separator line
-                    (menuText[line].toLowerCase().indexOf(tomorrowName) !== -1)) //next day name
+            if (startLine && (/^–+$/.test(menuText[line].trim()) || //dashed separator line
+                    menuText[line].toLowerCase().indexOf(tomorrowName) !== -1 || //next day name
+                    menuText[line].toLowerCase().indexOf("alerg") !== -1)) //alergeny
             {
-                endLine = +line;
+                endLine = line-1;
                 break;
             }
         }
@@ -75,19 +67,18 @@ module.exports.parse = function(html, callback) {
         }
 
         var menuResult = menuText.slice(startLine, endLine);
+        
         menuResult = menuResult.filter(function(line) {
             return /\S/.test(line);
         }); //remove empty lines
-        menuResult = menuResult.filter(function(line) {
-            return !/(Výmena prílohy|Pri účte 30 eur)/.test(line);
-        }); //remove bonus information
+        
         //remove name of the day from the first menu entry
         menuResult[0] = menuResult[0].substring(todayName.length).trim();
         return menuResult;
     }
 
     function normalize(str) {
-        return str.replace(/(–)\1+/, '')
+        return str.replace(/(–)\1+/, '').replace(/(\d,? ?)+$/, '')
                 .normalizeWhitespace()
                 .removeItemNumbering()
                 .removeMetrics()

@@ -6,8 +6,9 @@ var removeNumberingTests = [
     { input: "Držková polievka, chlieb", result: "Držková polievka, chlieb" },
     { input: "3 .350g Zapekaná brokolica so syrom, varené zemiaky, šalát", result: "350g Zapekaná brokolica so syrom, varené zemiaky, šalát" },
     { input: " l. Sviečková na smotane", result: "Sviečková na smotane" },
-    { input: "2.A 200 g Šošovicová omáčka s volským okom, chlieb € 3,50", result: "200 g Šošovicová omáčka s volským okom, chlieb € 3,50" }
-    
+    { input: "2.A 200 g Šošovicová omáčka s volským okom, chlieb € 3,50", result: "200 g Šošovicová omáčka s volským okom, chlieb € 3,50" },
+		{ input: "1, 150g Kuracie prsia na nivovje omáčke dusená ryža, šalát 3,80 €", result: "150g Kuracie prsia na nivovje omáčke dusená ryža, šalát 3,80 €"}
+
 ];
 
 var removeMetricsTests = [
@@ -46,7 +47,7 @@ var capitalizeFirstLetter = [
 ];
 
 describe('Text extension methods', function() {
-    
+
     describe('Remove item numbering', function() {
         removeNumberingTests.forEach(function(item) {
             it(item.input, function() {
@@ -54,7 +55,7 @@ describe('Text extension methods', function() {
             });
         });
     });
-    
+
     describe('Remove metrics', function() {
         removeMetricsTests.forEach(function(item) {
             it(item.input, function() {
@@ -62,7 +63,7 @@ describe('Text extension methods', function() {
             });
         });
     });
-    
+
     describe('Normalize whitespace', function() {
         normalizeWhitespaceTests.forEach(function(item) {
             it(item.input, function() {
@@ -70,7 +71,7 @@ describe('Text extension methods', function() {
             });
         });
     });
-    
+
     describe('Consistent whitespace used', function() {
         consistentWhitespaceTests.forEach(function(item) {
             it(item.input, function() {
