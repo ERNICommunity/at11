@@ -80,7 +80,7 @@ function loadMenus(container) {
                 section.append("<ul><li class='error'><i>\uf071</i><span>" + textStatus + "</span></li></ul>");
             })
             .always(function() {
-                section.find(".fa-spin").remove();
+                section.find(".fa-spinner").remove();
                 container.masonry();
             });
     });
