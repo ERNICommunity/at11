@@ -2,10 +2,10 @@ var zomato = require('./zomato');
 
 module.exports.parse = function(html, callback) {
   zomato.parse(html, function(menuItems) {
-    for (i = 0; i < menuItems.length; i++) {
+    for (var i = 0; i < menuItems.length; i++) {
       menu = menuItems[i].menu;
       var price = NaN;
-      for (j = 0; j < menu.length; j++) {
+      for (var j = 0; j < menu.length; j++) {
         var item = menu[j];
         item.isSoup = !item.isSoup;
         if (item.isSoup) {
