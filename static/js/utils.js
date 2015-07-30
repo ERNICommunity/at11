@@ -19,8 +19,8 @@ function readCookie(name) {
 }
 
 function CurrentDay() {
-    var realDay = moment().day();
-    if(moment().hours() > 15) { realDay++; }
+    var realDay = new Date().getDay();
+    if(new Date().getHours() > 15) { realDay++; }
     if(realDay > 5 || realDay < 1) {
         realDay = 1;
     }

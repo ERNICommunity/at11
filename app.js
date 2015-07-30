@@ -49,6 +49,7 @@ console.log("Done");
 
 console.log("Global setup...");
 moment.locale('sk');
+moment.tz.setDefault("Europe/Bratislava");
 function populateDates(){
     global.dates = [];
     for (var i = 1; i < 6; i++)
@@ -68,7 +69,7 @@ app.use(express.static('static'));
 app.get('/:theme?', function(req, res) {
     res.setHeader('Content-Type', 'text/html; charset=UTF-8');
     res.setHeader('Content-Language', 'sk');
-    var dateStr = moment().tz("Europe/Bratislava").format("D. M. YYYY");
+    var dateStr = moment().format("D. M. YYYY");
     var theme = parserUtil.parseTheme(req);
 
     res.cookie('theme', theme, { maxAge: 315360000000, httpOnly: true });
