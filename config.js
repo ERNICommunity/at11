@@ -1,4 +1,4 @@
-module.exports = {
+﻿module.exports = {
     port: process.env.PORT || 54321,
     cacheExpiration: 2 * 60 * 60 * 1000, //2h
     globalTickInterval: 2 * 60 * 1000, //2m
@@ -10,7 +10,7 @@ module.exports = {
         { id: 3, name: "ITB", url: "http://www.citycantina.sk/prevadzka/1", module: "itb" },
         { id: 4, name: "Alfa", url: "http://restauracie.sme.sk/restauracia/restauracia-alfa_2512-petrzalka_664/denne-menu", module: "alfa" },
         { id: 5, name: "Škôlka", url: "http://jedalen.vysnivany.sk/ukazka-strany", module: "skolka" },
-        { id: 6, name: "Pizza Pazza", url: "http://www.pizzapazza.sk/sk/denne-menu/", module: "pizzapazza" },
+        { id: 6, name: "Pizza Pazza", url: "http://pizzapazza.sk/?page_id=645", module: "pizzapazza" },
         { id: 7, name: "Kamenica - Corleone Pizza", url: "http://www.pizzacorleone.sk/obedove-menu.html", module: "kamenica" },
         { id: 8, name: "Numero Uno", url: "http://www.numerouno.sk/denne-menu-5/", module: "numerouno" },
         { id: 9, name: "Engerau restaurant", url: "https://www.zomato.com/sk/bratislava/engerau-restaurant-petr%C5%BEalka-bratislava-v/menu#tabtop", module: "engerau" }
