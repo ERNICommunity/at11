@@ -1,4 +1,4 @@
-﻿module.exports = {
+module.exports = {
     port: process.env.PORT || 54321,
     cacheExpiration: 2 * 60 * 60 * 1000, //2h
     globalTickInterval: 2 * 60 * 1000, //2m
