@@ -62,7 +62,7 @@ module.exports.parseCookies = function(request) {
         rc = request.headers.cookie;
 
     if(rc)
-    { 
+    {
         rc.split(';').forEach(function(cookie) {
             var parts = cookie.split('=');
             list[parts.shift().trim()] = unescape(parts.join('='));

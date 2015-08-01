@@ -3,7 +3,6 @@ var moment = require('moment-timezone');
 require('./parserUtil');
 
 module.exports.parse = function(html, callback) {
-
     var $ = cheerio.load(html);
 
     
@@ -34,7 +33,7 @@ module.exports.parse = function(html, callback) {
 
     function normalize(str) {
         return str.normalizeWhitespace()
-            .replace(soupPattern,'')
+            .replace(soupPattern, '')
             .removeMetrics()
             .correctCommaSpacing()
             .removeItemNumbering();

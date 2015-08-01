@@ -1,14 +1,13 @@
 var cheerio = require('cheerio');
 require('./parserUtil');
 
-module.exports.parse = function (html, callback) {
-
+module.exports.parse = function(html, callback) {
     var $ = cheerio.load(html);
 
     var weekMenu = [];
     var menuRows = [];
 
-    global.dates.forEach(function (date) {
+    global.dates.forEach(function(date) {
         var todayNameRegex = new RegExp(date.format("dddd"), "i");
         var tomorrowNameRegex = new RegExp(date.clone().add(1, 'days').format('dddd'), "i");
 
@@ -17,7 +16,7 @@ module.exports.parse = function (html, callback) {
         var foundCurrentDay = false;
         var dayMenu = [];
 
-        menuRows.each(function (index, element) {
+        menuRows.each(function(index, element) {
             var $row = $(element);
             var text = $row.eq(0).text();
             if (tomorrowNameRegex.test(text)) {
@@ -34,7 +33,7 @@ module.exports.parse = function (html, callback) {
             }
         });
         
-        dayMenu.sort(function (item) {
+        dayMenu.sort(function(item) {
             if (item.isSoup) {
                 return 0;
             } else {

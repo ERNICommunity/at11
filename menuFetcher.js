@@ -2,7 +2,7 @@ var request = require('request');
 var cache = require('./cache');
 var config = require('./config');
 
-module.exports.fetchMenu = function (url, postParams, parseCallback, doneCallback) {
+module.exports.fetchMenu = function(url, postParams, parseCallback, doneCallback) {
     var menuObj = cache.get(url);
     if (menuObj && !process.env.AT11_NO_CACHE)
     {
@@ -10,7 +10,7 @@ module.exports.fetchMenu = function (url, postParams, parseCallback, doneCallbac
     }
     else
     {
-        load(url, postParams, parseCallback, function (menuObj) {
+        load(url, postParams, parseCallback, function(menuObj) {
             if (menuObj.filter(function(item){ return !item.isError; }).length > 0)
             {
                 cache.set(url, menuObj);
@@ -26,16 +26,16 @@ function load(url, postParams, parseCallback, doneCallback) {
         method: postParams ? "POST" : "GET",
         form: postParams
     };
-    request(options, function (error, response, body) {
+    request(options, function(error, response, body) {
         if (!error && response.statusCode === 200)
         {
-            var timer = setTimeout(function () {
+            var timer = setTimeout(function() {
                 timer = null;//clear needed as value is kept even after timeout fired
                 doneCallback([{ isError: true, text: "Parser timeout", price: "" }]);
             }, config.parserTimeout);
             try
             {
-                parseCallback(body, function (weekMenu) {
+                parseCallback(body, function(weekMenu) {
                     if (!timer)
                     {
                         return;//call must be ignored (multiple calls in parser or parser finishing after timeout/error)
@@ -49,7 +49,7 @@ function load(url, postParams, parseCallback, doneCallback) {
                         {
                             throw "Invalid week menu returned (expected array, got " + typeof weekMenu + ")";
                         }
-                        weekMenu.forEach(function(dailyMenu) {   
+                        weekMenu.forEach(function(dailyMenu) {
                             if (typeof dailyMenu.day !== "string")
                             {
                                 throw "Daily menu has wrong 'day' property (" + typeof dailyMenu.day + ")";

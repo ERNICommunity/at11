@@ -8,7 +8,7 @@ module.exports = new (function() { // jshint ignore:line
         {
             throw "Only objects can be cached";
         }
-        value.cacheTime =  Date.now();
+        value.cacheTime = Date.now();
 		values[key] = value;
 	};
 
@@ -17,7 +17,7 @@ module.exports = new (function() { // jshint ignore:line
 	};
 
 	function isValid(key) {
-		var enterTime =  values[key] && values[key].cacheTime;
+		var enterTime = values[key] && values[key].cacheTime;
 		return !!enterTime && (enterTime + config.cacheExpiration > Date.now());
 	}
 

@@ -12,12 +12,14 @@
   },
   "devDependencies": {
     "mocha": "^2.2.5",
-    "jshint": "^2.8.0"    
+    "jshint": "^2.8.0",
+    "jscs": "^2.0.0"
   },
   "scripts": {
     "start": "node app.js",
+    "pretest": "jshint --verbose app.js cache.js config.js menuFetcher.js parsers/ static/js/ views/ --extract=auto",
     "test": "mocha --reporter spec",
-    "posttest": "jshint --verbose app.js cache.js config.js menuFetcher.js parsers/  static/js/ views/ --extract=auto"
+    "posttest": "jscs --verbose app.js cache.js config.js menuFetcher.js parsers/ static/js/" 
   },
   "author": {
     "name": "Jakub Šturc",

@@ -2,7 +2,6 @@ var cheerio = require('cheerio');
 require('./parserUtil');
 
 module.exports.parse = function(html, callback) {
-
     var $ = cheerio.load(html);
 
     var weekMenu = [];
@@ -16,13 +15,13 @@ module.exports.parse = function(html, callback) {
       return found[1].toLowerCase();
     }
 
-    $('#daily-menu-container').find('.tmi-group').each(function () {
+    $('#daily-menu-container').find('.tmi-group').each(function() {
         var $this = $(this);
         var dayMenu = [];
         var text = $this.children('.tmi-group-name').text();
         var day = getDay(text);
 
-        $this.children('.tmi-daily').each(function (index) {
+        $this.children('.tmi-daily').each(function(index) {
             var text = $(this).find('.tmi-name').text();
 
             if (index === 0 && /\//.test(text)) { // two soups separated by slash

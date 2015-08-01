@@ -2,12 +2,11 @@ var cheerio = require('cheerio');
 require('./parserUtil');
 
 module.exports.parse = function(html, callback) {
-
     var $ = cheerio.load(html);
-    
+
     var weekMenu = [];
     var soupPattern = /0[\.,]\d+\s?l?$/;
-
+    
     var dnesneMenu = $('.jedlo_polozka', '.dnesne_menu');
     global.dates.forEach(function(date) {
         var dayMenu = [];
@@ -33,7 +32,7 @@ module.exports.parse = function(html, callback) {
 
     function normalize(str) {
         return str.normalizeWhitespace()
-            .replace(soupPattern,'')
+            .replace(soupPattern, '')
             .removeMetrics()
             .correctCommaSpacing()
             .removeItemNumbering();

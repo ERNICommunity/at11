@@ -2,7 +2,6 @@ var cheerio = require('cheerio');
 var parserUtil = require('./parserUtil');
 
 module.exports.parse = function(html, callback) {
-
     var $ = cheerio.load(html);
 
     var menuText = $('div.entry-content').first().text().trim().split(/\n/).map(function(line) {
@@ -38,9 +37,9 @@ module.exports.parse = function(html, callback) {
         //convert to objects
         dayMenu = dayMenu.map(function(item, index) {
             var priced = parserUtil.parsePrice(item);
-            return {isSoup: index === 0, text: normalize(priced.text), price: priced.price};
+            return { isSoup: index === 0, text: normalize(priced.text), price: priced.price };
         });
-        weekMenu.push({day: date.format('dddd'), menu: dayMenu});
+        weekMenu.push({ day: date.format('dddd'), menu: dayMenu });
     });
 
     callback(weekMenu);
@@ -58,7 +57,7 @@ module.exports.parse = function(html, callback) {
                     menuText[i].toLowerCase().indexOf(tomorrowName) !== -1 || //next day name
                     menuText[i].toLowerCase().indexOf("alerg") !== -1)) //alergeny
             {
-                endLine = i-1;
+                endLine = i - 1;
                 break;
             }
         }
