@@ -1,7 +1,7 @@
 var cheerio = require('cheerio');
 require('./parserUtil');
 
-module.exports.parse = function(html, callback) {
+module.exports.parse = function(html, date, callback) {
     var $ = cheerio.load(html);
 
     var weekMenu = [];

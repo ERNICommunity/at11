@@ -1,8 +1,7 @@
 ﻿var assert = require('assert'),
     fs = require('fs'),
     moment = require('moment-timezone'),
-    parser = require('../parsers/pizzapazza'),
-    testHelpers = require('../test/testHelpers');
+    parser = require('../parsers/pizzapazza');
 
 moment.locale('sk');
 
@@ -13,9 +12,8 @@ describe('pizzapazza', function() {
         var menu;
 
         before(function(done) {
-            testHelpers.setWeekDates(moment("2015-08-01"));
-            parser.parse(html, function(menuItems) {
-                menu = menuItems.filter(function(x) { if(x.day == moment().day(1).format('dddd')) return true; })[0].menu;
+            parser.parse(html, moment("2015-08-03"), function(menuItems) {
+                menu = menuItems;
                 done();
             });
         });

@@ -4,11 +4,12 @@ var request = require('request');
 var fs = require('fs');
 var pdf2png = require('pdf2png');
 
-module.exports.parse = function(html, callback) {
+module.exports.parse = function(html, date, callback) {
     var $ = cheerio.load(html);
 
-    var weekMenu = [];
-
+    var dateReg = new RegExp("^\\s*0?" + date.date() + "\\.\\s*0?" + (date.month() + 1) + "\\.\\s*" + date.year());
+    var todayNameReg = new RegExp("^\\s*" + date.format("dddd"), "i");
+    
     var pic = $('.entry-content img');
     var link = $('.entry-content a').filter(function() {
         return $(this).text() !== '' && !/<a/.test($(this).html());
@@ -24,12 +25,12 @@ module.exports.parse = function(html, callback) {
             request(pdfUrl).pipe(fs.createWriteStream(__dirname + '/../temp/menu.pdf').on('finish', function() {
                 pdf2png.convert(__dirname + "/../temp/menu.pdf", function(resp) {
                     if (!resp.success) {
-                        callback(weekMenu);
+                        callback([]);
                     }
 
                     fs.writeFile(__dirname + "/../temp/menu.png", resp.data, function(err) {
                         if (err) {
-                            callback(weekMenu);
+                            callback([]);
                         }
                         else {
                             fs.readFile(__dirname + "/../temp/menu.png", function(error, data) {
@@ -62,7 +63,7 @@ module.exports.parse = function(html, callback) {
             if (!error) {
                 parseMenu(body);
             }
-            callback(weekMenu);
+            callback([]);
         });
     }
 
@@ -70,45 +71,39 @@ module.exports.parse = function(html, callback) {
         var lines = menuString.split("\n").filter(function(val) {
             return val.trim();
         });
-        global.dates.forEach(function(date) {
-            var dayMenu = [];
-            var dateReg = new RegExp("^\\s*0?" + date.date() + "\\.\\s*0?" + (date.month() + 1) + "\\.\\s*" + date.year());
-            var todayNameReg = new RegExp("^\\s*" + date.format("dddd"), "i");
-            var price;
-            for (var i = 0; i < lines.length; i++) {
-                if (todayNameReg.test(lines[i])) {
-                    for (var offset = 0; offset < 3; offset++)//3 menu lines each day
-                    {
-                        var txt = lines[i + offset];
-                        if (offset === 0) {
-                            txt = txt.replace(todayNameReg, "");
-                        }
-                        if (offset === 1) {
-                            txt = txt.replace(dateReg, "");
-                        }
-                        txt = normalize(txt);
-                        if (txt) {
-                            dayMenu.push(txt);
-                        }
+
+        var dayMenu = [];
+        var price;
+        for (var i = 0; i < lines.length; i++) {
+            if (todayNameReg.test(lines[i])) {
+                for (var offset = 0; offset < 3; offset++)//3 menu lines each day
+                {
+                    var txt = lines[i + offset];
+                    if (offset === 0) {
+                        txt = txt.replace(todayNameReg, "");
+                    }
+                    if (offset === 1) {
+                        txt = txt.replace(dateReg, "");
+                    }
+                    txt = normalize(txt);
+                    if (txt) {
+                        dayMenu.push(txt);
                     }
                 }
-                if (/menu/.test(lines[i])) {
-                    price = parserUtil.parsePrice(lines[i]).price;
-                }
-                else {
-                    price = price || NaN;
-                }
             }
+            if (/menu/.test(lines[i])) {
+                price = parserUtil.parsePrice(lines[i]).price;
+            }
+            else {
+                price = price || NaN;
+            }
+        }
 
-            //convert to menu item object
-            dayMenu = dayMenu.map(function(item, index) {
-                return { isSoup: /polievka/i.test(item), text: item, price: index === 0 ? NaN : price };
-            });
-
-            weekMenu.push({ day: date.format('dddd'), menu: dayMenu });
+        //convert to menu item object
+        dayMenu = dayMenu.map(function(item, index) {
+            return { isSoup: /polievka/i.test(item), text: item, price: index === 0 ? NaN : price };
         });
-
-        callback(weekMenu);
+        callback(dayMenu);
     }
 
     function normalize(str) {

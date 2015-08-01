@@ -19,14 +19,18 @@ function readCookie(name) {
 }
 
 function loadMenus(container) {
+    var errElem = "<li class='error'><i>\uf071</i><span>Nepodarilo sa načítať menu, skús pozrieť priamo na stránke reštaurácie</span></li>";
+    var date = getDate();
+    
+    $('#date').text(date.toLocaleDateString());
     $("section", container).each(function() {
         var section = $(this);
         var restaurantId = section.data("restaurantId");
-        $.ajax("/menu/" + restaurantId + "/" + getCurrentDay())
+        var ul = $("<ul></ul>");
+        $.ajax("/menu/" + restaurantId + "/" + date.toISOString().split('T')[0])
                 .done(function(data) {
-                    var ul = $("<ul></ul>");
-                    if ($.isEmptyObject(data.menu)) {
-                        ul.append("<li class='error'><i>\uf071</i><span>Nepodarilo sa načítať menu, skús pozrieť priamo na stránke reštaurácie</span></li>");
+                    if (!data) {
+                        ul.append(errElem);
                     }
                     else {
                         data.menu.forEach(function(item) {
@@ -34,10 +38,6 @@ function loadMenus(container) {
                             if (item.isSoup) {
                                 li.addClass("soup");
                                 li.append("<i>\uf1b1</i>");
-                            }
-                            else if (item.isError) {
-                                li.addClass("error");
-                                li.append("<i>\uf071</i>");
                             }
                             else {
                                 li.append("<i>\uf0f5</i>");
@@ -48,27 +48,24 @@ function loadMenus(container) {
                             }
                             ul.append(li);
                         });
-                    }
-                    section.append(ul);
-                    if (data.timeago !== undefined) {
                         section.append("<span class='timeago'><i class='fa fa-refresh'></i> " + data.timeago + "</span>");
                     }
                 })
-                .fail(function(jqXHR, textStatus) {
-                    section.append("<ul><li class='error'><i>\uf071</i><span>" + textStatus + "</span></li></ul>");
+                .fail(function() {
+                    ul.append(errElem);
                 })
                 .always(function() {
                     section.find(".fa-spinner").remove();
+                    section.append(ul);
                     container.masonry();
                 });
     });
 }
 
-function getCurrentDay() {
-    var realDay = new Date().getDay();
-    if(new Date().getHours() > 15) { realDay++; }
-    if(realDay > 5 || realDay < 1) {
-        realDay = 1;
+function getDate() {
+    var date = new Date();
+    if(date.getHours() > 15) {
+        date.setDate(date.getDate() + 1);
     }
-    return realDay;
+    return date;
 }

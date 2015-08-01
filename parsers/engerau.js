@@ -1,6 +1,6 @@
 var zomato = require('./zomato');
 
-module.exports.parse = function(html, callback) {
+module.exports.parse = function(html, date, callback) {
   zomato.parse(html, function(menuItems) {
     for (var i = 0; i < menuItems.length; i++) {
       var menu = menuItems[i].menu;

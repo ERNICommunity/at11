@@ -1,8 +1,7 @@
 ﻿var assert = require('assert'),
     fs = require('fs'),
     moment = require('moment-timezone'),
-    parser = require('../parsers/itb'),
-    testHelpers = require('../test/testHelpers');
+    parser = require('../parsers/itb');
 
 moment.locale('sk');
 
@@ -13,9 +12,8 @@ describe('itb', function() {
         var menu;
 
         before(function (done) {
-            testHelpers.setWeekDates(moment("2015-07-30"));
-            parser.parse(html, function (menuItems) {
-                menu = menuItems.filter(function (x) { if (x.day == moment().day(4).format('dddd')) return true; })[0].menu;
+            parser.parse(html, moment("2015-07-30"), function (menuItems) {
+                menu = menuItems;
                 done();
             });
         });

@@ -10,8 +10,8 @@ var parserUtil = require('./parsers/parserUtil');
 console.log("Initializing...");
 var actions = {};
 function createAction(url, postParams, parseCallback) {
-    return function(fetchedCallback) {
-        menuFetcher.fetchMenu(url, postParams, parseCallback, fetchedCallback);
+    return function(date, doneCallback) {
+        menuFetcher.fetchMenu(url, date, postParams, parseCallback, doneCallback);
     };
 }
 for (var i = 0; i < config.restaurants.length; i++)
@@ -24,9 +24,9 @@ for (var i = 0; i < config.restaurants.length; i++)
         {
             throw "Module is missing parse method";
         }
-        if (parserModule.parse.length !== 2)
+        if (parserModule.parse.length !== 3)
         {
-            throw "Module parse(..) method should have 2 parameters (html, callback)";
+            throw "Module parse(..) method should have 3 parameters (html, date, callback)";
         }
         var id = config.restaurants[i].id;
         if (typeof actions[id] !== "undefined")
@@ -57,15 +57,6 @@ console.log("Done");
 console.log("Global setup...");
 moment.locale('sk');
 moment.tz.setDefault("Europe/Bratislava");
-function populateDates(){
-    global.dates = [];
-    for (var i = 1; i < 6; i++)
-    {
-        global.dates.push(moment().startOf('week').day(i));
-    }
-}
-populateDates();
-setInterval(populateDates, config.globalTickInterval); //periodically refresh dates
 console.log("Done");
 
 console.log("Express setup...");
@@ -76,31 +67,28 @@ app.use(express.static('static'));
 app.get('/:theme?', function(req, res) {
     res.setHeader('Content-Type', 'text/html; charset=UTF-8');
     res.setHeader('Content-Language', 'sk');
-    var dateStr = moment().format("D. M. YYYY");
     var theme = parserUtil.parseTheme(req);
 
     res.cookie('theme', theme, { maxAge: 315360000000, httpOnly: true });
-    res.render(config.themes[theme].template, { date: dateStr, restaurants: config.restaurants, themes: config.themes });
+    res.render(config.themes[theme].template, { restaurants: config.restaurants, themes: config.themes });
 });
 app.get('/menu/:id/:day', function(req, res) {
     if (typeof actions[req.params.id] === "undefined")
     {
         res.statusCode = 404;
-        res.send('No menu found');
+        res.send("Restaurant " + req.params.id + " not found\n");
     }
     else
     {
-        var day = req.params.day || moment().day();
-        day = moment().day(day).format("dddd");
-        actions[req.params.id](function(weekMenu) {
-            var dayMenu = weekMenu.filter(function(x) { return x.day === day; })[0];
-            if (dayMenu === undefined)
+        actions[req.params.id](req.params.day, function(error, cachedMenu) {
+            if (error)
             {
-                res.json({});
+                res.statusCode = 500;
+                res.send(error.toString());
             }
             else
             {
-                res.json({ menu: dayMenu.menu, timeago: moment(weekMenu.cacheTime).fromNow() });
+                res.json(cachedMenu ? { menu: cachedMenu.value, timeago: moment(cachedMenu.timestamp).fromNow() } : null);
             }
         });
     }

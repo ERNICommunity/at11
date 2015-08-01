@@ -28,7 +28,7 @@ describe('cache', function() {
 		it("should found what was stored", function() {
 			var value = {prop: 'value'};
 			cache.set("obj", value);
-			assert.strictEqual(cache.get("obj"), value);
+			assert.strictEqual(cache.get("obj").value, value);
 		});
 
 		it("should expire", function(done) {

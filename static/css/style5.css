@@ -50,7 +50,7 @@ header {
     font-weight: bold;
 }
 
-    header span.date {
+    header span#date {
         color: rgb(210,210,210);
     }
 

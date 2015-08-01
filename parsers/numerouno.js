@@ -1,48 +1,38 @@
 var cheerio = require('cheerio');
 var parserUtil = require('./parserUtil');
 
-module.exports.parse = function(html, callback) {
+module.exports.parse = function(html, date, callback) {
     var $ = cheerio.load(html);
 
     var menuText = $('div.entry-content').first().text().trim().split(/\n/).map(function(line) {
         return line.replace(/\t/g, '');
     });
 
-    var weekMenu = [];
+    var dayMenu = parseDailyMenu(menuText, date);
+    if (!dayMenu || dayMenu.length === 0) {
+        callback([]);
+        return;
+    }
 
-    global.dates.forEach(function(date) {
-        var dayMenu = parseDailyMenu(menuText, date);
-        
-        if (!dayMenu || dayMenu.length === 0) {
-            callback(dayMenu);
-            return;
+    //sometimes one menu item is scattered across multiple lines of HTML
+    //if item does not start with number it should be added to previous one
+    for (var i = 1; i < dayMenu.length; i++) {
+        if (!/^\d/.test(dayMenu[i])) {
+            dayMenu[i - 1] = dayMenu[i - 1] + " " + dayMenu[i].trim();
+            dayMenu.splice(i, 1);
+            i--;
         }
-
-        //the first menu entry is also a soup
-        dayMenu[0] = dayMenu[0] === '' ? 'Dnes v menu chýba polievka' : dayMenu[0];
-
-        //sometimes one menu item is scattered across multiple lines of HTML
-        //if item does not start with number it should be added to previous one
-        for (var i = 1; i < dayMenu.length; i++) {
-            if (!/^\d/.test(dayMenu[i])) {
-                dayMenu[i - 1] = dayMenu[i - 1] + " " + dayMenu[i].trim();
-                dayMenu.splice(i, 1);
-                i--;
-            }
-            else {
-                dayMenu[i] = dayMenu[i].trim();
-            }
+        else {
+            dayMenu[i] = dayMenu[i].trim();
         }
+    }
 
-        //convert to objects
-        dayMenu = dayMenu.map(function(item, index) {
-            var priced = parserUtil.parsePrice(item);
-            return { isSoup: index === 0, text: normalize(priced.text), price: priced.price };
-        });
-        weekMenu.push({ day: date.format('dddd'), menu: dayMenu });
+    //convert to objects
+    dayMenu = dayMenu.map(function(item, index) {
+        var priced = parserUtil.parsePrice(item);
+        return { isSoup: index === 0, text: normalize(priced.text), price: priced.price };
     });
-
-    callback(weekMenu);
+    callback(dayMenu);
 
     function parseDailyMenu(menuText, date) {
         var todayName = date.format("dddd");

@@ -1,26 +1,33 @@
 var request = require('request');
 var cache = require('./cache');
 var config = require('./config');
+var moment = require("moment-timezone");
 
-module.exports.fetchMenu = function(url, postParams, parseCallback, doneCallback) {
-    var menuObj = cache.get(url);
-    if (menuObj && !process.env.AT11_NO_CACHE)
+module.exports.fetchMenu = function(url, date, postParams, parseCallback, doneCallback) {
+    var cached = cache.get(date + ":" + url);
+    if (cached && !process.env.AT11_NO_CACHE)
     {
-        doneCallback(menuObj);
+        doneCallback(null, cached);
     }
     else
     {
-        load(url, postParams, parseCallback, function(menuObj) {
-            if (menuObj.filter(function(item){ return !item.isError; }).length > 0)
-            {
-                cache.set(url, menuObj);
+        load(url, date, postParams, parseCallback, function(error, menu) {
+            if (!error) {
+                if(menu.length > 0) {
+                    cache.set(date + ":" + url, menu);
+                }
+                //we need to go through cache to get cache timestamp
+                doneCallback(null, cache.get(date + ":" + url));
             }
-            doneCallback(menuObj);
+            else {
+                console.log(error);
+                doneCallback(error);
+            }
         });
     }
 };
 
-function load(url, postParams, parseCallback, doneCallback) {
+function load(url, date, postParams, parseCallback, doneCallback) {
     var options = {
         url: url,
         method: postParams ? "POST" : "GET",
@@ -31,11 +38,12 @@ function load(url, postParams, parseCallback, doneCallback) {
         {
             var timer = setTimeout(function() {
                 timer = null;//clear needed as value is kept even after timeout fired
-                doneCallback([{ isError: true, text: "Parser timeout", price: "" }]);
+                doneCallback(new Error("Parser timeout"));
             }, config.parserTimeout);
+            
             try
             {
-                parseCallback(body, function(weekMenu) {
+                parseCallback(body, moment(date), function(menu) {
                     if (!timer)
                     {
                         return;//call must be ignored (multiple calls in parser or parser finishing after timeout/error)
@@ -45,45 +53,34 @@ function load(url, postParams, parseCallback, doneCallback) {
 
                     try
                     {
-                        if (!Array.isArray(weekMenu))
+                        if (!Array.isArray(menu))
                         {
-                            throw "Invalid week menu returned (expected array, got " + typeof weekMenu + ")";
+                            throw "Invalid menu returned (expected array, got " + typeof menu + ")";
                         }
-                        weekMenu.forEach(function(dailyMenu) {
-                            if (typeof dailyMenu.day !== "string")
+                        menu.forEach(function(item) {
+                            if (typeof item !== "object")
                             {
-                                throw "Daily menu has wrong 'day' property (" + typeof dailyMenu.day + ")";
+                                throw "Menu item should be object, but got " + typeof item;
                             }
-                            if (!Array.isArray(dailyMenu.menu))
+                            if (typeof item.isSoup !== "boolean")
                             {
-                                throw "Invalid daily menu returned (expected array, got " + typeof dailyMenu.menu + ")";
+                                throw "Menu item has wrong 'isSoup' flag (" + typeof item.isSoup + ")";
                             }
-                            //check if each menu item has required attributes
-                            dailyMenu.menu.forEach(function(item) {
-                                if (typeof item !== "object")
-                                {
-                                    throw "Menu item should be object, but got " + typeof item;
-                                }
-                                if (typeof item.isSoup !== "boolean")
-                                {
-                                    throw "Menu item has wrong 'isSoup' flag (" + typeof item.isSoup + ")";
-                                }
-                                if (typeof item.text !== "string")
-                                {
-                                    throw "Menu item has wrong 'text' property (" + typeof item.text + ")";
-                                }
-                                if (typeof item.price !== "number")
-                                {
-                                    throw "Menu item has wrong 'price' property (" + typeof item.price + ")";
-                                }
-                                item.price = isNaN(item.price) ? "" : item.price.toFixed(2).replace(".", ",") + " €";//convert to presentable form
-                            });
+                            if (typeof item.text !== "string")
+                            {
+                                throw "Menu item has wrong 'text' property (" + typeof item.text + ")";
+                            }
+                            if (typeof item.price !== "number")
+                            {
+                                throw "Menu item has wrong 'price' property (" + typeof item.price + ")";
+                            }
+                            item.price = isNaN(item.price) ? "" : item.price.toFixed(2).replace(".", ",") + " €";//convert to presentable form
                         });
-                        doneCallback(weekMenu);
+                        doneCallback(null, menu);
                     }
                     catch(err)//catches callback errors
                     {
-                        doneCallback([{ isError: true, text: err.toString(), price: "" }]);
+                        doneCallback(err);
                     }
                 });
             }
@@ -91,12 +88,12 @@ function load(url, postParams, parseCallback, doneCallback) {
             {
                 clearTimeout(timer);
                 timer = null;//clearTimeout does not null the value
-                doneCallback([{ isError: true, text: err.toString(), price: "" }]);
+                doneCallback(err);
             }
         }
         else
         {
-            doneCallback([{ isError: true, text: error && error.toString() || "", price: response && response.statusCode || "" }]);
+            doneCallback(error || new Error("Response code" + response.statusCode));
         }
     });
 }

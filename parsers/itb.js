@@ -1,51 +1,43 @@
 var cheerio = require('cheerio');
 require('./parserUtil');
 
-module.exports.parse = function(html, callback) {
+module.exports.parse = function(html, date, callback) {
     var $ = cheerio.load(html);
 
-    var weekMenu = [];
-    var menuRows = [];
+    var todayNameRegex = new RegExp(date.format("dddd"), "i");
+    var tomorrowNameRegex = new RegExp(date.clone().add(1, 'days').format('dddd'), "i");
 
-    global.dates.forEach(function(date) {
-        var todayNameRegex = new RegExp(date.format("dddd"), "i");
-        var tomorrowNameRegex = new RegExp(date.clone().add(1, 'days').format('dddd'), "i");
+    var menuRows = $('.tabularmenu').children('div.one-third, div.one-third-last, h2');
 
-        menuRows = $('.tabularmenu').children('div.one-third, div.one-third-last, h2');
+    var foundCurrentDay = false;
+    var dayMenu = [];
 
-        var foundCurrentDay = false;
-        var dayMenu = [];
-
-        menuRows.each(function(index, element) {
-            var $row = $(element);
-            var text = $row.eq(0).text();
-            if (tomorrowNameRegex.test(text)) {
-                return false;
+    menuRows.each(function(index, element) {
+        var $row = $(element);
+        var text = $row.eq(0).text();
+        if (tomorrowNameRegex.test(text)) {
+            return false;
+        }
+        if (foundCurrentDay) {
+            var meal = parseMeal($row);
+            if (!isNaN(meal.price)) {
+                dayMenu.push(parseMeal($row));
             }
-            if (foundCurrentDay) {
-                var meal = parseMeal($row);
-                if (!isNaN(meal.price)) {
-                    dayMenu.push(parseMeal($row));
-                }
-            }
-            if (todayNameRegex.test(text)) {
-                foundCurrentDay = true;
-            }
-        });
-        
-        dayMenu.sort(function(item) {
-            if (item.isSoup) {
-                return 0;
-            } else {
-                return 1;
-            }
-        });
-
-        weekMenu.push({ day: date.format("dddd"), menu: dayMenu });
+        }
+        if (todayNameRegex.test(text)) {
+            foundCurrentDay = true;
+        }
     });
 
-    callback(weekMenu);
-    
+    dayMenu.sort(function(item) {
+        if (item.isSoup) {
+            return 0;
+        } else {
+            return 1;
+        }
+    });
+    callback(dayMenu);
+
     function parseMeal(tablerow) {
         var menuItem = {};
         if (tablerow.find('li').length === 0) {
