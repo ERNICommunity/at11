@@ -50,15 +50,15 @@ module.exports.parse = function(html, callback) {
         var tomorrowName = date.clone().add(1, "days").format("dddd");
 
         var startLine, endLine;
-        for (var line in menuText) {
-            if (menuText[line].toLowerCase().indexOf(todayName) !== -1) {
-                startLine = line;
+        for (var i = 0; i < menuText.length; i++) {
+            if (menuText[i].toLowerCase().indexOf(todayName) !== -1) {
+                startLine = i;
             }
-            if (startLine && (/^–+$/.test(menuText[line].trim()) || //dashed separator line
-                    menuText[line].toLowerCase().indexOf(tomorrowName) !== -1 || //next day name
-                    menuText[line].toLowerCase().indexOf("alerg") !== -1)) //alergeny
+            if (startLine && (/^–+$/.test(menuText[i].trim()) || //dashed separator line
+                    menuText[i].toLowerCase().indexOf(tomorrowName) !== -1 || //next day name
+                    menuText[i].toLowerCase().indexOf("alerg") !== -1)) //alergeny
             {
-                endLine = line-1;
+                endLine = i-1;
                 break;
             }
         }

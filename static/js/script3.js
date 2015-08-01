@@ -17,8 +17,9 @@ $(document).ready(function() {
             checkbox = $target.children('input').length > 0 ? $target.children('input') : $target.siblings('input');
             checkbox.prop('checked', !checkbox.prop('checked'));
         }
-        else
+        else {
             checkbox = $target;
+        }
 
         var id = checkbox.val();
         var section;
@@ -37,8 +38,9 @@ $(document).ready(function() {
 
         var unChecked = [];
         $('input[type="checkbox"]', this).each(function() {
-            if(!$(this).prop('checked'))
+            if(!$(this).prop('checked')) {
                 unChecked.push($(this).val());
+            }
         });
         writeCookie('hiddenRestaurants', unChecked.join(','), 10 * 365);
     });
@@ -65,16 +67,20 @@ function loadMenus(container) {
                             li.addClass("error");
                             li.append("<i>\uf071</i>");
                         }
-                        else
+                        else {
                             li.append("<i>\uf0f5</i>");
+                        }
                         li.append("<span>" + item.text + "</span>");
-                        if(item.price)
+                        if(item.price) {
                             li.append("<span class='price'>" + item.price + "</span>");
+                        }
                         ul.append(li);
                     });
                 }
                 section.append(ul);
-                if(data.timeago !== undefined) { section.append("<span class='timeago'><i class='fa fa-refresh'></i> " + data.timeago + "</span>"); }
+                if(data.timeago !== undefined) { 
+                    section.append("<span class='timeago'><i class='fa fa-refresh'></i> " + data.timeago + "</span>");
+                }
             })
             .fail(function(jqXHR, textStatus) {
                 section.append("<ul><li class='error'><i>\uf071</i><span>" + textStatus + "</span></li></ul>");
@@ -90,8 +96,9 @@ function initialHide(cont) {
     window.hiddenRestaurants = {};
 
     var hidden = readCookie("hiddenRestaurants");
-    if(typeof hidden === "undefined")
+    if(typeof hidden === "undefined") {
         return;
+    }
 
     hidden = hidden.split(",");
 

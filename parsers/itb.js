@@ -25,8 +25,9 @@ module.exports.parse = function (html, callback) {
             }
             if (foundCurrentDay) {
                 var meal = parseMeal($row);
-                if (!isNaN(meal.price))
+                if (!isNaN(meal.price)) {
                     dayMenu.push(parseMeal($row));
+                }
             }
             if (todayNameRegex.test(text)) {
                 foundCurrentDay = true;

@@ -10,9 +10,9 @@ $(document).ready(function() {
     });
     
     $(document).bind('keyup', function(e) {
-        if (e.which==39) {
+        if (e.which === 39) {
             container.carousel('next');
-        } else if (e.which==37) {
+        } else if (e.which === 37) {
             container.carousel('prev');
         }
     });
@@ -42,11 +42,13 @@ function loadMenus(container) {
                                 li.addClass("error");
                                 li.append("<i>\uf071</i>");
                             }
-                            else
+                            else {
                                 li.append("<i>\uf0f5</i>");
+                            }
                             li.append("<span>" + item.text + "</span>");
-                            if (item.price)
+                            if (item.price) {
                                 li.append("<span class='price'>" + item.price + "</span>");
+                            }
                             ul.append(li);
                         });
                     }

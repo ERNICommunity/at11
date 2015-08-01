@@ -4,7 +4,6 @@ require('./parserUtil');
 module.exports.parse = function(html, callback) {
 
     var $ = cheerio.load(html);
-
     
     var weekMenu = [];
     var soupPattern = /0[\.,]\d+\s?l?$/;
@@ -17,8 +16,9 @@ module.exports.parse = function(html, callback) {
         }
         else {
             dnesneMenu.each(function() {
-                if($(this).find('b').length === 0)
+                if($(this).find('b').length === 0) {
                     dayMenu.push($(this).text());
+                }
             });
         }
         //convert to menu item object

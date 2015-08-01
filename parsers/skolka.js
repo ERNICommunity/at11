@@ -81,19 +81,24 @@ module.exports.parse = function (html, callback) {
                     for (var offset = 0; offset < 3; offset++)//3 menu lines each day
                     {
                         var txt = lines[i + offset];
-                        if (offset === 0)
+                        if (offset === 0) {
                             txt = txt.replace(todayNameReg, "");
-                        if (offset === 1)
+                        }
+                        if (offset === 1) {
                             txt = txt.replace(dateReg, "");
+                        }
                         txt = normalize(txt);
-                        if (txt)
+                        if (txt) {
                             dayMenu.push(txt);
+                        }
                     }
                 }
-                if (/menu/.test(lines[i]))
+                if (/menu/.test(lines[i])) {
                     price = parserUtil.parsePrice(lines[i]).price;
-                else
+                }
+                else {
                     price = price || NaN;
+                }
             }
 
             //convert to menu item object

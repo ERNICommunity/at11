@@ -12,8 +12,9 @@ function readCookie(name) {
     var cookies = document.cookie.split(";");
     for(var i = 0; i < cookies.length; i++) {
         var nameValue = cookies[i].split("=");
-        if(nameValue[0].trim() === name)
+        if(nameValue[0].trim() === name) {
             return unescape(nameValue[1].trim());
+        }
     }
 }
 

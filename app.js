@@ -21,12 +21,18 @@ for (var i = 0; i < config.restaurants.length; i++)
     {
         var parserModule = require("./parsers/" + config.restaurants[i].module);
         if (typeof parserModule.parse !== "function")
+        {
             throw "Module is missing parse method";
+        }
         if (parserModule.parse.length !== 2)
+        {
             throw "Module parse(..) method should have 2 parameters (html, callback)";
+        }
         var id = config.restaurants[i].id;
         if (typeof actions[id] !== "undefined")
+        {
             throw "Non unique id '" + id + "' provided";
+        }
         var url = config.restaurants[i].url;
         actions[id] = createAction(url, parserModule.parse);
     }
@@ -86,7 +92,7 @@ app.get('/menu/:id/:day', function(req, res) {
         var day = req.params.day || moment().day();
         day = moment().day(day).format("dddd");
         actions[req.params.id](function(weekMenu) {
-            var dayMenu = weekMenu.filter(function(x) { if (x.day == day) return true; })[0];
+            var dayMenu = weekMenu.filter(function(x) { return x.day === day; })[0];
             if (dayMenu === undefined)
             {
                 res.json({});

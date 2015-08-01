@@ -17,8 +17,9 @@ module.exports.parse = function(html, callback) {
         }
         else {
             dnesneMenu.each(function() {
-                if($(this).find('.left>b').length === 0)
+                if($(this).find('.left>b').length === 0) {
                     dayMenu.push(this);
+                }
             });
         }
         //convert to menu item object

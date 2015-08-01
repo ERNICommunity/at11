@@ -60,11 +60,13 @@ function loadMenus(container) {
                                 li.addClass("error");
                                 li.append("<i>\uf071</i>");
                             }
-                            else
+                            else {
                                 li.append("<i>\uf0f5</i>");
+                            }
                             li.append("<span>" + item.text + "</span>");
-                            if (item.price)
+                            if (item.price) {
                                 li.append("<span class='price'>" + item.price + "</span>");
+                            }
                             ul.append(li);
                         });
                     }
@@ -87,8 +89,9 @@ function initialHide(container) {
     window.hiddenRestaurants = {};
 
     var hidden = readCookie("hiddenRestaurants");
-    if (!hidden)
+    if (!hidden) {
         return;
+    }
     hidden = hidden.split(",");
 
     $.each(hidden, function(index, value) {

@@ -5,7 +5,9 @@ module.exports = new (function() { // jshint ignore:line
 
 	this.set = function(key, value) {
         if(typeof value !== "object")
+        {
             throw "Only objects can be cached";
+        }
         value.cacheTime =  Date.now();
 		values[key] = value;
 	};
