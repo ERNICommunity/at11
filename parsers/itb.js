@@ -19,8 +19,8 @@ module.exports.parse = function (html, callback) {
 
         menuRows.each(function (index, element) {
             var $row = $(element);
-            var text = $($row[0]).text();
-            if (tomorrowNameRegex.test(text) || (foundCurrentDay) && (/II\./.test(text) || $row.children().eq(0).text().trim() === '')) {
+            var text = $row.eq(0).text();
+            if (tomorrowNameRegex.test(text)) {
                 return false;
             }
             if (foundCurrentDay) {
@@ -49,9 +49,12 @@ module.exports.parse = function (html, callback) {
     
     function parseMeal(tablerow) {
         var menuItem = {};
+        if (tablerow.find('li').length === 0)
+            return menuItem;
         menuItem.isSoup = /polievka/i.test(tablerow.children('h3').text());
         var textParts = tablerow.find('li').children('span').eq(1)[0].children;
-        menuItem.text = normalize($(textParts[0]).text() + "," + $(textParts[2]).text());
+        var mergedText = textParts.length > 1 ? $(textParts[0]).text() + "," + $(textParts[2]).text() : $(textParts[0]).text();
+        menuItem.text = normalize(mergedText);
         menuItem.price = parseFloat(tablerow.find('li').children('span').eq(0).text().replace(/,/, '.'));
         
         return menuItem;
