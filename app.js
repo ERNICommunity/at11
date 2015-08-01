@@ -9,9 +9,9 @@ var parserUtil = require('./parsers/parserUtil');
 
 console.log("Initializing...");
 var actions = {};
-function createAction(url, parseCallback) {
+function createAction(url, postParams, parseCallback) {
     return function(fetchedCallback) {
-        menuFetcher.fetchMenu(url, parseCallback, fetchedCallback);
+        menuFetcher.fetchMenu(url, postParams, parseCallback, fetchedCallback);
     };
 }
 for (var i = 0; i < config.restaurants.length; i++)
@@ -34,7 +34,8 @@ for (var i = 0; i < config.restaurants.length; i++)
             throw "Non unique id '" + id + "' provided";
         }
         var url = config.restaurants[i].url;
-        actions[id] = createAction(url, parserModule.parse);
+        var postParams = config.restaurants[i].post;
+        actions[id] = createAction(url, postParams, parserModule.parse);
     }
     catch (e)
     {

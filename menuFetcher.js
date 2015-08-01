@@ -2,7 +2,7 @@ var request = require('request');
 var cache = require('./cache');
 var config = require('./config');
 
-module.exports.fetchMenu = function (url, parseCallback, doneCallback) {
+module.exports.fetchMenu = function (url, postParams, parseCallback, doneCallback) {
     var menuObj = cache.get(url);
     if (menuObj && !process.env.AT11_NO_CACHE)
     {
@@ -10,7 +10,7 @@ module.exports.fetchMenu = function (url, parseCallback, doneCallback) {
     }
     else
     {
-        load(url, parseCallback, function (menuObj) {
+        load(url, postParams, parseCallback, function (menuObj) {
             if (menuObj.filter(function(item){ return !item.isError; }).length > 0)
             {
                 cache.set(url, menuObj);
@@ -20,8 +20,13 @@ module.exports.fetchMenu = function (url, parseCallback, doneCallback) {
     }
 };
 
-function load(url, parseCallback, doneCallback) {
-    request(url, function (error, response, body) {
+function load(url, postParams, parseCallback, doneCallback) {
+    var options = {
+        url: url,
+        method: postParams ? "POST" : "GET",
+        form: postParams
+    };
+    request(options, function (error, response, body) {
         if (!error && response.statusCode === 200)
         {
             var timer = setTimeout(function () {

@@ -1,97 +1,35 @@
 var cheerio = require('cheerio');
-var parserUtil = require('./parserUtil');
-var request = require('request');
+require('./parserUtil');
 
 module.exports.parse = function (html, callback) {
 
     var $ = cheerio.load(html);
-
+    var menuTable = $("table#menu").first();
+    
     var weekMenu = [];
 
-    var menuPic = $('img[src*="dm-vg"]').attr('src');
-    if (menuPic) {
-        request.post({
-            headers: { 'Content-type': 'application/x-www-form-urlencoded' },
-            url: 'http://at11ocr.azurewebsites.net/api/process/url',
-            body: "=" + encodeURIComponent(menuPic)
-        }, function (error, response, body) {
-            if (!error) {
-                parseMenu(body);
+    global.dates.forEach(function (date) {
+        var dayMenu = [];
+        var todayName = date.format("dddd");
+        menuTable.find("tr").each(function () {
+            var cells = $(this).children("td");
+            if (cells.eq(1).find("h3").text().indexOf(todayName) > -1) {            
+                var item = parseItem(cells);
+                if (item){
+                    dayMenu.push(item);
+                }                
             }
-            callback(weekMenu);
         });
-    }
-    else//no picture, try to parse html
-    {
-        global.dates.forEach(function (date) {
-            var dayMenu = [];
-            var todayNameReg = new RegExp("^\\s*" + date.format("dddd"), "i");
-            var nextNameReg = new RegExp("^\\s*" + date.clone().add(1, "days").format("dddd"), "i");
-            $("table", "div#content").first().find("tr").each(function () {
-                var row = $(this);
-                if (todayNameReg.test(row.text())) {
-                    row = row.next();
-                    while (row.length === 1 && !nextNameReg.test(row.text()) && !/Šalátové menu/.test(row.text())) {
-                        var item = parseItem(row);
-                        if (item){
-                            dayMenu.push(item);
-                        }
-                        row = row.next();
-                    }
-                    return false;
-                }
-            });
-            weekMenu.push({ day: date.format('dddd'), menu: dayMenu });
-        });
+        weekMenu.push({ day: todayName, menu: dayMenu });
+    });
 
-        callback(weekMenu);
-    }
+    callback(weekMenu);
 
-    function parseItem(row) {
-        var item = { isSoup: false };
-        item.text = normalize(row.children('td').first().text()).replace(/^polievka:?\s*/i, function () {
-            item.isSoup = true;
-            return "";
-        });
-        item.price = parseFloat(row.children('td').eq(row.children('td').length - 2).text().replace(",", "."));
+    function parseItem(cells) {
+        var item = { isSoup: cells.eq(1).find("h3").text().indexOf("Polievka") > -1 };
+        cells.eq(1).find("p").find("br").text(" - ");
+        item.text = cells.eq(1).find("p").text().normalizeWhitespace();
+        item.price = parseFloat(cells.eq(3).text().replace(",", "."));
         return item;
-    }
-
-    function parseMenu(menuString) {
-        var lines = menuString.split('\n').filter(function (val) {
-            return val.trim();
-        });
-        global.dates.forEach(function (date) {
-            var dayMenu = [];
-            var todayRegEx = new RegExp(date.format('dddd'), 'i');
-            var tomorrowRegEx = new RegExp(date.clone().add(1, 'days').format('dddd') + "|šalát", 'i');//friday ends with salatove menu
-            for (var i = 0; i < lines.length; i++) {
-                if (todayRegEx.test(lines[i])) {
-                    i++;
-                    while (!tomorrowRegEx.test(lines[i])) {
-                        dayMenu.push(lines[i]);
-                        i++;
-                    }
-                    break;
-                }
-            }
-
-            dayMenu = dayMenu.map(function (item) {
-                var priced = parserUtil.parsePrice(normalize(item));
-                return { isSoup: /polievka/i.test(priced.text), text: priced.text.replace(/polievka:\s*/i, ""), price: priced.price };
-            });
-
-            weekMenu.push({ day: date.format('dddd'), menu: dayMenu });
-        });
-
-        callback(weekMenu);
-    }
-
-    function normalize(str) {
-        return str.normalizeWhitespace()
-            .removeItemNumbering()
-            .tidyAfterOCR()
-            .replace(/[\d\s,]*$/, "")
-            .removeMetrics();
     }
 };
