@@ -3,10 +3,11 @@ require('./parserUtil');
 
 module.exports.parse = function(html, date, callback) {
     var $ = cheerio.load(html);
-
+    var dayMenu = [];
+    
     $('#daily-menu-container').find('.tmi-group').each(function() {
         var $this = $(this);
-        var dayMenu = [];
+        
         var text = $this.children('.tmi-group-name').text();
         var day = getDay(text);
         
@@ -37,10 +38,11 @@ module.exports.parse = function(html, date, callback) {
                     dayMenu.push(menuItem);
                 }
             });
-            callback(dayMenu);
             return false;
         }
     });
+    
+    callback(dayMenu);
     
     function getDay(text) {
       var found = text.trim().match(/^(.+),/);

@@ -3,7 +3,8 @@ require('./parserUtil');
 
 module.exports.parse = function(html, date, callback) {
     var $ = cheerio.load(html);
-
+    var dayMenu = [];
+    
     var soupPattern = /^0[\.,]\d+\s?l/;
     var dateStr = date.format("DD.MM.YYYY");
 
@@ -11,13 +12,7 @@ module.exports.parse = function(html, date, callback) {
         var nadpis = $(this).find('h2').text();
         return nadpis.indexOf(dateStr) > -1;
     });
-    if(denneMenu.length !== 1)
-    {
-        callback([]);
-        return;
-    }
     
-    var dayMenu = [];
     denneMenu.first().find('.jedlo_polozka').each(function() {
         if($(this).find('.left>b').length === 0) {
             dayMenu.push(this);

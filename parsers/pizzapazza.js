@@ -3,19 +3,18 @@ require('./parserUtil');
 
 module.exports.parse = function(html, date, callback) {
     var $ = cheerio.load(html);
-    var menuTable = $("table#menu").first();
-    
     var dayMenu = [];
+    
+    var menuTable = $("table#menu").first();
     var todayName = date.format("dddd");
+    
     menuTable.find("tr").each(function() {
         var cells = $(this).children("td");
         if (cells.eq(1).find("h3").text().indexOf(todayName) > -1) {
-            var item = parseItem(cells);
-            if (item){
-                dayMenu.push(item);
-            }
+            dayMenu.push(parseItem(cells));
         }
     });
+    
     callback(dayMenu);
 
     function parseItem(cells) {

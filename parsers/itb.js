@@ -3,15 +3,13 @@ require('./parserUtil');
 
 module.exports.parse = function(html, date, callback) {
     var $ = cheerio.load(html);
+    var dayMenu = [];
 
     var todayNameRegex = new RegExp(date.format("dddd"), "i");
     var tomorrowNameRegex = new RegExp(date.clone().add(1, 'days').format('dddd'), "i");
 
     var menuRows = $('.tabularmenu').children('div.one-third, div.one-third-last, h2');
-
     var foundCurrentDay = false;
-    var dayMenu = [];
-
     menuRows.each(function(index, element) {
         var $row = $(element);
         var text = $row.eq(0).text();

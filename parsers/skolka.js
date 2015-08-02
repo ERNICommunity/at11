@@ -26,6 +26,7 @@ module.exports.parse = function(html, date, callback) {
                 pdf2png.convert(__dirname + "/../temp/menu.pdf", function(resp) {
                     if (!resp.success) {
                         callback([]);
+                        return;
                     }
 
                     fs.writeFile(__dirname + "/../temp/menu.png", resp.data, function(err) {
