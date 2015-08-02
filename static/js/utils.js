@@ -5,7 +5,7 @@ function writeCookie(cookieName, cookieValue, nDays) {
     var expire = new Date();
     if(!nDays) { nDays = 1; }
     expire.setTime(today.getTime() + 3600 * 1000 * 24 * nDays);
-    document.cookie = cookieName + "=" + escape(cookieValue) + ";expires=" + expire.toGMTString() + ";path=/";
+    document.cookie = cookieName + "=" + escape(cookieValue) + ";expires=" + expire.toUTCString() + ";path=/";
 }
 
 function readCookie(name) {
