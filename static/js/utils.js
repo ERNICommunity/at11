@@ -19,18 +19,20 @@ function readCookie(name) {
 }
 
 function loadMenus(container) {
-    var errElem = "<li class='error'><i>\uf071</i><span>Nepodarilo sa načítať menu, skús pozrieť priamo na stránke reštaurácie</span></li>";
     var date = getDate();
     
     $('#date').text(date.toLocaleDateString());
     $("section", container).each(function() {
         var section = $(this);
         var restaurantId = section.data("restaurantId");
-        var ul = $("<ul></ul>");
+        
+        var errElem = "<li class='error'><i>\uf071</i><span>Nepodarilo sa načítať menu, skús pozrieť priamo na stránke reštaurácie</span></li>";
+        var listElem = $("<ul></ul>");
+        var refreshElem = null;
         $.ajax("/menu/" + restaurantId + "/" + date.toISOString().split('T')[0])
                 .done(function(data) {
                     if (!data) {
-                        ul.append(errElem);
+                        listElem.append(errElem);
                     }
                     else {
                         data.menu.forEach(function(item) {
@@ -46,17 +48,20 @@ function loadMenus(container) {
                             if (item.price) {
                                 li.append("<span class='price'>" + item.price + "</span>");
                             }
-                            ul.append(li);
+                            listElem.append(li);
                         });
-                        section.append("<span class='timeago'><i class='fa fa-refresh'></i> " + data.timeago + "</span>");
+                        refreshElem = "<span class='timeago'><i class='fa fa-refresh'></i> " + data.timeago + "</span>";
                     }
                 })
                 .fail(function() {
-                    ul.append(errElem);
+                    listElem.append(errElem);
                 })
                 .always(function() {
                     section.find(".fa-spinner").remove();
-                    section.append(ul);
+                    section.append(listElem);
+                    if(refreshElem){
+                        section.append(refreshElem);
+                    }
                     container.masonry();
                 });
     });
