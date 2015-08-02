@@ -80,7 +80,7 @@ app.get('/menu/:id/:day', function(req, res) {
     }
     else
     {
-        actions[req.params.id](req.params.day, function(error, cachedMenu) {
+        actions[req.params.id](moment(req.params.day), function(error, cachedMenu) {
             if (error)
             {
                 res.statusCode = 500;

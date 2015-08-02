@@ -1,7 +1,6 @@
 var request = require('request');
 var cache = require('./cache');
 var config = require('./config');
-var moment = require("moment-timezone");
 
 module.exports.fetchMenu = function(url, date, postParams, parseCallback, doneCallback) {
     var cached = cache.get(date + ":" + url);
@@ -43,10 +42,11 @@ function load(url, date, postParams, parseCallback, doneCallback) {
             
             try
             {
-                parseCallback(body, moment(date), function(menu) {
+                parseCallback(body, date, function(menu) {
                     if (!timer)
                     {
-                        return;//call must be ignored (multiple calls in parser or parser finishing after timeout/error)
+                        //multiple calls in parser or parser called after timeout
+                        return;
                     }
                     clearTimeout(timer);
                     timer = null;//clearTimeout does not null the value
@@ -78,16 +78,15 @@ function load(url, date, postParams, parseCallback, doneCallback) {
                         });
                         doneCallback(null, menu);
                     }
-                    catch(err)//catches callback errors
+                    catch(err)
                     {
                         doneCallback(err);
                     }
                 });
             }
-            catch (err)//catches only synchronous errors
+            catch (err)//catches only synchronous errors in parser code
             {
                 clearTimeout(timer);
-                timer = null;//clearTimeout does not null the value
                 doneCallback(err);
             }
         }
