@@ -60,6 +60,6 @@
   "engines":{
       "node": "0.12.x"
   },
-  "license": "Unlicense",
+  "license": "SEE LICENSE IN LICENSE",
   "main": "app.js"
 }
