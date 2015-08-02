@@ -17,7 +17,7 @@
   },
   "scripts": {
     "start": "node app.js",
-    "pretest": "jshint --verbose app.js cache.js config.js menuFetcher.js parsers/ static/js/ views/ --extract=auto",
+    "pretest": "jshint --verbose app.js cache.js config.js menuFetcher.js parsers/ static/js/",
     "test": "mocha --reporter spec",
     "posttest": "jscs --verbose app.js cache.js config.js menuFetcher.js parsers/ static/js/" 
   },
