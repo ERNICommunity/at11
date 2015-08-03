@@ -8,7 +8,7 @@ module.exports.parse = function(html, date, callback) {
     var soupPattern = /^0[\.,]\d+\s?l/;
     var dateStr = date.format("DD.MM.YYYY");
 
-    var denneMenu = $('.dnesne_menu, .ostatneMenu').filter(function(){
+    var denneMenu = $('.dnesne_menu, .ostatne_menu').filter(function(){
         var nadpis = $(this).find('h2').text();
         return nadpis.indexOf(dateStr) > -1;
     });
