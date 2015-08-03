@@ -42,7 +42,7 @@ module.exports.parse = function(html, date, callback) {
             if (menuText[i].toLowerCase().indexOf(todayName) !== -1) {
                 startLine = i;
             }
-            if (startLine && (/^–+$/.test(menuText[i].trim()) || //dashed separator line
+            if (startLine && (/^[-–—]+$/.test(menuText[i].trim()) || //dashed separator line
                     menuText[i].toLowerCase().indexOf(tomorrowName) !== -1 || //next day name
                     menuText[i].toLowerCase().indexOf("alerg") !== -1)) //alergeny
             {
