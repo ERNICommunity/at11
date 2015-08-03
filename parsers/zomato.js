@@ -12,29 +12,23 @@ module.exports.parse = function(html, date, callback) {
         var day = getDay(text);
         
         if(day === date.format('dddd')){
-            $this.children('.tmi-daily').each(function(index) {
-                var text = $(this).find('.tmi-name').text();
+            $this.children('.tmi-daily').each(function() {
+                var text = $(this).find('.tmi-name').text().trim();
 
-                if (index === 0 && /\//.test(text)) { // two soups separated by slash
-                    var soup1 = {};
-                    soup1.text = normalize(text.split('/')[0]);
-                    soup1.price = NaN;
-                    soup1.isSoup = true;
-
-                    dayMenu.push(soup1);
-
-                    var soup2 = {};
-                    soup2.text = normalize(text.split('/')[1]);
-                    soup2.price = NaN;
-                    soup2.isSoup = true;
-
-                    dayMenu.push(soup2);
+                if (!/^\d\s?[\.,]/.test(text)) { //soups dont have numbering
+                    text.split('/').forEach(function(item){
+                        dayMenu.push({ isSoup: true, text: item.trim(), price: NaN });
+                    });
                 } else {
-                    var menuItem = {};
-                    menuItem.text = normalize(text);
+                    var menuItem = { isSoup: false };
                     menuItem.price = parseFloat($(this).find('.tmi-price').text().replace(/,/, '.'));
-                    menuItem.isSoup = isNaN(menuItem.price); // soups don't have a price
-
+                    if(isNaN(menuItem.price)){//price probably directly in text
+                        text = text.replace(/\d[\.,]\d{2}$/, function(match){
+                            menuItem.price = parseFloat(match.replace(',', '.'));
+                            return '';
+                        });
+                    }
+                    menuItem.text = normalize(text);
                     dayMenu.push(menuItem);
                 }
             });
@@ -54,9 +48,9 @@ module.exports.parse = function(html, date, callback) {
     }
 
     function normalize(str) {
-        return str.normalizeWhitespace()
-            .removeItemNumbering()
+        return str.removeItemNumbering()
             .removeMetrics()
-            .correctCommaSpacing();
+            .correctCommaSpacing()
+            .normalizeWhitespace();
     }
 };
