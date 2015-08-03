@@ -8,20 +8,37 @@ module.exports.parse = function(html, date, callback) {
     var soupPattern = /0[\.,]\d+\s?l?$/;
     var dayOfWeek = parseInt(date.format('e')) + 1;
     
-    var items = $('.obedove-nadpis', '#content').eq(dayOfWeek).next().find('td').text()
-        .split('\n').filter(function(item){ return item; });
-    items.forEach(function(item) {
+    var elements = $('.obedove-nadpis', '#content');
+    var price = NaN;
+    elements.eq(0).text().replace(/\d,\d{2}\s€/, function(match){
+        price = parseFloat(match.replace(',', '.'));
+    });
+    
+    elements.eq(dayOfWeek).next().find('td').text()
+    .split('\n').filter(function(item){ return item; })
+    .forEach(function(item) {
         dayMenu.push(item);
     });
+    
     //convert to menu item object
     dayMenu = dayMenu.map(function(item) {
-        return { isSoup: soupPattern.test(item.trim()), text: normalize(item), price: NaN };
+        var menuItem = { isSoup: soupPattern.test(item.trim()) };
+        if(menuItem.isSoup){
+            menuItem.text = normalize(item.replace(soupPattern, ''));
+            menuItem.price = NaN;
+        }
+        else
+        {
+            menuItem.text = normalize(item);
+            menuItem.price = price;
+        }
+        return menuItem;
     });
+    
     callback(dayMenu);
 
     function normalize(str) {
         return str.normalizeWhitespace()
-            .replace(soupPattern, '')
             .removeMetrics()
             .correctCommaSpacing()
             .removeItemNumbering();

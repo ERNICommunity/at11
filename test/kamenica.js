@@ -38,19 +38,19 @@ describe('kamenica', function() {
         it("3rd item correct", function() {
             assert.equal(menu[2].isSoup, false);
             assert.equal(menu[2].text, "Kuracie prsia plnené so syrom a salámou, ryža");
-            assert.equal(isNaN(menu[2].price), true);
+            assert.equal(menu[2].price, 3.99);
         });
 
         it("4th item correct", function() {
             assert.equal(menu[3].isSoup, false);
             assert.equal(menu[3].text, "Francúzske zemiaky, kyslá uhorka");
-            assert.equal(isNaN(menu[3].price), true);
+            assert.equal(menu[3].price, 3.99);
         });
 
         it("5th item correct", function() {
             assert.equal(menu[4].isSoup, false);
             assert.equal(menu[4].text, "Vyprážaný karfiol, varené zemiaky, tatárska omáčka");
-            assert.equal(isNaN(menu[4].price), true);
+            assert.equal(menu[4].price, 3.99);
         });
     });
 });
