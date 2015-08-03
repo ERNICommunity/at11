@@ -1,8 +1,6 @@
 var cheerio = require('cheerio');
 var parserUtil = require('./parserUtil');
 var request = require('request');
-var fs = require('fs');
-var pdf2png = require('pdf2png');
 
 module.exports.parse = function(html, date, callback) {
     var $ = cheerio.load(html);
@@ -17,32 +15,7 @@ module.exports.parse = function(html, date, callback) {
 
     if (pic.length === 0 && link.length > 0) {
         var pdfUrl = link.attr('href');
-
-        fs.exists(__dirname + "/../temp", function(exists) {
-            if (!exists) {
-                fs.mkdirSync(__dirname + "/../temp");
-            }
-            request(pdfUrl).pipe(fs.createWriteStream(__dirname + '/../temp/menu.pdf').on('finish', function() {
-                pdf2png.convert(__dirname + "/../temp/menu.pdf", function(resp) {
-                    if (!resp.success) {
-                        callback([]);
-                        return;
-                    }
-
-                    fs.writeFile(__dirname + "/../temp/menu.png", resp.data, function(err) {
-                        if (err) {
-                            callback([]);
-                        }
-                        else {
-                            fs.readFile(__dirname + "/../temp/menu.png", function(error, data) {
-                                var encoded = data.toString('base64');
-                                callOcr(encoded, 'encoded');
-                            });
-                        }
-                    });
-                });
-            }));
-        });
+        callOcr(pdfUrl, 'pdf');
     }
     else if (pic.parent().filter("a").length > 0) {
         pic = pic.parent().attr('href');
@@ -92,7 +65,7 @@ module.exports.parse = function(html, date, callback) {
                     }
                 }
             }
-            if (/menu/.test(lines[i])) {
+            if (/Hodnota stravy/.test(lines[i])) {
                 price = parserUtil.parsePrice(lines[i]).price;
             }
             else {
