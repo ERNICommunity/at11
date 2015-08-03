@@ -46,7 +46,7 @@ module.exports.parse = function(html, date, callback) {
                     menuText[i].toLowerCase().indexOf(tomorrowName) !== -1 || //next day name
                     menuText[i].toLowerCase().indexOf("alerg") !== -1)) //alergeny
             {
-                endLine = i - 1;
+                endLine = i;
                 break;
             }
         }
