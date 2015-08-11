@@ -50,6 +50,7 @@ module.exports.parse = function(html, date, callback) {
     function normalize(str) {
         return str.removeItemNumbering()
             .removeMetrics()
+            .replace(/A\s(\d\s?[\.,]?\s?)+$/, '')
             .correctCommaSpacing()
             .normalizeWhitespace();
     }

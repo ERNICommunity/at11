@@ -125,4 +125,64 @@ describe('danovak', function () {
              assert.equal(menu[6].price, 5.50);
         });
     });
+    
+    describe('parsing sample 2015-08-04', function () {
+
+        var html = fs.readFileSync(__dirname + '/samples/Danovak.2015-08-04.html', { encoding: "utf-8" });
+        var menu;
+
+        before(function (done) {
+            parser.parse(html, moment("2015-08-04"), function (menuItems) {
+                menu = menuItems;
+                done();
+            });
+        });
+
+        it("should return 7 items", function () {
+            assert.equal(menu.length, 7);
+        });
+
+
+        it("1st item correct", function () {
+            assert.equal(menu[0].isSoup, true);
+            assert.equal(menu[0].text.trim(), "Kapustová");
+            assert(isNaN(menu[0].price));
+         });
+
+        it("2nd item correct", function () {
+             assert.equal(menu[1].isSoup, true);
+             assert.equal(menu[1].text.trim(), "Hovädzi vývar so zeleninou, rezance");
+             assert(isNaN(menu[1].price));
+        });
+
+        it("3rd item correct", function () {
+             assert.equal(menu[2].isSoup, false);
+             assert.equal(menu[2].text.trim(), "Kuracie prsia plnené Camembertom a brusnicami, dusená ryža šakát");
+             assert.equal(menu[2].price, 3.80);
+        });
+
+        it("4th item correct", function () {
+             assert.equal(menu[3].isSoup, false);
+             assert.equal(menu[3].text.trim(), "Bravčový černohor so syrom, opekané zemiaky, šalát");
+             assert.equal(menu[3].price, 3.80);
+        });
+
+        it("5th item correct", function () {
+             assert.equal(menu[4].isSoup, false);
+             assert.equal(menu[4].text.trim(), "Zapekaná brokolica so syrom, varené zemiaky, šalát");
+             assert.equal(menu[4].price, 3.80);
+        });
+
+        it("6th item correct", function () {
+             assert.equal(menu[5].isSoup, false);
+             assert.equal(menu[5].text.trim(), "Maďarský guláš, domáca žemľová knedľa");
+             assert.equal(menu[5].price, 3.80);
+        });
+
+        it("7th item correct", function () {
+             assert.equal(menu[6].isSoup, false);
+             assert.equal(menu[6].text.trim(), "Grilovaný steak s bravčovej panenky na hubovej omáčke, pečené zemiaky, šalát");
+             assert.equal(menu[6].price, 5.50);
+        });
+    });
 });
