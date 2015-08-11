@@ -2,6 +2,7 @@ var config = require('./config');
 
 module.exports = new (function() { // jshint ignore:line
 	var cache = {};
+    setInterval(cleanUp, config.cacheExpiration);
 
 	this.set = function(key, value) {
         if(typeof value !== "object")
@@ -20,7 +21,11 @@ module.exports = new (function() { // jshint ignore:line
 		return !!enterTime && (enterTime + config.cacheExpiration > Date.now());
 	}
 
-	this.clear = function() {
-		cache = {};
-	};
+	function cleanUp() {
+		for(var key in cache){
+            if(cache.hasOwnProperty(key) && !isValid(key)){
+                delete cache[key];
+            }
+        }
+	}
 })();
