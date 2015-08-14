@@ -4,7 +4,6 @@ module.exports.parse = function(html, date, callback) {
     zomato.parse(html, date, function(menuItems) {
         var price = NaN;
         var dayMenu = menuItems.map(function(item){
-            item.isSoup = !item.isSoup;
             if (item.isSoup) {
               price = item.price;
               item.price = NaN;
