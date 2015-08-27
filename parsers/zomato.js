@@ -14,22 +14,20 @@ module.exports.parse = function(html, date, callback) {
         if(day === date.format('dddd')){
             $this.children('.tmi-daily').each(function() {
                 var text = $(this).find('.tmi-name').text().trim();
-
+                var price = parseFloat($(this).find('.tmi-price').text().replace(/,/, '.'));
+                if(isNaN(price)){//price probably directly in text, extract it
+                    text = text.replace(/\d[\.,]\d{2}$/, function(match){
+                        price = parseFloat(match.replace(',', '.'));
+                        return '';
+                    });
+                }
+                    
                 if (!/^\d\s?[\.,]/.test(text)) { //soups dont have numbering
                     text.split('/').forEach(function(item){
-                        dayMenu.push({ isSoup: true, text: item.trim(), price: NaN });
+                        dayMenu.push({ isSoup: true, text: item.trim(), price: price });
                     });
                 } else {
-                    var menuItem = { isSoup: false };
-                    menuItem.price = parseFloat($(this).find('.tmi-price').text().replace(/,/, '.'));
-                    if(isNaN(menuItem.price)){//price probably directly in text
-                        text = text.replace(/\d[\.,]\d{2}$/, function(match){
-                            menuItem.price = parseFloat(match.replace(',', '.'));
-                            return '';
-                        });
-                    }
-                    menuItem.text = normalize(text);
-                    dayMenu.push(menuItem);
+                    dayMenu.push({ isSoup: false, text: normalize(text), price: price });
                 }
             });
             return false;
