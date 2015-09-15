@@ -39,13 +39,13 @@ for (var i = 0; i < config.restaurants.length; i++)
     }
     catch (e)
     {
-        console.log(e);
+        console.warn(e);
     }
 }
 
 if (Object.keys(actions).length === 0)
 {
-    console.log("Initialization failed, exiting");
+    console.error("Initialization failed, exiting");
     process.exit(1);
 }
 console.log("Initialization successful (" + Object.keys(actions).length + " of " + config.restaurants.length + ")");
@@ -95,5 +95,15 @@ app.get('/menu/:id/:day', function(req, res) {
 });
 console.log("Done");
 
-app.listen(config.port);
-console.log('Listening on port ' + config.port + '...');
+console.log("Creating server...");
+app.listen(config.port, function(err) {
+  if(err){
+      console.error("Unable to create server", err);
+      process.exit(1);
+      return;
+  }
+  var host = this.address().address;
+  var port = this.address().port;
+
+  console.log('Done, listening on http://%s:%s', host, port);
+});
