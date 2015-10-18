@@ -18,7 +18,7 @@
     "start": "node app.js",
     "pretest": "jshint --verbose app.js cache.js config.js menuFetcher.js parsers/ static/js/",
     "test": "mocha --reporter spec",
-    "posttest": "jscs --verbose app.js cache.js config.js menuFetcher.js parsers/ static/js/" 
+    "posttest": "jscs --verbose app.js cache.js config.js menuFetcher.js parsers/ static/js/"
   },
   "author": {
     "name": "Jakub Šturc",
@@ -57,7 +57,7 @@
     "url": "https://github.com/at11/at11/issues"
   },
   "engines":{
-      "node": "0.12.x"
+      "node": "4.1.x"
   },
   "license": "SEE LICENSE IN LICENSE",
   "main": "app.js"
