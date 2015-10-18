@@ -4,3 +4,4 @@ node_js:
   - "0.12"
 deploy:
   provider: azure_web_apps
+  verbose: true
