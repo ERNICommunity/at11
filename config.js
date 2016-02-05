@@ -11,7 +11,8 @@ module.exports = {
 	{ id: 6, name: 'Pizza Pazza', url: 'http://pizzapazza.sk/?page_id=645', module: 'pizzapazza', post: 'prevadzka2=1' },
 	{ id: 7, name: 'Kamenica - Corleone Pizza', url: 'http://www.pizzacorleone.sk/obedove-menu.html', module: 'kamenica' },
 	{ id: 8, name: 'Numero Uno', url: 'http://www.numerouno.sk/denne-menu/', module: 'numerouno' },
-	{ id: 9, name: 'Engerau restaurant', url: 'https://www.zomato.com/sk/bratislava/engerau-restaurant-petr%C5%BEalka-bratislava-v/menu#tabtop', module: 'engerau' }
+	{ id: 9, name: 'Engerau restaurant', url: 'https://www.zomato.com/sk/bratislava/engerau-restaurant-petr%C5%BEalka-bratislava-v/menu#tabtop', module: 'engerau' },
+	{ id: 10, name: 'Lokálka', url: 'http://www.lokalka.sk/kopcianska-2/', module: 'lokalka' }
 	],
 	themes: {
 		'jano': { name: 'Jano', template: '../views/index.html' },
