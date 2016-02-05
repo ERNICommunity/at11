@@ -35,7 +35,6 @@ module.exports.parse = function(html, date, callback) {
           dayMenu.push(parseOther(elem));
         }
       });
-      return [];
     }
 
     function parseSoup(row) {
