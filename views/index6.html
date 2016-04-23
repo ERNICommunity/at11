@@ -6,9 +6,8 @@
     <link rel="icon" type="image/x-icon" href="img/at11_favicon_at11.png" />
     <meta name="description" content="Obedové menu pri ERNI SK">
 
-    <!-- <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"> -->
+		<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="css/style6.css" type="text/css" rel="stylesheet">
-    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
@@ -24,11 +23,12 @@
             {{#each restaurants}}
             <section data-restaurant-id="{{this.id}}">
                 <h2><a href="{{this.url}}" target="_blank">{{this.name}}</a></h2>
+								<div class="fa fa-spinner fa-pulse"></div>
             </section>
             {{/each}}
         </div>
     </main>
-        
+
     <footer>{{> footer}}</footer>
     <script src="//cdnjs.cloudflare.com/ajax/libs/masonry/3.1.5/masonry.pkgd.min.js"></script>
 </body>

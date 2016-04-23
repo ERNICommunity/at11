@@ -42,7 +42,7 @@ header, footer {
         header > *:last-child, footer > *:last-child {
             text-align: right;
             padding-right: 50px;
-        }       
+        }
 
 header {
     border-bottom-style: solid;
@@ -119,14 +119,22 @@ section {
                     padding-left: 0.5em;
                 }
 
-                section ul li > *:first-child {
+                section ul li:before {
+										content: "\f0f5";
                     font-family: FontAwesome;
                     font-weight: normal;
                     font-style: normal;
                     font-size: 0.875em;
                     text-align: center;
                     width: 2em;
+										display: table-cell;
                 }
+								section ul li.soup:before {
+									content: "\f1b1";
+								}
+								section ul li.error:before {
+									content: "\f071";
+								}
 
             section ul li.soup {
                 font-weight: bold;

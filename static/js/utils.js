@@ -20,13 +20,13 @@ function readCookie(name) {
 
 function loadMenus(container) {
     var date = getDate();
-    
+
     $('#date').text(date.toLocaleDateString());
     $("section", container).each(function() {
         var section = $(this);
         var restaurantId = section.data("restaurantId");
-        
-        var errElem = "<li class='error'><i>\uf071</i><span>Nepodarilo sa načítať menu, skús pozrieť priamo na stránke reštaurácie</span></li>";
+
+        var errElem = "<li class='error'<span>Nepodarilo sa načítať menu, skús pozrieť priamo na stránke reštaurácie</span></li>";
         var listElem = $("<ul></ul>");
         var refreshElem = null;
         $.ajax("/menu/" + restaurantId + "/" + date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate())
@@ -39,10 +39,6 @@ function loadMenus(container) {
                             var li = $("<li></li>");
                             if (item.isSoup) {
                                 li.addClass("soup");
-                                li.append("<i>\uf1b1</i>");
-                            }
-                            else {
-                                li.append("<i>\uf0f5</i>");
                             }
                             li.append("<span>" + item.text + "</span>");
                             if (item.price) {
