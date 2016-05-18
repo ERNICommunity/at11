@@ -50,11 +50,11 @@ module.exports.parseTheme = function(req) {
     //if no theme parameter is defined in URL, but it is in cookies
     if (!req.params.theme && typeof cookies.theme !== "undefined")
     {
-        return config.themes[cookies.theme] ? cookies.theme : "jano";
+        return config.themes[cookies.theme] ? cookies.theme : "diana";
     }
 
     //use parameter from URL or default if not defined
-    return config.themes[req.params.theme] ? req.params.theme : "jano";
+    return config.themes[req.params.theme] ? req.params.theme : "diana";
 };
 
 module.exports.parseCookies = function(request) {
