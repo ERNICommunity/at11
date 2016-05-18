@@ -246,11 +246,11 @@ section {
                 section ul li:before {
 									content: "";
 									display: table-cell;
-                  background: url('../img/at11_dish_icon.png') no-repeat center;
+                  background: url('../img/at11_dish_icon.png') no-repeat center 3px;
 									width: 1em;
                 }
 								section ul li.soup:before{
-                  background: url('../img/at11_soup_icon.png') no-repeat center;
+                  background: url('../img/at11_soup_icon.png') no-repeat center 3px;
 		            }
 								section ul li.error:before {
 										background-image: none;
