@@ -37,12 +37,25 @@ header {
 }
 
 footer {
+    padding-top: 50px;
+    font-size: 0.9em;
+    text-align: center;
     color: #FCB85F;
-    background-color: #E9843E;
+    background-color: #E9843E;   
+}
+
+footer span {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+footer div {
+    display: inline-block;
+    padding: 0 12px 0 12px;
 }
 
 footer div a {
-    padding: 0px;
+    padding: 0px;    
     vertical-align: center;
 }
 
@@ -66,7 +79,7 @@ a.github {
     text-indent: -9999px;
     margin: 0px 0px 0px 22px;
     float: left;
-}
+} 
 
   h1, h2, h3 {
         margin: 0px;
@@ -102,7 +115,7 @@ a.github {
 
 .navbar {
     position: relative;
-    padding: 7px 20px 5px 20px;
+    padding: 7px 20px 12px 20px;
     background-color: none;
     border-color: none;
 }
@@ -260,6 +273,7 @@ section {
 
             section ul li.soup {
                 font-weight: 300;
+                letter-spacing: 0.02em;
             }
 
     section > span.timeago {
