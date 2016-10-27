@@ -4,7 +4,7 @@ require('./parserUtil');
 module.exports.parse = function(html, date, callback) {
     var $ = cheerio.load(html);
     var dayMenu = [];
-    var todayTitle = date.format('dddd') + " " + date.format('DD.MM.YYYY');
+    var todayDate = date.format('DD.MM.YYYY');
 
     var elements = $('li.fdm-item', 'div.entry-content.post-content');
     elements.each(function(){
@@ -19,7 +19,7 @@ module.exports.parse = function(html, date, callback) {
     callback(dayMenu);
 
     function isToday(title) {
-      return title.toLowerCase().indexOf(todayTitle) !== -1;
+      return title.toLowerCase().indexOf(todayDate) !== -1;
     }
 
     function parseDailyMenu(table) {
