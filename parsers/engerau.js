@@ -17,7 +17,7 @@ module.exports.parse = function(html, date, callback) {
         // fix last item
         dayMenu.push(lastElems[1]);
         dayMenu[dayMenu.length - 1].isSoup = false;
-        dayMenu[dayMenu.length - 1].text = normalize(dayMenu[dayMenu.length - 1].text );        
+        dayMenu[dayMenu.length - 1].text = normalize(dayMenu[dayMenu.length - 1].text);
         callback(dayMenu);
     });
 
