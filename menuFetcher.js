@@ -19,80 +19,80 @@ module.exports.fetchMenu = function(url, date, postParams, parseCallback, doneCa
                 doneCallback(null, cache.get(date + ":" + url));
             }
             else {
-                console.log(error);
+                console.error("Error for %s: %s", url, error);
                 doneCallback(error);
             }
         });
     }
+
+  function load(url, date, postParams, parse, done) {
+      var options = {
+          url: url,
+          method: postParams ? "POST" : "GET",
+          form: postParams
+      };
+      request(options, function(error, response, body) {
+          if (!error && response.statusCode === 200)
+          {
+              var timer = setTimeout(function() {
+                  timer = null;//clear needed as value is kept even after timeout fired
+                  done(new Error("Parser timeout"));
+              }, config.parserTimeout);
+
+              try
+              {
+                  parse(body, date, function(menu) {
+                      if (!timer)
+                      {
+                          //multiple calls in parser or parser called after timeout
+                          return;
+                      }
+                      clearTimeout(timer);
+                      timer = null; //clearTimeout does not null the value
+
+                      try
+                      {
+                          if (!Array.isArray(menu))
+                          {
+                              throw "Invalid menu returned (expected array, got " + typeof menu + ")";
+                          }
+                          menu.forEach(function(item) {
+                              if (typeof item !== "object")
+                              {
+                                  throw "Menu item should be object, but got " + typeof item;
+                              }
+                              if (typeof item.isSoup !== "boolean")
+                              {
+                                  throw "Menu item has wrong 'isSoup' flag (" + typeof item.isSoup + ")";
+                              }
+                              if (typeof item.text !== "string")
+                              {
+                                  throw "Menu item has wrong 'text' property (" + typeof item.text + ")";
+                              }
+                              if (typeof item.price !== "number")
+                              {
+                                  throw "Menu item has wrong 'price' property (" + typeof item.price + ")";
+                              }
+                              item.price = isNaN(item.price) ? "" : item.price.toFixed(2).replace(".", ",") + " €"; //convert to presentable form
+                          });
+                          done(null, menu);
+                      }
+                      catch(err)
+                      {
+                          done(err);
+                      }
+                  });
+              }
+              catch (err) //catches only synchronous errors in parser code
+              {
+                  clearTimeout(timer);
+                  doneCallback(err);
+              }
+          }
+          else
+          {
+              doneCallback(error || new Error("Response code " + response.statusCode));
+          }
+      });
+  }
 };
-
-function load(url, date, postParams, parseCallback, doneCallback) {
-    var options = {
-        url: url,
-        method: postParams ? "POST" : "GET",
-        form: postParams
-    };
-    request(options, function(error, response, body) {
-        if (!error && response.statusCode === 200)
-        {
-            var timer = setTimeout(function() {
-                timer = null;//clear needed as value is kept even after timeout fired
-                doneCallback(new Error("Parser timeout"));
-            }, config.parserTimeout);
-            
-            try
-            {
-                parseCallback(body, date, function(menu) {
-                    if (!timer)
-                    {
-                        //multiple calls in parser or parser called after timeout
-                        return;
-                    }
-                    clearTimeout(timer);
-                    timer = null;//clearTimeout does not null the value
-
-                    try
-                    {
-                        if (!Array.isArray(menu))
-                        {
-                            throw "Invalid menu returned (expected array, got " + typeof menu + ")";
-                        }
-                        menu.forEach(function(item) {
-                            if (typeof item !== "object")
-                            {
-                                throw "Menu item should be object, but got " + typeof item;
-                            }
-                            if (typeof item.isSoup !== "boolean")
-                            {
-                                throw "Menu item has wrong 'isSoup' flag (" + typeof item.isSoup + ")";
-                            }
-                            if (typeof item.text !== "string")
-                            {
-                                throw "Menu item has wrong 'text' property (" + typeof item.text + ")";
-                            }
-                            if (typeof item.price !== "number")
-                            {
-                                throw "Menu item has wrong 'price' property (" + typeof item.price + ")";
-                            }
-                            item.price = isNaN(item.price) ? "" : item.price.toFixed(2).replace(".", ",") + " €";//convert to presentable form
-                        });
-                        doneCallback(null, menu);
-                    }
-                    catch(err)
-                    {
-                        doneCallback(err);
-                    }
-                });
-            }
-            catch (err)//catches only synchronous errors in parser code
-            {
-                clearTimeout(timer);
-                doneCallback(err);
-            }
-        }
-        else
-        {
-            doneCallback(error || new Error("Response code" + response.statusCode));
-        }
-    });
-}
