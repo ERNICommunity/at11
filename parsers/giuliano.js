@@ -5,16 +5,16 @@ module.exports.parse = function(html, date, callback) {
     var $ = cheerio.load(html);
     var dayMenu = [];
 
-    $('.menublock > .row').each(function() {
+    $('table#denne-menu tr').each(function() {
         var $this = $(this);
-        var dateCellText = $this.children(".dayname").first().text();
-        if (dateCellText.indexOf(date.format("DD. MM. YYYY")) > -1)
-        {
-            var items = $this.children("div").eq(1).text().match(/[^\r\n]+/g);
+        var dateCellText = $this.children("td").first().text();
 
-            var match = /(\d[\.,]\d{2})€/.exec(items[0]);
-            var price = match ? parseFloat(match[1].replace(",", ".")) : NaN;
-            items.shift();
+        if (dateCellText.indexOf(date.format("DD.MM.YYYY")) > -1)
+        {
+            var items = $this.children("td").eq(1).text().match(/[^\r\n]+/g);
+
+            var priceText = $this.children("td").eq(2).text();
+            var price = parseFloat(priceText.replace(",", "."));
 
             dayMenu = items.map(function(item, index) {
                 var tmp = { isSoup: false, text: normalize(item), price: price };
@@ -28,7 +28,7 @@ module.exports.parse = function(html, date, callback) {
             return false;
         }
     });
-    
+
     callback(dayMenu);
 
     function normalize(str) {
