@@ -18,3 +18,4 @@ node_modules
 /nbproject/private/
 .idea/
 *.iml
+.vscode
