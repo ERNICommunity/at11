@@ -19,9 +19,10 @@ function readCookie(name) {
 }
 
 function loadMenus(container) {
-    var date = getDate();
+    var dateCompound = getDateCompound();
 
-    $('#date').text(date.toLocaleDateString());
+    $('#date').text(dateCompound.description);
+    var date = dateCompound.date;
     $("section", container).each(function() {
         var section = $(this);
         var restaurantId = section.data("restaurantId");
@@ -63,10 +64,12 @@ function loadMenus(container) {
     });
 }
 
-function getDate() {
+function getDateCompound() {
     var date = new Date();
+    var desc = "dnes";
     if(date.getHours() >= 15) {
         date.setDate(date.getDate() + 1);
+        desc = "zajtra";
     }
-    return date;
+    return { date: date, description: desc + " " + date.toLocaleDateString() };
 }
