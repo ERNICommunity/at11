@@ -1,7 +1,7 @@
 module.exports = {
 	port: process.env.PORT || 54321,
 	cacheExpiration: 2 * 60 * 60 * 1000, //2h
-	parserTimeout: 20 * 1000, //20s
+	parserTimeout: 5 * 1000, //5s
 	restaurants: [
 	{ id: 1, name: 'U Daňováka', url: 'https://www.zomato.com/sk/bratislava/re%C5%A1taur%C3%A1cia-u-da%C5%88ov%C3%A1ka-petr%C5%BEalka-bratislava-v/denn%C3%A9-menu', module: 'zomato' },
 	{ id: 2, name: 'Giuliano', url: 'http://www.giuliano.sk/-denne-menu', module: 'giuliano' },

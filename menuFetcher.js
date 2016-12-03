@@ -29,7 +29,8 @@ module.exports.fetchMenu = function(url, date, postParams, parseCallback, doneCa
       var options = {
           url: url,
           method: postParams ? "POST" : "GET",
-          form: postParams
+          form: postParams,
+          timeout: 10 * 1000 // 10s timeout for request
       };
       request(options, function(error, response, body) {
           if (!error && response.statusCode === 200)
