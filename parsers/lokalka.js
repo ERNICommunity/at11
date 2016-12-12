@@ -39,11 +39,11 @@ module.exports.parse = function(html, date, callback) {
 
     function parseSoup(row) {
       var cells = $(row).find('td');
-      return { isSoup: true, text: cells.eq(1).text() + " " + cells.eq(2).text(), price: parseFloat(cells.eq(4).text().replace(',', '.')) };
+      return { isSoup: true, text: cells.eq(1).text() + " " + cells.eq(2).text(), price: parseFloat(cells.eq(5).text().replace(',', '.')) };
     }
 
     function parseOther(row) {
       var cells = $(row).find('td');
-      return { isSoup: false, text: cells.eq(0).text(), price: parseFloat(cells.eq(2).text().replace(',', '.')) };
+      return { isSoup: false, text: cells.eq(0).text(), price: parseFloat(cells.eq(3).text().replace(',', '.')) };
     }
   };
