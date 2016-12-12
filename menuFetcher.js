@@ -42,9 +42,9 @@ module.exports.fetchMenu = function(url, date, postParams, parseCallback, doneCa
             if (!error && response.statusCode === 200)
             {
                 var enc = charset(response.headers, body);
-                if (enc !== 'utf8')
+                if (enc !== 'utf-8')
                 {
-                    body = iconv.decode(new Buffer(body, 'binary'), enc).toString('utf8');
+                    body = iconv.decode(new Buffer(body, 'binary'), enc).toString('utf-8');
                 }
 
                 var timer = setTimeout(function() {
