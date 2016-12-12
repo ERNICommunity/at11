@@ -11,7 +11,9 @@ module.exports.parse = function(html, date, callback) {
 
         if (dateCellText.indexOf(date.format("DD.MM.YYYY")) > -1)
         {
-            var items = $this.children("td").eq(1).text().match(/[^\r\n]+/g);
+            var items = $this.children("td").eq(1).text().match(/[^\r\n]+/g).filter(function(item) {
+                return normalize(item) !== "";
+            });
 
             var priceText = $this.children("td").eq(2).text();
             var price = parseFloat(priceText.replace(",", "."));
