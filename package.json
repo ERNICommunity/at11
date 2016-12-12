@@ -3,11 +3,13 @@
   "description": "Daily lunch menu application",
   "version": "1.0.0",
   "dependencies": {
+    "charset": "^1.0.0",
     "cheerio": "^0.22.0",
     "express": "^4.13.4",
     "hbs": "^4.0.0",
-    "request": "^2.79.0",
-    "moment-timezone": "^0.5.10"
+    "iconv-lite": "^0.4.15",
+    "moment-timezone": "^0.5.10",
+    "request": "^2.79.0"
   },
   "devDependencies": {
     "mocha": "^3.2.0",
@@ -56,8 +58,8 @@
   "bugs": {
     "url": "https://github.com/at11/at11/issues"
   },
-  "engines":{
-      "node": "6.9.x"
+  "engines": {
+    "node": "6.9.x"
   },
   "license": "SEE LICENSE IN LICENSE",
   "main": "app.js"

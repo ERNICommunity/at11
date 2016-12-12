@@ -3,7 +3,7 @@ module.exports = {
 	cacheExpiration: 2 * 60 * 60 * 1000, //2h
 	parserTimeout: 10 * 1000, //10s
 	restaurants: [
-	{ id: 1, name: 'U Daňováka', zomatoId: '16507932', url: 'https://www.zomato.com/sk/bratislava/re%C5%A1taur%C3%A1cia-u-da%C5%88ov%C3%A1ka-petr%C5%BEalka-bratislava-v/denn%C3%A9-menu', module: 'zomato' },
+	{ id: 1, name: 'U Daňováka', zomatoId: '16507932', url: 'http://www.udanovaka.sk/obedove-menu/', module: 'danovak' },
 	{ id: 2, name: 'Giuliano', url: 'http://www.giuliano.sk/-denne-menu', module: 'giuliano' },
 	{ id: 3, name: 'ITB', url: 'http://www.citycantina.sk/prevadzka/1', module: 'itb' },
 	{ id: 4, name: 'Alfa', zomatoId: '16507678', url: 'http://restauracie.sme.sk/restauracia/restauracia-alfa_2512-petrzalka_664/denne-menu', module: 'alfa' },
