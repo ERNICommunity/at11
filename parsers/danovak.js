@@ -2,24 +2,35 @@ var cheerio = require('cheerio');
 require('./parserUtil');
 
 module.exports.parse = function(html, date, callback) {
-    var $ = cheerio.load(html, { decodeEntities: false });
+    var $ = cheerio.load(html, { decodeEntities: true });
     var dayMenu = [];
 
     var currentDay = $('div#privitanie>div').children().filter(function(index, item) { return $(item).text().indexOf(date.format("DD.MM.YYYY")) > -1; }).eq(0);
     if (currentDay) {
-        var menu = currentDay.next();
-        var items = menu.text().split(/\d\.\s/g);
+        var soupMenu = currentDay.next();
+        var mainMenu = soupMenu.next();
+        var soupItems = soupMenu.text().split(/\//g);
+        var mainItems = mainMenu.text().split(/\d\.\s/g).filter(function(item) { return item.trim() !== ''; });
 
-        dayMenu = items.map(function(item, index) {
-            var text = item.split(/\d*\.\d*/)[0];
-            var tmp = { isSoup: false, text: normalize(text), price: NaN };
-            if (index === 0) {//I think it is safe enough to assume that the first item in menu is the soup
-                tmp.isSoup = true;
-            } else {
-                tmp.price = parseFloat(item.match(/\d*\.\d*/g)[0]);
-            }
-            return tmp;
-        });
+        dayMenu = soupItems.map(function(item, index) { return parseMenu(item, index, true); });
+        dayMenu = dayMenu.concat(mainItems.map(function(item, index) { return parseMenu(item, index, false); }));
+    }
+
+    function parseMenu(item, index, isSoup) {
+        if (item.trim() === '') {
+            return;
+        }
+
+        var text = item.split(/\d+\,\d+/)[0];
+        var tmp = { isSoup: false, text: normalize(text), price: NaN };
+        if (isSoup) {
+            tmp.isSoup = true;
+        } else {
+            var priceString = item.match(/\d+\,\d+/g)[0];
+            tmp.price = parseFloat(priceString.replace(",", "."));
+        }
+
+        return tmp;
     }
 
     callback(dayMenu);
