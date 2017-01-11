@@ -43,7 +43,7 @@ module.exports.parse = function(html, date, callback) {
       var text = cells.eq(1).text() + " " + cells.eq(2).text();
       var soups = text.split('/');
 
-      return soups.map(function(item) { return { isSoup: true, text: item, price: price }; });
+      return soups.map(function(item) { return { isSoup: true, text: item.trim(), price: price }; });
     }
 
     function parseOther(row) {
