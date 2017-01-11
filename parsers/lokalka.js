@@ -29,7 +29,7 @@ module.exports.parse = function(html, date, callback) {
           return;
         }
         if(index === 1){
-          dayMenu.push(parseSoup(elem));
+          dayMenu = dayMenu.concat(parseSoup(elem));
         }
         else{
           dayMenu.push(parseOther(elem));
@@ -39,7 +39,11 @@ module.exports.parse = function(html, date, callback) {
 
     function parseSoup(row) {
       var cells = $(row).find('td');
-      return { isSoup: true, text: cells.eq(1).text() + " " + cells.eq(2).text(), price: parseFloat(cells.eq(5).text().replace(',', '.')) };
+      var price = parseFloat(cells.eq(5).text().replace(',', '.'));
+      var text = cells.eq(1).text() + " " + cells.eq(2).text();
+      var soups = text.split('/');
+
+      return soups.map(function(item) { return { isSoup: true, text: item.trim(), price: price }; });
     }
 
     function parseOther(row) {

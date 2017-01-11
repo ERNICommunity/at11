@@ -19,12 +19,21 @@ module.exports.parse = function(html, date, callback) {
         }
     });
 
+    // assumption - first one is soup
+    var soupsElement = dayMenu[0];
+    var soupNames = normalize($('.left', soupsElement).text().trim()).split(',');
+    var soupPrice = parseFloat($('.right', soupsElement).text());
+
+    var soupMenu = soupNames.map(function(item) { return { isSoup: true, text: item.trim(), price: soupPrice }; });
+
     //convert to menu item object
-    dayMenu = dayMenu.map(function(item) {
+    dayMenu = dayMenu.slice(1).map(function(item) {
         var label = $('.left', item).text();
         var price = $('.right', item).text();
         return { isSoup: soupPattern.test(label.trim()), text: normalize(label), price: parseFloat(price) };
     });
+
+    dayMenu = soupMenu.concat(dayMenu);
     
     callback(dayMenu);
 
