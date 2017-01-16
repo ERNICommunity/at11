@@ -252,7 +252,7 @@ section {
                 section ul li > *.price {
                     white-space: nowrap;
                     text-align: right;
-                    padding-left: 0.5em;\
+                    padding-left: 0.5em;
                     color: #E9843E;
                 }
 
