@@ -1,4 +1,4 @@
-/* exported writeCookie, readCookie, loadMenus */
+﻿/* exported writeCookie, readCookie, loadMenus */
 
 function writeCookie(cookieName, cookieValue, nDays) {
     var today = new Date();
@@ -27,7 +27,7 @@ function loadMenus(container) {
         var section = $(this);
         var restaurantId = section.data("restaurantId");
 
-        var errElem = "<li class='error'<span>Nepodarilo sa načítať menu, skús pozrieť priamo na stránke reštaurácie</span></li>";
+        var errElem = "<li class='error'><span>Nepodarilo sa načítať menu, skús pozrieť priamo na stránke reštaurácie</span></li>";
         var listElem = $("<ul></ul>");
         var refreshElem = null;
         $.ajax("/menu/" + restaurantId + "/" + date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate())
