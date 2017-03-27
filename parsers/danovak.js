@@ -7,36 +7,29 @@ module.exports.parse = function(html, date, callback) {
 
     var currentDay = $('div#privitanie>div').children().filter(function(index, item) { return $(item).text().indexOf(date.format("DD.MM.YYYY")) > -1; }).eq(0);
     if (currentDay) {
-        var soupMenu = currentDay.next();
-        var mainMenu = soupMenu.next();
-        var soupItems = soupMenu.text().split(/\//g);
-        var mainItems = mainMenu.text().split(/\d\.\s/g).filter(function(item) { return item.trim() !== ''; });
+        let menuHolder = currentDay.next();
+        let menuTextNodes = menuHolder.contents().filter(function() { return this.type === 'text'; });
 
-        dayMenu = soupItems.map(function(item, index) { return parseMenu(item, index, true); });
-        dayMenu = dayMenu.concat(mainItems.map(function(item, index) { return parseMenu(item, index, false); }));
-    }
-
-    function parseMenu(item, index, isSoup) {
-        if (item.trim() === '') {
-            return;
+        menuTextNodes[0].data.trim().split(/\//g).forEach(function(itemTxt) { // on first line there are soups separated by '/'
+            dayMenu.push({ isSoup: true, text: itemTxt.trim(), price: NaN });
+        });
+        for (let i = 1; i < menuTextNodes.length; i++) {
+            let text = menuTextNodes[i].data.trim();
+            let price = NaN;
+            /* jshint -W083 */
+            text = text.replace(/\d+,\d+\s?€/, (match) => {
+                price = parseFloat(match.replace(',', '.'));
+            });
+            /* jshint +W083 */
+            dayMenu.push({ isSoup: false, text: normalize(text), price: price });
         }
-
-        var text = item.split(/\d+\,\d+/)[0];
-        var tmp = { isSoup: false, text: normalize(text), price: NaN };
-        if (isSoup) {
-            tmp.isSoup = true;
-        } else {
-            var priceString = item.match(/\d+\,\d+/g)[0];
-            tmp.price = parseFloat(priceString.replace(",", "."));
-        }
-
-        return tmp;
     }
 
     callback(dayMenu);
 
     function normalize(str) {
-        return str.normalizeWhitespace()
+        return str.removeItemNumbering()
+            .normalizeWhitespace()
             .removeMetrics()
             .correctCommaSpacing();
     }
