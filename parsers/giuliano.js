@@ -2,7 +2,7 @@ var cheerio = require('cheerio');
 require('./parserUtil');
 
 module.exports.parse = function(html, date, callback) {
-    var $ = cheerio.load(html);
+    var $ = cheerio.load(html, { normalizeWhitespace: true });
     var dayMenu = [];
 
     $('table#denne-menu tr').each(function() {
@@ -11,21 +11,29 @@ module.exports.parse = function(html, date, callback) {
 
         if (dateCellText.indexOf(date.format("DD.MM.YYYY")) > -1)
         {
-            var items = $this.children("td").eq(1).text().match(/[^\r\n]+/g).filter(function(item) {
-                return normalize(item) !== "";
+            var items = $this.children("td").eq(1).children().filter(function() {
+                var txt = $(this).text().trim();
+                if(txt === "") {
+                    return false;
+                }
+                var cnt = cheerio.load(txt);
+                cnt.root().contents()
+                .filter(function() { return this.type === 'comment'; })
+                .remove(); // strip comments
+                return cnt.text().trim() !== "";
             });
 
             var priceText = $this.children("td").eq(2).text();
             var price = parseFloat(priceText.replace(",", "."));
 
-            dayMenu = items.map(function(item, index) {
-                var tmp = { isSoup: false, text: normalize(item), price: price };
+            Array.prototype.forEach.call(items, function(item, index) {
+                var tmp = { isSoup: false, text: normalize($(item).text()), price: price };
                 if (index === 0)
                 {//I think it is safe enough to assume that the first item in menu is the soup
                     tmp.isSoup = true;
                     tmp.price = NaN;
                 }
-                return tmp;
+                dayMenu.push(tmp);
             });
             return false;
         }
