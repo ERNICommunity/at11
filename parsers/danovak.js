@@ -19,6 +19,7 @@ module.exports.parse = function(html, date, callback) {
             /* jshint -W083 */
             text = text.replace(/\d+,\d+\s?€/, (match) => {
                 price = parseFloat(match.replace(',', '.'));
+                return '';
             });
             /* jshint +W083 */
             dayMenu.push({ isSoup: false, text: normalize(text), price: price });
