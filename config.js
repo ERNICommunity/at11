@@ -6,7 +6,7 @@ module.exports = {
 	{ id: 1, name: 'U Daňováka', url: 'http://www.udanovaka.sk/obedove-menu/', module: 'danovak' },
 	{ id: 11, name: 'Kaša', url: 'https://restauracie.sme.sk/restauracia/kasa-2_8386-petrzalka_664/denne-menu', module: 'kasa' },
 	{ id: 3, name: 'ITB', url: 'http://www.citycantina.sk/prevadzka/1', module: 'itb' },
-	{ id: 2, name: 'Giuliano', url: 'http://www.giuliano.sk/-denne-menu', module: 'giuliano' },	
+	{ id: 2, name: 'Giuliano', url: 'http://www.giuliano.sk/-denne-menu', module: 'giuliano' },
 	{ id: 4, name: 'Alfa', url: 'http://restauracie.sme.sk/restauracia/restauracia-alfa_2512-petrzalka_664/denne-menu', module: 'alfa' },
 	{ id: 5, name: 'Škôlka', url: 'http://jedalen.vysnivany.sk/ukazka-strany', module: 'skolka' },
 	{ id: 6, name: 'Pizza Pazza', url: 'http://pizzapazza.sk/?page_id=645', module: 'pizzapazza', post: 'prevadzka2=1' },
