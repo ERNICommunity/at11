@@ -5,11 +5,11 @@
   "dependencies": {
     "charset": "^1.0.0",
     "cheerio": "^0.22.0",
-    "express": "^4.13.4",
+    "express": "^4.15.2",
     "hbs": "^4.0.0",
     "iconv-lite": "^0.4.15",
-    "moment-timezone": "^0.5.10",
-    "request": "^2.79.0"
+    "moment-timezone": "^0.5.13",
+    "request": "^2.81.0"
   },
   "devDependencies": {
     "mocha": "^3.2.0",
