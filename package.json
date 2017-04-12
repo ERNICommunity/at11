@@ -8,7 +8,7 @@
     "express": "^4.13.4",
     "hbs": "^4.0.0",
     "iconv-lite": "^0.4.15",
-    "moment-timezone": "^0.5.10",
+    "moment-timezone": "^0.5.13",
     "request": "^2.79.0"
   },
   "devDependencies": {
