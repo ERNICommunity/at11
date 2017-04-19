@@ -4,7 +4,7 @@ require('./parserUtil');
 module.exports.parse = function(html, date, callback) {
     var $ = cheerio.load(html);
     var dayMenu = [];
-    var todayTitle = date.format('dddd') + " " + date.format('DD.MM.YYYY');
+    var todayDate = date.format('DD.MM.YYYY');
 
     var elements = $('li.fdm-item', 'div.entry-content.post-content');
     elements.each(function(){
@@ -19,7 +19,7 @@ module.exports.parse = function(html, date, callback) {
     callback(dayMenu);
 
     function isToday(title) {
-      return title.toLowerCase().indexOf(todayTitle) !== -1;
+      return title.toLowerCase().indexOf(todayDate) !== -1;
     }
 
     function parseDailyMenu(table) {
@@ -29,7 +29,7 @@ module.exports.parse = function(html, date, callback) {
           return;
         }
         if(index === 1){
-          dayMenu.push(parseSoup(elem));
+          dayMenu = dayMenu.concat(parseSoup(elem));
         }
         else{
           dayMenu.push(parseOther(elem));
@@ -39,11 +39,15 @@ module.exports.parse = function(html, date, callback) {
 
     function parseSoup(row) {
       var cells = $(row).find('td');
-      return { isSoup: true, text: cells.eq(1).text() + " " + cells.eq(2).text(), price: parseFloat(cells.eq(4).text().replace(',', '.')) };
+      var price = parseFloat(cells.eq(5).text().replace(',', '.'));
+      var text = cells.eq(1).text() + " " + cells.eq(2).text();
+      var soups = text.split('/');
+
+      return soups.map(function(item) { return { isSoup: true, text: item.trim(), price: price }; });
     }
 
     function parseOther(row) {
       var cells = $(row).find('td');
-      return { isSoup: false, text: cells.eq(0).text(), price: parseFloat(cells.eq(2).text().replace(',', '.')) };
+      return { isSoup: false, text: cells.eq(0).text(), price: parseFloat(cells.eq(3).text().replace(',', '.')) };
     }
   };

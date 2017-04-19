@@ -3,16 +3,18 @@
   "description": "Daily lunch menu application",
   "version": "1.0.0",
   "dependencies": {
-    "cheerio": "^0.20.0",
-    "express": "^4.13.4",
+    "charset": "^1.0.0",
+    "cheerio": "^0.22.0",
+    "express": "^4.15.2",
     "hbs": "^4.0.0",
-    "request": "^2.69.0",
-    "moment-timezone": "^0.5.0"
+    "iconv-lite": "^0.4.15",
+    "moment-timezone": "^0.5.13",
+    "request": "^2.81.0"
   },
   "devDependencies": {
-    "mocha": "^2.4.5",
+    "mocha": "^3.2.0",
     "jshint": "^2.9.1",
-    "jscs": "^2.9.0"
+    "jscs": "^3.0.7"
   },
   "scripts": {
     "start": "node app.js",
@@ -40,6 +42,10 @@
     {
       "name": "Andrej Mandli",
       "email": "andrej.mandli@erni.sk"
+    },
+    {
+      "name": "Marek Linka",
+      "email": "marek.linka@erni.sk"
     }
   ],
   "keywords": [
@@ -56,8 +62,8 @@
   "bugs": {
     "url": "https://github.com/at11/at11/issues"
   },
-  "engines":{
-      "node": "4.2.x"
+  "engines": {
+    "node": "6.9.x"
   },
   "license": "SEE LICENSE IN LICENSE",
   "main": "app.js"

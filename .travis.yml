@@ -1,6 +1,6 @@
 sudo: false
 language: node_js
 node_js:
-  - "4.2"
+  - "6.9"
 deploy:
   provider: azure_web_apps

@@ -14,21 +14,9 @@ module.exports.parse = function(html, date, callback) {
     
     var soupElems = [];
     var mealElems = [];
-    var pushingSoups = false;
-    denneMenuElem.first().find('.jedlo_polozka').each(function() {
+    denneMenuElem.first().find('.jedlo_polozka').each(function(index) {
         var elem = $(this);
-        var txt = elem.text().trim();
-
-        if(txt === "Polievka"){
-            pushingSoups = true;
-            return;
-        }
-        if(txt === "Hlavné jedlá"){
-            pushingSoups = false;
-            return;
-        }
-
-        if(pushingSoups) {
+        if(index === 0) {
             soupElems.push(elem);
         }
         else {
@@ -38,6 +26,7 @@ module.exports.parse = function(html, date, callback) {
 
     soupElems.forEach((elem) => {
         var text = normalize($('.left', elem).text());
+        text = text.replace(/polievka:?\s*/, '');
         dayMenu.push({ isSoup: true, text: text, price: NaN });
     });
 

@@ -12,6 +12,7 @@
     "nonew": true,
     "undef": true,
     "unused": true,
+    "esversion": 6,    
 //enviroments
     "node": true,
     "browser": true,

@@ -54,6 +54,27 @@ header {
         color: rgb(210,210,210);
     }
 
+    header span#themes > ul {
+        position: absolute;
+        top: 80px;
+        right: 50px;
+        display: none;
+        text-align: left;
+        font-size: 16px;
+        padding: 0;
+        margin: 0;
+        font-weight: normal;
+        border: 1px solid  rgb(50,50,50);
+        background-color: white;
+    }
+    header span#themes > ul li {
+       list-style: none;
+       padding: 4px 10px;
+    }
+    header span#themes:hover > ul {
+        display: inline-block;
+    }
+
 footer {
     font-size: 0.8em;
     border-top-style: solid;

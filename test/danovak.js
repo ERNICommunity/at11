@@ -1,18 +1,18 @@
 ﻿var assert = require('assert'),
     fs = require('fs'),
     moment = require('moment-timezone'),
-    parser = require('../parsers/zomato');
-
+    parser_zomato = require('../parsers/zomato'),
+    parser_danovak = require('../parsers/danovak');
 moment.locale('sk');
 
-describe('danovak', function () {
+describe('danovak_zomato_parser', function () {
     describe('parsing sample 2015-07-29', function () {
 
         var html = fs.readFileSync(__dirname + '/samples/Danovak.2015-07-29.html', { encoding: "utf-8" });
         var menu;
 
         before(function (done) {
-            parser.parse(html, moment("2015-07-29"), function (menuItems) {
+            parser_zomato.parse(html, moment("2015-07-29"), function (menuItems) {
                 menu = menuItems;
                 done();
             });
@@ -72,7 +72,7 @@ describe('danovak', function () {
         var menu;
 
         before(function (done) {
-            parser.parse(html, moment("2015-08-03"), function (menuItems) {
+            parser_zomato.parse(html, moment("2015-08-03"), function (menuItems) {
                 menu = menuItems;
                 done();
             });
@@ -132,7 +132,7 @@ describe('danovak', function () {
         var menu;
 
         before(function (done) {
-            parser.parse(html, moment("2015-08-04"), function (menuItems) {
+            parser_zomato.parse(html, moment("2015-08-04"), function (menuItems) {
                 menu = menuItems;
                 done();
             });

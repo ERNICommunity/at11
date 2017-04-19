@@ -65,7 +65,7 @@ module.exports.parse = function(html, date, callback) {
                     }
                 }
             }
-            if (/Hodnota stravy/.test(lines[i])) {
+            if (/Hodnota/.test(lines[i])) {
                 price = parserUtil.parsePrice(lines[i]).price;
             }
             else {

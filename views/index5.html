@@ -16,7 +16,16 @@
     <body>
         <header>
             <span><i class="fa fa-indent"></i> Denné menu</span>
-            <span id="date"></span>
+            <span>
+                <span id="date"></span>
+                <span id="themes" class="hover"><i class="fa fa-bars"></i>
+                    <ul>
+                        {{#each themes}}<li>
+                            <a href="/{{@key}}">{{this.name}}</a>
+                        </li>{{/each}}
+                    </ul>
+                </span>
+            </span>
         </header>
 
         <main>

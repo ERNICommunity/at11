@@ -1,4 +1,4 @@
-/* exported writeCookie, readCookie, loadMenus */
+﻿/* exported writeCookie, readCookie, loadMenus */
 
 function writeCookie(cookieName, cookieValue, nDays) {
     var today = new Date();
@@ -19,14 +19,15 @@ function readCookie(name) {
 }
 
 function loadMenus(container) {
-    var date = getDate();
+    var dateCompound = getDateCompound();
 
-    $('#date').text(date.toLocaleDateString());
+    $('#date').text(dateCompound.description);
+    var date = dateCompound.date;
     $("section", container).each(function() {
         var section = $(this);
         var restaurantId = section.data("restaurantId");
 
-        var errElem = "<li class='error'<span>Nepodarilo sa načítať menu, skús pozrieť priamo na stránke reštaurácie</span></li>";
+        var errElem = "<li class='error'><span>Nepodarilo sa načítať menu, skús pozrieť priamo na stránke reštaurácie</span></li>";
         var listElem = $("<ul></ul>");
         var refreshElem = null;
         $.ajax("/menu/" + restaurantId + "/" + date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate())
@@ -63,10 +64,12 @@ function loadMenus(container) {
     });
 }
 
-function getDate() {
+function getDateCompound() {
     var date = new Date();
+    var desc = "dnes";
     if(date.getHours() >= 15) {
         date.setDate(date.getDate() + 1);
+        desc = "zajtra";
     }
-    return date;
+    return { date: date, description: desc + " " + date.toLocaleDateString() };
 }
