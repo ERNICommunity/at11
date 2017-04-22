@@ -323,6 +323,16 @@ div#container {
 }
 
 /* ADAPTIVE */
+@media (max-width: 2100px) {
+    /* 3 columns */
+    div#container {
+        max-width: 1600px ;
+    }
+    .navbar {
+        max-width: 1600px;
+    }
+}
+
 @media (max-width: 1620px) {
     /* 2 columns */
     div#container {
