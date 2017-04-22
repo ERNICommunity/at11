@@ -39,7 +39,7 @@
     }
 
 .hand.minute {
-    height: 165.5px; /* height of min hand */
+    height: 165px; /* height of min hand */
     width: 43.7px; /* width of min hand */
     margin-left: -21.85px; /* set this value to 1/2 width */
     margin-top: -47px;
@@ -47,7 +47,6 @@
     background-repeat: none;
     background-position: center;
     z-index: 1;
-    
     }
 
 .hand.second {
