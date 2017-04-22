@@ -70,6 +70,7 @@ a.github {
         left: 50%;
         top: -15px;
         margin-left: -115px;
+        z-index: 100;
     }
 
 #main-logo {
@@ -114,12 +115,15 @@ a.github {
 
 .navbar {
     position: relative;
-    padding: 7px 20px 12px 10px;
-    max-width: 1065px;
+    padding: 7px 20px 12px 20px;
     margin: auto;
     background-color: none;
     border-color: none;
 }
+
+div#selection {
+    padding: 0 7px 0 7px;
+    }
 
 nav ul {
         padding: 0;
@@ -142,7 +146,7 @@ nav li {
         /* background-color: #FCB85F; */
  }
 
- nav li.dropdown {
+nav li.dropdown {
         background-color: #FCB85F;
  }
 
@@ -162,11 +166,14 @@ nav ul.dropdown {
 
 nav a {
         display: block;
-
-        padding: 8px 21px 8px 21px;
+        padding: 8px 20px 8px 20px;
         text-decoration: none;
         /* background-color: #FCB85F; */
     }
+
+a#dLabel {
+    margin-right: 5px;
+}
 
     ul li a:hover{
         color: #fff;
@@ -174,12 +181,12 @@ nav a {
     }
 
     ul ul.dropdown{
-        min-width: 127px; /* Set width of the dropdown */
+        min-width: 131px; /* Set width of the dropdown */
         height: 46px;
         background: #FCB85F;
         display: none;
         position: absolute;
-        z-index: 999;
+        z-index: 99;
         left: 0;
     }
 
@@ -292,7 +299,7 @@ main span {
 div#container {
     margin: 10px 40px;
     text-align: center;
-    max-width: 1065px;
+    max-width: 2100px;
     margin-left: auto;
     margin-right: auto;
 }
@@ -313,4 +320,130 @@ div#container {
 
 .fa-lg {
     vertical-align: -5%;
+}
+
+/* ADAPTIVE */
+@media (max-width: 1620px) {
+    /* 2 columns */
+    div#container {
+        max-width: 1065px ;
+    }
+    .navbar {
+        max-width: 1065px;
+    }
+}
+
+@media (max-width: 1080px) {
+    /* 1 column */
+    div#container {
+        max-width: 532px;
+    }
+    div#denne-menu {
+        display: none;
+    }
+}
+
+@media (max-width: 920px) {
+    ul#restauracie{
+        float: left;
+    }
+}
+
+@media (max-width: 620px) {
+/* lower clock */
+    #clock {
+        padding-top: 50px;
+    }
+
+    header {
+        height: 240px;
+        background-color: #FCB85F;
+    }
+}
+
+@media (max-width: 532px) {
+    /* mobile */
+    section {
+        width: 100%;
+        padding: 0.5em;
+    }
+
+    section ul {
+        width: 100%;
+    }
+
+    ul#temy {
+        display: none;
+    }
+
+    header {
+        height: 460px;
+        background-color: #FCB85F;
+        margin: 0px;
+    }
+
+    div.clear-fix > div {
+        margin-top: 0px;
+    }
+
+    .first-row {
+    font-size: 13px
+    }
+
+    section h2 {
+        font-size: 2em;
+        margin: 0px;
+    }
+
+    #date {
+        margin-top: 4px;
+    }
+
+    div#selection {
+        margin-top: 225px;
+    }
+
+    nav ul{
+        width: 100%;
+        text-align: center;
+    }
+    nav a {
+        display: inline;
+        width: 100%;
+        padding: 8px 21px 8px 21px;
+    }
+
+    nav a.checkbox {
+        display: inline;
+        padding: 10px;
+        line-height: 37px;
+    }
+
+    ul li ul.dropdown li {
+        display: inline-block;
+    }
+
+    ul ul.dropdown {
+        display: inline;
+        min-width: 100%; /* Set width of the dropdown */
+        height: 46px;
+        background: #FCB85F;
+        position: absolute;
+    }
+
+    #selectRestaurant {
+        display: none;
+    }
+}
+
+@media (max-width: 320px) {
+    /* very old mobile */
+
+    .navbar {
+    padding: 4px 10px 12px 10px;
+    }
+
+    header {
+    height: 533px;
+    }
 }
