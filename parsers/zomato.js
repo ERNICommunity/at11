@@ -1,55 +1,26 @@
-var cheerio = require('cheerio');
-require('./parserUtil');
+// jscs:disable requireCamelCaseOrUpperCaseIdentifiers
 
-module.exports.parse = function(html, date, callback) {
-    var $ = cheerio.load(html);
+var parserUtil = require('./parserUtil');
+
+module.exports.parse = function(response, callback) {
     var dayMenu = [];
-    
-    $('#daily-menu-container').find('.tmi-group').each(function() {
-        var $this = $(this);
-        
-        var text = $this.children('.tmi-group-name').text();
-        var day = getDay(text);
-        
-        if(day === date.format('dddd')){
-            $this.children('.tmi-daily').each(function() {
-                var text = $(this).find('.tmi-name').text().trim();
-                var price = parseFloat($(this).find('.tmi-price').text().replace(/,/, '.'));
-                if(isNaN(price)){//price probably directly in text, extract it
-                    text = text.replace(/\d[\.,]\d{2}$/, function(match){
-                        price = parseFloat(match.replace(',', '.'));
-                        return '';
-                    });
-                }
-                    
-                if (!/^\d\s?[\.,]/.test(text)) { //soups dont have numbering
-                    text.split('/').forEach(function(item){
-                        dayMenu.push({ isSoup: true, text: item.trim(), price: price });
-                    });
-                } else {
-                    dayMenu.push({ isSoup: false, text: normalize(text), price: price });
-                }
+
+    response = JSON.parse(response);
+
+    if (response.status === 'success') {
+        var dailyMenu = response.daily_menus[0];
+
+        // read the menu if its available
+        if (dailyMenu) {
+            dayMenu = dailyMenu.daily_menu.dishes.map(function(menuItem) {
+                return {
+                    isSoup: false,
+                    text: menuItem.dish.name,
+                    price: parserUtil.parsePrice(menuItem.dish.price).price
+                };
             });
-            return false;
         }
-    });
+    }
     
     callback(dayMenu);
-    
-    function getDay(text) {
-      var found = text.trim().match(/^(.+),/);
-      if (!found || found.length < 1) {
-        return null;
-      }
-
-      return found[1].toLowerCase();
-    }
-
-    function normalize(str) {
-        return str.removeItemNumbering()
-            .removeMetrics()
-            .replace(/A\s(\d\s?[\.,]?\s?)+$/, '')
-            .correctCommaSpacing()
-            .normalizeWhitespace();
-    }
 };

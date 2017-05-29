@@ -39,7 +39,7 @@
             <div id="container">
                 {{#each restaurants}}
                 <section data-restaurant-id="{{this.id}}">
-                    <h2><a href="{{this.url}}" target="_blank">{{this.name}}</a></h2>
+                    <h2><a href="{{webUrl this}}" target="_blank">{{this.name}}</a></h2>
                     <i class="fa fa-spinner fa-pulse"></i>
                 </section>
                 {{/each}}

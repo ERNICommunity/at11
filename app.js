@@ -9,9 +9,9 @@ var parserUtil = require('./parsers/parserUtil');
 
 console.log("Initializing...");
 var actions = {};
-function createAction(url, postParams, parseCallback) {
+function createAction(restaurantConfig, parseCallback) {
     return function(date, doneCallback) {
-        menuFetcher.fetchMenu(url, date, postParams, parseCallback, doneCallback);
+        menuFetcher.fetchMenu(restaurantConfig, date, parseCallback, doneCallback);
     };
 }
 for (var i = 0; i < config.restaurants.length; i++)
@@ -33,9 +33,8 @@ for (var i = 0; i < config.restaurants.length; i++)
         {
             throw "Non unique id '" + id + "' provided";
         }
-        var url = config.restaurants[i].url;
-        var postParams = config.restaurants[i].post;
-        actions[id] = createAction(url, postParams, parserModule.parse);
+        var restaurantConfig = config.restaurants[i];
+        actions[id] = createAction(restaurantConfig, parserModule.parse);
     }
     catch (e)
     {
@@ -52,6 +51,12 @@ console.log("Initialization successful (" + Object.keys(actions).length + " of "
 
 console.log("Registering partials...");
 hbs.registerPartials(__dirname + '/views/partials');
+console.log("Done");
+
+console.log("Registering helpers...");
+hbs.registerHelper('webUrl', function(restaurant) {
+  return restaurant.webUrl || restaurant.url;
+});
 console.log("Done");
 
 console.log("Global setup...");
