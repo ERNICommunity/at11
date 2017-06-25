@@ -1,11 +1,11 @@
-var express = require('express');
-var hbs = require('hbs');
+var express = require("express");
+var hbs = require("hbs");
 var moment = require("moment-timezone");
 
 //our modules
-var config = require('./config');
-var menuFetcher = require('./menuFetcher');
-var parserUtil = require('./parsers/parserUtil');
+var config = require("./config");
+var menuFetcher = require("./menuFetcher");
+var parserUtil = require("./parsers/parserUtil");
 
 console.log("Initializing...");
 var actions = {};
@@ -14,81 +14,69 @@ function createAction(url, postParams, parseCallback) {
         menuFetcher.fetchMenu(url, date, postParams, parseCallback, doneCallback);
     };
 }
-for (var i = 0; i < config.restaurants.length; i++)
-{
+for (var i = 0; i < config.restaurants.length; i++) {
     console.log(config.restaurants[i]);
-    try
-    {
+    try {
         var parserModule = require("./parsers/" + config.restaurants[i].module);
-        if (typeof parserModule.parse !== "function")
-        {
+        if (typeof parserModule.parse !== "function") {
             throw "Module is missing parse method";
         }
-        if (parserModule.parse.length !== 3)
-        {
+        if (parserModule.parse.length !== 3) {
             throw "Module parse(..) method should have 3 parameters (html, date, callback)";
         }
         var id = config.restaurants[i].id;
-        if (typeof actions[id] !== "undefined")
-        {
+        if (typeof actions[id] !== "undefined") {
             throw "Non unique id '" + id + "' provided";
         }
         var url = config.restaurants[i].url;
         var postParams = config.restaurants[i].post;
         actions[id] = createAction(url, postParams, parserModule.parse);
-    }
-    catch (e)
-    {
+    } catch (e) {
         console.warn(e);
     }
 }
 
-if (Object.keys(actions).length === 0)
-{
+if (Object.keys(actions).length === 0) {
     console.error("Initialization failed, exiting");
     process.exit(1);
 }
 console.log("Initialization successful (" + Object.keys(actions).length + " of " + config.restaurants.length + ")");
 
 console.log("Registering partials...");
-hbs.registerPartials(__dirname + '/views/partials');
+hbs.registerPartials(__dirname + "/views/partials");
 console.log("Done");
 
 console.log("Global setup...");
-moment.locale('sk');
+moment.locale("sk");
 moment.tz.setDefault("Europe/Bratislava");
 console.log("Done");
 
 console.log("Express setup...");
 var app = express();
-app.set('view engine', 'html');
-app.engine('html', hbs.__express);
-app.use(express.static('static'));
-app.get('/:theme?', function(req, res) {
-    res.setHeader('Content-Type', 'text/html; charset=UTF-8');
-    res.setHeader('Content-Language', 'sk');
+app.set("view engine", "html");
+app.engine("html", hbs.__express);
+app.use(express.static("static"));
+app.get("/:theme?", function(req, res) {
+    res.setHeader("Content-Type", "text/html; charset=UTF-8");
+    res.setHeader("Content-Language", "sk");
     var theme = parserUtil.parseTheme(req);
 
-    res.cookie('theme', theme, { maxAge: 315360000000, httpOnly: true });
+    res.cookie("theme", theme, { maxAge: 315360000000, httpOnly: true });
     res.render(config.themes[theme].template, { restaurants: config.restaurants, themes: config.themes });
 });
-app.get('/menu/:id/:day', function(req, res) {
-    if (typeof actions[req.params.id] === "undefined")
-    {
+app.get("/menu/:id/:day", function(req, res) {
+    if (typeof actions[req.params.id] === "undefined") {
         res.statusCode = 404;
         res.send("Restaurant " + req.params.id + " not found\n");
-    }
-    else
-    {
+    } else {
         actions[req.params.id](moment(req.params.day, "YYYY-MM-DD"), function(error, cachedMenu) {
-            if (error)
-            {
+            if (error) {
                 res.statusCode = 500;
                 res.send(error.toString());
-            }
-            else
-            {
-                res.json(cachedMenu ? { menu: cachedMenu.value, timeago: moment(cachedMenu.timestamp).fromNow() } : null);
+            } else {
+                res.json(
+                    cachedMenu ? { menu: cachedMenu.value, timeago: moment(cachedMenu.timestamp).fromNow() } : null
+                );
             }
         });
     }
@@ -97,13 +85,13 @@ console.log("Done");
 
 console.log("Creating server...");
 app.listen(config.port, function(err) {
-  if(err){
-      console.error("Unable to create server", err);
-      process.exit(1);
-      return;
-  }
-  var host = this.address().address;
-  var port = this.address().port;
+    if (err) {
+        console.error("Unable to create server", err);
+        process.exit(1);
+        return;
+    }
+    var host = this.address().address;
+    var port = this.address().port;
 
-  console.log('Done, listening on http://%s:%s', host, port);
+    console.log("Done, listening on http://%s:%s", host, port);
 });

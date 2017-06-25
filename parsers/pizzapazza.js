@@ -1,20 +1,20 @@
-var cheerio = require('cheerio');
-require('./parserUtil');
+var cheerio = require("cheerio");
+require("./parserUtil");
 
 module.exports.parse = function(html, date, callback) {
     var $ = cheerio.load(html);
     var dayMenu = [];
-    
+
     var menuTable = $("table#menu").first();
     var todayName = date.format("dddd");
-    
+
     menuTable.find("tr").each(function() {
         var cells = $(this).children("td");
         if (cells.eq(1).find("h3").text().indexOf(todayName) > -1) {
             dayMenu.push(parseItem(cells));
         }
     });
-    
+
     callback(dayMenu);
 
     function parseItem(cells) {

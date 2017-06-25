@@ -1,14 +1,13 @@
-﻿var assert = require('assert'),
-    fs = require('fs'),
-    moment = require('moment-timezone'),
-    parser = require('../parsers/pizzapazza');
+var assert = require("assert"),
+    fs = require("fs"),
+    moment = require("moment-timezone"),
+    parser = require("../parsers/pizzapazza");
 
-moment.locale('sk');
+moment.locale("sk");
 
-describe('pizzapazza', function() {
-    describe('parsing sample 2015-08-01', function() {
-
-        var html = fs.readFileSync(__dirname + '/samples/PizzaPazza.2015-08-01.html', { encoding: "utf-8" });
+describe("pizzapazza", function() {
+    describe("parsing sample 2015-08-01", function() {
+        var html = fs.readFileSync(__dirname + "/samples/PizzaPazza.2015-08-01.html", { encoding: "utf-8" });
         var menu;
 
         before(function(done) {
@@ -30,14 +29,17 @@ describe('pizzapazza', function() {
 
         it("2nd item correct", function() {
             assert.equal(menu[1].isSoup, false);
-            assert.equal(menu[1].text.trim(), "Penne Polo e Funghi - cestoviny so šampiňónmi, kuracím mäsom a parmezánom");
-            assert.equal(menu[1].price, 4.00);
+            assert.equal(
+                menu[1].text.trim(),
+                "Penne Polo e Funghi - cestoviny so šampiňónmi, kuracím mäsom a parmezánom"
+            );
+            assert.equal(menu[1].price, 4.0);
         });
 
         it("3rd item correct", function() {
             assert.equal(menu[2].isSoup, false);
             assert.equal(menu[2].text, "Obrátený bravčový rezeň, ryža");
-            assert.equal(menu[2].price, 4.80);
+            assert.equal(menu[2].price, 4.8);
         });
     });
 });
