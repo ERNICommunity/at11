@@ -1,15 +1,15 @@
-var zomato = require('./zomato');
+var zomato = require("./zomato");
 
 module.exports.parse = function(html, date, callback) {
     zomato.parse(html, date, function(menuItems) {
         var price = NaN;
         var lastElems = menuItems.splice(-3); // last 3 items are parsed wrongly by zomato parser, need to be fixed manually
-        var dayMenu = menuItems.map(function(item){
+        var dayMenu = menuItems.map(function(item) {
             if (item.isSoup) {
-              price = item.price;
-              item.price = NaN;
+                price = item.price;
+                item.price = NaN;
             } else {
-              item.price = price;
+                item.price = price;
             }
             item.text = normalize(item.text);
             return item;
@@ -21,7 +21,7 @@ module.exports.parse = function(html, date, callback) {
         callback(dayMenu);
     });
 
-    function normalize(str){
-      return str.replace(/\*.*$/, '');
+    function normalize(str) {
+        return str.replace(/\*.*$/, "");
     }
 };

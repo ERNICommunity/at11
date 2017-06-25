@@ -1,5 +1,5 @@
-var assert = require('assert'),
-    parserUtil = require('../parsers/parserUtil');
+var assert = require("assert"),
+    parserUtil = require("../parsers/parserUtil");
 
 var parsePriceTests = [
     { input: "Hodnota stravy: 3,50 Eur", result: { price: 3.5, text: "Hodnota stravy: " } },
@@ -25,9 +25,8 @@ var ocrCleanup = [
     { input: "duseny` po`r", result: "dusený pór" }
 ];
 
-describe('Parser Utils', function() {
-    
-    describe('Parse price', function() {
+describe("Parser Utils", function() {
+    describe("Parse price", function() {
         parsePriceTests.forEach(function(item) {
             it(item.input, function() {
                 var priced = parserUtil.parsePrice(item.input);
@@ -36,7 +35,7 @@ describe('Parser Utils', function() {
         });
     });
 
-    describe('OCR cleanup', function() {
+    describe("OCR cleanup", function() {
         ocrCleanup.forEach(function(item) {
             it(item.input, function() {
                 assert.equal(item.input.tidyAfterOCR(), item.result);

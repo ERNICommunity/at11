@@ -1,15 +1,13 @@
-var assert = require('assert'),
-    fs = require('fs'),
-    moment = require('moment-timezone'),
-    parser = require('../parsers/kamenica');
+var assert = require("assert"),
+    fs = require("fs"),
+    moment = require("moment-timezone"),
+    parser = require("../parsers/kamenica");
 
-moment.locale('sk');
+moment.locale("sk");
 
-describe('kamenica', function() {
-
-    describe('parsing sample 2015-07-29', function() {
-
-        var html = fs.readFileSync(__dirname + '/samples/Kamenica.2015-07-29.html', { encoding: "utf-8" });
+describe("kamenica", function() {
+    describe("parsing sample 2015-07-29", function() {
+        var html = fs.readFileSync(__dirname + "/samples/Kamenica.2015-07-29.html", { encoding: "utf-8" });
         var menu;
 
         before(function(done) {
