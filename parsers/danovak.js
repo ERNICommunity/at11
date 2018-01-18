@@ -16,23 +16,22 @@ module.exports.parse = function(html, date, callback) {
             .map(l => l.normalizeWhitespace())
             .filter(l => /^(\d|A\/)/.test(l)); // 4 Jakub and other nonbelievers, this filters only lines that start with number or A/
 
+        /* jshint -W083 */
         for (let i = 0; i < menuTextNodes.length; i++) {
             if(/A\//.test(menuTextNodes[i])) {
-                var soups = menuTextNodes[i].split(/\s*[ABCD]\/\s*/).filter(l => l.length > 0)
+                menuTextNodes[i].split(/\s*[ABCD]\/\s*/).filter(l => l.length > 0)
                     .forEach(l => result.push({ isSoup: true, text: l, price: NaN }));
             } else {
                 let text = menuTextNodes[i];
                 let price = NaN;
-                /* jshint -W083 */
                 text = text.replace(/\d+,\d+\s?€/, (match) => {
                     price = parseFloat(match.replace(',', '.'));
                     return '';
                 });
-                /* jshint +W083 */
                 result.push({ isSoup: false, text: normalize(text), price: price });
             }
-
         }
+        /* jshint +W083 */
     }
 
     callback(result);
