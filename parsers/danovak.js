@@ -3,30 +3,39 @@ require('./parserUtil');
 
 module.exports.parse = function(html, date, callback) {
     var $ = cheerio.load(html, { decodeEntities: true });
-    var dayMenu = [];
+    var result = [];
 
-    var currentDay = $('div#privitanie>div').children().filter(function(index, item) { return $(item).text().indexOf(date.format("DD.MM.YYYY")) > -1; }).eq(0);
-    if (currentDay) {
-        let menuHolder = currentDay.next();
-        let menuTextNodes = menuHolder.contents().filter(function() { return this.type === 'text'; });
+    var weekMenu = $('#privitanie').text();
+    if (weekMenu) {
+        var dateText = date.format('D.M.YYYY').replace(/\./g, '\\.');
+        var regex = new RegExp(dateText + '((?:.|\r|\n)*?)NOVINKA!');
+        var dayMenu = weekMenu.match(regex)[1];
+        var menuTextNodes = dayMenu.split('\n')
+            .map(l => l.trim())
+            .filter(l => l.length > 0)
+            .map(l => l.normalizeWhitespace())
+            .filter(l => /^(\d|A\/)/.test(l)); // 4 Jakub and other nonbelievers, this filters only lines that start with number or A/
 
-        menuTextNodes[0].data.trim().split(/\//g).forEach(function(itemTxt) { // on first line there are soups separated by '/'
-            dayMenu.push({ isSoup: true, text: itemTxt.trim(), price: NaN });
-        });
-        for (let i = 1; i < menuTextNodes.length; i++) {
-            let text = menuTextNodes[i].data.trim();
-            let price = NaN;
-            /* jshint -W083 */
-            text = text.replace(/\d+,\d+\s?€/, (match) => {
-                price = parseFloat(match.replace(',', '.'));
-                return '';
-            });
-            /* jshint +W083 */
-            dayMenu.push({ isSoup: false, text: normalize(text), price: price });
+        for (let i = 0; i < menuTextNodes.length; i++) {
+            if(/A\//.test(menuTextNodes[i])) {
+                var soups = menuTextNodes[i].split(/\s*[ABCD]\/\s*/).filter(l => l.length > 0)
+                    .forEach(l => result.push({ isSoup: true, text: l, price: NaN }));
+            } else {
+                let text = menuTextNodes[i];
+                let price = NaN;
+                /* jshint -W083 */
+                text = text.replace(/\d+,\d+\s?€/, (match) => {
+                    price = parseFloat(match.replace(',', '.'));
+                    return '';
+                });
+                /* jshint +W083 */
+                result.push({ isSoup: false, text: normalize(text), price: price });
+            }
+
         }
     }
 
-    callback(dayMenu);
+    callback(result);
 
     function normalize(str) {
         return str.removeItemNumbering()
