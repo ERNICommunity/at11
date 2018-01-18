@@ -39,8 +39,8 @@ module.exports.parse = function(html, date, callback) {
 
     function parseSoup(row) {
       var cells = $(row).find('td');
-      var price = parseFloat(cells.eq(5).text().replace(',', '.'));
-      var text = cells.eq(1).text() + " " + cells.eq(2).text();
+      var price = parseFloat(cells.eq(6).text().replace(',', '.'));
+      var text = cells.eq(2).text() + " " + cells.eq(3).text();
       var soups = text.split('/');
 
       return soups.map(function(item) { return { isSoup: true, text: item.trim(), price: price }; });
@@ -48,6 +48,6 @@ module.exports.parse = function(html, date, callback) {
 
     function parseOther(row) {
       var cells = $(row).find('td');
-      return { isSoup: false, text: cells.eq(0).text(), price: parseFloat(cells.eq(3).text().replace(',', '.')) };
+      return { isSoup: false, text: cells.eq(1).text(), price: parseFloat(cells.eq(4).text().replace(',', '.')) };
     }
   };
