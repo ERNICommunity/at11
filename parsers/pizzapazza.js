@@ -1,27 +1,59 @@
 var cheerio = require('cheerio');
-require('./parserUtil');
+var parserUtil = require('./parserUtil');
 
 module.exports.parse = function(html, date, callback) {
     var $ = cheerio.load(html);
     var dayMenu = [];
-    
-    var menuTable = $("table#menu").first();
-    var todayName = date.format("dddd");
-    
-    menuTable.find("tr").each(function() {
-        var cells = $(this).children("td");
-        if (cells.eq(1).find("h3").text().indexOf(todayName) > -1) {
-            dayMenu.push(parseItem(cells));
+
+    var menuItems = $("form.productDetail");
+	menuItems.each(function(){
+		parseItem($(this));
+	});
+
+    dayMenu.sort(function(item) {
+        if (item.isSoup) {
+            return 0;
+        } else {
+            return 1;
         }
     });
-    
+
     callback(dayMenu);
 
-    function parseItem(cells) {
-        var item = { isSoup: cells.eq(1).find("h3").text().indexOf("Polievka") > -1 };
-        cells.eq(1).find("p").find("br").text(" - ");
-        item.text = cells.eq(1).find("p").text().normalizeWhitespace();
-        item.price = parseFloat(cells.eq(3).text().replace(",", "."));
-        return item;
+	function parseItem(item){
+		var itemParent = item.parent();
+		var name = itemParent.find("h2.MainTitle").text();
+		if (name){
+			var nameParts = name.split("   ");
+			var food = normalize(nameParts[0]);
+			var foodPrice = parserUtil.parsePrice(itemParent.find("div.product_price").text()).price;
+			var soup = nameParts[1];
+			
+			dayMenu.push({
+				isSoup: false,
+				text: food,
+				price: foodPrice
+			});
+			
+			if (!dayMenuContainsSoup(soup)) {
+				dayMenu.push({
+					isSoup: true,
+					text: soup,
+					price: NaN
+				});
+			}
+		}
+	}
+	
+	function dayMenuContainsSoup(soup){
+		return dayMenu.filter(function(e) {return e.text === soup;}).length > 0;
+	}
+	
+	function normalize(str) {
+        return str.removeItemNumbering()
+			.replace("/", " ")
+            .normalizeWhitespace()
+            .removeMetrics()
+            .correctCommaSpacing();
     }
 };
