@@ -36,7 +36,7 @@ module.exports.fetchMenu = function(url, date, postParams, parseCallback, doneCa
             method: postParams ? "POST" : "GET",
             form: postParams,
             encoding: 'binary',
-            headers: {'User-Agent': 'Mozilla/5.0'},
+            headers: { 'User-Agent': 'Mozilla/5.0' },
             timeout: 10 * 1000 // 10s timeout for request
         };
         request(options, function(error, response, body) {
