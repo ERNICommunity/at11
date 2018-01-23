@@ -4,14 +4,14 @@ require('./parserUtil');
 module.exports.parse = function(html, date, callback) {
     var $ = cheerio.load(html, { normalizeWhitespace: true });
     var dayMenu = [];
-
+	
     $('table#denne-menu tr').each(function() {
         var $this = $(this);
         var dateCellText = $this.children("td").first().text();
 
-        if (dateCellText.indexOf(date.format("DD.MM.YYYY")) > -1)
+        if (dateCellText.indexOf(date.format("DD.M.YYYY")) > -1 || dateCellText.indexOf(date.format("DD.MM.YYYY")) > -1)
         {
-            var items = $this.children("td").eq(1).children().filter(function() {
+				var items = $this.children("td").eq(1).children().filter(function() {
                 var txt = $(this).text().trim();
                 if(txt === "") {
                     return false;
