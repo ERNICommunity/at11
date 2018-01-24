@@ -28,7 +28,7 @@ module.exports.parse = function(html, date, callback) {
 			var food = normalize(nameParts[0]);
 			var foodPrice = parserUtil.parsePrice(itemParent.find("div.product_price").text()).price;
 			var soup = normalize(nameParts[1]);
-			
+
 			dayMenu.push({
 				isSoup: false,
 				text: food,
