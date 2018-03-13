@@ -20,7 +20,7 @@
     <div id="container" style="margin: 79px 40px 71px;">
         {{#each restaurants}}
         <section data-restaurant-id="{{this.id}}">
-            <h2><a href="{{this.url}}" target="_blank">{{this.name}}</a></h2>
+            <h2><a href="{{webUrl this}}" target="_blank">{{this.name}}</a></h2>
             <div class="fa fa-spinner fa-pulse"></div>
         </section>
         {{/each}}

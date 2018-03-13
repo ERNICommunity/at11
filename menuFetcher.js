@@ -4,46 +4,58 @@ var config = require('./config');
 var charset = require('charset');
 var iconv = require('iconv-lite');
 
-module.exports.fetchMenu = function(url, date, postParams, parseCallback, doneCallback) {
-    var cached = cache.get(date + ":" + url);
-    if (cached && !process.env.AT11_NO_CACHE)
+module.exports.fetchMenu = function(restaurantConfig, date, parseCallback, doneCallback) {
+    var cached = cache.get(date + ":" + restaurantConfig.url);
+    if (cached && !process.env.AT11_NO_CACHE && !restaurantConfig.noCache)
     {
         doneCallback(null, cached);
     }
     else
     {
-        load(url, date, postParams, parseCallback, function(error, menu) {
+        load(restaurantConfig, date, parseCallback, function(error, menu) {
             if (!error)
             {
-                if (menu.length > 0)
+                if (restaurantConfig.noCache)
                 {
-                    cache.set(date + ":" + url, menu);
+                    doneCallback(null, {
+                        timestamp: Date.now(),
+                        value: menu
+                    });
                 }
-                //we need to go through cache to get cache timestamp
-                doneCallback(null, cache.get(date + ":" + url));
+                else
+                {
+                    if (menu.length > 0)
+                    {
+                        cache.set(date + ":" + restaurantConfig.url, menu);
+                    }
+                    //we need to go through cache to get cache timestamp
+                    doneCallback(null, cache.get(date + ":" + restaurantConfig.url));
+                }
             }
             else
             {
-                console.error("Error for %s: %s", url, error);
+                console.error("Error for %s: %s", restaurantConfig.url, error);
                 doneCallback(error);
             }
         });
     }
 
-    function load(url, date, postParams, parse, done) {
+    function load(restaurantConfig, date, parse, done) {
         var options = {
-            url: url,
-            method: postParams ? "POST" : "GET",
-            form: postParams,
+            url: restaurantConfig.url,
+            method: restaurantConfig.postParams ? "POST" : "GET",
+            headers: restaurantConfig.headers || {},
+            form: restaurantConfig.postParams,
             encoding: 'binary',
             headers: { 'User-Agent': 'Mozilla/5.0' },
             timeout: 10 * 1000 // 10s timeout for request
         };
+
         request(options, function(error, response, body) {
             if (!error && response.statusCode === 200)
             {
                 var enc = charset(response.headers, body);
-                if (enc !== 'utf-8')
+                if (enc && enc !== 'utf-8')
                 {
                     body = iconv.decode(new Buffer(body, 'binary'), enc).toString('utf-8');
                 }
@@ -69,6 +81,10 @@ module.exports.fetchMenu = function(url, date, postParams, parseCallback, doneCa
                             if (!Array.isArray(menu))
                             {
                                 throw "Invalid menu returned (expected array, got " + typeof menu + ")";
+                            }
+                            if (!menu.length)
+                            {
+                                throw "Empty menu returned";
                             }
                             menu.forEach(function(item) {
                                 if (typeof item !== "object")

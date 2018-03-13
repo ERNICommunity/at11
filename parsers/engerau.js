@@ -1,27 +1,29 @@
+require('./parserUtil');
 var zomato = require('./zomato');
 
-module.exports.parse = function(html, date, callback) {
-    zomato.parse(html, date, function(menuItems) {
-        var price = NaN;
-        var lastElems = menuItems.splice(-3); // last 3 items are parsed wrongly by zomato parser, need to be fixed manually
-        var dayMenu = menuItems.map(function(item){
-            if (item.isSoup) {
-              price = item.price;
-              item.price = NaN;
-            } else {
-              item.price = price;
+// date arg remains even if its not necessary ("method should have 3 parameters" check in app.js)
+module.exports.parse = function(response, date, callback) {
+    zomato.parse(response, function(menu) {
+        var foundMainCourse = false;
+        
+        callback(menu.reduce(function(agg, menuItem) {
+            foundMainCourse = foundMainCourse || /^\d\s?[\.,]\){0,1}/.test(menuItem.text);
+            if (!/extra\s{0,1}menu/i.test(menuItem.text)) {
+                agg.push({
+                    isSoup: !foundMainCourse,
+                    text: normalize(menuItem.text),
+                    price: menuItem.price
+                });
             }
-            item.text = normalize(item.text);
-            return item;
-        });
-        // fix last item
-        dayMenu.push(lastElems[1]);
-        dayMenu[dayMenu.length - 1].isSoup = false;
-        dayMenu[dayMenu.length - 1].text = normalize(dayMenu[dayMenu.length - 1].text);
-        callback(dayMenu);
+            return agg;
+        }, []));
     });
 
-    function normalize(str){
-      return str.replace(/\*.*$/, '');
+    function normalize(str) {
+        return str.removeItemNumbering()
+            .removeMetrics()
+            .replace(/A\s(\d\s?[\.,]?\s?)+$/, '')
+            .correctCommaSpacing()
+            .normalizeWhitespace();
     }
 };
