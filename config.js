@@ -13,7 +13,8 @@ module.exports = {
 	{ id: 7, name: 'Kamenica - Corleone Pizza', url: 'http://www.pizzacorleone.sk/obedove-menu.html', module: 'kamenica' },
 	{ id: 8, name: 'Numero Uno', url: 'http://www.numerouno.sk/denne-menu/', module: 'numerouno' },
 	{ id: 9, name: 'Engerau restaurant', url: 'https://www.zomato.com/sk/bratislava/engerau-restaurant-petr%C5%BEalka-bratislava-v/denn%C3%A9-menu', module: 'engerau' },
-	{ id: 10, name: 'Lokálka', url: 'http://www.lokalka.sk/kopcianska-2/', module: 'lokalka' }
+	{ id: 10, name: 'Lokálka', url: 'http://www.lokalka.sk/kopcianska-2/', module: 'lokalka' },
+	{ id: 12, name: 'Hall of Kings', url: 'https://menucka.sk/denne-menu/bratislava/hall-of-kings', module: 'hallofkings' }
 	],
 	themes: {
 		'jano': { name: 'Jano', template: '../views/index.html' },
