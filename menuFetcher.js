@@ -36,7 +36,7 @@ module.exports.fetchMenu = function(url, date, postParams, parseCallback, doneCa
             method: postParams ? "POST" : "GET",
             form: postParams,
             encoding: 'binary',
-            headers: { 'User-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)', 'Accept': 'text/html,*/*' }, // some sites need us to pretend to be a browser to work
+            headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)', 'Accept': 'text/html,*/*' }, // some sites need us to pretend to be a browser to work
             timeout: 10 * 1000 // 10s timeout for request
         };
         request(options, function(error, response, body) {
