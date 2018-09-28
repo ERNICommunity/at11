@@ -16,7 +16,7 @@ function createAction(url, postParams, parseCallback) {
 }
 for (var i = 0; i < config.restaurants.length; i++)
 {
-    console.log(config.restaurants[i]);
+    console.log("Processing:", config.restaurants[i]);
     try
     {
         var parserModule = require("./parsers/" + config.restaurants[i].module);
