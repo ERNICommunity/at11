@@ -1,5 +1,5 @@
 var cheerio = require('cheerio');
-require('./parserUtil');
+var parserUtil = require('./parserUtil');
 
 module.exports.parse = function(html, date, callback) {
     var $ = cheerio.load(html);
@@ -27,13 +27,8 @@ module.exports.parse = function(html, date, callback) {
         }
     });
 
-    dayMenu.sort(function(item) {
-        if (item.isSoup) {
-            return 0;
-        } else {
-            return 1;
-        }
-    });
+    dayMenu.sort(parserUtil.compareMenuItems);
+    
     callback(dayMenu);
 
     function parseMeal(tablerow) {
