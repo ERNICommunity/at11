@@ -10,11 +10,7 @@ module.exports.parse = function(html, date, callback) {
 		parseItem($(this));
 	});
 
-    dayMenu.sort(function(first, second) {
-		var f = first.isSoup ? 0 : 1;
-		var s = second.isSoup ? 0 : 1;
-		return f - s;
-    });
+    dayMenu.sort(parserUtil.compareMenuItems);
 
     callback(dayMenu);
 

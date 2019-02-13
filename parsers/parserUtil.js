@@ -71,3 +71,11 @@ module.exports.parseCookies = function(request) {
 
     return list;
 };
+
+// Soup first menu item comparere
+module.exports.compareMenuItems = function(first, second)
+{
+    var f = first.isSoup ? 0 : 1;
+    var s = second.isSoup ? 0 : 1;
+    return f - s;
+};
