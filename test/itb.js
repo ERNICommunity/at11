@@ -36,38 +36,39 @@ describe('itb', function() {
 
         it("3rd item correct", function () {
             assert.equal(menu[2].isSoup, false);
-            assert.equal(menu[2].text, "Perkelt z hlivy ústricovej, halušky");
-            assert.equal(menu[2].price, 3.2);
+            assert.equal(menu[2].text, "Grilovaná panenka, višňová omáčka, nové zemiaky so zeleninou");
+            assert.equal(menu[2].price, 4.2);
         });
 
         it("4th item correct", function () {
             assert.equal(menu[3].isSoup, false);
-            assert.equal(menu[3].text, "Černohorský morčací rezeň, pečené zemiaky");
-            assert.equal(menu[3].price, 3.2);
-        });
+            assert.equal(menu[3].text, "Maďarský hovädzí guláš, knedľa");
+            assert.equal(menu[3].price, 3.5);
+        });        
 
         it("5th item correct", function () {
             assert.equal(menu[4].isSoup, false);
-            assert.equal(menu[4].text, "Bravčové burritos v pšeničnej placke, mexická ryža");
-            assert.equal(menu[4].price, 3.5);
+            assert.equal(menu[4].text, "Grilovaný hejk, fazuľové lúsky s mrkvou");
+            assert.equal(menu[4].price, 3.3);
         });
 
         it("6th item correct", function () {
             assert.equal(menu[5].isSoup, false);
-            assert.equal(menu[5].text, "Grilovaný hejk, fazuľové lúsky s mrkvou");
-            assert.equal(menu[5].price, 3.3);
+            assert.equal(menu[5].text, "Bravčové burritos v pšeničnej placke, mexická ryža");
+            assert.equal(menu[5].price, 3.5);
         });
 
         it("7th item correct", function () {
             assert.equal(menu[6].isSoup, false);
-            assert.equal(menu[6].text, "Maďarský hovädzí guláš, knedľa");
-            assert.equal(menu[6].price, 3.5);
+            assert.equal(menu[6].text, "Černohorský morčací rezeň, pečené zemiaky");
+            assert.equal(menu[6].price, 3.2);
         });
+
 
         it("8th item correct", function () {
             assert.equal(menu[7].isSoup, false);
-            assert.equal(menu[7].text, "Grilovaná panenka, višňová omáčka, nové zemiaky so zeleninou");
-            assert.equal(menu[7].price, 4.2);
+            assert.equal(menu[7].text, "Perkelt z hlivy ústricovej, halušky");
+            assert.equal(menu[7].price, 3.2);
         });
     });
 });
