@@ -18,10 +18,6 @@ module.exports = {
 	{ id: 13, name: 'Tiffany', url: 'https://www.zomato.com/sk/bratislava/pizzeria-tiffany-petr%C5%BEalka-bratislava-v/denn%C3%A9-menu', module: 'tiffany' }
 	],
 	themes: {
-		'jano': { name: 'Jano', template: '../views/index.html' },
-		'matus': { name: 'Matúš', template: '../views/index3.html' },
-		'iveta': { name: 'Iveta', template: '../views/index4.html' },
-		'diana': { name: 'Diana', template: '../views/index6.html' },
-		'telka': { name: 'Telka', template: '../views/index5.html' }
+		'diana': { name: 'Diana', template: '../views/index6.html' }
 	}
 };
