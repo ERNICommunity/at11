@@ -54,7 +54,7 @@ function loadMenus(container) {
                     listElem.append(errElem);
                 })
                 .always(function() {
-                    section.find(".fa-spinner").remove();
+                    section.find(".loader").remove();
                     section.append(listElem);
                     if(refreshElem){
                         section.append(refreshElem);

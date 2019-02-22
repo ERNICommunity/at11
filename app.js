@@ -64,13 +64,10 @@ var app = express();
 app.set('view engine', 'html');
 app.engine('html', hbs.__express);
 app.use(express.static('static'));
-app.get('/:theme?', function(req, res) {
+app.get('/', function(req, res) {
     res.setHeader('Content-Type', 'text/html; charset=UTF-8');
     res.setHeader('Content-Language', 'sk');
-    var theme = parserUtil.parseTheme(req);
-
-    res.cookie('theme', theme, { maxAge: 315360000000, httpOnly: true });
-    res.render(config.themes[theme].template, { restaurants: config.restaurants, themes: config.themes });
+    res.render('../views/index6.html', { restaurants: config.restaurants });
 });
 app.get('/menu/:id/:day', function(req, res) {
     if (typeof actions[req.params.id] === "undefined")

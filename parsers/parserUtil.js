@@ -1,4 +1,3 @@
-var config = require('../config');
 
 module.exports.parsePrice = function(item) {
     var priceRegex = /(\d+(?:[\.,]\d+)?)[\.,]?\s*(?:€|Eur)/i;
@@ -42,34 +41,6 @@ global.String.prototype.capitalizeFirstLetter = global.String.prototype.capitali
 
 global.String.prototype.removeItemNumbering = global.String.prototype.removeItemNumbering || function() {
     return this.trim().replace(/^\W\s+/, '').replace(/^[\w\d] *[\)\.,]+[AB]?\s*/, '').trim();
-};
-
-module.exports.parseTheme = function(req) {
-    var cookies = this.parseCookies(req);
-
-    //if no theme parameter is defined in URL, but it is in cookies
-    if (!req.params.theme && typeof cookies.theme !== "undefined")
-    {
-        return config.themes[cookies.theme] ? cookies.theme : "diana";
-    }
-
-    //use parameter from URL or default if not defined
-    return config.themes[req.params.theme] ? req.params.theme : "diana";
-};
-
-module.exports.parseCookies = function(request) {
-    var list = {},
-        rc = request.headers.cookie;
-
-    if(rc)
-    {
-        rc.split(';').forEach(function(cookie) {
-            var parts = cookie.split('=');
-            list[parts.shift().trim()] = unescape(parts.join('='));
-        });
-    }
-
-    return list;
 };
 
 // Soup first menu item comparere

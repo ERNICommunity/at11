@@ -107,7 +107,7 @@ footer {
     font-size: 0.9em;
     text-align: center;
     color: #FCB85F;
-    background-color: #E9843E;   
+    background-color: #E9843E;
 }
 
 footer span {
@@ -122,7 +122,7 @@ footer div {
 }
 
 footer div a {
-    padding: 0px;    
+    padding: 0px;
     vertical-align: center;
 }
 
@@ -146,7 +146,7 @@ a.github {
     background: url('../img/at11_logo_06.png') no-repeat center;
     text-indent: -9999px;
     float: left;
-} 
+}
 
   h1, h2, h3 {
         margin: 0px;
@@ -188,6 +188,7 @@ a.github {
 }
 
 div#selection {
+    width: 200px;
     padding: 0 7px 0 7px;
     }
 
