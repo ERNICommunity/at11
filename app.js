@@ -5,7 +5,6 @@ var moment = require("moment-timezone");
 //our modules
 var config = require('./config');
 var menuFetcher = require('./menuFetcher');
-var parserUtil = require('./parsers/parserUtil');
 
 console.log("Initializing...");
 var actions = {};
