@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/ERNICommunity/at11.svg?branch=master)](https://travis-ci.org/ERNICommunity/at11)
+[![Build Status](https://travis-ci.com/ERNICommunity/at11.svg?branch=master)](https://travis-ci.com/ERNICommunity/at11)
 [![Dependency Status](https://david-dm.org/ERNICommunity/at11.svg)](https://david-dm.org/ERNICommunity/at11)
 
 at11
