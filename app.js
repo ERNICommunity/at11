@@ -66,7 +66,7 @@ app.use(express.static('static'));
 app.get('/', function(req, res) {
     res.setHeader('Content-Type', 'text/html; charset=UTF-8');
     res.setHeader('Content-Language', 'sk');
-    res.render('../views/index6.html', { restaurants: config.restaurants });
+    res.render('../views/index.html', { restaurants: config.restaurants });
 });
 app.get('/menu/:id/:day', function(req, res) {
     if (typeof actions[req.params.id] === "undefined")
