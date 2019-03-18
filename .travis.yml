@@ -6,3 +6,4 @@ node_js:
 deploy:
   provider: azure_web_apps
   verbose: true
+  username: ${AZURE_WA_USERNAME@Q}
