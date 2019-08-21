@@ -5,5 +5,3 @@ node_js:
   - "node"
 deploy:
   provider: azure_web_apps
-  verbose: true
-  username: "\"'${AZURE_WA_USERNAME}'\""
