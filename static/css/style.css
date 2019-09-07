@@ -141,12 +141,22 @@ a.github {
 
 #main-logo {
     padding: 0px;
-    width: 60px;
-    height: 76px;
-    background: url('../img/at11_logo_06.png') no-repeat center;
-    text-indent: -9999px;
+    margin-top: 10px;
+    height: 66px;
     float: left;
 }
+
+#main-logo a {
+    margin: 0;
+    padding: 0;
+    display: inline;
+}
+
+#main-logo img {
+    height: 50px;
+    margin-right: 10px;
+}
+
 
   h1, h2, h3 {
         margin: 0px;
