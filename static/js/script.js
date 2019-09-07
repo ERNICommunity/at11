@@ -1,7 +1,6 @@
 /* global writeCookie, readCookie, loadMenus */
 
 $(document).ready(function() {
-    $('.navigation-info').remove();
 
     var container = $("#container");
     loadMenus(container);

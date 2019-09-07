@@ -3,7 +3,6 @@ module.exports = {
 	cacheExpiration: 2 * 60 * 60 * 1000, //2h
 	parserTimeout: 10 * 1000, //10s
 	restaurants: [
-        { id: 1, name: 'U Daňováka', url: 'http://www.udanovaka.sk/obedove-menu/', module: 'danovak' },
         { id: 11, name: 'Kaša', url: 'https://restauracie.sme.sk/restauracia/kasa-2_8386-petrzalka_664/denne-menu', module: 'kasa' },
         { id: 3, name: 'ITB', url: 'http://www.citycantina.sk/prevadzka/1', module: 'itb' },
         { id: 2, name: 'Giuliano', url: 'http://www.giuliano.sk/-denne-menu', module: 'giuliano' },

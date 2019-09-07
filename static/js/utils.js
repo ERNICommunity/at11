@@ -47,7 +47,7 @@ function loadMenus(container) {
                             }
                             listElem.append(li);
                         });
-                        refreshElem = "<span class='timeago'><i class='fa fa-refresh'></i> " + data.timeago + "</span>";
+                        refreshElem = "<span class='timeago'>" + data.timeago + "</span>";
                     }
                 })
                 .fail(function() {
