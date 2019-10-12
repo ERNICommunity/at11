@@ -12,15 +12,13 @@
     "request": "^2.88.0"
   },
   "devDependencies": {
-    "jscs": "^3.0.7",
-    "jshint": "^2.10.2",
+    "eslint": "^6.5.1",
     "mocha": "^5.2.0"
   },
   "scripts": {
     "start": "node app.js",
-    "pretest": "jshint --verbose app.js cache.js config.js menuFetcher.js parsers/ static/js/",
-    "test": "mocha --reporter spec --exit",
-    "posttest": "jscs --verbose app.js cache.js config.js menuFetcher.js parsers/ static/js/"
+    "pretest": "eslint app.js cache.js config.js menuFetcher.js parsers/ static/js/",
+    "test": "mocha --reporter spec --exit"
   },
   "author": {
     "name": "Jakub Šturc",

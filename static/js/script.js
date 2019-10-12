@@ -1,9 +1,8 @@
-/* global writeCookie, readCookie, loadMenus */
 
 $(document).ready(function() {
     var container = $("#container");
-    loadMenus(container);
-    initialHide(container);
+    window.loadMenus(container);
+    window.initialHide(container);
     container.masonry();
 
     $('#selectrestaurants').on('click', function(e) {
@@ -40,14 +39,14 @@ $(document).ready(function() {
                 unChecked.push($(this).val());
             }
         });
-        writeCookie('hiddenRestaurants', unChecked.join(','), 10 * 365);
+        window.writeCookie('hiddenRestaurants', unChecked.join(','), 10 * 365);
     });
 });
 
-function initialHide(cont) {
+window.initialHide = function(cont) {
     window.hiddenRestaurants = {};
 
-    var hidden = readCookie("hiddenRestaurants");
+    var hidden = window.readCookie("hiddenRestaurants");
     if(typeof hidden === "undefined") {
         return;
     }
@@ -64,4 +63,4 @@ function initialHide(cont) {
             $('input[type=checkbox][value=' + restaurantId + ']', '#selectrestaurants').prop('checked', false);
         }
     });
-}
+};

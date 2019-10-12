@@ -1,14 +1,12 @@
-﻿/* exported writeCookie, readCookie, loadMenus */
-
-function writeCookie(cookieName, cookieValue, nDays) {
+﻿window.writeCookie = function(cookieName, cookieValue, nDays) {
     var today = new Date();
     var expire = new Date();
     if(!nDays) { nDays = 1; }
     expire.setTime(today.getTime() + 3600 * 1000 * 24 * nDays);
     document.cookie = cookieName + "=" + escape(cookieValue) + ";expires=" + expire.toUTCString() + ";path=/";
-}
+};
 
-function readCookie(name) {
+window.readCookie = function(name) {
     var cookies = document.cookie.split(";");
     for(var i = 0; i < cookies.length; i++) {
         var nameValue = cookies[i].split("=");
@@ -16,10 +14,10 @@ function readCookie(name) {
             return unescape(nameValue[1].trim());
         }
     }
-}
+};
 
-function loadMenus(container) {
-    var dateCompound = getDateCompound();
+window.loadMenus = function(container) {
+    var dateCompound = window.getDateCompound();
 
     $('#date').text(dateCompound.description);
     var date = dateCompound.date;
@@ -62,9 +60,9 @@ function loadMenus(container) {
                     container.masonry();
                 });
     });
-}
+};
 
-function getDateCompound() {
+window.getDateCompound = function() {
     var date = new Date();
     var desc = "dnes";
     if(date.getHours() >= 15) {
@@ -72,4 +70,4 @@ function getDateCompound() {
         desc = "zajtra";
     }
     return { date: date, description: desc + " " + date.toLocaleDateString() };
-}
+};

@@ -23,7 +23,7 @@ module.exports = new (function() { // jshint ignore:line
 
 	function cleanUp() {
 		for(var key in cache){
-            if(cache.hasOwnProperty(key) && !isValid(key)){
+            if(Object.prototype.hasOwnProperty.call(cache, key) && !isValid(key)){
                 delete cache[key];
             }
         }
