@@ -1,5 +1,5 @@
 import charset from "charset";
-import * as iconv from "iconv-lite";
+import iconv from "iconv-lite";
 import { Moment } from "moment-timezone";
 import request from "request";
 
@@ -41,9 +41,10 @@ export class MenuFetcher {
             method: "GET",
             encoding: "binary",
             headers: { // some sites need us to pretend to be a browser to work
-                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)", "Accept": "text/html,*/*"
+                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)",
+                "Accept": "text/html,*/*"
             },
-            timeout: 10 * 1000, // 10s timeout for request
+            timeout: 10 * 1000 // 10s timeout for request
         };
         request(options, (error, response, body) => {
             if (!error && response.statusCode === 200) {

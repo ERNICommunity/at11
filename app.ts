@@ -1,6 +1,6 @@
-import * as express from "express";
-import * as hbs from "hbs";
-import * as moment from "moment-timezone";
+import express from "express";
+import hbs from "hbs";
+import moment from "moment-timezone";
 
 import { Cache } from "./cache";
 import { Config } from "./config";
@@ -9,9 +9,8 @@ import { IParser } from "./parsers/IParser";
 import { MenuItem } from "./parsers/MenuItem";
 
 console.log("Initializing...");
-
 const config = new Config();
-const cache =  new Cache<MenuItem[]>(config)
+const cache =  new Cache<MenuItem[]>(config);
 const menuFetcher = new MenuFetcher(config, cache, process.env.AT11_NO_CACHE ? true : false);
 
 const actions = new Array<(date: moment.Moment, done: (err: Error, result: ReturnType<Cache<MenuItem[]>["get"]>) => void) => void>();

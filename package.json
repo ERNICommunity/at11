@@ -26,8 +26,9 @@
     "typescript-tslint-plugin": "^0.5.4"
   },
   "scripts": {
-    "start": "node app.js",
-    "pretest": "eslint app.js cache.js config.js menuFetcher.js parsers/ static/js/",
+    "build": "tsc",
+    "start": "node bin/app.js",
+    "pretest": "tslint -p ./tsconfig.json",
     "test": "mocha --reporter spec --exit"
   },
   "author": {
