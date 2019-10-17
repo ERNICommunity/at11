@@ -27,7 +27,7 @@
   },
   "scripts": {
     "build": "tsc",
-    "start": "node bin/app.js",
+    "start": "node dist/app.js",
     "pretest": "tslint -p ./tsconfig.json",
     "test": "mocha --reporter spec --exit"
   },
