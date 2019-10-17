@@ -19,7 +19,6 @@
     "@types/moment-timezone": "^0.5.12",
     "@types/node": "^12.11.1",
     "@types/request": "^2.48.3",
-    "eslint": "^6.5.1",
     "mocha": "^5.2.0",
     "tslint": "^5.20.0",
     "typescript": "^3.6.4",
