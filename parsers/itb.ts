@@ -9,7 +9,7 @@ import { compareMenuItems } from "./parserUtil";
 export class Itb implements IParser {
     public parse(html: string, date: Moment, doneCallback: (menu: IMenuItem[]) => void): void {
         const $ = cheerio.load(html);
-        const dayMenu = [];
+        const dayMenu = new Array<IMenuItem>();
 
         const todayNameRegex = new RegExp(date.format("dddd"), "i");
         const tomorrowNameRegex = new RegExp(date.clone().add(1, "days").format("dddd"), "i");

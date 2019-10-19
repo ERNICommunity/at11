@@ -8,7 +8,7 @@ import "./parserUtil";
 export class HallOfKings implements IParser {
     public parse(html: string, date: Moment, doneCallback: (menu: IMenuItem[]) => void): void {
         const $ = cheerio.load(html);
-        const dayMenu = [];
+        const dayMenu = new Array<IMenuItem>();
 
         const dateStr = date.format("DD.MM.YYYY");
 

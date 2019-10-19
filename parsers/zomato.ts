@@ -7,7 +7,7 @@ import "./parserUtil";
 export abstract class Zomato {
     protected parseBase(html: string, date: Moment): IMenuItem[] {
         const $ = cheerio.load(html);
-        const dayMenu = [];
+        const dayMenu = new Array<IMenuItem>();
 
         $("#daily-menu-container").find(".tmi-group").each(function() {
             const $this = $(this);
