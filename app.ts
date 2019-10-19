@@ -35,7 +35,7 @@ if (Object.keys(actions).length === 0) {
 console.log("Initialization successful (" + Object.keys(actions).length + " of " + config.restaurants.length + ")");
 
 console.log("Registering partials...");
-hbs.registerPartials(__dirname + "/views/partials");
+hbs.registerPartials("./views/partials");
 console.log("Done");
 
 console.log("Global setup...");
@@ -71,7 +71,7 @@ app.get("/menu/:id/:day", (req, res) => {
 console.log("Done");
 
 console.log("Creating server...");
-app.listen(config.port, (err) => {
+app.listen(config.port, function(err) {
   if (err) {
       console.error("Unable to create server", err);
       process.exit(1);
