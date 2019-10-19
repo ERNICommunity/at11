@@ -5,25 +5,24 @@ import moment from "moment-timezone";
 import { Cache } from "./cache";
 import { Config } from "./config";
 import { MenuFetcher } from "./menuFetcher";
+import { IMenuItem } from "./parsers/IMenuItem";
 import { IParser } from "./parsers/IParser";
-import { MenuItem } from "./parsers/MenuItem";
 
 console.log("Initializing...");
 const config = new Config();
-const cache =  new Cache<MenuItem[]>(config);
-const menuFetcher = new MenuFetcher(config, cache, process.env.AT11_NO_CACHE ? true : false);
+const cache =  new Cache<IMenuItem[]>(config);
+const menuFetcher = new MenuFetcher(config, cache);
 
-const actions = new Array<(date: moment.Moment, done: (err: Error, result: ReturnType<Cache<MenuItem[]>["get"]>) => void) => void>();
-for (let i = 0; i < config.restaurants.length; i++) {
-    console.log("Processing:", config.restaurants[i]);
+const actions = new Array<(date: moment.Moment, done: (err: Error, result: ReturnType<Cache<IMenuItem[]>["get"]>) => void) => void>();
+for (let restaurant  of config.restaurants) {
+    console.log("Processing:", restaurant);
     try {
-        const parser = require("./parsers/" + config.restaurants[i].parserName) as IParser;
-        const id = config.restaurants[i].id;
+        const parser = require("./parsers/" + restaurant.parserName) as IParser;
+        const id = restaurant.id;
         if (typeof actions[id] !== "undefined") {
             throw new Error("Non unique id '" + id + "' provided");
         }
-        const url = config.restaurants[i].url;
-        actions[id] = (date, doneCallback) => menuFetcher.fetchMenu(url, date, parser.parse, doneCallback);
+        actions[id] = (date, doneCallback) => menuFetcher.fetchMenu(restaurant.url, date, parser.parse, doneCallback);
     } catch (e) {
         console.warn(e);
     }

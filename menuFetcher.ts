@@ -5,21 +5,21 @@ import request from "request";
 
 import { Cache } from "./cache";
 import { Config } from "./config";
+import { IMenuItem } from "./parsers/IMenuItem";
 import { IParser } from "./parsers/IParser";
-import { MenuItem } from "./parsers/MenuItem";
 
 export class MenuFetcher {
-    constructor(private _config: Config, private _cache: Cache<MenuItem[]>, private _bypassCache: boolean) {}
+    constructor(private _config: Config, private _cache: Cache<IMenuItem[]>) {}
 
     public fetchMenu(url: string,
                      date: Moment,
                      parseCallback: IParser["parse"],
-                     doneCallback: (err: Error, result: ReturnType<Cache<MenuItem[]>["get"]>) => void) {
+                     doneCallback: (err: Error, result: ReturnType<Cache<IMenuItem[]>["get"]>) => void) {
         const cached = this._cache.get(date + ":" + url);
-        if (cached && !this._bypassCache) {
+        if (cached && process.env.AT11_NO_CACHE) {
             doneCallback(null, cached);
         } else {
-            this.load(url, date, parseCallback, (error: Error, menu: MenuItem[]) => {
+            this.load(url, date, parseCallback, (error: Error, menu: IMenuItem[]) => {
                 if (!error) {
                     this._cache.set(date + ":" + url, menu);
                     // we need to go through cache to get cache timestamp
@@ -35,7 +35,7 @@ export class MenuFetcher {
     private load(url: string,
                  date: Moment,
                  parseCallback: IParser["parse"],
-                 doneCallback: (error: Error, menu: MenuItem[]) => void) {
+                 doneCallback: (error: Error, menu: IMenuItem[]) => void) {
         const options = {
             url,
             method: "GET",

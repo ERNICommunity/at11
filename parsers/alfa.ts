@@ -1,12 +1,12 @@
 import cheerio from "cheerio";
 import { Moment } from "moment-timezone";
 
+import { IMenuItem } from "./IMenuItem";
 import { IParser } from "./IParser";
-import { MenuItem } from "./MenuItem";
-require("./parserUtil");
+import "./parserUtil";
 
 export class Alfa implements IParser {
-    public parse(html: string, date: Moment, doneCallback: (menu: MenuItem[]) => void): void {
+    public parse(html: string, date: Moment, doneCallback: (menu: IMenuItem[]) => void): void {
         const $ = cheerio.load(html);
         const dateStr = date.format("DD.MM.YYYY");
 
@@ -38,15 +38,15 @@ export class Alfa implements IParser {
             }
         });
 
-        const dayMenu = new Array<MenuItem>();
+        const dayMenu = new Array<IMenuItem>();
 
         soupElems.forEach((elem) => {
-            const text = normalize($(".left", elem).text());
+            const text = this.normalize($(".left", elem).text());
             dayMenu.push({ isSoup: true, text, price: NaN });
         });
 
         mealElems.forEach((elem) => {
-            const text = normalize($(".left", elem).text());
+            const text = this.normalize($(".left", elem).text());
             const price = parseFloat($(".right", elem).text().trim());
             dayMenu.push({ isSoup: false, text, price });
         });

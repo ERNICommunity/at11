@@ -1,6 +1,6 @@
 import { Moment } from "moment-timezone";
-import { MenuItem } from "./MenuItem";
+import { IMenuItem } from "./IMenuItem";
 
 export interface IParser {
-    parse(html: string, date: Moment, doneCallback: (menu: MenuItem[]) => void): void;
+    parse(html: string, date: Moment, doneCallback: (menu: IMenuItem[]) => void): void;
 }
