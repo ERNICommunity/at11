@@ -41,12 +41,12 @@ export class Alfa implements IParser {
         const dayMenu = new Array<IMenuItem>();
 
         soupElems.forEach((elem) => {
-            const text = this.normalize($(".left", elem).text());
+            const text = normalize($(".left", elem).text());
             dayMenu.push({ isSoup: true, text, price: NaN });
         });
 
         mealElems.forEach((elem) => {
-            const text = this.normalize($(".left", elem).text());
+            const text = normalize($(".left", elem).text());
             const price = parseFloat($(".right", elem).text().trim());
             dayMenu.push({ isSoup: false, text, price });
         });
