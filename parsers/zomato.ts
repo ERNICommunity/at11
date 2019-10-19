@@ -2,11 +2,10 @@ import cheerio from "cheerio";
 import { Moment } from "moment-timezone";
 
 import { IMenuItem } from "./IMenuItem";
-import { IParser } from "./IParser";
 import "./parserUtil";
 
-export class Zomato implements IParser {
-    public parse(html: string, date: Moment, doneCallback: (menu: IMenuItem[]) => void): void {
+export abstract class Zomato {
+    protected parseBase(html: string, date: Moment): IMenuItem[] {
         const $ = cheerio.load(html);
         const dayMenu = [];
 
@@ -39,7 +38,7 @@ export class Zomato implements IParser {
             }
         });
 
-        doneCallback(dayMenu);
+        return dayMenu;
 
         function getDay(text: string): string {
             const found = text.trim().match(/^(.+),/);
