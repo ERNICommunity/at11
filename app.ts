@@ -6,7 +6,6 @@ import { Cache } from "./cache";
 import { Config } from "./config";
 import { MenuFetcher } from "./menuFetcher";
 import { IMenuItem } from "./parsers/IMenuItem";
-import { IParser } from "./parsers/IParser";
 
 console.log("Initializing...");
 const config = new Config();
@@ -14,15 +13,14 @@ const cache =  new Cache<IMenuItem[]>(config);
 const menuFetcher = new MenuFetcher(config, cache);
 
 const actions = new Array<(date: moment.Moment, done: (err: Error, result: ReturnType<Cache<IMenuItem[]>["get"]>) => void) => void>();
-for (let restaurant  of config.restaurants) {
+for (const restaurant  of config.restaurants) {
     console.log("Processing:", restaurant);
     try {
-        const parser = require("./parsers/" + restaurant.parserName) as IParser;
         const id = restaurant.id;
         if (typeof actions[id] !== "undefined") {
             throw new Error("Non unique id '" + id + "' provided");
         }
-        actions[id] = (date, doneCallback) => menuFetcher.fetchMenu(restaurant.url, date, parser.parse, doneCallback);
+        actions[id] = (date, doneCallback) => menuFetcher.fetchMenu(restaurant.url, date, restaurant.parser.parse, doneCallback);
     } catch (e) {
         console.warn(e);
     }

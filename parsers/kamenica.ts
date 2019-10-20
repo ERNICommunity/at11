@@ -5,7 +5,7 @@ import { IMenuItem } from "./IMenuItem";
 import { IParser } from "./IParser";
 import "./parserUtil";
 
-export class Itb implements IParser {
+export class Kamenica implements IParser {
     public parse(html: string, date: Moment, doneCallback: (menu: IMenuItem[]) => void): void {
         const $ = cheerio.load(html);
 

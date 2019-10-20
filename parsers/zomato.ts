@@ -12,8 +12,8 @@ export abstract class Zomato {
         $("#daily-menu-container").find(".tmi-group").each(function() {
             const $this = $(this);
 
-            const text = $this.children(".tmi-group-name").text();
-            const day = getDay(text);
+            const dayText = $this.children(".tmi-group-name").text();
+            const day = getDay(dayText);
 
             if (day === date.format("dddd")) {
                 $this.children(".tmi-daily").each(function() {
