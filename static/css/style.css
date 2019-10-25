@@ -83,7 +83,7 @@ body {
     background-color: #eee;
 }
 
-a, a:active, a:visited {
+a {
     text-decoration: inherit;
     color: inherit;
 }
@@ -359,6 +359,10 @@ section {
             section ul li.soup {
                 font-weight: 300;
                 letter-spacing: 0.02em;
+            }
+
+            section ul a {
+                color: #EE6B67;
             }
 
     section > span.timeago {
