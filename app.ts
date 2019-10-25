@@ -1,3 +1,4 @@
+import * as appInsights from "applicationinsights";
 import express from "express";
 import hbs from "hbs";
 import moment from "moment-timezone";
@@ -8,6 +9,7 @@ import { MenuFetcher } from "./menuFetcher";
 import { IMenuItem } from "./parsers/IMenuItem";
 
 console.log("Initializing...");
+appInsights.start();
 const config = new Config();
 const cache =  new Cache<IMenuItem[]>(config);
 const menuFetcher = new MenuFetcher(config, cache);

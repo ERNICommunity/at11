@@ -3,6 +3,7 @@
   "description": "Daily lunch menu application",
   "version": "1.0.0",
   "dependencies": {
+    "applicationinsights": "^1.5.0",
     "charset": "^1.0.1",
     "cheerio": "^0.22.0",
     "express": "^4.17.1",
