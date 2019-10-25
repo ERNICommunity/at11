@@ -8,7 +8,7 @@ import { Config } from "./config";
 import { MenuFetcher } from "./menuFetcher";
 import { IMenuItem } from "./parsers/IMenuItem";
 
-console.log("Initializing...");
+console.debug("Initializing...");
 const config = new Config();
 const cache =  new Cache<IMenuItem[]>(config);
 const menuFetcher = new MenuFetcher(config, cache);
@@ -32,22 +32,16 @@ for (const restaurant  of config.restaurants) {
     }
 }
 
-if (Object.keys(actions).length === 0) {
-    console.error("Initialization failed, exiting");
-    process.exit(1);
+if (actions.length === 0) {
+    throw new Error("Actions initialization failed");
 }
-console.log("Initialization successful (" + Object.keys(actions).length + " of " + config.restaurants.length + ")");
 
-console.log("Registering partials...");
+console.debug("Runtime setup...");
 hbs.registerPartials("./views/partials");
-console.log("Done");
-
-console.log("Global setup...");
 moment.locale("sk");
 moment.tz.setDefault("Europe/Bratislava");
-console.log("Done");
 
-console.log("Express setup...");
+console.debug("Express setup...");
 const app = express();
 app.set("view engine", "html");
 app.engine("html", hbs.__express);
@@ -72,17 +66,12 @@ app.get("/menu/:id/:day", (req, res) => {
         });
     }
 });
-console.log("Done");
-
-console.log("Creating server...");
 app.listen(config.port, function(err) {
   if (err) {
-      console.error("Unable to create server", err);
-      process.exit(1);
-      return;
+      throw err;
   }
   const host = this.address().address;
   const port = this.address().port;
 
-  console.log("Done, listening on http://%s:%s", host, port);
+  console.info("Done, listening on http://%s:%s", host, port);
 });
