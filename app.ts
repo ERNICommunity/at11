@@ -9,10 +9,14 @@ import { MenuFetcher } from "./menuFetcher";
 import { IMenuItem } from "./parsers/IMenuItem";
 
 console.log("Initializing...");
-appInsights.start();
 const config = new Config();
 const cache =  new Cache<IMenuItem[]>(config);
 const menuFetcher = new MenuFetcher(config, cache);
+
+if (config.isProductionEnvironmnet) {
+    appInsights.setup();
+    appInsights.start();
+}
 
 const actions = new Array<(date: moment.Moment, done: (err: Error, result: ReturnType<Cache<IMenuItem[]>["get"]>) => void) => void>();
 for (const restaurant  of config.restaurants) {

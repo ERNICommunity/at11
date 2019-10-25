@@ -16,7 +16,7 @@ export class MenuFetcher {
                      parseCallback: IParser["parse"],
                      doneCallback: (err: Error, result: ReturnType<Cache<IMenuItem[]>["get"]>) => void) {
         const cached = this._cache.get(date + ":" + url);
-        if (cached && process.env.AT11_NO_CACHE) {
+        if (cached && !this._config.bypassCache) {
             doneCallback(null, cached);
         } else {
             this.load(url, date, parseCallback, (error: Error, menu: IMenuItem[]) => {

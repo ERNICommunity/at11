@@ -13,6 +13,8 @@ import { Tiffany } from "./parsers/tiffany";
 
 export class Config {
     public port: number = process.env.PORT as unknown as number || 54321;
+    public isProductionEnvironmnet: boolean = process.env.NODE_ENV === "production";
+    public bypassCache: boolean = process.env.AT11_NO_CACHE === "true";
     public cacheExpiration = 2 * 60 * 60 * 1000; // 2h
     public parserTimeout = 10 * 1000; // 10s
     public restaurants: Array<{ id: number, name: string, url: string, parser: IParser}>  = [
