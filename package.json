@@ -19,9 +19,9 @@
     "@types/hbs": "^4.0.1",
     "@types/mocha": "^5.2.7",
     "@types/moment-timezone": "^0.5.12",
-    "@types/node": "^12.11.1",
+    "@types/node": "^12.11.7",
     "@types/request": "^2.48.3",
-    "mocha": "^5.2.0",
+    "mocha": "^6.2.2",
     "tslint": "^5.20.0",
     "typescript": "^3.6.4",
     "typescript-tslint-plugin": "^0.5.4"
