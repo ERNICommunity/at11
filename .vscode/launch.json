@@ -19,7 +19,7 @@
             "type": "node",
             "request": "launch",
             "name": "Debug tests",
-            "program": "${workspaceFolder}/node_modules/mocha/bin/_mocha",
+            "program": "${workspaceFolder}/node_modules/mocha/bin/mocha",
             "args": [
                 "--exit",
                 "--no-timeouts",
