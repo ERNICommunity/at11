@@ -35,7 +35,7 @@ export class Kamenica implements IParser {
                     price: NaN
                 };
             } else {
-                return { isSoup : true,
+                return { isSoup : false,
                     text: normalize(item),
                     price
                 };
