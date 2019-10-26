@@ -1,9 +1,9 @@
-import { Config } from "./config";
+import { IConfig } from "./config";
 
 export class Cache<T> {
     private _store = {};
 
-    constructor(private _config: Config) {
+    constructor(private _config: IConfig) {
         setInterval(this.cleanUp, this._config.cacheExpiration);
     }
 

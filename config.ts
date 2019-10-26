@@ -11,13 +11,22 @@ import { PizzaPazza } from "./parsers/pizzapazza";
 import { Skolka } from "./parsers/skolka";
 import { Tiffany } from "./parsers/tiffany";
 
-export class Config {
-    public port: number = process.env.PORT as unknown as number || 54321;
-    public isProductionEnvironmnet: boolean = process.env.NODE_ENV === "production";
-    public bypassCache: boolean = process.env.AT11_NO_CACHE === "true";
-    public cacheExpiration = 2 * 60 * 60 * 1000; // 2h
-    public parserTimeout = 10 * 1000; // 10s
-    public restaurants: Array<{ id: number, name: string, url: string, parser: IParser}>  = [
+export interface IConfig {
+    readonly port: number;
+    readonly isProductionEnvironmnet: boolean;
+    readonly bypassCache: boolean;
+    readonly cacheExpiration: number;
+    readonly parserTimeout: number;
+    readonly restaurants: Array<{ id: number, name: string, url: string, parser: IParser}>;
+}
+
+export class Config implements IConfig {
+    public readonly port: number = process.env.PORT as unknown as number || 54321;
+    public readonly isProductionEnvironmnet: boolean = process.env.NODE_ENV === "production";
+    public readonly bypassCache: boolean = process.env.AT11_NO_CACHE === "true";
+    public readonly cacheExpiration = 2 * 60 * 60 * 1000; // 2h
+    public readonly parserTimeout = 10 * 1000; // 10s
+    public readonly restaurants: Array<{ id: number, name: string, url: string, parser: IParser}>  = [
         // tslint:disable: max-line-length
         { id: 11, name: "Kaša", url: "https://restauracie.sme.sk/restauracia/kasa-2_8386-petrzalka_664/denne-menu", parser: new Kasa() },
         { id: 3, name: "ITB", url: "http://www.citycantina.sk/prevadzka/1", parser: new Itb() },

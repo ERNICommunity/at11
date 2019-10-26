@@ -4,12 +4,12 @@ import { Moment } from "moment-timezone";
 import request from "request";
 
 import { Cache } from "./cache";
-import { Config } from "./config";
+import { IConfig } from "./config";
 import { IMenuItem } from "./parsers/IMenuItem";
 import { IParser } from "./parsers/IParser";
 
 export class MenuFetcher {
-    constructor(private _config: Config, private _cache: Cache<IMenuItem[]>) {}
+    constructor(private _config: IConfig, private _cache: Cache<IMenuItem[]>) {}
 
     public fetchMenu(url: string,
                      date: Moment,
