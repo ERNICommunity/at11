@@ -19,7 +19,7 @@ if (config.isProductionEnvironmnet) {
 }
 
 const actions = new Array<(date: moment.Moment, done: (err: Error, result: ReturnType<Cache<IMenuItem[]>["get"]>) => void) => void>();
-for (const restaurant  of config.restaurants) {
+for (const restaurant of config.restaurants) {
     console.log("Processing:", restaurant);
     try {
         const id = restaurant.id;
