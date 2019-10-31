@@ -19,7 +19,7 @@
     "@types/hbs": "^4.0.1",
     "@types/mocha": "^5.2.7",
     "@types/moment-timezone": "^0.5.12",
-    "@types/node": "^12.11.7",
+    "@types/node": "^12.12.3",
     "@types/request": "^2.48.3",
     "mocha": "^6.2.2",
     "tslint": "^5.20.0",
@@ -30,7 +30,7 @@
     "build": "tsc",
     "start": "node dist/app.js",
     "pretest": "tslint -p ./tsconfig.json",
-    "test": "mocha ./dist/test --reporter spec --exit"
+    "test": "mocha ./dist/test --exit"
   },
   "author": {
     "name": "Jakub Šturc",
