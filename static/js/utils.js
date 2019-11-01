@@ -24,8 +24,9 @@ window.loadMenus = function(container) {
     $("section", container).each(function() {
         var section = $(this);
         var restaurantId = section.data("restaurantId");
+        var link = $("a", section).prop('href');
 
-        var errElem = "<li class='error'><span>Nepodarilo sa načítať menu, skús pozrieť priamo na stránke reštaurácie</span></li>";
+        var errElem = "<li class='error'><span>Nepodarilo sa načítať menu, skús pozrieť priamo na <a href='"+link+"' target='_blank'>stránke reštaurácie</a></span></li>";
         var listElem = $("<ul></ul>");
         var refreshElem = null;
         $.ajax("/menu/" + restaurantId + "/" + date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate())

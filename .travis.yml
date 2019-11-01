@@ -1,7 +1,0 @@
-sudo: false
-language: node_js
-node_js:
-  - "10.14"
-  - "node"
-deploy:
-  provider: azure_web_apps

@@ -1,24 +1,36 @@
 {
   "name": "at11",
   "description": "Daily lunch menu application",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "dependencies": {
+    "applicationinsights": "^1.5.0",
     "charset": "^1.0.1",
     "cheerio": "^0.22.0",
     "express": "^4.17.1",
     "hbs": "^4.0.6",
     "iconv-lite": "^0.5.0",
-    "moment-timezone": "^0.5.26",
+    "moment-timezone": "^0.5.27",
     "request": "^2.88.0"
   },
   "devDependencies": {
-    "eslint": "^6.5.1",
-    "mocha": "^5.2.0"
+    "@types/charset": "^1.0.1",
+    "@types/cheerio": "^0.22.13",
+    "@types/express": "^4.17.1",
+    "@types/hbs": "^4.0.1",
+    "@types/mocha": "^5.2.7",
+    "@types/moment-timezone": "^0.5.12",
+    "@types/node": "^12.12.3",
+    "@types/request": "^2.48.3",
+    "mocha": "^6.2.2",
+    "tslint": "^5.20.0",
+    "typescript": "^3.6.4",
+    "typescript-tslint-plugin": "^0.5.4"
   },
   "scripts": {
-    "start": "node app.js",
-    "pretest": "eslint app.js cache.js config.js menuFetcher.js parsers/ static/js/",
-    "test": "mocha --reporter spec --exit"
+    "build": "tsc",
+    "start": "node dist/app.js",
+    "pretest": "tslint -p ./tsconfig.json",
+    "test": "mocha ./dist/test --exit"
   },
   "author": {
     "name": "Jakub Šturc",
@@ -65,7 +77,7 @@
     "url": "https://github.com/at11/at11/issues"
   },
   "engines": {
-    "node": "10.14.x"
+    "node": "10.16.x"
   },
   "license": "Unlicense",
   "main": "app.js"
