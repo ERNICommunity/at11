@@ -11,12 +11,12 @@ steps:
   displayName: 'Install Node.js'
 
 - script: |
-    npm install
+    npm ci
     npm run build
   displayName: 'install and build'
 
 - script: |
-    npm install mocha-junit-reporter
+    npm install mocha-junit-reporter --no-save
     npm test -- --reporter mocha-junit-reporter
   displayName: 'run tests'
 
