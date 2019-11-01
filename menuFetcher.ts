@@ -13,13 +13,13 @@ export class MenuFetcher {
 
     public fetchMenu(url: string,
                      date: Moment,
-                     parseCallback: IParser["parse"],
+                     parser: IParser,
                      doneCallback: (err: Error, result: ReturnType<Cache<IMenuItem[]>["get"]>) => void) {
         const cached = this._cache.get(date + ":" + url);
         if (cached && !this._config.bypassCache) {
             doneCallback(null, cached);
         } else {
-            this.load(url, date, parseCallback, (error: Error, menu: IMenuItem[]) => {
+            this.load(url, date, parser, (error: Error, menu: IMenuItem[]) => {
                 if (!error) {
                     this._cache.set(date + ":" + url, menu);
                     // we need to go through cache to get cache timestamp
@@ -34,7 +34,7 @@ export class MenuFetcher {
 
     private load(url: string,
                  date: Moment,
-                 parseCallback: IParser["parse"],
+                 parser: IParser,
                  doneCallback: (error: Error, menu: IMenuItem[]) => void) {
         const options = {
             url,
@@ -59,7 +59,7 @@ export class MenuFetcher {
                 }, this._config.parserTimeout);
 
                 try {
-                    parseCallback(body, date, (menu) => {
+                    parser.parse(body, date, (menu) => {
                         if (!timer) {
                             // multiple calls in parser or parser called after timeout
                             return;

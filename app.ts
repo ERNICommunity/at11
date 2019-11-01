@@ -26,7 +26,7 @@ for (const restaurant of config.restaurants) {
         if (typeof actions[id] !== "undefined") {
             throw new Error("Non unique id '" + id + "' provided");
         }
-        actions[id] = (date, doneCallback) => menuFetcher.fetchMenu(restaurant.url, date, restaurant.parser.parse, doneCallback);
+        actions[id] = (date, doneCallback) => menuFetcher.fetchMenu(restaurant.url, date, restaurant.parser, doneCallback);
     } catch (e) {
         console.warn(e);
     }
