@@ -50,7 +50,7 @@ export class MenuFetcher {
             if (!error && response.statusCode === 200) {
                 const enc = charset(response.headers, body);
                 if (enc !== "utf-8") {
-                    body = iconv.decode(new Buffer(body, "binary"), enc);
+                    body = iconv.decode(Buffer.from(body, "binary"), enc);
                 }
 
                 let timer = setTimeout(() => {
