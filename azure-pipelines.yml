@@ -15,5 +15,13 @@ steps:
     npm run build
   displayName: 'install and build'
 
-- script: npm test
+- script: |
+    npm install mocha-junit-reporter
+    npm test -- --reporter mocha-junit-reporter
   displayName: 'run tests'
+
+- task: PublishTestResults@2
+  condition: succeededOrFailed()
+  inputs:
+    testRunner: JUnit
+    testResultsFiles: '**/TEST-RESULTS.xml'
