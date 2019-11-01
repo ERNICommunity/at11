@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/ERNICommunity/at11.svg?branch=master)](https://travis-ci.com/ERNICommunity/at11)
+[![Build Status](https://dev.azure.com/jannescivera/at11/_apis/build/status/ERNICommunity.at11?branchName=master)](https://dev.azure.com/jannescivera/at11/_build/latest?definitionId=1&branchName=master)
 [![Dependency Status](https://david-dm.org/ERNICommunity/at11.svg)](https://david-dm.org/ERNICommunity/at11)
 
 at11
