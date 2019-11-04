@@ -32,10 +32,10 @@ steps:
     Contents: |
       dist/**/*.js
       !dist/test/*
-      static/*
-      views/*
+      static/**/*
+      views/**/*
       node_modules/*
-    TargetFolder: '$(Build.BinariesDirectory))'
+    TargetFolder: '$(Build.BinariesDirectory)'
   
 - task: ArchiveFiles@2
   inputs:
