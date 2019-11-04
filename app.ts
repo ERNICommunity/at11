@@ -37,7 +37,7 @@ if (actions.length === 0) {
 }
 
 console.debug("Runtime setup...");
-hbs.registerPartials("./views/partials");
+hbs.registerPartials(__dirname + "/../views/partials");
 moment.locale("sk");
 moment.tz.setDefault("Europe/Bratislava");
 
@@ -49,7 +49,7 @@ app.use(express.static("static"));
 app.get("/", (req, res) => {
     res.setHeader("Content-Type", "text/html; charset=UTF-8");
     res.setHeader("Content-Language", "sk");
-    res.render("../views/index.html", { restaurants: config.restaurants });
+    res.render(__dirname + "/../views/index.html", { restaurants: config.restaurants });
 });
 app.get("/menu/:id/:day", (req, res) => {
     if (typeof actions[req.params.id] === "undefined") {
