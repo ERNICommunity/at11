@@ -13,10 +13,8 @@ const config = new Config();
 const cache =  new Cache<IMenuItem[]>(config);
 const menuFetcher = new MenuFetcher(config, cache);
 
-if (config.isProductionEnvironmnet) {
-    appInsights.setup();
-    appInsights.start();
-}
+appInsights.setup("aa2cd664-f5de-4e6a-ac99-cebb7f88ddfa");
+appInsights.start();
 
 const actions = new Array<(date: moment.Moment, done: (err: Error, result: ReturnType<Cache<IMenuItem[]>["get"]>) => void) => void>();
 for (const restaurant of config.restaurants) {

@@ -13,7 +13,6 @@ import { Tiffany } from "./parsers/tiffany";
 
 export interface IConfig {
     readonly port: number;
-    readonly isProductionEnvironmnet: boolean;
     readonly bypassCache: boolean;
     readonly cacheExpiration: number;
     readonly parserTimeout: number;
@@ -22,7 +21,6 @@ export interface IConfig {
 
 export class Config implements IConfig {
     public readonly port: number = process.env.PORT as unknown as number || 54321;
-    public readonly isProductionEnvironmnet: boolean = process.env.NODE_ENV === "production";
     public readonly bypassCache: boolean = process.env.AT11_NO_CACHE === "true";
     public readonly cacheExpiration = 2 * 60 * 60 * 1000; // 2h
     public readonly parserTimeout = 10 * 1000; // 10s

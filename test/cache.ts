@@ -7,7 +7,6 @@ import { IConfig } from "../config.js";
 describe("cache", () => {
     const config: IConfig = {
         port: 1,
-        isProductionEnvironmnet: false,
         bypassCache: false,
         cacheExpiration: 1,
         parserTimeout: 1,
