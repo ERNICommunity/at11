@@ -34,7 +34,7 @@ steps:
       !dist/test/*
       static/**/*
       views/**/*
-      node_modules/*
+      node_modules/**/*
     TargetFolder: '$(Build.BinariesDirectory)'
   
 - task: ArchiveFiles@2
