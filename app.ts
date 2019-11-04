@@ -45,7 +45,7 @@ console.debug("Express setup...");
 const app = express();
 app.set("view engine", "html");
 app.engine("html", hbs.__express);
-app.use(express.static("static"));
+app.use(express.static(__dirname + "/../static"));
 app.get("/", (req, res) => {
     res.setHeader("Content-Type", "text/html; charset=UTF-8");
     res.setHeader("Content-Language", "sk");
