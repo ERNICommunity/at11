@@ -9,12 +9,13 @@ export class Giuliano implements IParser {
     public parse(html: string, date: Moment, doneCallback: (menu: IMenuItem[]) => void): void {
         const $ = cheerio.load(html, { normalizeWhitespace: true });
         const dayMenu = new Array<IMenuItem>();
+        const dateRegex = new RegExp(`0?${date.date()}\\.\\s?0?${date.month() + 1}\\.\\s?${date.year()}`);
 
         $("table#denne-menu tr").each(function() {
             const $this = $(this);
             const dateCellText = $this.children("td").first().text();
 
-            if (dateCellText.indexOf(date.format("DD.M.YYYY")) > -1 || dateCellText.indexOf(date.format("DD.MM.YYYY")) > -1) {
+            if (dateRegex.test(dateCellText)) {
                 const items = $this.children("td").eq(1).children().filter(function() {
                     const txt = $(this).text().trim();
                     if (txt === "") {
