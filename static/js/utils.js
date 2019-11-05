@@ -31,7 +31,7 @@ window.loadMenus = function(container) {
         var refreshElem = null;
         $.ajax("/menu/" + restaurantId + "/" + date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate())
                 .done(function(data) {
-                    if (!data) {
+                    if (data.menu.length === 0) {
                         listElem.append(errElem);
                     }
                     else {

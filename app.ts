@@ -54,12 +54,12 @@ app.get("/menu/:id/:day", (req, res) => {
         res.statusCode = 404;
         res.send("Restaurant " + req.params.id + " not found\n");
     } else {
-        actions[req.params.id](moment(req.params.day, "YYYY-MM-DD"), (error, cachedMenu) => {
+        actions[req.params.id](moment(req.params.day, "YYYY-MM-DD"), (error, result) => {
             if (error) {
                 res.statusCode = 500;
                 res.send(error.toString());
             } else {
-                res.json(cachedMenu ? { menu: cachedMenu.value, timeago: moment(cachedMenu.timestamp).fromNow() } : null);
+                res.json({ menu: result.value, timeago: moment(result.timestamp).fromNow() });
             }
         });
     }
