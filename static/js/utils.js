@@ -29,7 +29,7 @@ window.loadMenus = function(container) {
         var errElem = "<li class='error'><span>Nepodarilo sa načítať menu, skús pozrieť priamo na <a href='"+link+"' target='_blank'>stránke reštaurácie</a></span></li>";
         var listElem = $("<ul></ul>");
         var refreshElem = null;
-        $.ajax("/menu/" + restaurantId + "/" + date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate())
+        $.ajax("/menu/" + restaurantId + "?date=" + date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate())
                 .done(function(data) {
                     if (data.menu.length === 0) {
                         listElem.append(errElem);

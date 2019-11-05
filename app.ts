@@ -49,12 +49,17 @@ app.get("/", (req, res) => {
     res.setHeader("Content-Language", "sk");
     res.render(__dirname + "/../views/index.html", { restaurants: config.restaurants });
 });
-app.get("/menu/:id/:day", (req, res) => {
+app.get("/menu/:id", (req, res) => {
     if (typeof actions[req.params.id] === "undefined") {
         res.statusCode = 404;
         res.send("Restaurant " + req.params.id + " not found\n");
     } else {
-        actions[req.params.id](moment(req.params.day, "YYYY-MM-DD"), (error, result) => {
+        if (!req.query.date) {
+            res.statusCode = 400;
+            res.send("Missing date query parameter");
+            return;
+        }
+        actions[req.params.id](moment(req.query.date, "YYYY-MM-DD"), (error, result) => {
             if (error) {
                 res.statusCode = 500;
                 res.send(error.toString());
