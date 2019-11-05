@@ -42,7 +42,7 @@ window.loadMenus = function(container) {
                             }
                             li.append("<span>" + item.text + "</span>");
                             if (item.price) {
-                                li.append("<span class='price'>" + item.price + "</span>");
+                                li.append("<span class='price'>" + item.price.toFixed(2) + "€</span>");
                             }
                             listElem.append(li);
                         });
