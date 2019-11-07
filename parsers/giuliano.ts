@@ -4,52 +4,66 @@ import { Moment } from "moment-timezone";
 import { IMenuItem } from "./IMenuItem";
 import { IParser } from "./IParser";
 import "./parserUtil";
+import { parsePrice } from "./parserUtil";
 
 export class Giuliano implements IParser {
     public parse(html: string, date: Moment, doneCallback: (menu: IMenuItem[]) => void): void {
-        const $ = cheerio.load(html, { normalizeWhitespace: true });
-        const dayMenu = new Array<IMenuItem>();
+        const $ = cheerio.load(html);
+        let dayMenu = new Array<IMenuItem>();
         const dateRegex = new RegExp(`0?${date.date()}\\.\\s?0?${date.month() + 1}\\.\\s?${date.year()}`);
 
-        $("table#denne-menu tr").each(function() {
-            const $this = $(this);
+        $("table#denne-menu tr").each((i, elem) => {
+            const $this = $(elem);
             const dateCellText = $this.children("td").first().text();
 
             if (dateRegex.test(dateCellText)) {
-                const items = $this.children("td").eq(1).children().filter(function() {
-                    const txt = $(this).text().trim();
-                    if (txt === "") {
-                        return false;
-                    }
-                    const cnt: any = cheerio.load(txt);
-                    cnt.root().contents()
-                    .filter(function() { return this.type === "comment"; })
-                    .remove(); // strip comments
-                    return cnt.text().trim() !== "";
-                });
+                const foodCell = $this.children("td").eq(1);
+                dayMenu = this.parseMeals(foodCell);
 
-                const priceText = $this.children("td").eq(2).text();
-                const price = parseFloat(priceText.replace(",", "."));
+                const priceCell = $this.children("td").eq(2);
+                const prices = this.parsePrices(priceCell);
 
-                Array.prototype.forEach.call(items, (item, index) => {
-                    const tmp = { isSoup: false, text: normalize($(item).text()), price };
-                    if (index === 0) {// I think it is safe enough to assume that the first item in menu is the soup
-                        tmp.isSoup = true;
-                        tmp.price = NaN;
-                    }
-                    dayMenu.push(tmp);
-                });
+                for (let x = 1; x < dayMenu.length; x++) {
+                    dayMenu[x].price = prices[x - 1] || NaN;
+                }
 
                 return false;
             }
         });
 
         doneCallback(dayMenu);
+    }
 
-        function normalize(str) {
-            return str.normalizeWhitespace()
-                .removeMetrics()
-                .correctCommaSpacing();
-        }
+    private parseMeals(cell: Cheerio): IMenuItem[] {
+        const items = new Array<IMenuItem>();
+        cell.text().split("\n").map(str => str.trim()).filter(str => str.length > 0).forEach((str, i) => {
+            if (i === 0 ) {
+                items.push({isSoup: true, price: NaN, text: this.normalize(str)});
+                return;
+            }
+            if (str === "Špeciálna ponuka:") {
+                return;
+            }
+            items.push({isSoup: false, price: NaN, text: this.normalize(str)});
+        });
+        return items;
+    }
+
+    private parsePrices(cell: Cheerio): number[] {
+        const items = new Array<number>();
+        cell.text().split("\n").map(str => str.trim()).filter(str => str.length > 0).forEach((str, i) => {
+            if (str === "Špeciálna ponuka:") {
+                return;
+            }
+            items.push(parsePrice(str).price);
+        });
+        return items;
+    }
+
+    private normalize(str: string) {
+        return str.normalizeWhitespace()
+            .removeItemNumbering()
+            .removeMetrics()
+            .correctCommaSpacing();
     }
 }

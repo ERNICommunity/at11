@@ -9,6 +9,7 @@
         "max-line-length": [true, 140],
         "no-console": false,
         "variable-name": { "options": ["allow-leading-underscore"] },
-        "trailing-comma": [true, { "multiline": "never", "singleline": "never" }]
+        "trailing-comma": [true, { "multiline": "never", "singleline": "never" }],
+        "arrow-parens": false
     }
 }

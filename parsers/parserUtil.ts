@@ -53,7 +53,7 @@ String.prototype.capitalizeFirstLetter = function() {
 };
 
 String.prototype.removeItemNumbering = function() {
-    return this.trim().replace(/^\W\s+/, "").replace(/^[\w\d] *[).,]+[AB]?\s*/, "").trim();
+    return this.trim().replace(/^\W\s+/, "").replace(/^\w ?[).,:;]+[AB]?\s*/, "").trim();
 };
 
 // Soup first menu item comparere
