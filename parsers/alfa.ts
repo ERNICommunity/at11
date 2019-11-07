@@ -10,17 +10,16 @@ export class Alfa implements IParser {
         const $ = cheerio.load(html);
         const dateStr = date.format("DD.MM.YYYY");
 
-        const denneMenuElem = $(".dnesne_menu, .ostatne_menu").filter(() => {
-            const nadpis = $(this).find("h2").text();
+        const denneMenuElem = $(".dnesne_menu, .ostatne_menu").filter((i, elem) => {
+            const nadpis = $(elem).find("h2").text();
             return nadpis.indexOf(dateStr) > -1;
         });
 
         const soupElems = [];
         const mealElems = [];
         let pushingSoups = false;
-        denneMenuElem.first().find(".jedlo_polozka").each(() => {
-            const elem = $(this);
-            const txt = elem.text().trim();
+        denneMenuElem.first().find(".jedlo_polozka").each((i, elem) => {
+            const txt = $(elem).text().trim();
 
             if (txt === "Polievka") {
                 pushingSoups = true;
