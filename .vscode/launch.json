@@ -9,7 +9,7 @@
             "request": "launch",
             "name": "Debug at11",
             "program": "${workspaceFolder}/app.ts",
-            "preLaunchTask": "tsc: build - tsconfig.json",
+            "preLaunchTask": "${defaultBuildTask}",
             "outFiles": [
                 "${workspaceFolder}/dist/**/*.js"
             ],
@@ -31,7 +31,7 @@
                 "--colors",
                 "${workspaceFolder}/dist/test"
             ],
-            "preLaunchTask": "tsc: build - tsconfig.json",
+            "preLaunchTask": "${defaultBuildTask}",
             "outFiles": [
                 "${workspaceFolder}/dist/**/*.js"
             ],
