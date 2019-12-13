@@ -47,7 +47,11 @@ app.use(express.static(__dirname + "/../static"));
 app.get("/", (req, res) => {
     res.setHeader("Content-Type", "text/html; charset=UTF-8");
     res.setHeader("Content-Language", "sk");
-    res.render(__dirname + "/../views/index.html", { restaurants: config.restaurants });
+    res.render(__dirname + "/../views/index.html", { restaurants: config.restaurants.map(x => ({
+        id: x.id,
+        name: x.name,
+        url: x.url(moment())
+    })) });
 });
 app.get("/menu/:id", (req, res) => {
     if (typeof actions[req.params.id] === "undefined") {

@@ -11,42 +11,35 @@ export class PizzaPazza implements IParser {
         const $ = cheerio.load(html);
         const dayMenu = new Array<IMenuItem>();
 
-        const menuItems = $("form.productDetail");
+        const menuItems = $(".group-menu-1, .group-menu-2");
         menuItems.each(function() {
-            parseItem($(this));
+            parseItems($(this));
         });
 
         dayMenu.sort(compareMenuItems);
 
         doneCallback(dayMenu);
 
-        function parseItem(item: Cheerio) {
-            const itemParent = item.parent();
-            const name = itemParent.find("h2.MainTitle").text();
-            if (name) {
-                const nameParts = name.split("   ");
-                const food = normalize(nameParts[0]);
-                const foodPrice = parsePrice(itemParent.find("div.product_price").text()).price;
-                const soup = normalize(nameParts[1]);
-
-                dayMenu.push({
-                    isSoup: false,
-                    text: food,
-                    price: foodPrice
-                });
-
-                if (!dayMenuContainsSoup(soup)) {
+        function parseItems(item: Cheerio) {
+            const rows = item.find("table tr").each((i, elem) => {
+                const $this = $(elem);
+                const nameCellText = $this.children("td").eq(1).text().trim();
+                if (i === 0) {
+                    const text = nameCellText.replace(/^polievka[\s:]*/i, "");
                     dayMenu.push({
                         isSoup: true,
-                        text: soup,
+                        text: normalize(text),
                         price: NaN
                     });
+                } else {
+                    const priceCellText = item.find("form .product_price").text().trim();
+                    dayMenu.push({
+                        isSoup: false,
+                        text: normalize(nameCellText),
+                        price: parsePrice(priceCellText).price
+                    });
                 }
-            }
-        }
-
-        function dayMenuContainsSoup(soup) {
-            return dayMenu.filter((e) =>  e.text === soup).length > 0;
+            });
         }
 
         function normalize(str: string): string {

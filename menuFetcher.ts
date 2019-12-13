@@ -11,7 +11,7 @@ import { IParser } from "./parsers/IParser";
 export class MenuFetcher {
     constructor(private _config: IConfig, private _cache: Cache<IMenuItem[]>) {}
 
-    public fetchMenu(url: string,
+    public fetchMenu(url: (date: Moment) => string,
                      date: Moment,
                      parser: IParser,
                      doneCallback: (err: Error, result: ReturnType<Cache<IMenuItem[]>["get"]>) => void) {
@@ -32,12 +32,12 @@ export class MenuFetcher {
         }
     }
 
-    private load(url: string,
+    private load(url: (date: Moment) => string,
                  date: Moment,
                  parser: IParser,
                  doneCallback: (error: Error, menu: IMenuItem[]) => void) {
         const options = {
-            url,
+            url: url(date),
             method: "GET",
             encoding: "binary",
             headers: { // some sites need us to pretend to be a browser to work
