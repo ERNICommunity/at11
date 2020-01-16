@@ -22,8 +22,8 @@ describe("itb", () => {
             });
         });
 
-        it("should return 9 items", () => {
-            assert.equal(menu.length, 9);
+        it("should return 8 items", () => {
+            assert.equal(menu.length, 8);
         });
 
         it("1st item correct", () => {
@@ -64,20 +64,14 @@ describe("itb", () => {
 
         it("7th item correct", () => {
             assert.equal(menu[6].isSoup, false);
-            assert.equal(menu[6].text, "()");
-            assert.equal(isNaN(menu[6].price), true);
+            assert.equal(menu[6].text, "Černohorský morčací rezeň, pečené zemiaky");
+            assert.equal(menu[6].price, 3.2);
         });
 
         it("8th item correct", () => {
             assert.equal(menu[7].isSoup, false);
-            assert.equal(menu[7].text, "Černohorský morčací rezeň, pečené zemiaky");
+            assert.equal(menu[7].text, "Perkelt z hlivy ústricovej, halušky");
             assert.equal(menu[7].price, 3.2);
-        });
-
-        it("9th item correct", () => {
-            assert.equal(menu[8].isSoup, false);
-            assert.equal(menu[8].text, "Perkelt z hlivy ústricovej, halušky");
-            assert.equal(menu[8].price, 3.2);
         });
     });
 });

@@ -4,9 +4,9 @@ import "../parsers/parserUtil";
 import { parsePrice } from "../parsers/parserUtil";
 
 const parsePriceTests = [
-    { input: "Hodnota stravy: 3,50 Eur", result: { price: 3.5, text: "Hodnota stravy: " } },
+    { input: "Hodnota stravy: 3,50 Eur", result: { price: 3.5, text: "Hodnota stravy:" } },
     { input: "text 3,50 € text", result: { price: 3.5, text: "text  text" } },
-    { input: "text text 3,50, Eur", result: { price: 3.5, text: "text text " } },
+    { input: "text text 3,50, Eur", result: { price: 3.5, text: "text text" } },
     { input: "text3.50 € text", result: { price: 3.5, text: "text text" } },
     { input: "text 3.50 Eur text", result: { price: 3.5, text: "text  text" } },
     { input: "text 3.50EUR text", result: { price: 3.5, text: "text  text" } },
