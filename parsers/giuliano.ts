@@ -4,13 +4,13 @@ import { Moment } from "moment-timezone";
 import { IMenuItem } from "./IMenuItem";
 import { IParser } from "./IParser";
 import "./parserUtil";
-import { parsePrice } from "./parserUtil";
+import { getDateRegex, parsePrice } from "./parserUtil";
 
 export class Giuliano implements IParser {
     public parse(html: string, date: Moment, doneCallback: (menu: IMenuItem[]) => void): void {
         const $ = cheerio.load(html);
         let dayMenu = new Array<IMenuItem>();
-        const dateRegex = new RegExp(`0?${date.date()}\\.\\s?0?${date.month() + 1}\\.\\s?${date.year()}`);
+        const dateRegex = getDateRegex(date);
 
         $("table#denne-menu tr").each((i, elem) => {
             const $this = $(elem);

@@ -1,3 +1,4 @@
+import { Moment } from "moment-timezone";
 import { IMenuItem } from "./IMenuItem";
 
 declare global {
@@ -23,6 +24,10 @@ export function parsePrice(item: string) {
         price,
         text
     };
+}
+
+export function getDateRegex(date: Moment): RegExp {
+   return new RegExp(`0?${date.date()}\\.\\s?0?${date.month() + 1}\\.\\s?${date.year()}`);
 }
 
 const accentPairs: {[key: string]: string} = { a: "á", e: "é", i: "í", o: "ó", u: "ú", y: "ý", t: "ť", l: "ľ" };

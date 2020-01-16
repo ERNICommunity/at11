@@ -4,28 +4,25 @@ import { Moment } from "moment-timezone";
 import { IMenuItem } from "./IMenuItem";
 import { IParser } from "./IParser";
 import "./parserUtil";
+import { getDateRegex } from "./parserUtil";
 
 export class Lokalka implements IParser {
     public parse(html: string, date: Moment, doneCallback: (menu: IMenuItem[]) => void): void {
         const $ = cheerio.load(html);
         let dayMenu = new Array<IMenuItem>();
-        const todayDate = date.format("DD.MM.YYYY");
+        const todayDate = getDateRegex(date);
 
         const elements = $("li.fdm-item", "div.entry-content.post-content");
         elements.each(function() {
         const node = $(this);
         const title = node.find("p.fdm-item-title").text();
-        if (isToday(title)) {
+        if (todayDate.test(title)) {
             parseDailyMenu(node.find("table"));
             return false;
         }
         });
 
         doneCallback(dayMenu);
-
-        function isToday(title) {
-            return title.toLowerCase().indexOf(todayDate) !== -1;
-        }
 
         function parseDailyMenu(table) {
             const rows = table.find("tr");
