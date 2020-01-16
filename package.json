@@ -7,7 +7,7 @@
     "charset": "^1.0.1",
     "cheerio": "^0.22.0",
     "express": "^4.17.1",
-    "hbs": "^4.0.6",
+    "hbs": "^4.1.0",
     "iconv-lite": "^0.5.0",
     "moment-timezone": "^0.5.27",
     "request": "^2.88.0"
@@ -19,11 +19,11 @@
     "@types/hbs": "^4.0.1",
     "@types/mocha": "^5.2.7",
     "@types/moment-timezone": "^0.5.12",
-    "@types/node": "^12.12.17",
-    "@types/request": "^2.48.3",
-    "mocha": "^6.2.2",
+    "@types/node": "^13.1.7",
+    "@types/request": "^2.48.4",
+    "mocha": "^7.0.0",
     "tslint": "^5.20.1",
-    "typescript": "^3.7.3",
+    "typescript": "^3.7.4",
     "typescript-tslint-plugin": "^0.5.5"
   },
   "scripts": {
