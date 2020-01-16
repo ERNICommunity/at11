@@ -46,7 +46,8 @@ export class Kasa implements IParser {
             return str.normalizeWhitespace()
                 .removeMetrics()
                 .correctCommaSpacing()
-                .removeItemNumbering();
+                .removeItemNumbering()
+                .removeAlergens();
         }
     }
 }

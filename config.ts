@@ -9,6 +9,7 @@ import { Itb } from "./parsers/itb";
 import { Kamenica } from "./parsers/kamenica";
 import { Kasa } from "./parsers/kasa";
 import { Lokalka } from "./parsers/lokalka";
+import { Particka } from "./parsers/particka";
 import { PizzaPazza } from "./parsers/pizzapazza";
 import { Skolka } from "./parsers/skolka";
 import { Tiffany } from "./parsers/tiffany";
@@ -30,6 +31,7 @@ export class Config implements IConfig {
         // tslint:disable: max-line-length
         { id: 11, name: "Kaša", url: _ => "https://restauracie.sme.sk/restauracia/kasa-2_8386-petrzalka_664/denne-menu", parser: new Kasa() },
         { id: 3, name: "ITB", url: _ => "http://www.citycantina.sk/prevadzka/1", parser: new Itb() },
+        { id: 8, name: "Partička", url: _ => "https://restauracie.sme.sk/restauracia/particka-restauracia-beer-pub_11101-petrzalka_664/denne-menu", parser: new Particka() },
         { id: 4, name: "Alfa", url: _ => "http://restauracie.sme.sk/restauracia/restauracia-alfa_2512-petrzalka_664/denne-menu", parser: new Alfa() },
         { id: 12, name: "Hall of Kings", url: _ => "https://menucka.sk/denne-menu/bratislava/hall-of-kings", parser: new HallOfKings() },
         { id: 5, name: "Škôlka", url: _ => "http://jedalen.vysnivany.sk/ukazka-strany", parser: new Skolka() },

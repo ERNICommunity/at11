@@ -64,6 +64,7 @@ export class Giuliano implements IParser {
         return str.normalizeWhitespace()
             .removeItemNumbering()
             .removeMetrics()
-            .correctCommaSpacing();
+            .correctCommaSpacing()
+            .removeAlergens();
     }
 }

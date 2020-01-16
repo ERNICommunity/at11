@@ -4,15 +4,16 @@ import { Moment } from "moment-timezone";
 import { IMenuItem } from "./IMenuItem";
 import { IParser } from "./IParser";
 import "./parserUtil";
+import { getDateRegex } from "./parserUtil";
 
 export class Alfa implements IParser {
     public parse(html: string, date: Moment, doneCallback: (menu: IMenuItem[]) => void): void {
         const $ = cheerio.load(html);
-        const dateStr = date.format("DD.MM.YYYY");
+        const todayRegex = getDateRegex(date);
 
         const denneMenuElem = $(".dnesne_menu, .ostatne_menu").filter((i, elem) => {
             const nadpis = $(elem).find("h2").text();
-            return nadpis.indexOf(dateStr) > -1;
+            return todayRegex.test(nadpis);
         });
 
         const soupElems = [];
@@ -56,7 +57,8 @@ export class Alfa implements IParser {
             return str.normalizeWhitespace()
                 .removeMetrics()
                 .correctCommaSpacing()
-                .removeItemNumbering();
+                .removeItemNumbering()
+                .removeAlergens();
         }
     }
 }

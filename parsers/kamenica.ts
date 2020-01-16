@@ -48,7 +48,8 @@ export class Kamenica implements IParser {
             return str.normalizeWhitespace()
                 .removeMetrics()
                 .correctCommaSpacing()
-                .removeItemNumbering();
+                .removeItemNumbering()
+                .removeAlergens();
         }
     }
 }

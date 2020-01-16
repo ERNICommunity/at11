@@ -10,13 +10,13 @@ export class Lokalka implements IParser {
     public parse(html: string, date: Moment, doneCallback: (menu: IMenuItem[]) => void): void {
         const $ = cheerio.load(html);
         let dayMenu = new Array<IMenuItem>();
-        const todayDate = getDateRegex(date);
+        const todayRegex = getDateRegex(date);
 
         const elements = $("li.fdm-item", "div.entry-content.post-content");
         elements.each(function() {
         const node = $(this);
         const title = node.find("p.fdm-item-title").text();
-        if (todayDate.test(title)) {
+        if (todayRegex.test(title)) {
             parseDailyMenu(node.find("table"));
             return false;
         }

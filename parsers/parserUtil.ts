@@ -8,6 +8,7 @@ declare global {
         normalizeWhitespace: () => string;
         correctCommaSpacing: () => string;
         removeMetrics: () => string;
+        removeAlergens: () => string;
         capitalizeFirstLetter: () => string;
         removeItemNumbering: () => string;
     }
@@ -22,7 +23,7 @@ export function parsePrice(item: string) {
     });
     return {
         price,
-        text
+        text: text.trim()
     };
 }
 
@@ -51,6 +52,11 @@ String.prototype.correctCommaSpacing = function() {
 String.prototype.removeMetrics = function() {
     // after metrics removal there might be whitespaces left at the ends so trim it afterwards
     return this.replace(/\s*\(?(?:\d+\/)?( ?\d[\doO\s]*)+ *(?:[,.]\d[\doO]*)? *[lLgG]\)?\.?\s*/g, " ").trim();
+};
+
+String.prototype.removeAlergens = function() {
+    // after metrics removal there might be whitespaces left at the ends so trim it afterwards
+    return this.replace(/\s+[\s\(\d,\)]+$/g, " ").trim();
 };
 
 String.prototype.capitalizeFirstLetter = function() {
