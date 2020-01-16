@@ -5,13 +5,13 @@ import request from "request";
 import { IMenuItem } from "./IMenuItem";
 import { IParser } from "./IParser";
 import "./parserUtil";
-import { parsePrice } from "./parserUtil";
+import { getDateRegex, parsePrice } from "./parserUtil";
 
 export class Skolka implements IParser {
     public parse(html: string, date: Moment, doneCallback: (menu: IMenuItem[]) => void): void {
         const $ = cheerio.load(html);
 
-        const dateReg = new RegExp("^\\s*0?" + date.date() + "\\.\\s*0?" + (date.month() + 1) + "\\.\\s*" + date.year());
+        const dateReg = getDateRegex(date);
         const todayNameReg = new RegExp("^\\s*" + date.format("dddd"), "i");
 
         const pic = $(".entry-content img");
