@@ -18,20 +18,8 @@ export class Alfa implements IParser {
 
         const soupElems = [];
         const mealElems = [];
-        let pushingSoups = false;
         denneMenuElem.first().find(".jedlo_polozka").each((i, elem) => {
-            const txt = $(elem).text().trim();
-
-            if (txt === "Polievka") {
-                pushingSoups = true;
-                return;
-            }
-            if (txt === "Hlavné jedlá") {
-                pushingSoups = false;
-                return;
-            }
-
-            if (pushingSoups) {
+            if (i < 2) {
                 soupElems.push(elem);
             } else {
                 mealElems.push(elem);
