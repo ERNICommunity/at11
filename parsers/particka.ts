@@ -19,13 +19,9 @@ export class Particka implements IParser {
         const dayMenu = new Array<IMenuItem>();
 
         denneMenuElem.first().find(".jedlo_polozka").each((i, elem) => {
-            if (i === 0) {
-                return; // skip first row (just a date)
-            }
-
             const txt = $(elem).text().trim();
 
-            if (i === 1) { // second item is soup
+            if (i === 0) { // first item is soup
                 dayMenu.push({ isSoup: true, text: normalize(txt), price: NaN });
                 return;
             }
@@ -33,10 +29,6 @@ export class Particka implements IParser {
             const result = parsePrice(txt);
             dayMenu.push({ isSoup: false, text: normalize(result.text), price: result.price });
         });
-
-        // remove last 2 items - not meals
-        dayMenu.pop();
-        dayMenu.pop();
 
         doneCallback(dayMenu);
 
@@ -46,7 +38,8 @@ export class Particka implements IParser {
                 .removeAlergens()
                 .correctCommaSpacing()
                 .removeItemNumbering()
-                .capitalizeFirstLetter();
+                .capitalizeFirstLetter()
+                .replace(/[\s–]+$/, "");
         }
     }
 }
