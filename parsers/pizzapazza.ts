@@ -17,11 +17,14 @@ export class PizzaPazza implements IParser {
         });
 
         dayMenu.sort(compareMenuItems);
+        if (dayMenu.length >= 2 && dayMenu[0].text === dayMenu[1].text) {
+            dayMenu.shift();
+        }
 
         doneCallback(dayMenu);
 
         function parseItems(item: Cheerio) {
-            const rows = item.find("table tr").each((i, elem) => {
+            item.find("table tr").each((i, elem) => {
                 const $this = $(elem);
                 const nameCellText = $this.children("td").eq(1).text().trim();
                 if (i === 0) {
