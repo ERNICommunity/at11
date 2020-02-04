@@ -19,7 +19,7 @@ export interface IConfig {
     readonly bypassCache: boolean;
     readonly cacheExpiration: number;
     readonly parserTimeout: number;
-    readonly restaurants: Array<{ id: number, name: string, url: (date: Moment) => string, parser: IParser}>;
+    readonly restaurants: { id: number, name: string, url: (date: Moment) => string, parser: IParser}[];
 }
 
 export class Config implements IConfig {
@@ -27,7 +27,7 @@ export class Config implements IConfig {
     public readonly bypassCache: boolean = process.env.AT11_NO_CACHE === "true";
     public readonly cacheExpiration = 2 * 60 * 60 * 1000; // 2h
     public readonly parserTimeout = 10 * 1000; // 10s
-    public readonly restaurants: Array<{ id: number, name: string, url: (date: Moment) => string, parser: IParser}>  = [
+    public readonly restaurants: { id: number, name: string, url: (date: Moment) => string, parser: IParser}[]  = [
         // tslint:disable: max-line-length
         { id: 11, name: "Kaša", url: _ => "https://restauracie.sme.sk/restauracia/kasa-2_8386-petrzalka_664/denne-menu", parser: new Kasa() },
         { id: 3, name: "ITB", url: _ => "http://www.citycantina.sk/prevadzka/1", parser: new Itb() },
