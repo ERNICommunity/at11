@@ -1,5 +1,3 @@
-import charset from "charset";
-import iconv from "iconv-lite";
 import { Moment } from "moment-timezone";
 import request from "request";
 
@@ -39,7 +37,6 @@ export class MenuFetcher {
         const options = {
             url: url(date),
             method: "GET",
-            encoding: "binary",
             headers: { // some sites need us to pretend to be a browser to work
                 "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)",
                 "Accept": "text/html,*/*"
@@ -48,11 +45,6 @@ export class MenuFetcher {
         };
         request(options, (error, response, body) => {
             if (!error && response.statusCode === 200) {
-                const enc = charset(response.headers, body);
-                if (enc !== "utf-8") {
-                    body = iconv.decode(Buffer.from(body, "binary"), enc);
-                }
-
                 let timer = setTimeout(() => {
                     timer = null; // clear needed as value is kept even after timeout fired
                     doneCallback(new Error("Parser timeout"), null);
