@@ -34,8 +34,13 @@ export class MenuFetcher {
                  date: Moment,
                  parser: IParser,
                  doneCallback: (error: Error, menu: IMenuItem[]) => void) {
+        let evaluatedtUrl = url(date);
+        // on production (azure) use scraper api for zomato requests, otherwise zomato blocks them
+        if(this._config.isProduction && evaluatedtUrl.search("zomato")>=0) {
+            evaluatedtUrl = `http://api.scraperapi.com?api_key=${this._config.scraperApiKey}&url=${encodeURIComponent(evaluatedtUrl)}`;
+        }
         const options = {
-            url: url(date),
+            url: evaluatedtUrl,
             method: "GET",
             headers: { // some sites need us to pretend to be a browser to work
                 "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)",

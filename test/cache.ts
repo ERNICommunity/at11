@@ -6,6 +6,8 @@ import { IConfig } from "../config.js";
 
 describe("cache", () => {
     const config: IConfig = {
+        isProduction: false,
+        scraperApiKey: "test_api_key",
         port: 1,
         bypassCache: false,
         cacheExpiration: 1,
