@@ -22,8 +22,8 @@ export class Klubovna implements IParser {
             const txt = $(elem).text().trim()
             .replace(/\([0-9,]+\)/g, "")
             .replace(/Polievka \|/, "")
-            .replace(/Menu.*polievkou \|/, "")     
-            .replace(/\(obsahuje\:/, "");       
+            .replace(/Menu.*polievkou \|/, "")
+            .replace(/\(obsahuje\:/, "");
 
             if (i === 0) {
                 return;
