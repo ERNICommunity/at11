@@ -13,6 +13,7 @@ import { Particka } from "./parsers/particka";
 import { PizzaPazza } from "./parsers/pizzapazza";
 import { Skolka } from "./parsers/skolka";
 import { Tiffany } from "./parsers/tiffany";
+import { Klubovna } from "./parsers/klubovna";
 
 export interface IConfig {
     readonly isProduction: boolean;
@@ -44,6 +45,7 @@ export class Config implements IConfig {
         { id: 7, name: "Kamenica - Corleone Pizza", url: _ => "http://www.pizzacorleone.sk/obedove-menu.html", parser: new Kamenica() },
         { id: 9, name: "Engerau restaurant", url: _ => "https://www.zomato.com/sk/bratislava/engerau-restaurant-petr%C5%BEalka-bratislava-v/denn%C3%A9-menu", parser: new Engerau() },
         { id: 10, name: "Lokálka", url: _ => "http://www.lokalka.sk/kopcianska-2/", parser: new Lokalka() },
-        { id: 13, name: "Tiffany", url: _ => "https://www.zomato.com/sk/bratislava/pizzeria-tiffany-petr%C5%BEalka-bratislava-v/denn%C3%A9-menu", parser: new Tiffany() }
+        { id: 13, name: "Tiffany", url: _ => "https://www.zomato.com/sk/bratislava/pizzeria-tiffany-petr%C5%BEalka-bratislava-v/denn%C3%A9-menu", parser: new Tiffany() },
+        { id: 14, name: "Petržalská klubovňa", url: _ => "https://restauracie.sme.sk/restauracia/petrzalska-klubovna_7359-petrzalka_664/denne-menu", parser: new Klubovna() }
     ];
 }
