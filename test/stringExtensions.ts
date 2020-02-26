@@ -8,9 +8,9 @@ const removeNumberingTests = [
     { input: "1.) Kurací steak s bylinkovou omáčkou, pečené zemiaky, obloha", result: "Kurací steak s bylinkovou omáčkou, pečené zemiaky, obloha" },
     { input: "Držková polievka, chlieb", result: "Držková polievka, chlieb" },
     { input: "3 .350g Zapekaná brokolica so syrom, varené zemiaky, šalát", result: "350g Zapekaná brokolica so syrom, varené zemiaky, šalát" },
-    { input: " l. Sviečková na smotane", result: "Sviečková na smotane" },
     { input: "2.A 200 g Šošovicová omáčka s volským okom, chlieb € 3,50", result: "200 g Šošovicová omáčka s volským okom, chlieb € 3,50" },
-    { input: "1, 150g Kuracie prsia na nivovje omáčke dusená ryža, šalát 3,80 €", result: "150g Kuracie prsia na nivovje omáčke dusená ryža, šalát 3,80 €"}
+    { input: "1, 150g Kuracie prsia na nivovje omáčke dusená ryža, šalát 3,80 €", result: "150g Kuracie prsia na nivovje omáčke dusená ryža, šalát 3,80 €"},
+    { input: "2 Viedensky rezeň, zemiaková kaša", result: "Viedensky rezeň, zemiaková kaša" }
 ];
 
 const removeMetricsTests = [

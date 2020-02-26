@@ -26,7 +26,7 @@ export abstract class Zomato {
                         });
                     }
 
-                    if (!/^\d\s?[.,]/.test(text)) { // soups dont have numbering
+                    if (!/^\d\s?[.,]?/.test(text)) { // soups dont have numbering
                         text.split("/").forEach((item) => {
                             dayMenu.push({ isSoup: true, text: item.trim(), price });
                         });
