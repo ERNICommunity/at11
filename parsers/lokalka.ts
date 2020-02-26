@@ -41,7 +41,7 @@ export class Lokalka implements IParser {
         function parseSoup(row: Cheerio): IMenuItem[] {
             const cells = $(row).find("td");
             const price = parseFloat(cells.eq(4).text().replace(",", "."));
-            const text = cells.eq(1).text() ;
+            const text = cells.eq(2).text() ;
             const soups = text.split("/");
 
             return soups.map((item) => ({ isSoup: true, text: item.trim(), price }));
@@ -49,7 +49,7 @@ export class Lokalka implements IParser {
 
         function parseOther(row: Cheerio): IMenuItem {
             const cells = $(row).find("td");
-            return { isSoup: false, text: cells.eq(0).text(), price: parseFloat(cells.eq(3).text().replace(",", ".")) };
+            return { isSoup: false, text: cells.eq(1).text(), price: parseFloat(cells.eq(4).text().replace(",", ".")) };
         }
     }
  }
