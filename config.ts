@@ -41,7 +41,7 @@ export class Config implements IConfig {
         { id: 12, name: "Hall of Kings", url: _ => "https://menucka.sk/denne-menu/bratislava/hall-of-kings", parser: new HallOfKings() },
         { id: 5, name: "Škôlka", url: _ => "http://jedalen.vysnivany.sk/ukazka-strany", parser: new Skolka() },
         { id: 2, name: "Giuliano", url: _ => "http://www.giuliano.sk/-denne-menu", parser: new Giuliano() },
-        { id: 6, name: "Pizza Pazza", url: date => `https://www.pizzeriaviennagate.sk/obedove-menu/${date.format("dddd")}`, parser: new PizzaPazza() },
+        { id: 6, name: "Pizza Pazza", url: date => `https://www.pizzeriaviennagate.sk/obedove-menu/${date.format("dddd").replace("š", "s")}`, parser: new PizzaPazza() },
         { id: 7, name: "Kamenica - Corleone Pizza", url: _ => "http://www.pizzacorleone.sk/obedove-menu.html", parser: new Kamenica() },
         { id: 9, name: "Engerau restaurant", url: _ => "https://www.zomato.com/sk/bratislava/engerau-restaurant-petr%C5%BEalka-bratislava-v/denn%C3%A9-menu", parser: new Engerau() },
         { id: 10, name: "Lokálka", url: _ => "http://www.lokalka.sk/kopcianska-2/", parser: new Lokalka() },
