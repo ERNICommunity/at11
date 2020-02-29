@@ -22,7 +22,7 @@ export interface IConfig {
     readonly bypassCache: boolean;
     readonly cacheExpiration: number;
     readonly parserTimeout: number;
-    readonly restaurants: { id: number, name: string, url: (date: Moment) => string, parser: IParser}[];
+    readonly restaurants: { id: number, name: string, urlFactory: (date: Moment) => string, parser: IParser}[];
 }
 
 export class Config implements IConfig {
@@ -32,20 +32,20 @@ export class Config implements IConfig {
     public readonly bypassCache: boolean = process.env.AT11_NO_CACHE === "true";
     public readonly cacheExpiration = 2 * 60 * 60 * 1000; // 2h
     public readonly parserTimeout = 10 * 1000; // 10s
-    public readonly restaurants: { id: number, name: string, url: (date: Moment) => string, parser: IParser}[]  = [
+    public readonly restaurants: { id: number, name: string, urlFactory: (date: Moment) => string, parser: IParser}[]  = [
         // tslint:disable: max-line-length
-        { id: 11, name: "Kaša", url: _ => "https://restauracie.sme.sk/restauracia/kasa-2_8386-petrzalka_664/denne-menu", parser: new Kasa() },
-        { id: 3, name: "ITB", url: _ => "http://www.citycantina.sk/prevadzka/1", parser: new Itb() },
-        { id: 8, name: "Partička", url: _ => "https://restauracie.sme.sk/restauracia/particka-restauracia-beer-pub_11101-petrzalka_664/denne-menu", parser: new Particka() },
-        { id: 4, name: "Alfa", url: _ => "http://restauracie.sme.sk/restauracia/restauracia-alfa_2512-petrzalka_664/denne-menu", parser: new Alfa() },
-        { id: 12, name: "Hall of Kings", url: _ => "https://menucka.sk/denne-menu/bratislava/hall-of-kings", parser: new HallOfKings() },
-        { id: 5, name: "Škôlka", url: _ => "http://jedalen.vysnivany.sk/ukazka-strany", parser: new Skolka() },
-        { id: 2, name: "Giuliano", url: _ => "http://www.giuliano.sk/-denne-menu", parser: new Giuliano() },
-        { id: 6, name: "Pizza Pazza", url: date => `https://www.pizzeriaviennagate.sk/obedove-menu/${date.format("dddd").replace("š", "s")}`, parser: new PizzaPazza() },
-        { id: 7, name: "Kamenica - Corleone Pizza", url: _ => "http://www.pizzacorleone.sk/obedove-menu.html", parser: new Kamenica() },
-        { id: 9, name: "Engerau restaurant", url: _ => "https://www.zomato.com/sk/bratislava/engerau-restaurant-petr%C5%BEalka-bratislava-v/denn%C3%A9-menu", parser: new Engerau() },
-        { id: 10, name: "Lokálka", url: _ => "http://www.lokalka.sk/kopcianska-2/", parser: new Lokalka() },
-        { id: 13, name: "Tiffany", url: _ => "https://www.zomato.com/sk/bratislava/pizzeria-tiffany-petr%C5%BEalka-bratislava-v/denn%C3%A9-menu", parser: new Tiffany() },
-        { id: 14, name: "Petržalská klubovňa", url: _ => "https://restauracie.sme.sk/restauracia/petrzalska-klubovna_7359-petrzalka_664/denne-menu", parser: new Klubovna() }
+        { id: 11, name: "Kaša", urlFactory: _ => "https://restauracie.sme.sk/restauracia/kasa-2_8386-petrzalka_664/denne-menu", parser: new Kasa() },
+        { id: 3, name: "ITB", urlFactory: _ => "http://www.citycantina.sk/prevadzka/1", parser: new Itb() },
+        { id: 8, name: "Partička", urlFactory: _ => "https://restauracie.sme.sk/restauracia/particka-restauracia-beer-pub_11101-petrzalka_664/denne-menu", parser: new Particka() },
+        { id: 4, name: "Alfa", urlFactory: _ => "http://restauracie.sme.sk/restauracia/restauracia-alfa_2512-petrzalka_664/denne-menu", parser: new Alfa() },
+        { id: 12, name: "Hall of Kings", urlFactory: _ => "https://menucka.sk/denne-menu/bratislava/hall-of-kings", parser: new HallOfKings() },
+        { id: 5, name: "Škôlka", urlFactory: _ => "http://jedalen.vysnivany.sk/ukazka-strany", parser: new Skolka() },
+        { id: 2, name: "Giuliano", urlFactory: _ => "http://www.giuliano.sk/-denne-menu", parser: new Giuliano() },
+        { id: 6, name: "Pizza Pazza", urlFactory: date => `https://www.pizzeriaviennagate.sk/obedove-menu/${date.format("dddd").replace("š", "s").replace("ľ", "l")}`, parser: new PizzaPazza() },
+        { id: 7, name: "Kamenica - Corleone Pizza", urlFactory: _ => "http://www.pizzacorleone.sk/obedove-menu.html", parser: new Kamenica() },
+        { id: 9, name: "Engerau restaurant", urlFactory: _ => "https://www.zomato.com/sk/bratislava/engerau-restaurant-petr%C5%BEalka-bratislava-v/denn%C3%A9-menu", parser: new Engerau() },
+        { id: 10, name: "Lokálka", urlFactory: _ => "http://www.lokalka.sk/kopcianska-2/", parser: new Lokalka() },
+        { id: 13, name: "Tiffany", urlFactory: _ => "https://www.zomato.com/sk/bratislava/pizzeria-tiffany-petr%C5%BEalka-bratislava-v/denn%C3%A9-menu", parser: new Tiffany() },
+        { id: 14, name: "Petržalská klubovňa", urlFactory: _ => "https://restauracie.sme.sk/restauracia/petrzalska-klubovna_7359-petrzalka_664/denne-menu", parser: new Klubovna() }
     ];
 }

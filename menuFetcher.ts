@@ -9,19 +9,21 @@ import { IParser } from "./parsers/IParser";
 export class MenuFetcher {
     constructor(private _config: IConfig, private _cache: Cache<IMenuItem[]>) {}
 
-    public fetchMenu(url: (date: Moment) => string,
+    public fetchMenu(urlFactory: (date: Moment) => string,
                      date: Moment,
                      parser: IParser,
                      doneCallback: (err: Error, result: ReturnType<Cache<IMenuItem[]>["get"]>) => void) {
-        const cached = this._cache.get(date + ":" + url);
+        const url = urlFactory(date);
+        const cacheKey = date + ":" + url;
+        const cached = this._cache.get(cacheKey);
         if (cached && !this._config.bypassCache) {
             doneCallback(null, cached);
         } else {
             this.load(url, date, parser, (error: Error, menu: IMenuItem[]) => {
                 if (!error) {
-                    this._cache.set(date + ":" + url, menu);
+                    this._cache.set(cacheKey, menu);
                     // we need to go through cache to get cache timestamp
-                    doneCallback(null, this._cache.get(date + ":" + url));
+                    doneCallback(null, this._cache.get(cacheKey));
                 } else {
                     console.error("Error for %s: %s", url, error);
                     doneCallback(error, null);
@@ -30,17 +32,16 @@ export class MenuFetcher {
         }
     }
 
-    private load(url: (date: Moment) => string,
+    private load(url: string,
                  date: Moment,
                  parser: IParser,
                  doneCallback: (error: Error, menu: IMenuItem[]) => void) {
-        let evaluatedtUrl = url(date);
         // on production (azure) use scraper api for zomato requests, otherwise zomato blocks them
-        if(this._config.isProduction && evaluatedtUrl.search("zomato")>=0) {
-            evaluatedtUrl = `http://api.scraperapi.com?api_key=${this._config.scraperApiKey}&url=${encodeURIComponent(evaluatedtUrl)}`;
+        if(this._config.isProduction && url.search("zomato")>=0) {
+            url = `http://api.scraperapi.com?api_key=${this._config.scraperApiKey}&url=${encodeURIComponent(url)}`;
         }
         const options = {
-            url: evaluatedtUrl,
+            url,
             method: "GET",
             headers: { // some sites need us to pretend to be a browser to work
                 "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)",

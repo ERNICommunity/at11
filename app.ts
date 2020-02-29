@@ -24,7 +24,7 @@ for (const restaurant of config.restaurants) {
         if (typeof actions[id] !== "undefined") {
             throw new Error("Non unique id '" + id + "' provided");
         }
-        actions[id] = (date, doneCallback) => menuFetcher.fetchMenu(restaurant.url, date, restaurant.parser, doneCallback);
+        actions[id] = (date, doneCallback) => menuFetcher.fetchMenu(restaurant.urlFactory, date, restaurant.parser, doneCallback);
     } catch (e) {
         console.warn(e);
     }
@@ -50,7 +50,7 @@ app.get("/", (req, res) => {
     res.render(__dirname + "/../views/index.html", { restaurants: config.restaurants.map(x => ({
         id: x.id,
         name: x.name,
-        url: x.url(moment())
+        url: x.urlFactory(moment())
     })) });
 });
 app.get("/menu/:id", (req, res) => {
