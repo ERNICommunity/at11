@@ -7,6 +7,8 @@ import { IMenuItem } from "./parsers/IMenuItem";
 import { IParser } from "./parsers/IParser";
 
 export class MenuFetcher {
+    private readonly _runningRequests: { [url: string] : ((error: Error, menu: IMenuItem[]) => void)[]; } = {};
+
     constructor(private _config: IConfig, private _cache: Cache<IMenuItem[]>) {}
 
     public fetchMenu(urlFactory: (date: Moment) => string,
@@ -36,6 +38,13 @@ export class MenuFetcher {
                  date: Moment,
                  parser: IParser,
                  doneCallback: (error: Error, menu: IMenuItem[]) => void) {
+
+        if(this._runningRequests[url]) { // if request is already running, just add additional callback
+            this._runningRequests[url].push(doneCallback);
+            return;
+        }
+        this._runningRequests[url] = [doneCallback];
+
         // on production (azure) use scraper api for zomato requests, otherwise zomato blocks them
         if(this._config.isProduction && url.search("zomato")>=0) {
             url = `http://api.scraperapi.com?api_key=${this._config.scraperApiKey}&url=${encodeURIComponent(url)}`;
@@ -50,10 +59,15 @@ export class MenuFetcher {
             timeout: 10 * 1000 // 10s timeout for request
         };
         request(options, (error, response, body) => {
+            const done = (e: Error, m: IMenuItem[]) => {
+                const doneCallbacks = this._runningRequests[url];
+                delete this._runningRequests[url];
+                doneCallbacks.forEach(dc => dc(e,m));
+            }
             if (!error && response.statusCode === 200) {
                 let timer = setTimeout(() => {
                     timer = null; // clear needed as value is kept even after timeout fired
-                    doneCallback(new Error("Parser timeout"), null);
+                    done(new Error("Parser timeout"), null);
                 }, this._config.parserTimeout);
 
                 try {
@@ -65,15 +79,15 @@ export class MenuFetcher {
                         clearTimeout(timer);
                         timer = null;
 
-                        doneCallback(null, menu);
+                        done(null, menu);
                     });
                 } catch (err) {
                     clearTimeout(timer);
                     timer = null;
-                    doneCallback(err, null);
+                    done(err, null);
                 }
             } else {
-                doneCallback(error || new Error("Response code " + response.statusCode), null);
+                done(error || new Error("Response code " + response.statusCode), null);
             }
         });
     }

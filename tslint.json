@@ -10,6 +10,7 @@
         "no-console": false,
         "variable-name": { "options": ["allow-leading-underscore"] },
         "trailing-comma": [true, { "multiline": "never", "singleline": "never" }],
-        "arrow-parens": false
+        "arrow-parens": false,
+        "curly": true
     }
 }
