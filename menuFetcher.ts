@@ -9,7 +9,7 @@ import { IParser } from "./parsers/IParser";
 export class MenuFetcher {
     private readonly _runningRequests: { [url: string] : ((error: Error, menu: IMenuItem[]) => void)[]; } = {};
 
-    constructor(private _config: IConfig, private _cache: Cache<IMenuItem[]>) {}
+    constructor(private readonly _config: IConfig, private readonly _cache: Cache<IMenuItem[]>) {}
 
     public fetchMenu(urlFactory: (date: Moment) => string,
                      date: Moment,
@@ -46,7 +46,7 @@ export class MenuFetcher {
         this._runningRequests[url] = [doneCallback];
 
         // on production (azure) use scraper api for zomato requests, otherwise zomato blocks them
-        if(this._config.isProduction && url.search("zomato")>=0) {
+        if(this._config.isProduction && url.search("zomato") >= 0) {
             url = `http://api.scraperapi.com?api_key=${this._config.scraperApiKey}&url=${encodeURIComponent(url)}`;
         }
         const options = {
