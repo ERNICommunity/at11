@@ -38,6 +38,10 @@ export class MenuFetcher {
                  date: Moment,
                  parser: IParser,
                  doneCallback: (error: Error, menu: IMenuItem[]) => void) {
+        // on production (azure) use scraper api for zomato requests, otherwise zomato blocks them
+        if(this._config.isProduction && url.search("zomato") >= 0) {
+            url = `http://api.scraperapi.com?api_key=${this._config.scraperApiKey}&url=${encodeURIComponent(url)}`;
+        }
 
         if(this._runningRequests[url]) { // if request is already running, just add additional callback
             this._runningRequests[url].push(doneCallback);
@@ -45,10 +49,6 @@ export class MenuFetcher {
         }
         this._runningRequests[url] = [doneCallback];
 
-        // on production (azure) use scraper api for zomato requests, otherwise zomato blocks them
-        if(this._config.isProduction && url.search("zomato") >= 0) {
-            url = `http://api.scraperapi.com?api_key=${this._config.scraperApiKey}&url=${encodeURIComponent(url)}`;
-        }
         const options = {
             url,
             method: "GET",
