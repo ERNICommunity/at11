@@ -54,24 +54,35 @@ app.get("/", (req, res) => {
     })) });
 });
 app.get("/menu/:id", (req, res) => {
-    if (typeof actions[req.params.id] === "undefined") {
-        res.statusCode = 404;
-        res.send("Restaurant " + req.params.id + " not found\n");
-    } else {
-        if (!req.query.date) {
-            res.statusCode = 400;
-            res.send("Missing date query parameter");
-            return;
-        }
-        actions[req.params.id](moment(req.query.date, "YYYY-MM-DD"), (error, result) => {
-            if (error) {
-                res.statusCode = 500;
-                res.send(error.toString());
-            } else {
-                res.json({ menu: result.value, timeago: moment(result.timestamp).fromNow() });
-            }
-        });
+    const id = parseInt(req.params.id, 10);
+    if(isNaN(id))
+    {
+        res.statusCode = 400;
+        res.send("Missing/incorrect 'id' url parameter");
+        return;
     }
+
+    const date = moment(req.query.date, "YYYY-M-D", true)
+    if (!date.isValid()) {
+        res.statusCode = 400;
+        res.send("Missing/incorrect 'date' query parameter");
+        return;
+    }
+
+    if (typeof actions[id] === "undefined") {
+        res.statusCode = 404;
+        res.send("Restaurant " + req.params.id + " not found");
+        return;
+    }
+
+    actions[id](date, (error, result) => {
+        if (error) {
+            res.statusCode = 500;
+            res.send(error.toString());
+        } else {
+            res.json({ menu: result.value, timeago: moment(result.timestamp).fromNow() });
+        }
+    });
 });
 app.listen(config.port, function(err) {
   if (err) {
