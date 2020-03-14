@@ -130,14 +130,14 @@ a.github {
     float: none;
 }
 
-    #clock {
-        padding: 0px;
-        position: absolute;
-        left: 50%;
-        top: -15px;
-        margin-left: -115px;
-        z-index: 100;
-    }
+#clock {
+    padding: 0px;
+    position: absolute;
+    left: 50%;
+    top: -15px;
+    margin-left: -115px;
+    z-index: 100;
+}
 
 #main-logo {
     padding: 0px;
@@ -158,35 +158,35 @@ a.github {
 }
 
 
-  h1, h2, h3 {
-        margin: 0px;
-        font-size: 2.5em;
-        /*margin: 0.5em 0; */
-        text-align: right;
-        font-family: 'Amatic SC', Verdana, sans-serif;
-        color: #84C4D0
-    }
+h1, h2, h3 {
+    margin: 0px;
+    font-size: 2.5em;
+    /*margin: 0.5em 0; */
+    text-align: right;
+    font-family: 'Amatic SC', Verdana, sans-serif;
+    color: #84C4D0
+}
 
-    header h1 > span {
-        color: rgb(210,210,210);
-        white-space: nowrap;
-    }
+header h1 > span {
+    color: rgb(210,210,210);
+    white-space: nowrap;
+}
 
 .first-row {
     width: inherit;
     display: inline-block;
     padding-left: 20px;
     margin-top: 10px;
- }
+}
 
-  div .title {
+div .title {
     display:-inline-block;
     font-size: 2.5em;
     margin: 0.5em 0;
     text-align: center;
     font-family: 'Amatic SC', Verdana, sans-serif;
     color: #84C4D0;
- }
+}
 
 .navbar {
     position: relative;
@@ -251,20 +251,20 @@ a#dLabel {
     margin-right: 5px;
 }
 
-    ul li a:hover{
-        color: #fff;
-        background: #EE6B67;
-    }
+ul li a:hover{
+    color: #fff;
+    background: #EE6B67;
+}
 
-    ul ul.dropdown{
-        min-width: 131px; /* Set width of the dropdown */
-        height: 46px;
-        background: #FCB85F;
-        display: none;
-        position: absolute;
-        z-index: 99;
-        left: 0;
-    }
+ul ul.dropdown{
+    min-width: 131px; /* Set width of the dropdown */
+    height: 46px;
+    background: #FCB85F;
+    display: none;
+    position: absolute;
+    z-index: 99;
+    left: 0;
+}
 
 li.label {
     padding: 0;
@@ -274,16 +274,16 @@ li.label {
     color: #E9843E;
 }
 
-    ul li:hover ul.dropdown{
-        display: block; /* Display the dropdown */
-    }
-    ul li ul.dropdown li{
-        display: block;
-    }
+ul li:hover ul.dropdown{
+    display: block; /* Display the dropdown */
+}
+ul li ul.dropdown li{
+    display: block;
+}
 
-    li .dropdown {
-        padding: 0px;
-    }
+li .dropdown {
+    padding: 0px;
+}
 
 #selector-restaurant {
     content: hidden;
@@ -339,44 +339,44 @@ section {
     }
 
     section ul li {
-            display: table-row;
-            font-size: 1em;
+        display: table-row;
+        font-size: 1em;
+    }
+
+        section ul li > * {
+            display: table-cell;
         }
 
-            section ul li > * {
+            section ul li > *.price {
+                white-space: nowrap;
+                text-align: right;
+                padding-left: 0.5em;
+                color: #E9843E;
+            }
+
+            section ul li:before {
+                content: "";
                 display: table-cell;
+                background: url('../img/at11_dish_icon.png') no-repeat center 3px;
+                width: 1em;
             }
+                    section ul li.soup:before{
+                        background: url('../img/at11_soup_icon.png') no-repeat center 3px;
+                    }
+                    section ul li.error:before {
+                        background-image: none;
+                        color: lightgrey;
+                        text-align: center;
+                    }
 
-                section ul li > *.price {
-                    white-space: nowrap;
-                    text-align: right;
-                    padding-left: 0.5em;
-                    color: #E9843E;
-                }
+        section ul li.soup {
+            font-weight: 300;
+            letter-spacing: 0.02em;
+        }
 
-                section ul li:before {
-									content: "";
-									display: table-cell;
-                  background: url('../img/at11_dish_icon.png') no-repeat center 3px;
-									width: 1em;
-                }
-								section ul li.soup:before{
-                  background: url('../img/at11_soup_icon.png') no-repeat center 3px;
-		            }
-								section ul li.error:before {
-										background-image: none;
-								    color: lightgrey;
-								    text-align: center;
-								}
-
-            section ul li.soup {
-                font-weight: 300;
-                letter-spacing: 0.02em;
-            }
-
-            section ul a {
-                color: #EE6B67;
-            }
+        section ul a {
+            color: #EE6B67;
+        }
 
     section > span.timeago {
         display: block;
@@ -491,7 +491,7 @@ div#container {
     }
 
     .first-row {
-    font-size: 13px
+        font-size: 13px
     }
 
     section h2 {
@@ -542,10 +542,10 @@ div#container {
     /* very old mobile */
 
     .navbar {
-    padding: 4px 10px 12px 10px;
+        padding: 4px 10px 12px 10px;
     }
 
     header {
-    height: 533px;
+        height: 533px;
     }
 }
