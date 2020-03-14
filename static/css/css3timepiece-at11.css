@@ -11,8 +11,6 @@
     width: 237px;
     height: 237px;
     margin: 0px;
-    -moz-border-radius: 1000px;
-    -webkit-border-radius: 1000px;
     border-radius: 1000px;
     z-index: 1000;
     }
@@ -27,13 +25,7 @@
     background-image: url("../img/at11_hand_hour.png");
     background-repeat: none;
     background-position: center;
-    -moz-transform: rotate(0deg);
-    -ms-transform: rotate(0deg);
-    -webkit-transform: rotate(0deg);
     transform: rotate(0deg);
-    -moz-transform-origin: bottom;
-    -ms-transform-origin: bottom;
-    -webkit-transform-origin: bottom;
     transform-origin: bottom;
     z-index: 2;
     }
