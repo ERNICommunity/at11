@@ -20,11 +20,11 @@
 
 <body>
     <header>
-        <div id="clock" alt="clock" >
+        <div id="clock">
             {{> at11clock}}
         </div>
 
-        <nav role="navigation">
+        <nav>
             <div class="logos">
                 <a href="/">
                     <img src="img/at11_logo.png" alt="@11 logo">
@@ -50,27 +50,24 @@
     </header>
 
     <main id="container">
-            {{#each restaurants}}
-            <section data-restaurant-id="{{this.id}}">
-                <h2><a href="{{this.url}}" target="_blank">{{this.name}}</a></h2>
-					<div class="loader"></div>
-            </section>
-            {{/each}}
+        {{#each restaurants}}
+        <section data-restaurant-id="{{this.id}}">
+            <h2><a href="{{this.url}}" target="_blank">{{this.name}}</a></h2>
+            <div class="loader"></div>
+        </section>
+        {{/each}}
     </main>
 
     <footer>
-            <span class="copyright">
-                <a href="http://en.wikipedia.org/wiki/Copyleft" target="_blank" title="copyleft"
-                    style="display: inline; -webkit-transform: scaleX(-1); transform: scaleX(-1);">©</a>
-                ALL WRONGS RESERVED
-            </span>
-            <span class="github">
-                <a style="float: right" href="https://github.com/ERNICommunity/at11" target="_blank"
-                    class="github">GitHub</a>
-            </span>
-            <p>
-                Powered by ERNI Community &#149; Biggest thank to Jano &#149; Designed by Diana
-            </p>
+        <a class="copyright" href="http://en.wikipedia.org/wiki/Copyleft" target="_blank" title="copyleft">
+            <span style="display: inline-block; transform: scaleX(-1); font-size: 20px;">©</span>
+            ALL WRONGS RESERVED
+        </a>
+        <a class="github" href="https://github.com/ERNICommunity/at11" target="_blank" title="github repository">
+            <img src="img/github.png" style="height: 15px;" alt="github logo">
+            GitHub
+        </a>
+        <p>Powered by ERNI Community &#149; Biggest thank to Jano &#149; Designed by Diana</p>
     </footer>
     <script src="//unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
 </body>
