@@ -71,63 +71,61 @@
 html, body {
     margin: 0;
     padding: 0;
+    width: 100%;
+    height: 100%;
     font-family: 'Oswald', sans-serif;
-    background-color: white;
-    color: #413F4A ;
-}
-
-body {
-    display: flex;
-    min-height: 100vh;
-    flex-direction: column;
     background-color: #eee;
+    color: #413F4A ;
+    min-width: 600px;
 }
-
+h1, h2, h3 {
+    margin: 0px;
+    font-family: 'Amatic SC', Verdana, sans-serif;
+    color: #84C4D0
+}
 a {
     text-decoration: inherit;
     color: inherit;
-}
-
-
-header, footer {
-    width: 100%;
-    display: table;
 }
 
 header {
     background-color: white;
     height: 218px;
     background: url('../img/at11_header_background_01.png') repeat-x;
-    padding: 0px;
-    margin-bottom: 30px;
+    padding: 0 5%;
+    margin-bottom: 20px;
 }
-
+main {
+    position: relative;
+    margin: 10px auto;
+    max-width: 90%;
+}
 footer {
-    padding-top: 50px;
+    padding: 20px 5%;
     font-size: 0.9em;
     text-align: center;
     color: #FCB85F;
     background-color: #E9843E;
+    margin-top: 20px;
 }
 
-footer span {
-    margin-left: 10px;
+header .logos {
+    margin-top: 20px;
+    float: left;
+}
+header .logos a {
+    margin: 0;
+    padding: 0;
+    display: inline;
+}
+header .logos img {
+    height: 50px;
     margin-right: 10px;
 }
-
-footer div {
-    display: inline-block;
-    padding: 0 12px 0 12px;
-    vertical-align: bottom;
-}
-
-footer div a {
-    padding: 0px;
-    vertical-align: center;
-}
-
-a.github {
-    float: none;
+header h1 {
+    margin-top: 20px;
+    float: right;
+    font-size: 40px;
 }
 
 #clock {
@@ -135,163 +133,52 @@ a.github {
     position: absolute;
     left: 50%;
     top: -15px;
+    width: 350px;
+    height: 350px;
     margin-left: -115px;
     z-index: 100;
 }
 
-#main-logo {
-    padding: 0px;
-    margin-top: 10px;
-    height: 66px;
+header #picker {
+    cursor: pointer;
+    clear: both;
     float: left;
-}
-
-#main-logo a {
-    margin: 0;
-    padding: 0;
-    display: inline;
-}
-
-#main-logo img {
-    height: 50px;
-    margin-right: 10px;
-}
-
-
-h1, h2, h3 {
-    margin: 0px;
-    font-size: 2.5em;
-    /*margin: 0.5em 0; */
-    text-align: right;
-    font-family: 'Amatic SC', Verdana, sans-serif;
-    color: #84C4D0
-}
-
-header h1 > span {
-    color: rgb(210,210,210);
-    white-space: nowrap;
-}
-
-.first-row {
-    width: inherit;
-    display: inline-block;
-    padding-left: 20px;
-    margin-top: 10px;
-}
-
-div .title {
-    display:-inline-block;
-    font-size: 2.5em;
-    margin: 0.5em 0;
-    text-align: center;
-    font-family: 'Amatic SC', Verdana, sans-serif;
-    color: #84C4D0;
-}
-
-.navbar {
-    position: relative;
-    padding: 7px 20px 12px 20px;
-    margin: auto;
-    background-color: none;
-    border-color: none;
-}
-
-div#selection {
     width: 200px;
-    padding: 0 7px 0 7px;
-    }
-
-nav ul {
-        padding: 0;
-        margin: 0px;
-        list-style: none;
-        color: #E9843E;
-    }
-nav li{
-        display: inline-block;
-        position: relative;
-        line-height: 18px;
-        text-align: left;
-        color: #E9843E;
-    }
-
-nav li {
-        display: block;
-        color: #fff;
-        text-decoration: none;
-        /* background-color: #FCB85F; */
- }
-
-nav li.dropdown {
-        background-color: #FCB85F;
- }
-
-nav a.checkbox {
-        display: block;
-        line-height: 23px;
-        padding-left: 30px;
-        text-indent: -23px
- }
-
-nav ul.dropdown {
-        display: block;
-        color: #fff;
-        text-decoration: none;
-        background-color: #FCB85F;
-    }
-
-nav a {
-        display: block;
-        padding: 8px 20px 8px 20px;
-        text-decoration: none;
-        /* background-color: #FCB85F; */
-    }
-
-a#dLabel {
-    margin-right: 5px;
+    margin-top: 8px;
+    position: relative;
+    color: #E9843E;
+    font-weight: bold;
+    padding:  5px 10px;
+    height: 30px;
 }
-
-ul li a:hover{
+header #picker:hover {
     color: #fff;
     background: #EE6B67;
 }
-
-ul ul.dropdown{
-    min-width: 131px; /* Set width of the dropdown */
-    height: 46px;
-    background: #FCB85F;
-    display: none;
-    position: absolute;
-    z-index: 99;
-    left: 0;
-}
-
-li.label {
-    padding: 0;
-    background-color: none;
-    font-size: 100%;
-    font-weight: 700;
-    color: #E9843E;
-}
-
-ul li:hover ul.dropdown{
-    display: block; /* Display the dropdown */
-}
-ul li ul.dropdown li{
+#picker:hover ul {
     display: block;
 }
-
-li .dropdown {
-    padding: 0px;
+#picker ul {
+    position: absolute;
+    top: 34px;
+    left: 0px;
+    display: none;
+    padding: 0;
+    margin: 0px;
+    list-style: none;
+    color: #E9843E;
+    z-index: 2;
 }
-
-#selector-restaurant {
-    content: hidden;
-    background: url('../img/at11_icon_restaurant.png') no-repeat;
+#picker li {
+    width: 210px;
+    display: block;
+    line-height: 18px;
+    color: #fff;
+    background-color: #FCB85F;
+    padding:  5px 5px;
 }
-
-main {
-    flex: 1;
+#picker li:hover {
+    background: #EE6B67;
 }
 
 section {
@@ -303,249 +190,83 @@ section {
     background: white;
     text-align: left;
 }
-
-    section h2 {
-        font-size: 2.5em;
-        margin: 0.2em 0;
-        text-align: center;
-        font-family: 'Amatic SC', cursive;
-        color: #84C4D0;
-    }
-
-        section h2 a:hover {
-           color: #EE6B67;
-        }
-
-    section .loader {
-        margin: 0 auto; /* horizontal center */
-        border: 6px solid #eee;
-        border-top: 6px solid #E9843E;
-        border-radius: 50%;
-        width: 30px;
-        height: 30px;
-        animation: spin 2s linear infinite;
-    }
-
-    @keyframes spin {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
-    }
-
-    section ul {
-        display: table;
-        width: 29.5em;
-        padding-left: 0.35em;
-        border-collapse: collapse;
-    }
-
-    section ul li {
-        display: table-row;
-        font-size: 1em;
-    }
-
-        section ul li > * {
-            display: table-cell;
-        }
-
-            section ul li > *.price {
-                white-space: nowrap;
-                text-align: right;
-                padding-left: 0.5em;
-                color: #E9843E;
-            }
-
-            section ul li:before {
-                content: "";
-                display: table-cell;
-                background: url('../img/at11_dish_icon.png') no-repeat center 3px;
-                width: 1em;
-            }
-                    section ul li.soup:before{
-                        background: url('../img/at11_soup_icon.png') no-repeat center 3px;
-                    }
-                    section ul li.error:before {
-                        background-image: none;
-                        color: lightgrey;
-                        text-align: center;
-                    }
-
-        section ul li.soup {
-            font-weight: 300;
-            letter-spacing: 0.02em;
-        }
-
-        section ul a {
-            color: #EE6B67;
-        }
-
-    section > span.timeago {
-        display: block;
-        font-size: 0.7em;
-        text-align: right;
-        margin-right: 0.5em;
-        color: #E9843E;
-    }
-
-main span {
-    padding-left: 6px;
-}
-
-div#container {
-    margin: 10px 40px;
+section h2 {
+    font-size: 2.5em;
+    margin: 0.2em 0;
     text-align: center;
-    max-width: 2100px;
-    margin-left: auto;
-    margin-right: auto;
 }
-
-.clear-fix:before,
-.clear-fix:after {
-    content: "";
+section h2 a:hover {
+    color: #EE6B67;
+}
+section .loader {
+    margin: 0 auto; /* horizontal center */
+    border: 6px solid #eee;
+    border-top: 6px solid #E9843E;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    animation: spin 2s linear infinite;
+}
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+section ul {
     display: table;
+    width: 29.5em;
+    padding-left: 0.35em;
+    border-collapse: collapse;
+}
+section ul li {
+    display: table-row;
+    font-size: 1em;
+}
+section ul li > * {
+    display: table-cell;
+}
+section ul li > *.price {
+    white-space: nowrap;
+    text-align: right;
+    padding-left: 0.5em;
+    color: #E9843E;
+}
+section ul li:before {
+    content: "";
+    display: table-cell;
+    background: url('../img/at11_dish_icon.png') no-repeat center 3px;
+    width: 1em;
+}
+section ul li.soup {
+    font-weight: 300;
+    letter-spacing: 0.02em;
+}
+section ul li.soup:before{
+    background: url('../img/at11_soup_icon.png') no-repeat center 3px;
+}
+section ul li.error:before {
+    background-image: none;
+    color: lightgrey;
+    text-align: center;
+}
+section ul a {
+    color: #EE6B67;
+}
+section > span.timeago {
+    display: block;
+    font-size: 0.7em;
+    text-align: right;
+    margin-right: 0.5em;
+    color: #E9843E;
 }
 
-.clear-fix:after {
-    clear:both;
+footer .copyright {
+    float: left;
 }
-
-.clear-fix {
-    zoom:1;
+footer .github {
+    float: right;
 }
-
-.fa-lg {
-    vertical-align: -5%;
-}
-
-/* ADAPTIVE */
-@media (max-width: 2100px) {
-    /* 3 columns */
-    div#container {
-        max-width: 1600px ;
-    }
-    .navbar {
-        max-width: 1600px;
-    }
-}
-
-@media (max-width: 1620px) {
-    /* 2 columns */
-    div#container {
-        max-width: 1065px ;
-    }
-    .navbar {
-        max-width: 1065px;
-    }
-}
-
-@media (max-width: 1080px) {
-    /* 1 column */
-    div#container {
-        max-width: 532px;
-    }
-    div#denne-menu {
-        display: none;
-    }
-}
-
-@media (max-width: 920px) {
-    ul#restauracie{
-        float: left;
-    }
-}
-
-@media (max-width: 620px) {
-/* lower clock */
-    #clock {
-        padding-top: 50px;
-    }
-
-    header {
-        height: 240px;
-        background-color: #FCB85F;
-    }
-}
-
-@media (max-width: 532px) {
-    /* mobile */
-    section {
-        width: 100%;
-        padding: 0.5em;
-    }
-
-    section ul {
-        width: 100%;
-    }
-
-    ul#temy {
-        display: none;
-    }
-
-    header {
-        height: 460px;
-        background-color: #FCB85F;
-        margin: 0px;
-    }
-
-    div.clear-fix > div {
-        margin-top: 0px;
-    }
-
-    .first-row {
-        font-size: 13px
-    }
-
-    section h2 {
-        font-size: 2em;
-        margin: 0px;
-    }
-
-    #date {
-        margin-top: 4px;
-    }
-
-    div#selection {
-        margin-top: 225px;
-    }
-
-    nav ul{
-        width: 100%;
-        text-align: center;
-    }
-    nav a {
-        display: inline;
-        padding: 8px 21px 8px 21px;
-    }
-
-    nav a.checkbox {
-        display: inline;
-        padding: 10px;
-        line-height: 37px;
-    }
-
-    ul li ul.dropdown li {
-        display: inline-block;
-    }
-
-    ul ul.dropdown {
-        display: inline;
-        min-width: 100%; /* Set width of the dropdown */
-        background: #FCB85F;
-        position: absolute;
-    }
-
-    #selectRestaurant {
-        display: none;
-    }
-}
-
-@media (max-width: 320px) {
-    /* very old mobile */
-
-    .navbar {
-        padding: 4px 10px 12px 10px;
-    }
-
-    header {
-        height: 533px;
-    }
+footer p {
+    clear: both;
+    text-align: center;
+    margin: 0;
 }

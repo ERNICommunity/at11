@@ -10,7 +10,7 @@ $(document).ready(function() {
 
         var $target = $(e.target);
         var checkbox;
-        if($target.val() === '') {
+        if($target.val() === 0) {
             checkbox = $target.children('input').length > 0 ? $target.children('input') : $target.siblings('input');
             checkbox.prop('checked', !checkbox.prop('checked'));
         }

@@ -20,80 +20,57 @@
 
 <body>
     <header>
-        <div id="clock" height="350px" width="350px" alt="clock" >
+        <div id="clock" alt="clock" >
             {{> at11clock}}
         </div>
 
-        <nav class="navbar" role="navigation">
-            <div class="clear-fix">
-                <div id="main-logo">
-                    <a href="/">
-                        <img src="img/at11_logo.png" alt="@11 logo">
-                    </a>
-                    <a href="https://www.betterask.erni/">
-                        <img src="img/erni_logo.png" alt="ERNI logo">
-                    </a>
-                </div>
-
-                <div class="first-row">
-                    <h3 id="date"></h3>
-                </div>
-
-                <div id="denne-menu" class="first-row">
-                    <h1>Denné menu</h1>
-                </div>
-
-                <div class="visible-xs">
-                </div>
+        <nav role="navigation">
+            <div class="logos">
+                <a href="/">
+                    <img src="img/at11_logo.png" alt="@11 logo">
+                </a>
+                <a href="https://www.betterask.erni/" target="_blank">
+                    <img src="img/erni_logo.png" alt="ERNI logo">
+                </a>
             </div>
 
-            <div id="selection">
-                <ul id="restauracie" class="nav nav-pills pull-right">
-                    <li class="label">
-                        <a id="selectRestaurant" role="button" data-toggle="dropdown" href="#" class="second-row-button">Vybrať reštauráciu
-                            <b class="caret"></b>
-                        </a>
-                        <ul id="selectrestaurants" class="dropdown" role="menu" aria-labelledby="selectrestaurants">
-                            <li role="presentation" class="dropdown-checkbox">
-                                {{> selectrestaurants}}
-                            </li>
-                        </ul>
+            <h1 class="title">Denné menu <span id="date"></span></h1>
+
+            <div id="picker">
+                Vybrať reštauráciu
+                <ul id="selectrestaurants" class="dropdown">
+                    {{#each restaurants}}
+                    <li>
+                        <input type="checkbox" value="{{this.id}}" checked="checked"/> {{this.name}}
                     </li>
+                    {{/each}}
                 </ul>
             </div>
         </nav>
     </header>
 
-    <main>
-        <div id="container">
+    <main id="container">
             {{#each restaurants}}
             <section data-restaurant-id="{{this.id}}">
                 <h2><a href="{{this.url}}" target="_blank">{{this.name}}</a></h2>
 					<div class="loader"></div>
             </section>
             {{/each}}
-        </div>
     </main>
 
     <footer>
-        <nav class="navbar navbar-default navbar-fixed-bottom" role="navigation" style="font-size: 15px;">
-            <div class="container-fluid">
-                <div class="row well" style="margin-bottom: 0px;">
-                    <div>
-                        <a href="http://en.wikipedia.org/wiki/Copyleft" target="_blank" title="copyleft"
-                            style="display: inline; -webkit-transform: scaleX(-1); transform: scaleX(-1);">©</a>
-                        ALL WRONGS RESERVED
-                    </div>
-                    <div>
-                        <a style="float: right" href="https://github.com/ERNICommunity/at11" target="_blank"
-                            class="github">GitHub</a>
-                    </div>
-                    <p>
-                        Powered by ERNI Community &#149; Biggest thank to Jano &#149; Designed by Diana
-                    </p>
-                </div>
-            </div>
-        </nav>
+            <span class="copyright">
+                <a href="http://en.wikipedia.org/wiki/Copyleft" target="_blank" title="copyleft"
+                    style="display: inline; -webkit-transform: scaleX(-1); transform: scaleX(-1);">©</a>
+                ALL WRONGS RESERVED
+            </span>
+            <span class="github">
+                <a style="float: right" href="https://github.com/ERNICommunity/at11" target="_blank"
+                    class="github">GitHub</a>
+            </span>
+            <p>
+                Powered by ERNI Community &#149; Biggest thank to Jano &#149; Designed by Diana
+            </p>
     </footer>
     <script src="//unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
 </body>
