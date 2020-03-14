@@ -1,4 +1,52 @@
-/* amatic-sc-regular - latin-ext_latin */
+/* clock styles */
+.outer_face {
+    position: relative;
+    width: 237px;
+    height: 237px;
+    background-image: url("../img/clock_canvas.png");
+    margin: 30px 0 0 0;
+   }
+.inner_face {
+    position: absolute;
+    width: 237px;
+    height: 237px;
+    margin: 0px;
+    border-radius: 1000px;
+    z-index: 1000;
+}
+.hand, .hand.hour {
+    position: absolute;
+    width: 28.5px;
+    height: 125px;
+    left: 118.5px;
+    margin-left: -14.25px;
+    margin-top: -6.5px;
+    background-image: url("../img/at11_hand_hour.png");
+    background-repeat: none;
+    background-position: center;
+    transform: rotate(0deg);
+    transform-origin: bottom;
+    z-index: 2;
+}
+.hand.minute {
+    height: 165px;
+    width: 43.7px;
+    margin-left: -21.85px;
+    margin-top: -47px;
+    background-image: url("../img/at11_hand_minute.png");
+    background-repeat: none;
+    background-position: center;
+    z-index: 1;
+}
+.hand.second {
+    height: 80.5px;
+    width: 1px;
+    margin-left: -0.5px;
+    margin-top: 38px;
+    background: #DEDCDE;
+    z-index: -1;
+}
+/* page stylws */
 @font-face {
     font-family: 'Amatic SC';
     font-style: normal;
@@ -10,9 +58,7 @@
          url('../fonts/amatic-sc-v9-latin-ext_latin-regular.woff') format('woff'), /* Modern Browsers */
          url('../fonts/amatic-sc-v9-latin-ext_latin-regular.ttf') format('truetype'), /* Safari, Android, iOS */
          url('../fonts/amatic-sc-v9-latin-ext_latin-regular.svg#AmaticSC') format('svg'); /* Legacy iOS */
-    }
-
-/* amatic-sc-700 - latin-ext_latin */
+}
 @font-face {
   font-family: 'Amatic SC';
   font-style: normal;
@@ -25,8 +71,6 @@
        url('../fonts/amatic-sc-v9-latin-ext_latin-700.ttf') format('truetype'), /* Safari, Android, iOS */
        url('../fonts/amatic-sc-v9-latin-ext_latin-700.svg#AmaticSC') format('svg'); /* Legacy iOS */
 }
-
-/* oswald-regular - latin-ext_latin */
 @font-face {
   font-family: 'Oswald';
   font-style: normal;
@@ -39,8 +83,6 @@
        url('../fonts/oswald-v11-latin-ext_latin-regular.ttf') format('truetype'), /* Safari, Android, iOS */
        url('../fonts/oswald-v11-latin-ext_latin-regular.svg#Oswald') format('svg'); /* Legacy iOS */
 }
-
-/* oswald-300 - latin-ext_latin */
 @font-face {
   font-family: 'Oswald';
   font-style: normal;
@@ -53,8 +95,6 @@
        url('../fonts/oswald-v11-latin-ext_latin-300.ttf') format('truetype'), /* Safari, Android, iOS */
        url('../fonts/oswald-v11-latin-ext_latin-300.svg#Oswald') format('svg'); /* Legacy iOS */
 }
-
-/* oswald-700 - latin-ext_latin */
 @font-face {
   font-family: 'Oswald';
   font-style: normal;
@@ -199,7 +239,7 @@ section h2 a:hover {
     color: #EE6B67;
 }
 section .loader {
-    margin: 0 auto; /* horizontal center */
+    margin: 0 auto;
     border: 6px solid #eee;
     border-top: 6px solid #E9843E;
     border-radius: 50%;

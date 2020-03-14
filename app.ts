@@ -35,7 +35,6 @@ if (actions.length === 0) {
 }
 
 console.debug("Runtime setup...");
-hbs.registerPartials(__dirname + "/../views/partials");
 moment.locale("sk");
 moment.tz.setDefault("Europe/Bratislava");
 
