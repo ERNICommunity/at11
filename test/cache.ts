@@ -8,6 +8,7 @@ describe("cache", () => {
     const config: IConfig = {
         isProduction: false,
         scraperApiKey: "test_api_key",
+        appInsightsInstrumentationKey: "test_instrumentation_key",
         port: 1,
         bypassCache: false,
         cacheExpiration: 1,

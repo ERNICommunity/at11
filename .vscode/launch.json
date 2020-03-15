@@ -18,7 +18,7 @@
                 "action": "openExternally",
                 "pattern": "^Done, listening on https?://.+:(\\d+)",
                 "uriFormat": "http://localhost:%s",
-            },
+            }
         },
         {
             "type": "node",
@@ -30,7 +30,7 @@
                 "--exit",
                 "--no-timeouts",
                 "--colors",
-                "./dist/test"            
+                "./dist/test"
             ],
             "preLaunchTask": "${defaultBuildTask}",
             "outFiles": [

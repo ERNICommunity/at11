@@ -18,6 +18,7 @@ import { Klubovna } from "./parsers/klubovna";
 export interface IConfig {
     readonly isProduction: boolean;
     readonly scraperApiKey: string;
+    readonly appInsightsInstrumentationKey: string;
     readonly port: number;
     readonly bypassCache: boolean;
     readonly cacheExpiration: number;
@@ -28,6 +29,7 @@ export interface IConfig {
 export class Config implements IConfig {
     public readonly isProduction = process.env.NODE_ENV === "production";
     public readonly scraperApiKey = process.env.SCRAPER_API_KEY;
+    public readonly appInsightsInstrumentationKey = process.env.APPINSIGHTS_INSTRUMENTATIONKEY;
     public readonly port: number = process.env.PORT as unknown as number || 54321;
     public readonly bypassCache: boolean = process.env.AT11_NO_CACHE === "true";
     public readonly cacheExpiration = 2 * 60 * 60 * 1000; // 2h
