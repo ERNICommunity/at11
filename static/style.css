@@ -119,6 +119,9 @@ main {
     position: relative;
     margin: 10px auto;
     max-width: 90%;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(25em, 1fr));
+    gap: 20px;
 }
 footer {
     padding: 20px 5%;
@@ -202,8 +205,6 @@ header #picker:hover {
 }
 
 section {
-    width: 30em;
-    margin: 20px;
     padding: 1.5em;
     background: white;
 }
