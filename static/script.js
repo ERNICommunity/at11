@@ -58,7 +58,6 @@ function loadMenus(container) {
                     if(refreshElem){
                         section.append(refreshElem);
                     }
-                    container.masonry();
                 });
     });
 }
@@ -78,8 +77,7 @@ function initialHide(cont) {
         var restaurantId = section.data("restaurantId");
         if(hidden.indexOf(restaurantId.toString()) > -1)//hide section
         {
-            window.hiddenRestaurants[restaurantId.toString()] = section;
-            section.remove();
+            section.hide();
             $('input[type=checkbox][value=' + restaurantId + ']', '#selectrestaurants').prop('checked', false);
         }
     });
@@ -118,11 +116,8 @@ function startClock() {
 
 startClock()
 var container = $("#container");
-loadMenus(container);
 initialHide(container);
-container.masonry({
-    fitWidth: true
-});
+loadMenus(container);
 
 $('#selectrestaurants').on('click', function(e) {
     e.stopPropagation();
@@ -138,18 +133,14 @@ $('#selectrestaurants').on('click', function(e) {
     }
 
     var id = checkbox.val();
-    var section;
+    var section = $('section[data-restaurant-id=' + id + ']', container);
     if(checkbox.prop('checked'))//show
     {
-        section = window.hiddenRestaurants[id.toString()];
-        delete window.hiddenRestaurants[id.toString()];
-        container.append(section).masonry('appended', section).masonry();
+        section.show();
     }
     else//hide
     {
-        section = $('section[data-restaurant-id=' + id + ']', container);
-        window.hiddenRestaurants[id.toString()] = section;
-        container.masonry('remove', section).masonry();
+        section.hide();
     }
 
     var unChecked = [];
