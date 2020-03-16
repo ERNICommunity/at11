@@ -59,8 +59,7 @@ app.get("/", (req, res) => {
 });
 app.get("/menu/:id", (req, res) => {
     const id = parseInt(req.params.id, 10);
-    if(isNaN(id))
-    {
+    if(isNaN(id)) {
         res.statusCode = 400;
         res.send("Missing/incorrect 'id' url parameter");
         return;

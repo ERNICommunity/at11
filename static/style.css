@@ -203,7 +203,7 @@ header #picker:hover {
 
 section {
     width: 30em;
-    margin: 10px;
+    margin: 20px;
     padding: 1.5em;
     background: white;
 }
@@ -249,7 +249,7 @@ section ul li > *.price {
 section ul li:before {
     content: "";
     display: table-cell;
-    background: url('../img/at11_dish_icon.png') no-repeat center 3px;
+    background: url('../img/at11_dish_icon.png') no-repeat left 2px;
     width: 1em;
 }
 section ul li.soup {
@@ -257,15 +257,17 @@ section ul li.soup {
     letter-spacing: 0.02em;
 }
 section ul li.soup:before{
-    background: url('../img/at11_soup_icon.png') no-repeat center 3px;
+    background-image: url('../img/at11_soup_icon.png');
 }
-section ul li.error:before {
-    background-image: none;
+section ul li.error {
     color: lightgrey;
     text-align: center;
 }
+section ul li.error:before {
+    display: none;
+}
 section ul a {
-    color: #EE6B67;
+    color: #E9843E;
 }
 section > span.timeago {
     display: block;
