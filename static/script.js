@@ -120,7 +120,9 @@ startClock()
 var container = $("#container");
 loadMenus(container);
 initialHide(container);
-container.masonry();
+container.masonry({
+    fitWidth: true
+});
 
 $('#selectrestaurants').on('click', function(e) {
     e.stopPropagation();
