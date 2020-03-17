@@ -116,11 +116,10 @@ header {
     margin-bottom: 20px;
 }
 main {
-    position: relative;
     margin: 10px auto;
     max-width: 90%;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(25em, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(30em, 1fr));
     gap: 20px;
 }
 footer {
