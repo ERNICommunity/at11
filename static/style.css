@@ -113,10 +113,9 @@ header {
     height: 218px;
     background: url('../img/at11_header_background_01.png') repeat-x;
     padding: 0 5%;
-    margin-bottom: 20px;
 }
 main {
-    margin: 10px auto;
+    margin: 20px auto;
     max-width: 90%;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(30em, 1fr));
@@ -128,7 +127,6 @@ footer {
     text-align: center;
     color: #FCB85F;
     background-color: #E9843E;
-    margin-top: 20px;
 }
 
 header .logos {
