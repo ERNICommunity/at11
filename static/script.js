@@ -17,7 +17,7 @@ function readCookie(name) {
 }
 
 function loadMenus(container) {
-    var dateCompound = window.getDateCompound();
+    var dateCompound = getDateCompound();
 
     $('#date').text(dateCompound.description);
     var date = dateCompound.date;
@@ -65,12 +65,10 @@ function loadMenus(container) {
 
 function initialHide(cont) {
     window.hiddenRestaurants = {};
-
-    var hidden = window.readCookie("hiddenRestaurants");
+    var hidden = readCookie("hiddenRestaurants");
     if(typeof hidden === "undefined") {
         return;
     }
-
     hidden = hidden.split(",");
 
     $("section", cont).each(function() {
@@ -158,5 +156,5 @@ $('#selectrestaurants').on('click', function(e) {
             unChecked.push($(this).val());
         }
     });
-    window.writeCookie('hiddenRestaurants', unChecked.join(','), 10 * 365);
+    writeCookie('hiddenRestaurants', unChecked.join(','), 10 * 365);
 });
