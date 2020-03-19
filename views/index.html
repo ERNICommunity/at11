@@ -56,13 +56,15 @@
         </nav>
     </header>
 
-    <main id="container">
-        {{#each restaurants}}
-        <section data-restaurant-id="{{this.id}}">
-            <h2><a href="{{this.url}}" target="_blank">{{this.name}}</a></h2>
-            <div class="loader"></div>
-        </section>
-        {{/each}}
+    <main>
+        <article id="container">
+            {{#each restaurants}}
+            <section data-restaurant-id="{{this.id}}">
+                <h2><a href="{{this.url}}" target="_blank">{{this.name}}</a></h2>
+                <div class="loader"></div>
+            </section>
+            {{/each}}
+        </article>
     </main>
 
     <footer>

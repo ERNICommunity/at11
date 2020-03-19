@@ -115,8 +115,10 @@ header {
     padding: 0 5%;
 }
 main {
-    margin: 10px auto;
-    max-width: 90%;
+    margin: 10px 5%;
+}
+article {
+    margin: 0 auto;
 }
 footer {
     padding: 20px 5%;
