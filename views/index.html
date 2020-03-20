@@ -57,12 +57,12 @@
     </header>
 
     <main>
-        <article id="container">
+        <div id="container">
             {{#each restaurants}}
-            <section data-restaurant-id="{{this.id}}">
+            <article data-restaurant-id="{{this.id}}">
                 <h2><a href="{{this.url}}" target="_blank">{{this.name}}</a></h2>
                 <div class="loader"></div>
-            </section>
+            </article>
             {{/each}}
         </article>
     </main>

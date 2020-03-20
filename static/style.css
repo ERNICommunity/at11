@@ -115,10 +115,10 @@ header {
     padding: 0 5%;
 }
 main {
-    margin: 10px 5%;
+    margin: 0 5%;
 }
-article {
-    margin: 0 auto;
+main > div#container {
+    margin: 10px auto;
 }
 footer {
     padding: 20px 5%;
@@ -200,21 +200,21 @@ header #picker:hover {
     background: #EE6B67;
 }
 
-section {
+article {
     width: 30em;
     margin: 10px;
     padding: 1.5em;
     background: white;
 }
-section h2 {
+article h2 {
     font-size: 2.5em;
     margin: 0.2em 0;
     text-align: center;
 }
-section h2 a:hover {
+article h2 a:hover {
     color: #EE6B67;
 }
-section .loader {
+article .loader {
     margin: 0 auto;
     border: 6px solid #eee;
     border-top: 6px solid #E9843E;
@@ -227,48 +227,48 @@ section .loader {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
-section ul {
+article ul {
     display: table;
     width: 100%;
     border-collapse: collapse;
 }
-section ul li {
+article ul li {
     display: table-row;
     font-size: 1em;
 }
-section ul li > * {
+article ul li > * {
     display: table-cell;
 }
-section ul li > *.price {
+article ul li > *.price {
     white-space: nowrap;
     text-align: right;
     padding-left: 0.5em;
     color: #E9843E;
 }
-section ul li:before {
+article ul li:before {
     content: "";
     display: table-cell;
     background: url('../img/at11_dish_icon.png') no-repeat left 2px;
     width: 1em;
 }
-section ul li.soup {
+article ul li.soup {
     font-weight: 300;
     letter-spacing: 0.02em;
 }
-section ul li.soup:before{
+article ul li.soup:before{
     background-image: url('../img/at11_soup_icon.png');
 }
-section ul li.error {
+article ul li.error {
     color: lightgrey;
     text-align: center;
 }
-section ul li.error:before {
+article ul li.error:before {
     display: none;
 }
-section ul a {
+article ul a {
     color: #E9843E;
 }
-section > span.timeago {
+article > span.timeago {
     display: block;
     font-size: 0.7em;
     text-align: right;

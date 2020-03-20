@@ -21,10 +21,10 @@ function loadMenus(container) {
 
     $('#date').text(dateCompound.description);
     var date = dateCompound.date;
-    $("section", container).each(function() {
-        var section = $(this);
-        var restaurantId = section.data("restaurantId");
-        var link = $("a", section).prop('href');
+    $("article", container).each(function() {
+        var article = $(this);
+        var restaurantId = article.data("restaurantId");
+        var link = $("a", article).prop('href');
 
         var errElem = "<li class='error'><span>Nepodarilo sa načítať menu, skús pozrieť priamo na <a href='"+link+"' target='_blank'>stránke reštaurácie</a></span></li>";
         var listElem = $("<ul></ul>");
@@ -53,10 +53,10 @@ function loadMenus(container) {
                     listElem.append(errElem);
                 })
                 .always(function() {
-                    section.find(".loader").remove();
-                    section.append(listElem);
+                    article.find(".loader").remove();
+                    article.append(listElem);
                     if(refreshElem){
-                        section.append(refreshElem);
+                        article.append(refreshElem);
                     }
                     container.masonry();
                 });
@@ -71,13 +71,13 @@ function initialHide(cont) {
     }
     hidden = hidden.split(",");
 
-    $("section", cont).each(function() {
-        var section = $(this);
-        var restaurantId = section.data("restaurantId");
-        if(hidden.indexOf(restaurantId.toString()) > -1)//hide section
+    $("article", cont).each(function() {
+        var article = $(this);
+        var restaurantId = article.data("restaurantId");
+        if(hidden.indexOf(restaurantId.toString()) > -1)// hide 
         {
-            window.hiddenRestaurants[restaurantId.toString()] = section;
-            section.remove();
+            window.hiddenRestaurants[restaurantId.toString()] = article;
+            article.remove();
             $('input[type=checkbox][value=' + restaurantId + ']', '#selectrestaurants').prop('checked', false);
         }
     });
@@ -136,18 +136,18 @@ $('#selectrestaurants').on('click', function(e) {
     }
 
     var id = checkbox.val();
-    var section;
+    var article;
     if(checkbox.prop('checked'))//show
     {
-        section = window.hiddenRestaurants[id.toString()];
+        article = window.hiddenRestaurants[id.toString()];
         delete window.hiddenRestaurants[id.toString()];
-        container.append(section).masonry('appended', section).masonry();
+        container.append(article).masonry('appended', article).masonry();
     }
     else//hide
     {
-        section = $('section[data-restaurant-id=' + id + ']', container);
-        window.hiddenRestaurants[id.toString()] = section;
-        container.masonry('remove', section).masonry();
+        article = $('article[data-restaurant-id=' + id + ']', container);
+        window.hiddenRestaurants[id.toString()] = article;
+        container.masonry('remove', article).masonry();
     }
 
     var unChecked = [];
