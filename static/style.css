@@ -98,6 +98,11 @@ html, body {
     color: #413F4A ;
     min-width: 600px;
 }
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
 h1, h2 {
     margin: 0px;
     font-family: 'Amatic SC', Verdana, sans-serif;
@@ -113,9 +118,11 @@ header {
     height: 218px;
     background: url('../img/at11_header_background_01.png') repeat-x;
     padding: 0 5%;
+    flex: none;
 }
 main {
     margin: 0 5%;
+    flex: 1;
 }
 main > div#container {
     margin: 10px auto;
@@ -126,6 +133,7 @@ footer {
     text-align: center;
     color: #FCB85F;
     background-color: #E9843E;
+    flex: none;
 }
 
 header .logos {
