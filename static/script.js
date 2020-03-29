@@ -74,7 +74,7 @@ function initialHide(cont) {
     $("article", cont).each(function() {
         var article = $(this);
         var restaurantId = article.data("restaurantId");
-        if(hidden.indexOf(restaurantId.toString()) > -1)// hide 
+        if(hidden.indexOf(restaurantId.toString()) > -1) // hide
         {
             window.hiddenRestaurants[restaurantId.toString()] = article;
             article.remove();
@@ -90,7 +90,7 @@ function getDateCompound() {
         date.setDate(date.getDate() + 1);
         desc = "zajtra";
     }
-    return { date: date, description: desc + " " + date.toLocaleDateString() };
+    return { date: date, description: desc + " " + date.toLocaleDateString('sk') };
 }
 
 function startClock() {
