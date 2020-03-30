@@ -11,7 +11,7 @@ describe("cache", () => {
         appInsightsInstrumentationKey: "test_instrumentation_key",
         port: 1,
         bypassCache: false,
-        cacheExpiration: 1,
+        cacheExpiration: 10,
         parserTimeout: 1,
         restaurants: []
     };
@@ -46,13 +46,39 @@ describe("cache", () => {
         });
 
         it("should expire", (done) => {
-            // cache expiraion time is set to 1ms
             cache.set("expire", "value");
 
             setTimeout(() => {
                 assert.equal(cache.get("expire"), null);
                 done();
-            }, 2);
+            }, 11);
+        });
+
+        it("should not expire early", (done) => {
+            cache.set("expire2", "value");
+
+            setTimeout(() => {
+                assert.strictEqual(cache.get("expire2").value, "value");
+                done();
+            }, 9);
+        });
+
+        it("should expire in half time for short-lived", (done) => {
+            cache.set("expire3", "value", true);
+
+            setTimeout(() => {
+                assert.equal(cache.get("expire3"), null);
+                done();
+            }, 6);
+        });
+
+        it("should not expire early for short-lived", (done) => {
+            cache.set("expire3", "value", true);
+
+            setTimeout(() => {
+                assert.strictEqual(cache.get("expire3").value, "value");
+                done();
+            }, 4);
         });
     });
 });

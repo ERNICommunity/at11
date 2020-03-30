@@ -46,18 +46,17 @@ function loadMenus(container) {
                             }
                             listElem.append(li);
                         });
-                        refreshElem = "<span class='timeago'>" + data.timeago + "</span>";
                     }
+                    refreshElem = "<span class='timeago'>" + data.timeago + "</span>";
                 })
-                .fail(function() {
+                .fail(function(jxhr) {
                     listElem.append(errElem);
+                    refreshElem = "<span class='timeago'>" + jxhr.responseJSON.timeago + "</span>";
                 })
                 .always(function() {
                     article.find(".loader").remove();
                     article.append(listElem);
-                    if(refreshElem){
-                        article.append(refreshElem);
-                    }
+                    article.append(refreshElem);
                     container.masonry();
                 });
     });

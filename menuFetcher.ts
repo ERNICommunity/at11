@@ -9,27 +9,25 @@ import { IParser } from "./parsers/IParser";
 export class MenuFetcher {
     private readonly _runningRequests: { [url: string] : ((error: Error, menu: IMenuItem[]) => void)[]; } = {};
 
-    constructor(private readonly _config: IConfig, private readonly _cache: Cache<IMenuItem[]>) {}
+    constructor(private readonly _config: IConfig, private readonly _cache: Cache<{error: Error, menu: IMenuItem[]}>) {}
 
     public fetchMenu(urlFactory: (date: Moment) => string,
                      date: Moment,
                      parser: IParser,
-                     doneCallback: (err: Error, result: ReturnType<Cache<IMenuItem[]>["get"]>) => void) {
+                     doneCallback: (result: ReturnType<Cache<{error: Error, menu: IMenuItem[]}>["get"]>) => void) {
         const url = urlFactory(date);
         const cacheKey = date + ":" + url;
         const cached = this._cache.get(cacheKey);
         if (cached && !this._config.bypassCache) {
-            doneCallback(null, cached);
+            doneCallback(cached);
         } else {
             this.load(url, date, parser, (error: Error, menu: IMenuItem[]) => {
                 if (!error) {
-                    this._cache.set(cacheKey, menu);
-                    // we need to go through cache to get cache timestamp
-                    doneCallback(null, this._cache.get(cacheKey));
+                    this._cache.set(cacheKey, { error: null, menu });
                 } else {
-                    console.error("Error for %s: %s", url, error);
-                    doneCallback(error, null);
+                    this._cache.set(cacheKey, { error, menu: null }, true);
                 }
+                doneCallback(this._cache.get(cacheKey));
             });
         }
     }
@@ -62,6 +60,9 @@ export class MenuFetcher {
             const done = (e: Error, m: IMenuItem[]) => {
                 const doneCallbacks = this._runningRequests[url];
                 delete this._runningRequests[url];
+                if(e) {
+                    console.error("Error for %s: %s", url, e);
+                }
                 doneCallbacks.forEach(dc => dc(e,m));
             }
             if (!error && response.statusCode === 200) {
