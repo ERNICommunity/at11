@@ -9,12 +9,12 @@ import { IParser } from "./parsers/IParser";
 export class MenuFetcher {
     private readonly _runningRequests: { [url: string] : ((error: Error, menu: IMenuItem[]) => void)[]; } = {};
 
-    constructor(private readonly _config: IConfig, private readonly _cache: Cache<{error: Error, menu: IMenuItem[]}>) {}
+    constructor(private readonly _config: IConfig, private readonly _cache: Cache<Error | IMenuItem[]>) {}
 
     public fetchMenu(urlFactory: (date: Moment) => string,
                      date: Moment,
                      parser: IParser,
-                     doneCallback: (result: ReturnType<Cache<{error: Error, menu: IMenuItem[]}>["get"]>) => void) {
+                     doneCallback: (result: ReturnType<Cache<Error | IMenuItem[]>["get"]>) => void) {
         const url = urlFactory(date);
         const cacheKey = date + ":" + url;
         const cached = this._cache.get(cacheKey);
@@ -23,9 +23,9 @@ export class MenuFetcher {
         } else {
             this.load(url, date, parser, (error: Error, menu: IMenuItem[]) => {
                 if (!error) {
-                    this._cache.set(cacheKey, { error: null, menu });
+                    this._cache.set(cacheKey, menu);
                 } else {
-                    this._cache.set(cacheKey, { error, menu: null }, true);
+                    this._cache.set(cacheKey, error, true);
                 }
                 doneCallback(this._cache.get(cacheKey));
             });

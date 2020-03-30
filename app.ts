@@ -7,10 +7,11 @@ import { Cache } from "./cache";
 import { Config } from "./config";
 import { MenuFetcher } from "./menuFetcher";
 import { IMenuItem } from "./parsers/IMenuItem";
+import { isError } from "util";
 
 console.debug("Initializing...");
 const config = new Config();
-const cache =  new Cache<{error: Error, menu: IMenuItem[]}>(config);
+const cache =  new Cache<Error | IMenuItem[]>(config);
 const menuFetcher = new MenuFetcher(config, cache);
 
 if (config.appInsightsInstrumentationKey) {
@@ -18,7 +19,7 @@ if (config.appInsightsInstrumentationKey) {
     appInsights.start();
 }
 
-const actions: ((date: moment.Moment, done: (result: ReturnType<Cache<{error: Error, menu: IMenuItem[]}>["get"]>) => void) => void)[] = [];
+const actions: ((date: moment.Moment, done: (result: ReturnType<Cache<Error | IMenuItem[]>["get"]>) => void) => void)[] = [];
 for (const restaurant of config.restaurants) {
     console.log("Processing:", restaurant);
     try {
@@ -79,10 +80,10 @@ app.get("/menu/:id", (req, res) => {
     }
 
     actions[id](date, result => {
-        if (result.value.error) {
-            res.status(500).json({ error: result.value.error.toString(), timeago: moment(result.timestamp).fromNow() });
+        if (isError(result.value)) {
+            res.status(500).json({ error: result.value.toString(), timeago: moment(result.timestamp).fromNow() });
         } else {
-            res.json({ menu: result.value.menu, timeago: moment(result.timestamp).fromNow() });
+            res.json({ menu: result.value, timeago: moment(result.timestamp).fromNow() });
         }
     });
 });
