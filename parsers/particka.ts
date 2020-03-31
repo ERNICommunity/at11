@@ -21,8 +21,13 @@ export class Particka implements IParser {
         denneMenuElem.first().find(".jedlo_polozka").each((i, elem) => {
             const txt = $(elem).text().trim();
 
-            if (i === 0) { // first item is soup
-                dayMenu.push({ isSoup: true, text: normalize(txt), price: NaN });
+            if (i === 0) { // first item are soups
+                txt.split("/").forEach(value => {
+                    const text = normalize(value);
+                    if (txt !== "") {
+                        dayMenu.push({ isSoup: true, text, price: NaN });
+                    }
+                });
                 return;
             }
 
