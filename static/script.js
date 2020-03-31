@@ -47,11 +47,11 @@ function loadMenus(container) {
                             listElem.append(li);
                         });
                     }
-                    refreshElem = "<span class='timeago'>" + data.timeago + "</span>";
+                    refreshElem = "<i class='timeago'>" + data.timeago + "</i>";
                 })
                 .fail(function(jxhr) {
                     listElem.append(errElem);
-                    refreshElem = "<span class='timeago'>" + jxhr.responseJSON.timeago + "</span>";
+                    refreshElem = "<i class='timeago'>" + jxhr.responseJSON.timeago + "</i>";
                 })
                 .always(function() {
                     article.find(".loader").remove();

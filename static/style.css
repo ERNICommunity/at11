@@ -4,13 +4,11 @@
     width: 237px;
     height: 237px;
     background-image: url("../img/clock_canvas.png");
-    margin: 30px 0 0 0;
    }
 .inner_face {
     position: absolute;
     width: 237px;
     height: 237px;
-    margin: 0px;
     border-radius: 1000px;
     z-index: 1000;
 }
@@ -104,7 +102,7 @@ body {
     flex-direction: column;
 }
 h1, h2 {
-    margin: 0px;
+    margin: 0;
     font-family: 'Amatic SC', Verdana, sans-serif;
     color: #84C4D0
 }
@@ -156,10 +154,9 @@ header h1 {
 }
 
 #clock {
-    padding: 0px;
     position: absolute;
     left: 50%;
-    top: -15px;
+    top: 15px;
     margin-left: -118.5px;
     z-index: 1;
 }
@@ -186,10 +183,10 @@ header #picker:hover {
 #picker ul {
     position: absolute;
     top: 34px;
-    left: 0px;
+    left: 0;
     display: none;
     padding: 0;
-    margin: 0px;
+    margin: 0;
     list-style: none;
     color: #E9843E;
     z-index: 2;
@@ -214,14 +211,13 @@ article {
 }
 article h2 {
     font-size: 2.5em;
-    margin: 0.2em 0;
     text-align: center;
 }
 article h2 a:hover {
     color: #EE6B67;
 }
 article .loader {
-    margin: 0 auto;
+    margin: 10px auto;
     border: 6px solid #eee;
     border-top: 6px solid #E9843E;
     border-radius: 50%;
@@ -237,6 +233,7 @@ article ul {
     display: table;
     width: 100%;
     border-collapse: collapse;
+    margin: 10px 0;
 }
 article ul li {
     display: table-row;
@@ -274,12 +271,11 @@ article ul li.error:before {
 article ul a {
     color: #E9843E;
 }
-article > span.timeago {
+article > i.timeago {
     display: block;
     font-size: 0.7em;
     text-align: right;
-    margin-right: 0.5em;
-    color: #E9843E;
+    color: #EE6B67;
 }
 
 footer .copyright {
