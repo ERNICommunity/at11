@@ -54,15 +54,6 @@ describe("cache", () => {
             }, 11);
         });
 
-        it("should not expire early", (done) => {
-            cache.set("expire2", "value");
-
-            setTimeout(() => {
-                assert.strictEqual(cache.get("expire2").value, "value");
-                done();
-            }, 9);
-        });
-
         it("should expire in half time for short-lived", (done) => {
             cache.set("expire3", "value", true);
 
@@ -70,15 +61,6 @@ describe("cache", () => {
                 assert.equal(cache.get("expire3"), null);
                 done();
             }, 6);
-        });
-
-        it("should not expire early for short-lived", (done) => {
-            cache.set("expire3", "value", true);
-
-            setTimeout(() => {
-                assert.strictEqual(cache.get("expire3").value, "value");
-                done();
-            }, 4);
         });
     });
 });
