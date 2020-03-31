@@ -42,7 +42,7 @@ function loadMenus(container) {
                             }
                             li.append("<span>" + item.text + "</span>");
                             if (item.price) {
-                                li.append("<span class='price'>" + item.price.toFixed(2) + "€</span>");
+                                li.append("<span class='price'>" + item.price.toLocaleString('sk', { style: 'currency', currency: 'EUR' }) + "</span>");
                             }
                             listElem.append(li);
                         });
