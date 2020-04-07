@@ -24,7 +24,7 @@ export class Skolka implements IParser {
             callOcr(pdfUrl, "pdf");
         } else if (pic.parent().filter("a").length > 0) {
             const picHref = pic.parent().attr("href");
-            callOcr(picHref, "url");
+            callOcr(picHref, "image");
         } else if (pic.attr("src") !== undefined) {
             const picSrc = pic.attr("src");
             callOcr(picSrc, "encoded");
@@ -35,7 +35,7 @@ export class Skolka implements IParser {
         function callOcr(picData, actionMetod) {
             request.post({
                 headers: { "Content-type": "application/x-www-form-urlencoded" },
-                url: "http://at11ocr.azurewebsites.net/api/process/" + actionMetod,
+                url: "https://at11ocr.azurewebsites.net/api/process/" + actionMetod,
                 body: "=" + encodeURIComponent(picData)
             }, (error, response, body) => {
                 if (!error) {
