@@ -3,6 +3,8 @@ import { Moment } from "moment-timezone";
 
 import { IMenuItem } from "./IMenuItem";
 import "./parserUtil";
+import { parsePrice } from "./parserUtil";
+
 
 export abstract class Zomato {
     protected parseBase(html: string, date: Moment): IMenuItem[] {
@@ -13,17 +15,16 @@ export abstract class Zomato {
             const $this = $(this);
 
             const dayText = $this.children(".tmi-group-name").text();
-            const day = getDay(dayText);
+            const dayName = getDayName(dayText);
 
-            if (day === date.format("dddd")) {
+            if (dayName === date.format("dddd")) {
                 $this.children(".tmi-daily").each(function() {
                     let text = $(this).find(".tmi-name").text().trim();
                     let price = parseFloat($(this).find(".tmi-price").text().replace(/,/, "."));
                     if (isNaN(price)) {// price probably directly in text, extract it
-                        text = text.replace(/\d[.,]\d{2}$/, (match) => {
-                            price = parseFloat(match.replace(",", "."));
-                            return "";
-                        });
+                        const result = parsePrice(text);
+                        text = result.text;
+                        price = result.price;
                     }
 
                     if (!/^\d\s?[.,]?/.test(text)) { // soups dont have numbering
@@ -40,7 +41,7 @@ export abstract class Zomato {
 
         return dayMenu;
 
-        function getDay(text: string): string {
+        function getDayName(text: string): string {
             const found = text.trim().match(/^(.+),/);
             if (!found || found.length < 1) {
                 return null;
@@ -51,6 +52,7 @@ export abstract class Zomato {
         function normalize(str: string) {
             return str.removeItemNumbering()
                 .removeMetrics()
+                .removeAlergens()
                 .replace(/A\s(\d\s?[.,]?\s?)+$/, "")
                 .correctCommaSpacing()
                 .normalizeWhitespace();
