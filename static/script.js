@@ -159,6 +159,6 @@ $('#selectrestaurants').on('click', function(e) {
 });
 
 // run additional layout when page is fully loaded (including fonts, images etc..)
-$(window).load(function() {
+$(window).on( "load", function() {
     container.masonry();
 });
