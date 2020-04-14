@@ -157,3 +157,8 @@ $('#selectrestaurants').on('click', function(e) {
     });
     writeCookie('hiddenRestaurants', unChecked.join(','), 10 * 365);
 });
+
+// run additional layout when page is fully loaded (including fonts, images etc..)
+$(window).load(function() {
+    container.masonry();
+});
