@@ -66,7 +66,7 @@ app.get("/menu/:id", (req, res) => {
         return;
     }
 
-    const date = moment(req.query.date, "YYYY-M-D", true)
+    const date = moment(req.query.date as string, "YYYY-M-D", true)
     if (!date.isValid()) {
         res.statusCode = 400;
         res.send("Missing/incorrect 'date' query parameter");
