@@ -16,8 +16,7 @@
             "internalConsoleOptions": "openOnSessionStart",
             "serverReadyAction": {
                 "action": "openExternally",
-                "pattern": "^Done, listening on https?://.+:(\\d+)",
-                "uriFormat": "http://localhost:%s",
+                "pattern": "Done, listening on http://.+:(\\d+)"
             }
         },
         {
