@@ -3,7 +3,7 @@
   "description": "Daily lunch menu application",
   "version": "2.0.0",
   "dependencies": {
-    "applicationinsights": "^1.7.4",
+    "applicationinsights": "^1.7.5",
     "cheerio": "^0.22.0",
     "express": "^4.17.1",
     "hbs": "^4.1.1",
@@ -11,15 +11,15 @@
     "request": "^2.88.2"
   },
   "devDependencies": {
-    "@types/cheerio": "^0.22.17",
+    "@types/cheerio": "^0.22.18",
     "@types/express": "^4.17.6",
     "@types/hbs": "^4.0.1",
     "@types/mocha": "^7.0.2",
     "@types/moment-timezone": "^0.5.13",
-    "@types/node": "^13.13.2",
+    "@types/node": "^13.13.5",
     "@types/request": "^2.48.4",
-    "mocha": "^7.1.1",
-    "tslint": "^6.1.1",
+    "mocha": "^7.1.2",
+    "tslint": "^6.1.2",
     "typescript": "^3.8.3",
     "typescript-tslint-plugin": "^0.5.5"
   },
