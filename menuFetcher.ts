@@ -54,7 +54,7 @@ export class MenuFetcher {
                 "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)",
                 "Accept": "text/html,*/*"
             },
-            timeout: 10 * 1000 // 10s timeout for request
+            timeout: this._config.requestTimeout
         };
         request(options, (error, response, body) => {
             const done = (e: Error, m: IMenuItem[]) => {
@@ -63,7 +63,7 @@ export class MenuFetcher {
                 if(e) {
                     console.error("Error for %s: %s", url, e);
                 }
-                doneCallbacks.forEach(dc => dc(e,m));
+                doneCallbacks.forEach(dc => dc(e, m));
             }
             if (!error && response.statusCode === 200) {
                 let timer = setTimeout(() => {
@@ -74,7 +74,7 @@ export class MenuFetcher {
                 try {
                     parser.parse(body, date, (menu) => {
                         if (!timer) {
-                            // multiple calls in parser or parser called after timeout
+                            // multiple calls in parser or parser called back after timeout
                             return;
                         }
                         clearTimeout(timer);

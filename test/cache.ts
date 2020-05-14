@@ -12,6 +12,7 @@ describe("cache", () => {
         port: 1,
         bypassCache: false,
         cacheExpiration: 10,
+        requestTimeout: 1,
         parserTimeout: 1,
         restaurants: []
     };

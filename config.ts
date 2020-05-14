@@ -22,6 +22,7 @@ export interface IConfig {
     readonly port: number;
     readonly bypassCache: boolean;
     readonly cacheExpiration: number;
+    readonly requestTimeout: number;
     readonly parserTimeout: number;
     readonly restaurants: { id: number, name: string, urlFactory: (date: Moment) => string, parser: IParser}[];
 }
@@ -33,7 +34,8 @@ export class Config implements IConfig {
     public readonly port: number = process.env.PORT as unknown as number || 54321;
     public readonly bypassCache: boolean = process.env.AT11_NO_CACHE === "true";
     public readonly cacheExpiration = 2 * 60 * 60 * 1000; // 2h
-    public readonly parserTimeout = 10 * 1000; // 10s
+    public readonly requestTimeout = 15 * 1000; // 15s
+    public readonly parserTimeout = 15 * 1000; // 15s
     public readonly restaurants: { id: number, name: string, urlFactory: (date: Moment) => string, parser: IParser}[]  = [
         // tslint:disable: max-line-length
         { id: 11, name: "Kaša", urlFactory: _ => "https://restauracie.sme.sk/restauracia/kasa-2_8386-petrzalka_664/denne-menu", parser: new Kasa() },
