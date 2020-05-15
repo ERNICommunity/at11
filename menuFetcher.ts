@@ -52,7 +52,8 @@ export class MenuFetcher {
             method: "GET",
             headers: { // some sites need us to pretend to be a browser to work
                 "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)",
-                "Accept": "text/html,*/*"
+                "Accept": "text/html,*/*",
+                "Accept-Language":"sk" // we want response in slovak (useful for menu portals that use localization, like zomato)
             },
             timeout: this._config.requestTimeout
         };
