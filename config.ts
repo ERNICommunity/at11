@@ -42,7 +42,7 @@ export class Config implements IConfig {
         ["einpark", [
             { id: 1, name: "Clock Block", urlFactory: _ => "https://restauracie.sme.sk/restauracia/clock-block_8537-petrzalka_664/denne-menu", parser: new ClockBlock() }
         ]],
-        ["sevcenkova", [
+        ["ševčenkova", [
             { id: 1, name: "Kaša", urlFactory: _ => "https://restauracie.sme.sk/restauracia/kasa-2_8386-petrzalka_664/denne-menu", parser: new Kasa() },
             { id: 2, name: "ITB", urlFactory: _ => "http://www.citycantina.sk/prevadzka/1", parser: new Itb() },
             { id: 3, name: "Partička", urlFactory: _ => "https://restauracie.sme.sk/restauracia/particka-restauracia-beer-pub_11101-petrzalka_664/denne-menu", parser: new Particka() },

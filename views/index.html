@@ -40,11 +40,16 @@
                     <img src="img/erni_logo.png" alt="ERNI logo">
                 </a>
             </div>
+            <h2>
+                {{#each locations}}
+                <a href="{{this.name}}" {{#if this.selected}}class="selected"{{/if}}>{{this.name}}</a>
+                {{/each}}
+            </h2>
 
-            <h1 class="title">Denné menu <span id="date"></span></h1>
+            <h1>Denné menu <span id="date"></span></h1>
 
             <div id="picker">
-                Vybrať reštauráciu
+                Reštaurácie
                 <ul id="selectrestaurants" class="dropdown">
                     {{#each restaurants}}
                     <li>

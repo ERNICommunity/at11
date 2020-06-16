@@ -53,6 +53,7 @@ app.get("/:location?", (req, res) => {
     res.setHeader("Content-Language", "sk");
     const location = req.params.location || config.restaurants.keys().next().value; // use first location if not specified
     res.render(__dirname + "/../views/index.html", {
+        locations: Array.from(config.restaurants.keys()).map(k => ({ name: k, selected: k === location})),
         restaurants: (config.restaurants.get(location) || []).map(x => ({
             id: location + "-" + x.id,
             name: x.name,
