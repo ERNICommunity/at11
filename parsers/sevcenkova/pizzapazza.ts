@@ -1,10 +1,10 @@
 import cheerio from "cheerio";
 import { Moment } from "moment-timezone";
 
-import { IMenuItem } from "./IMenuItem";
-import { IParser } from "./IParser";
-import "./parserUtil";
-import { compareMenuItems, parsePrice } from "./parserUtil";
+import { IMenuItem } from "../IMenuItem";
+import { IParser } from "../IParser";
+import "../parserUtil";
+import { compareMenuItems, parsePrice } from "../parserUtil";
 
 export class PizzaPazza implements IParser {
     public parse(html: string, date: Moment, doneCallback: (menu: IMenuItem[]) => void): void {
@@ -49,8 +49,7 @@ export class PizzaPazza implements IParser {
             return str.removeItemNumbering()
                 .replace("/", " ")
                 .normalizeWhitespace()
-                .removeMetrics()
-                .correctCommaSpacing();
+                .removeMetrics();
         }
     }
 }

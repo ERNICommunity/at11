@@ -1,9 +1,9 @@
 import cheerio from "cheerio";
 import { Moment } from "moment-timezone";
 
-import { IMenuItem } from "./IMenuItem";
-import { IParser } from "./IParser";
-import "./parserUtil";
+import { IMenuItem } from "../IMenuItem";
+import { IParser } from "../IParser";
+import "../parserUtil";
 
 export class HallOfKings implements IParser {
     public parse(html: string, date: Moment, doneCallback: (menu: IMenuItem[]) => void): void {

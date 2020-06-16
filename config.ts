@@ -1,19 +1,21 @@
 import { Moment } from "moment-timezone";
 
-import { Alfa } from "./parsers/alfa";
-import { Engerau } from "./parsers/engerau";
-import { Giuliano } from "./parsers/giuliano";
-import { HallOfKings } from "./parsers/hallofkings";
 import { IParser } from "./parsers/IParser";
-import { Itb } from "./parsers/itb";
-import { Kamenica } from "./parsers/kamenica";
-import { Kasa } from "./parsers/kasa";
-import { Lokalka } from "./parsers/lokalka";
-import { Particka } from "./parsers/particka";
-import { PizzaPazza } from "./parsers/pizzapazza";
-import { Skolka } from "./parsers/skolka";
-import { Tiffany } from "./parsers/tiffany";
-import { Klubovna } from "./parsers/klubovna";
+
+import { Alfa } from "./parsers/sevcenkova/alfa";
+import { Engerau } from "./parsers/sevcenkova/engerau";
+import { Giuliano } from "./parsers/sevcenkova/giuliano";
+import { HallOfKings } from "./parsers/sevcenkova/hallofkings";
+import { Itb } from "./parsers/sevcenkova/itb";
+import { Kamenica } from "./parsers/sevcenkova/kamenica";
+import { Kasa } from "./parsers/sevcenkova/kasa";
+import { Lokalka } from "./parsers/sevcenkova/lokalka";
+import { Particka } from "./parsers/sevcenkova/particka";
+import { PizzaPazza } from "./parsers/sevcenkova/pizzapazza";
+import { Skolka } from "./parsers/sevcenkova/skolka";
+import { Tiffany } from "./parsers/sevcenkova/tiffany";
+import { Klubovna } from "./parsers/sevcenkova/klubovna";
+import { ClockBlock } from "./parsers/einpark/clockblock";
 
 export interface IConfig {
     readonly isProduction: boolean;
@@ -38,7 +40,7 @@ export class Config implements IConfig {
     public readonly parserTimeout = 15 * 1000; // 15s
     public readonly restaurants = new Map<string, Readonly<{ id: number, name: string, urlFactory: (date: Moment) => string, parser: IParser}>[]>([ // tslint:disable: max-line-length
         ["einpark", [
-            { id: 1, name: "Clock Block", urlFactory: _ => "https://restauracie.sme.sk/restauracia/clock-block_8537-petrzalka_664/denne-menu", parser: new Kasa() }
+            { id: 1, name: "Clock Block", urlFactory: _ => "https://restauracie.sme.sk/restauracia/clock-block_8537-petrzalka_664/denne-menu", parser: new ClockBlock() }
         ]],
         ["sevcenkova", [
             { id: 1, name: "Kaša", urlFactory: _ => "https://restauracie.sme.sk/restauracia/kasa-2_8386-petrzalka_664/denne-menu", parser: new Kasa() },

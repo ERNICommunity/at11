@@ -37,14 +37,6 @@ const consistentWhitespaceTests = [
     { input: String.fromCharCode(32) + "text" + String.fromCharCode(160) , result: "text" }
 ];
 
-const correctCommaSpacingTests = [
-    { input: "Znojemská hovädzia pečienka , tarhoňa ", result: "Znojemská hovädzia pečienka, tarhoňa " },
-    { input: "Držková polievka, chlieb", result: "Držková polievka, chlieb" },
-    { input: "Držková polievka,chlieb", result: "Držková polievka, chlieb" },
-    { input: "menu č.4 po vypredaní menu č. 1 a 2 do 13:00 h", result: "menu č. 4 po vypredaní menu č. 1 a 2 do 13:00 h" },
-    { input: "text without comma", result: "text without comma"}
-];
-
 const capitalizeFirstLetter = [
     { input: "držková polievka, chlieb", result: "Držková polievka, chlieb" }
 ];
@@ -79,14 +71,6 @@ describe("Text extension methods", () => {
         consistentWhitespaceTests.forEach((item) => {
             it(item.input, () => {
                 assert.equal(item.input.normalizeWhitespace(), item.result);
-            });
-        });
-    });
-
-    describe("Correct comma spacing", () => {
-        correctCommaSpacingTests.forEach((item) => {
-            it(item.input, () => {
-                assert.equal(item.input.correctCommaSpacing(), item.result);
             });
         });
     });

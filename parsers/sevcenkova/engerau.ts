@@ -1,9 +1,8 @@
 import { Moment } from "moment-timezone";
 
-import { IMenuItem } from "./IMenuItem";
-import { IParser } from "./IParser";
-import "./parserUtil";
-import { Zomato } from "./zomato";
+import { IMenuItem } from "../IMenuItem";
+import { IParser } from "../IParser";
+import { Zomato } from "../zomato";
 
 export class Engerau extends Zomato implements IParser {
     public parse(html: string, date: Moment, doneCallback: (menu: IMenuItem[]) => void): void {
@@ -11,7 +10,8 @@ export class Engerau extends Zomato implements IParser {
         const menuItems = super.parseBase(html, date);
 
         let price = NaN;
-        const dayMenu = menuItems.map((item) => {
+        // shift price from soup to meals
+        menuItems.forEach(item => {
             if (item.isSoup) {
               price = item.price;
               item.price = NaN;
@@ -22,7 +22,7 @@ export class Engerau extends Zomato implements IParser {
             return item;
         });
 
-        doneCallback(dayMenu);
+        doneCallback(menuItems);
 
         function normalize(str: string): string {
             return str.replace(/\*.*$/, "");

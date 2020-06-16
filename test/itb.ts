@@ -3,7 +3,7 @@ import fs from "fs";
 import { describe, it } from "mocha";
 import moment from "moment-timezone";
 
-import { Itb } from "../parsers/itb";
+import { Itb } from "../parsers/sevcenkova/itb";
 
 moment.locale("sk");
 
