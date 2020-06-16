@@ -19,21 +19,23 @@ if (config.appInsightsInstrumentationKey) {
     appInsights.start();
 }
 
-const actions: ((date: moment.Moment, done: (result: ReturnType<Cache<Error | IMenuItem[]>["get"]>) => void) => void)[] = [];
-for (const restaurant of config.restaurants) {
-    console.log("Processing:", restaurant);
-    try {
-        const id = restaurant.id;
-        if (typeof actions[id] !== "undefined") {
-            throw new Error("Non unique id '" + id + "' provided");
+const actions = new Map<string, ((date: moment.Moment, done: (result: ReturnType<Cache<Error | IMenuItem[]>["get"]>) => void) => void)>();
+for (const location of config.restaurants.keys()) {
+    for (const restaurant of config.restaurants.get(location)) {
+        console.log("Processing:", restaurant);
+        try {
+            const id = location + "-" + restaurant.id;
+            if (actions.has(id)) {
+                throw new Error("Non unique id '" + id + "' provided withing '" + location + "' restaurants");
+            }
+            actions.set(id, (date, doneCallback) => menuFetcher.fetchMenu(restaurant.urlFactory, date, restaurant.parser, doneCallback));
+        } catch (e) {
+            console.warn(e);
         }
-        actions[id] = (date, doneCallback) => menuFetcher.fetchMenu(restaurant.urlFactory, date, restaurant.parser, doneCallback);
-    } catch (e) {
-        console.warn(e);
     }
 }
 
-if (actions.length === 0) {
+if (actions.size === 0) {
     throw new Error("Actions initialization failed");
 }
 
@@ -46,12 +48,13 @@ const app = express();
 app.set("view engine", "html");
 app.engine("html", hbs.__express);
 app.use(express.static(__dirname + "/../static"));
-app.get("/", (req, res) => {
+app.get("/:location?", (req, res) => {
     res.setHeader("Content-Type", "text/html; charset=UTF-8");
     res.setHeader("Content-Language", "sk");
+    const location = req.params.location || config.restaurants.keys().next().value; // use first location if not specified
     res.render(__dirname + "/../views/index.html", {
-        restaurants: config.restaurants.map(x => ({
-            id: x.id,
+        restaurants: (config.restaurants.get(location) || []).map(x => ({
+            id: location + "-" + x.id,
             name: x.name,
             url: x.urlFactory(moment())
         })),
@@ -59,13 +62,6 @@ app.get("/", (req, res) => {
     });
 });
 app.get("/menu/:id", (req, res) => {
-    const id = parseInt(req.params.id, 10);
-    if(isNaN(id)) {
-        res.statusCode = 400;
-        res.send("Missing/incorrect 'id' url parameter");
-        return;
-    }
-
     const date = moment(req.query.date as string, "YYYY-M-D", true)
     if (!date.isValid()) {
         res.statusCode = 400;
@@ -73,13 +69,13 @@ app.get("/menu/:id", (req, res) => {
         return;
     }
 
-    if (typeof actions[id] === "undefined") {
+    if (!actions.has(req.params.id)) {
         res.statusCode = 404;
         res.send("Restaurant " + req.params.id + " not found");
         return;
     }
 
-    actions[id](date, result => {
+    actions.get(req.params.id)(date, result => {
         if (isError(result.value)) {
             res.status(500).json({ error: result.value.toString(), timeago: moment(result.timestamp).fromNow() });
         } else {

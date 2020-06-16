@@ -51,7 +51,9 @@ function loadMenus(container) {
                 })
                 .fail(function(jxhr) {
                     listElem.append(errElem);
-                    refreshElem = "<i class='timeago'>" + jxhr.responseJSON.timeago + "</i>";
+                    if(jxhr.responseJSON?.timeago) {
+                        refreshElem = "<i class='timeago'>" + jxhr.responseJSON.timeago + "</i>";
+                    }
                 })
                 .always(function() {
                     article.find(".loader").remove();
