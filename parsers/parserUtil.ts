@@ -14,7 +14,7 @@ declare global {
 }
 
 export function parsePrice(item: string) {
-    const priceRegex = /(\d+(?:[.,]\d+)?)[.,]?\s*(?:€|Eur)/i;
+    const priceRegex = /(\d+(?:[.,]\d+)?)[.,]?\s*(?:€|Eur)/ig;
     let price = NaN;
     const text = item.replace(priceRegex, (matchStr, group1) => {
         price = parseFloat(group1.replace(/\s/g, "").replace(",", "."));

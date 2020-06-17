@@ -13,7 +13,7 @@ export class Tiffany extends Zomato implements IParser {
             const soups = menuItems[0].text.replace(/^\s*[Pp]oli?evk[ay]\s*:\s*-\s*/, "").replace(/\s*\(0[.,]25l?\)\s*$/, "").split(",");
             menuItems.shift();
             for (const soup of soups) {
-            menuItems.unshift({ isSoup: true, text: soup, price: NaN });
+                menuItems.unshift({ isSoup: true, text: soup, price: NaN });
             }
             menuItems[menuItems.length - 1].isSoup = false; // last item is misidentified as soup
         }

@@ -10,8 +10,9 @@ export class ClockBlock extends Sme implements IParser {
         const menuItems = super.parseBase(html, date);
 
         if(menuItems.length > 0) {
-            // first 2 items are soup
+            // first 2 items are soups
             menuItems[0].isSoup = true;
+            menuItems[1].isSoup = true;
             menuItems.forEach(item=> {
                 const result = parsePrice(item.text);
                 item.price = result.price;
