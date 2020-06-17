@@ -1,10 +1,10 @@
 import cheerio from "cheerio";
 import { Moment } from "moment-timezone";
 
-import { IMenuItem } from "./IMenuItem";
-import { IParser } from "./IParser";
-import "./parserUtil";
-import { getDateRegex } from "./parserUtil";
+import { IMenuItem } from "../IMenuItem";
+import { IParser } from "../IParser";
+import "../parserUtil";
+import { getDateRegex } from "../parserUtil";
 
 export class Lokalka implements IParser {
     public parse(html: string, date: Moment, doneCallback: (menu: IMenuItem[]) => void): void {

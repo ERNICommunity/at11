@@ -54,7 +54,6 @@ export abstract class Zomato {
                 .removeMetrics()
                 .removeAlergens()
                 .replace(/A\s(\d\s?[.,]?\s?)+$/, "")
-                .correctCommaSpacing()
                 .normalizeWhitespace();
         }
     }

@@ -14,7 +14,7 @@ describe("cache", () => {
         cacheExpiration: 10,
         requestTimeout: 1,
         parserTimeout: 1,
-        restaurants: []
+        restaurants: null
     };
     const cache = new Cache<string>(config);
 

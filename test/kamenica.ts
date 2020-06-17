@@ -3,7 +3,7 @@ import fs from "fs";
 import { describe, it } from "mocha";
 import moment from "moment-timezone";
 
-import { Kamenica } from "../parsers/kamenica";
+import { Kamenica } from "../parsers/sevcenkova/kamenica";
 
 moment.locale("sk");
 

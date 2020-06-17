@@ -2,10 +2,10 @@ import cheerio from "cheerio";
 import { Moment } from "moment-timezone";
 import request from "request";
 
-import { IMenuItem } from "./IMenuItem";
-import { IParser } from "./IParser";
-import "./parserUtil";
-import { getDateRegex, parsePrice } from "./parserUtil";
+import { IMenuItem } from "../IMenuItem";
+import { IParser } from "../IParser";
+import "../parserUtil";
+import { getDateRegex, parsePrice } from "../parserUtil";
 
 export class Skolka implements IParser {
     public parse(html: string, date: Moment, doneCallback: (menu: IMenuItem[]) => void): void {
@@ -83,8 +83,7 @@ export class Skolka implements IParser {
             return str.tidyAfterOCR()
                     .removeItemNumbering()
                     .removeMetrics()
-                    .normalizeWhitespace()
-                    .correctCommaSpacing();
+                    .normalizeWhitespace();
         }
     }
 }

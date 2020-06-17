@@ -5,8 +5,7 @@ declare global {
     // tslint:disable-next-line: interface-name
     interface String {
         tidyAfterOCR: () => string;
-        normalizeWhitespace: () => string;
-        correctCommaSpacing: () => string;
+        normalizeWhitespace: () => string
         removeMetrics: () => string;
         removeAlergens: () => string;
         capitalizeFirstLetter: () => string;
@@ -15,7 +14,7 @@ declare global {
 }
 
 export function parsePrice(item: string) {
-    const priceRegex = /(\d+(?:[.,]\d+)?)[.,]?\s*(?:€|Eur)/i;
+    const priceRegex = /(\d+(?:[.,]\d+)?)[.,]?\s*(?:€|Eur)/ig;
     let price = NaN;
     const text = item.replace(priceRegex, (matchStr, group1) => {
         price = parseFloat(group1.replace(/\s/g, "").replace(",", "."));
@@ -43,10 +42,6 @@ String.prototype.normalizeWhitespace = function() {
     // also single spaces are replaced as there are different charcodes for space (32 vs. 160)
     // and we need to be consistent because of comparisons in tests
     return this.trim().replace(/\s+/g, " ");
-};
-
-String.prototype.correctCommaSpacing = function() {
-    return this.replace(/(\S) *(,|\.) *(\S)/g, "$1$2 $3");
 };
 
 String.prototype.removeMetrics = function() {
