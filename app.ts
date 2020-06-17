@@ -26,7 +26,7 @@ for (const location of config.restaurants.keys()) {
         try {
             const id = location + "-" + restaurant.id;
             if (actions.has(id)) {
-                throw new Error("Non unique id '" + id + "' provided withing '" + location + "' restaurants");
+                throw new Error("Non unique id '" + id + "' provided within '" + location + "' restaurants");
             }
             actions.set(id, (date, doneCallback) => menuFetcher.fetchMenu(restaurant.urlFactory, date, restaurant.parser, doneCallback));
         } catch (e) {

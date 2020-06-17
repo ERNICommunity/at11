@@ -19,6 +19,7 @@ import { ClockBlock } from "./parsers/einpark/clockblock";
 import { DerbyPub } from "./parsers/einpark/derbypub";
 import { MKMRestaurant } from "./parsers/einpark/mkmrestaurant";
 import { ClassicRestaurantPub } from "./parsers/einpark/classicrestaurantpub";
+import { SidliskovaPivarnicka } from "./parsers/einpark/sidliskovapivarnicka";
 
 export interface IConfig {
     readonly isProduction: boolean;
@@ -46,7 +47,8 @@ export class Config implements IConfig {
             { id: 1, name: "Clock Block", urlFactory: _ => "https://restauracie.sme.sk/restauracia/clock-block_8537-petrzalka_664/denne-menu", parser: new ClockBlock() },
             { id: 2, name: "Derby Pub", urlFactory: _ => "https://www.derbypub.sk/menu/obedove-menu", parser: new DerbyPub() },
             { id: 3, name: "MKM Restaurant", urlFactory: _ => "https://restauracie.sme.sk/restauracia/mkm-pizzeria_1742-petrzalka_664/denne-menu", parser: new MKMRestaurant() },
-            { id: 4, name: "Classic restaurant & pub", urlFactory: _ => "https://restauracie.sme.sk/restauracia/classic-restaurant-pub_626-petrzalka_664/denne-menu", parser: new ClassicRestaurantPub() }
+            { id: 4, name: "Classic restaurant & pub", urlFactory: _ => "https://restauracie.sme.sk/restauracia/classic-restaurant-pub_626-petrzalka_664/denne-menu", parser: new ClassicRestaurantPub() },
+            { id: 5, name: "Sídlisková pivárnička", urlFactory: _ => "https://menucka.sk/denne-menu/bratislava/sidliskova-pivarnicka", parser: new SidliskovaPivarnicka() }
         ]],
         ["ševčenkova", [
             { id: 1, name: "Kaša", urlFactory: _ => "https://restauracie.sme.sk/restauracia/kasa-2_8386-petrzalka_664/denne-menu", parser: new Kasa() },

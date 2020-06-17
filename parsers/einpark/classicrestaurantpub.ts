@@ -13,7 +13,7 @@ export class ClassicRestaurantPub extends Sme implements IParser {
         if(menuItems.length > 0) {
             // first item is soup
             menuItems[0].isSoup = true;
-            menuItems[0].text = menuItems[0].text.replace(/polievka:?\s*/i, "").replace("rozvoz", "");
+            menuItems[0].text = menuItems[0].text.replace(/^polievka:?\s*/i, "").replace("rozvoz", "");
             menuItems.forEach(item=> {
                 const result = parsePrice(item.text);
                 item.price = result.price;

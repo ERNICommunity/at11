@@ -1,77 +1,32 @@
-import cheerio from "cheerio";
 import { Moment } from "moment-timezone";
 
 import { IMenuItem } from "../IMenuItem";
 import { IParser } from "../IParser";
 import "../parserUtil";
+import { Menucka } from "../menucka";
 
-export class HallOfKings implements IParser {
+export class HallOfKings extends Menucka implements IParser {
     public parse(html: string, date: Moment, doneCallback: (menu: IMenuItem[]) => void): void {
-        const $ = cheerio.load(html);
-        const dayMenu = new Array<IMenuItem>();
+        const menuItems = super.parseBase(html, date);
 
-        const dateStr = date.format("DD.MM.YYYY");
+        if(menuItems.length > 0) {
+            // first item are soups
+            const soups = menuItems[0].text.replace(/^polievka:?\s*/i, "").split("/");
+            menuItems.shift();
 
-        const dayTitle = $(".day-title").filter(function() {
-            const title = $(this).text();
-            return title.indexOf(dateStr) > -1;
-        }).parent();
-
-        const soups = this.parseSoups(dayTitle);
-        const meals = this.parseMeals(dayTitle);
-
-        soups.forEach((soup) => {
-            dayMenu.push({ isSoup: true, text: soup.text, price: soup.price });
-        });
-        meals.forEach((meal) => {
-            dayMenu.push({ isSoup: false, text: meal.text, price: meal.price });
-        });
-
-        doneCallback(dayMenu);
-    }
-
-    private  parseSoups(dayTitle: Cheerio) {
-        const soupsElem = dayTitle.next();
-        const soups = soupsElem.text()
-            .replace("Polievka", "")
-            .replace(/\([0-9,]+\)/g, "")
-            .split("/")
-            .map((soup) => {
-                soup = soup.normalizeWhitespace();
-                return { text: soup, price: NaN };
+            // prices are in text
+            menuItems.forEach(item => {
+               item.text = item.text.replace(/^MENU \d\s*/i, "");
             });
 
-        return soups;
-    }
-
-    private parseMeals(dayTitle: Cheerio) {
-        const meals = [];
-        const defaultMenuPrice = dayTitle.next().next().text().replace(/,/, ".").trim();
-        let elem = dayTitle.next().next();
-
-        for (let i = 0; i < 6; i++) {
-            const mealElem = elem.next();
-            const meal = mealElem.text()
-                .replace(/MENU [1-9]/, "")
-                .normalizeWhitespace();
-
-            const priceElem = mealElem.next();
-            let price;
-
-            if (i < 5) {
-                if (/\S/.test(priceElem.text())) {
-                    price = priceElem.text().replace(/,/, ".").trim();
-                } else {
-                    price = defaultMenuPrice;
+            soups.forEach(value => {
+                const text = value.trim();
+                if (text !== "") {
+                    menuItems.unshift({ isSoup: true, text: text.removeAlergens(), price: NaN });
                 }
-            } else {
-                price = NaN;
-            }
-
-            meals.push({ text: meal, price: parseFloat(price) });
-            elem = mealElem.next();
+            });
         }
 
-        return meals;
+        doneCallback(menuItems);
     }
 }
