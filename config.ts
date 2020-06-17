@@ -17,6 +17,7 @@ import { Tiffany } from "./parsers/sevcenkova/tiffany";
 import { Klubovna } from "./parsers/sevcenkova/klubovna";
 import { ClockBlock } from "./parsers/einpark/clockblock";
 import { DerbyPub } from "./parsers/einpark/derbypub";
+import { MKMRestaurant } from "./parsers/einpark/mkmrestaurant";
 
 export interface IConfig {
     readonly isProduction: boolean;
@@ -42,7 +43,8 @@ export class Config implements IConfig {
     public readonly restaurants = new Map<string, Readonly<{ id: number, name: string, urlFactory: (date: Moment) => string, parser: IParser}>[]>([ // tslint:disable: max-line-length
         ["einpark", [
             { id: 1, name: "Clock Block", urlFactory: _ => "https://restauracie.sme.sk/restauracia/clock-block_8537-petrzalka_664/denne-menu", parser: new ClockBlock() },
-            { id: 2, name: "Derby Pub", urlFactory: _ => "https://www.derbypub.sk/menu/obedove-menu", parser: new DerbyPub() }
+            { id: 2, name: "Derby Pub", urlFactory: _ => "https://www.derbypub.sk/menu/obedove-menu", parser: new DerbyPub() },
+            { id: 3, name: "MKM Restaurant", urlFactory: _ => "https://restauracie.sme.sk/restauracia/mkm-pizzeria_1742-petrzalka_664/denne-menu", parser: new MKMRestaurant() }
         ]],
         ["ševčenkova", [
             { id: 1, name: "Kaša", urlFactory: _ => "https://restauracie.sme.sk/restauracia/kasa-2_8386-petrzalka_664/denne-menu", parser: new Kasa() },

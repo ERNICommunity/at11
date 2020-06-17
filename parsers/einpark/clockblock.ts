@@ -17,7 +17,6 @@ export class ClockBlock extends Sme implements IParser {
                 item.price = result.price;
                 item.text = result.text.replace(/^.*\|\s+/, "").replace(/\(obsahuje\:/, "");
             })
-            menuItems[1].isSoup = true;
         }
 
         doneCallback(menuItems);
