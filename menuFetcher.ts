@@ -1,4 +1,4 @@
-import request from "request";
+import Axios from "axios";
 
 import { Cache } from "./cache";
 import { IConfig } from "./config";
@@ -46,33 +46,32 @@ export class MenuFetcher {
         }
         this._runningRequests[url] = [doneCallback];
 
-        const options = {
-            url,
-            method: "GET",
-            headers: { // some sites need us to pretend to be a browser to work
-                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)",
-                "Accept": "text/html,*/*",
-                "Accept-Language":"sk" // we want response in slovak (useful for menu portals that use localization, like zomato)
-            },
-            timeout: this._config.requestTimeout
+        const done = (e: Error, m: IMenuItem[]) => {
+            const doneCallbacks = this._runningRequests[url];
+            delete this._runningRequests[url];
+            if(e) {
+                console.error("Error for %s: %s", url, e);
+            }
+            doneCallbacks.forEach(dc => dc(e, m));
         };
-        request(options, (error, response, body) => {
-            const done = (e: Error, m: IMenuItem[]) => {
-                const doneCallbacks = this._runningRequests[url];
-                delete this._runningRequests[url];
-                if(e) {
-                    console.error("Error for %s: %s", url, e);
-                }
-                doneCallbacks.forEach(dc => dc(e, m));
-            };
-            if (!error && response.statusCode === 200) {
+
+        Axios.get<string>(url, {
+            method: "get",
+            headers: {
+                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)",
+                Accept: "text/html,*/*",
+                "Accept-Language": "sk", // we want response in slovak (useful for menu portals that use localization, like zomato)
+            },
+            timeout: this._config.requestTimeout,
+        }).then(response => {
+            if (response.status === 200) {
                 let timer = setTimeout(() => {
                     timer = null; // clear needed as value is kept even after timeout fired
                     done(new Error("Parser timeout"), null);
                 }, this._config.parserTimeout);
 
                 try {
-                    parser.parse(body, date, (menu) => {
+                    parser.parse(response.data, date, (menu) => {
                         if (!timer) {
                             // multiple calls in parser or parser called back after timeout
                             return;
@@ -87,9 +86,7 @@ export class MenuFetcher {
                     timer = null;
                     done(err, null);
                 }
-            } else {
-                done(error || new Error("Response code " + response.statusCode), null);
             }
-        });
+        }).catch(error => done(error, null));
     }
 }
