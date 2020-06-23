@@ -2,7 +2,6 @@ import { Moment } from "moment-timezone";
 import { IMenuItem } from "./IMenuItem";
 
 declare global {
-    // tslint:disable-next-line: interface-name
     interface String {
         tidyAfterOCR: () => string;
         normalizeWhitespace: () => string
@@ -13,7 +12,7 @@ declare global {
     }
 }
 
-export function parsePrice(item: string) {
+export function parsePrice(item: string): { price: number, text: string} {
     const priceRegex = /(\d+(?:[.,]\d+)?)[.,]?\s*(?:€|Eur)/ig;
     let price = NaN;
     const text = item.replace(priceRegex, (matchStr, group1) => {
@@ -49,7 +48,7 @@ String.prototype.removeMetrics = function() {
 };
 
 String.prototype.removeAlergens = function() {
-    return this.replace(/\s*[\s\(\d,\)]+$/g, "");
+    return this.replace(/\s*[\s(\d,)]+$/g, "");
 };
 
 String.prototype.capitalizeFirstLetter = function() {
@@ -61,7 +60,7 @@ String.prototype.removeItemNumbering = function() {
 };
 
 // Soup first menu item comparere
-export function compareMenuItems(first: IMenuItem, second: IMenuItem) {
+export function compareMenuItems(first: IMenuItem, second: IMenuItem): number {
     const f = first.isSoup ? 0 : 1;
     const s = second.isSoup ? 0 : 1;
     return f - s;

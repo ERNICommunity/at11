@@ -17,7 +17,7 @@ export class MKMRestaurant extends Sme implements IParser {
                 const result = parsePrice(item.text);
                 item.price = result.price;
                 item.text = result.text.removeMetrics();
-            })
+            });
         }
 
         doneCallback(menuItems);

@@ -30,9 +30,10 @@ export interface IConfig {
     readonly cacheExpiration: number;
     readonly requestTimeout: number;
     readonly parserTimeout: number;
-    readonly restaurants: Map<string, Readonly<{ id: number, name: string, urlFactory: (date: Moment) => string, parser: IParser}>[]>;
+    readonly restaurants: Map<string, ReadonlyArray<{ id: number, name: string, urlFactory: (date: Moment) => string, parser: IParser}>>;
 }
 
+/* eslint-disable max-len */
 export class Config implements IConfig {
     public readonly isProduction = process.env.NODE_ENV === "production";
     public readonly scraperApiKey = process.env.SCRAPER_API_KEY;
@@ -42,7 +43,7 @@ export class Config implements IConfig {
     public readonly cacheExpiration = 2 * 60 * 60 * 1000; // 2h
     public readonly requestTimeout = 15 * 1000; // 15s
     public readonly parserTimeout = 15 * 1000; // 15s
-    public readonly restaurants = new Map<string, Readonly<{ id: number, name: string, urlFactory: (date: Moment) => string, parser: IParser}>[]>([ // tslint:disable: max-line-length
+    public readonly restaurants = new Map<string, ReadonlyArray<{ id: number, name: string, urlFactory: (date: Moment) => string, parser: IParser}>>([
         ["einpark", [
             { id: 1, name: "Clock Block", urlFactory: _ => "https://restauracie.sme.sk/restauracia/clock-block_8537-petrzalka_664/denne-menu", parser: new ClockBlock() },
             { id: 2, name: "Derby Pub", urlFactory: _ => "https://www.derbypub.sk/menu/obedove-menu", parser: new DerbyPub() },

@@ -17,7 +17,7 @@ export class SidliskovaPivarnicka extends Menucka implements IParser {
                     item.isSoup = true;
                     item.text = item.text.replace(/^polievka:?\s*/i, "");
                 }
-            })
+            });
         }
 
         doneCallback(menuItems);

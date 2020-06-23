@@ -1,3 +1,4 @@
+/* eslint-disable max-len, no-undef */
 function writeCookie(cookieName, cookieValue, nDays) {
     var today = new Date();
     var expire = new Date();
@@ -19,17 +20,17 @@ function readCookie(name) {
 function loadMenus(container) {
     var dateCompound = getDateCompound();
 
-    $('#date').text(dateCompound.description);
+    $("#date").text(dateCompound.description);
     var date = dateCompound.date;
     $("article", container).each(function() {
         var article = $(this);
         var restaurantId = article.data("restaurantId");
-        var link = $("a", article).prop('href');
+        var link = $("a", article).prop("href");
 
         var errElem = "<li class='error'><span>Nepodarilo sa načítať menu, skús pozrieť priamo na <a href='"+link+"' target='_blank'>stránke reštaurácie</a></span></li>";
         var listElem = $("<ul></ul>");
         var refreshElem = null;
-        $.ajax("/menu/" + restaurantId + "?date=" + date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate())
+        $.ajax("/menu/" + restaurantId + "?date=" + date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate())
                 .done(function(data) {
                     if (data.menu.length === 0) {
                         listElem.append(errElem);
@@ -42,7 +43,7 @@ function loadMenus(container) {
                             }
                             li.append("<span>" + item.text + "</span>");
                             if (item.price) {
-                                li.append("<span class='price'>" + item.price.toLocaleString('sk', { style: 'currency', currency: 'EUR' }) + "</span>");
+                                li.append("<span class='price'>" + item.price.toLocaleString("sk", { style: "currency", currency: "EUR" }) + "</span>");
                             }
                             listElem.append(li);
                         });
@@ -79,7 +80,7 @@ function initialHide(cont) {
         {
             window.hiddenRestaurants[restaurantId.toString()] = article;
             article.remove();
-            $('input[type=checkbox][value=' + restaurantId + ']', '#selectrestaurants').prop('checked', false);
+            $("input[type=checkbox][value=" + restaurantId + "]", "#selectrestaurants").prop("checked", false);
         }
     });
 }
@@ -91,31 +92,31 @@ function getDateCompound() {
         date.setDate(date.getDate() + 1);
         desc = "zajtra";
     }
-    return { date: date, description: desc + " " + date.toLocaleDateString('sk') };
+    return { date: date, description: desc + " " + date.toLocaleDateString("sk") };
 }
 
 function startClock() {
      // CSS3 Analog Clock- by JavaScript Kit (www.javascriptkit.com)
-     var $hands = $('#liveclock div.hand')
+     var $hands = $("#liveclock div.hand");
      window.requestAnimationFrame = window.requestAnimationFrame
                                     || window.mozRequestAnimationFrame
                                     || window.webkitRequestAnimationFrame
                                     || window.msRequestAnimationFrame
-                                    || function(f){setTimeout(f, 60)}
+                                    || function(f){setTimeout(f, 60);};
      function updateclock(){
-         var curdate = new Date()
-         var hour_as_degree = ( curdate.getHours() + curdate.getMinutes()/60 ) / 12 * 360
-         var minute_as_degree = curdate.getMinutes() / 60 * 360
-         var second_as_degree = ( curdate.getSeconds() + curdate.getMilliseconds()/1000 ) /60 * 360
-         $hands.filter('.hour').css({transform: 'rotate(' + hour_as_degree + 'deg)' })
-         $hands.filter('.minute').css({transform: 'rotate(' + minute_as_degree + 'deg)' })
-         $hands.filter('.second').css({transform: 'rotate(' + second_as_degree + 'deg)' })
-         requestAnimationFrame(updateclock)
+         var curdate = new Date();
+         var hour_as_degree = ( curdate.getHours() + curdate.getMinutes()/60 ) / 12 * 360;
+         var minute_as_degree = curdate.getMinutes() / 60 * 360;
+         var second_as_degree = ( curdate.getSeconds() + curdate.getMilliseconds()/1000 ) /60 * 360;
+         $hands.filter(".hour").css({transform: "rotate(" + hour_as_degree + "deg)" });
+         $hands.filter(".minute").css({transform: "rotate(" + minute_as_degree + "deg)" });
+         $hands.filter(".second").css({transform: "rotate(" + second_as_degree + "deg)" });
+         requestAnimationFrame(updateclock);
      }
-     requestAnimationFrame(updateclock)
+     requestAnimationFrame(updateclock);
 }
 
-startClock()
+startClock();
 var container = $("#container");
 loadMenus(container);
 initialHide(container);
@@ -123,14 +124,14 @@ container.masonry({
     fitWidth: true
 });
 
-$('#selectrestaurants').on('click', function(e) {
+$("#selectrestaurants").on("click", function(e) {
     e.stopPropagation();
 
     var $target = $(e.target);
     var checkbox;
     if($target.val() === 0) {
-        checkbox = $target.children('input').length > 0 ? $target.children('input') : $target.siblings('input');
-        checkbox.prop('checked', !checkbox.prop('checked'));
+        checkbox = $target.children("input").length > 0 ? $target.children("input") : $target.siblings("input");
+        checkbox.prop("checked", !checkbox.prop("checked"));
     }
     else {
         checkbox = $target;
@@ -138,26 +139,26 @@ $('#selectrestaurants').on('click', function(e) {
 
     var id = checkbox.val();
     var article;
-    if(checkbox.prop('checked'))//show
+    if(checkbox.prop("checked"))//show
     {
         article = window.hiddenRestaurants[id.toString()];
         delete window.hiddenRestaurants[id.toString()];
-        container.append(article).masonry('appended', article).masonry();
+        container.append(article).masonry("appended", article).masonry();
     }
     else//hide
     {
-        article = $('article[data-restaurant-id=' + id + ']', container);
+        article = $("article[data-restaurant-id=" + id + "]", container);
         window.hiddenRestaurants[id.toString()] = article;
-        container.masonry('remove', article).masonry();
+        container.masonry("remove", article).masonry();
     }
 
     var unChecked = [];
-    $('input[type="checkbox"]', this).each(function() {
-        if(!$(this).prop('checked')) {
+    $("input[type=\"checkbox\"]", this).each(function() {
+        if(!$(this).prop("checked")) {
             unChecked.push($(this).val());
         }
     });
-    writeCookie('hiddenRestaurants', unChecked.join(','), 10 * 365);
+    writeCookie("hiddenRestaurants", unChecked.join(","), 10 * 365);
 });
 
 // run additional layout when page is fully loaded (including fonts, images etc..)

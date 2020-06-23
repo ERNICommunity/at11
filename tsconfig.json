@@ -1,13 +1,12 @@
 {
-  "compilerOptions": {
-    "target": "es2018",
-    "module": "commonjs",
-    "sourceMap": true,
-    "outDir": "./dist",
-    "types": ["node"],
-    "esModuleInterop": true,
-    "plugins": [
-        { "name": "typescript-tslint-plugin" }
-      ]
-   }
+    "compilerOptions": {
+        "target": "es2018",
+        "module": "commonjs",
+        "sourceMap": true,
+        "outDir": "./dist",
+        "types": [
+            "node"
+        ],
+        "esModuleInterop": true,
+    }
 }

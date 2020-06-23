@@ -1,0 +1,31 @@
+{
+    "ignorePatterns": [
+        "dist/*"
+    ],
+    "env": {
+        "es2020": true,
+        "node": true,
+        "mocha": true
+    },
+    "parser": "@typescript-eslint/parser",
+    "extends": [
+        "eslint:recommended",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:import/errors",
+        "plugin:import/warnings",
+        "plugin:import/typescript"
+    ],
+    "parserOptions": {
+        "ecmaVersion": 2019,
+        "sourceType": "module"
+    },
+    "rules": {
+        "max-len": ["error", { "code": 140, "tabWidth": 4 }],
+        "semi": ["error", "always"],
+        "quotes": ["error", "double"],
+        "@typescript-eslint/explicit-function-return-type": "off",
+        "@typescript-eslint/no-explicit-any": 1,
+        "@typescript-eslint/no-inferrable-types": [ "warn", { "ignoreParameters": true }],
+        "@typescript-eslint/no-unused-vars": "warn"
+    }
+}

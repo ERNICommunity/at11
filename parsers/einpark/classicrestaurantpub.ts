@@ -18,7 +18,7 @@ export class ClassicRestaurantPub extends Sme implements IParser {
                 const result = parsePrice(item.text);
                 item.price = result.price;
                 item.text = result.text.trim().replace(/\/$/, "").removeAlergens().replace(/^menu\s*\d:?\s*/i, "");
-            })
+            });
         }
 
         doneCallback(menuItems);

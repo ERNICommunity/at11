@@ -1,8 +1,7 @@
 import assert from "assert";
 import { describe, it } from "mocha";
-
-import { Cache } from "../cache.js";
-import { IConfig } from "../config.js";
+import { IConfig } from "../config";
+import { Cache } from "../cache";
 
 describe("cache", () => {
     const config: IConfig = {

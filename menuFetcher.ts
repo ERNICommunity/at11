@@ -65,7 +65,7 @@ export class MenuFetcher {
                     console.error("Error for %s: %s", url, e);
                 }
                 doneCallbacks.forEach(dc => dc(e, m));
-            }
+            };
             if (!error && response.statusCode === 200) {
                 let timer = setTimeout(() => {
                     timer = null; // clear needed as value is kept even after timeout fired
