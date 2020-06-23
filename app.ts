@@ -1,13 +1,14 @@
 import * as appInsights from "applicationinsights";
 import express from "express";
 import hbs from "hbs";
-import moment from "moment-timezone";
 
 import { Cache } from "./cache";
 import { Config } from "./config";
 import { MenuFetcher } from "./menuFetcher";
 import { IMenuItem } from "./parsers/IMenuItem";
 import { isError } from "util";
+import { sk } from "date-fns/locale";
+import { formatDistance, parse, isValid } from "date-fns";
 
 console.debug("Initializing...");
 const config = new Config();
@@ -19,7 +20,7 @@ if (config.appInsightsInstrumentationKey) {
     appInsights.start();
 }
 
-const actions = new Map<string, ((date: moment.Moment, done: (result: ReturnType<Cache<Error | IMenuItem[]>["get"]>) => void) => void)>();
+const actions = new Map<string, ((date: Date, done: (result: ReturnType<Cache<Error | IMenuItem[]>["get"]>) => void) => void)>();
 for (const location of config.restaurants.keys()) {
     for (const restaurant of config.restaurants.get(location)) {
         console.log("Processing:", restaurant);
@@ -39,10 +40,6 @@ if (actions.size === 0) {
     throw new Error("Actions initialization failed");
 }
 
-console.debug("Runtime setup...");
-moment.locale("sk");
-moment.tz.setDefault("Europe/Bratislava");
-
 console.debug("Express setup...");
 const app = express();
 app.set("view engine", "html");
@@ -57,14 +54,14 @@ app.get("/:location?", (req, res) => {
         restaurants: (config.restaurants.get(location) || []).map(x => ({
             id: location + "-" + x.id,
             name: x.name,
-            url: x.urlFactory(moment())
+            url: x.urlFactory(new Date())
         })),
         appInsightsKey: config.appInsightsInstrumentationKey
     });
 });
 app.get("/menu/:id", (req, res) => {
-    const date = moment(req.query.date as string, "YYYY-M-D", true);
-    if (!date.isValid()) {
+    const date = parse(req.query.date as string, "yyyy-M-d", new Date());
+    if (!isValid(date)) {
         res.statusCode = 400;
         res.send("Missing/incorrect 'date' query parameter");
         return;
@@ -77,10 +74,11 @@ app.get("/menu/:id", (req, res) => {
     }
 
     actions.get(req.params.id)(date, result => {
+        const timeago = formatDistance(result.timestamp, new Date(), { addSuffix: true, locale: sk });
         if (isError(result.value)) {
-            res.status(500).json({ error: result.value.toString(), timeago: moment(result.timestamp).fromNow() });
+            res.status(500).json({ error: result.value.toString(), timeago });
         } else {
-            res.json({ menu: result.value, timeago: moment(result.timestamp).fromNow() });
+            res.json({ menu: result.value, timeago });
         }
     });
 });

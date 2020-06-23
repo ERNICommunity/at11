@@ -1,16 +1,15 @@
 import cheerio from "cheerio";
-import { Moment } from "moment-timezone";
 
 import { IMenuItem } from "../IMenuItem";
 import { IParser } from "../IParser";
-import "../parserUtil";
+import { format } from "date-fns";
 
 export class Kamenica implements IParser {
-    public parse(html: string, date: Moment, doneCallback: (menu: IMenuItem[]) => void): void {
+    public parse(html: string, date: Date, doneCallback: (menu: IMenuItem[]) => void): void {
         const $ = cheerio.load(html);
 
         const soupPattern = /0[.,]\d+\s?l/;
-        const dayOfWeek = parseInt(date.format("e"), 10) + 1;
+        const dayOfWeek = Number(format(date, "i"));
 
         const elements = $(".obedove-nadpis", "#content");
         let price = NaN;

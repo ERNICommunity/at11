@@ -1,13 +1,11 @@
 import cheerio from "cheerio";
-import { Moment } from "moment-timezone";
 
 import { IMenuItem } from "../IMenuItem";
 import { IParser } from "../IParser";
-import "../parserUtil";
 import { getDateRegex } from "../parserUtil";
 
 export class Lokalka implements IParser {
-    public parse(html: string, date: Moment, doneCallback: (menu: IMenuItem[]) => void): void {
+    public parse(html: string, date: Date, doneCallback: (menu: IMenuItem[]) => void): void {
         const $ = cheerio.load(html);
         let dayMenu = new Array<IMenuItem>();
         const todayRegex = getDateRegex(date);

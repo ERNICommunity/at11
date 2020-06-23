@@ -1,4 +1,3 @@
-import { Moment } from "moment-timezone";
 import request from "request";
 
 import { Cache } from "./cache";
@@ -11,8 +10,8 @@ export class MenuFetcher {
 
     constructor(private readonly _config: IConfig, private readonly _cache: Cache<Error | IMenuItem[]>) {}
 
-    public fetchMenu(urlFactory: (date: Moment) => string,
-                     date: Moment,
+    public fetchMenu(urlFactory: (date: Date) => string,
+                     date: Date,
                      parser: IParser,
                      doneCallback: (result: ReturnType<Cache<Error | IMenuItem[]>["get"]>) => void) {
         const url = urlFactory(date);
@@ -33,7 +32,7 @@ export class MenuFetcher {
     }
 
     private load(url: string,
-                 date: Moment,
+                 date: Date,
                  parser: IParser,
                  doneCallback: (error: Error, menu: IMenuItem[]) => void) {
         // on production (azure) use scraper api for zomato requests, otherwise zomato blocks them

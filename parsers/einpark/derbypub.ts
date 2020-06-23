@@ -1,15 +1,15 @@
 import cheerio from "cheerio";
-import { Moment } from "moment-timezone";
 
 import { IMenuItem } from "../IMenuItem";
 import { IParser } from "../IParser";
-import "../parserUtil";
+import { format } from "date-fns";
+import { sk } from "date-fns/locale";
 
 export class DerbyPub implements IParser {
-    public parse(html: string, date: Moment, doneCallback: (menu: IMenuItem[]) => void): void {
+    public parse(html: string, date: Date, doneCallback: (menu: IMenuItem[]) => void): void {
         const $ = cheerio.load(html);
         const dayMenu = new Array<IMenuItem>();
-        const todayText = date.format("D. MMM YYYY");
+        const todayText = format(date, "d. LLLL yyyy", { locale: sk });
 
         $(".pm-date-sub").each((i, elem) => {
             const node = $(elem);

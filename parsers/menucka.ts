@@ -1,12 +1,11 @@
 import cheerio from "cheerio";
-import { Moment } from "moment-timezone";
 
 import { IMenuItem } from "./IMenuItem";
 import { getDateRegex } from "./parserUtil";
 
 
 export abstract class Menucka {
-    protected parseBase(html: string, date: Moment): IMenuItem[] {
+    protected parseBase(html: string, date: Date): IMenuItem[] {
         const $ = cheerio.load(html);
         const dateRegex = getDateRegex(date);
 
