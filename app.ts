@@ -15,7 +15,7 @@ const cache =  new Cache<Error | IMenuItem[]>(config);
 const menuFetcher = new MenuFetcher(config, cache);
 
 if (config.appInsightsInstrumentationKey) {
-    appInsights.setup(config.appInsightsInstrumentationKey);
+    appInsights.setup(config.appInsightsInstrumentationKey).setAutoCollectConsole(true, true);
     appInsights.start();
 }
 
