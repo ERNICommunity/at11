@@ -60,9 +60,9 @@ export class MenuFetcher {
             headers: {
                 "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)",
                 Accept: "text/html,*/*",
-                "Accept-Language": "sk", // we want response in slovak (useful for menu portals that use localization, like zomato)
+                "Accept-Language": "sk" // we want response in slovak (useful for menu portals that use localization, like zomato)
             },
-            timeout: this._config.requestTimeout,
+            timeout: this._config.requestTimeout
         }).then(response => {
             if (response.status === 200) {
                 let timer = setTimeout(() => {

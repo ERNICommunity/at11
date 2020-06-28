@@ -37,9 +37,9 @@ export class Skolka implements IParser {
             const requestBody = `=${encodeURIComponent(picData)}`;
             Axios.post(url, requestBody, {
                 headers: {
-                    "Content-type": "application/x-www-form-urlencoded",
+                    "Content-type": "application/x-www-form-urlencoded"
                 },
-                timeout: 25_000,
+                timeout: 25_000
             }).then(response => parseMenu(response.data))
                 .catch(() => doneCallback([]));
         }
