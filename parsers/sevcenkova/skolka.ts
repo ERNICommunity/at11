@@ -32,7 +32,7 @@ export class Skolka implements IParser {
             parseMenu($("div.entry-content", "#post-2").text());
         }
 
-        function callOcr(picData, actionMetod) {
+        function callOcr(picData: string, actionMetod: "pdf" | "image" | "encoded") {
             const url = "https://at11ocr.azurewebsites.net/api/process/" + actionMetod;
             const requestBody = `=${encodeURIComponent(picData)}`;
             Axios.post(url, requestBody, {
@@ -48,7 +48,7 @@ export class Skolka implements IParser {
             const lines = menuString.split("\n").filter((val) => val.trim());
 
             const texts: string[] = [];
-            let price;
+            let price: number;
             for (let i = 0; i < lines.length; i++) {
                 if (todayNameReg.test(lines[i])) {
                     for (let offset = 0; offset < 3; offset++) {

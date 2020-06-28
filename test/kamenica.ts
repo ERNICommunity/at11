@@ -3,6 +3,7 @@ import fs from "fs";
 import { describe, it } from "mocha";
 
 import { Kamenica } from "../parsers/sevcenkova/kamenica";
+import { IMenuItem } from "../parsers/IMenuItem";
 
 describe("kamenica", () => {
     const parser = new Kamenica();
@@ -10,7 +11,7 @@ describe("kamenica", () => {
     describe("parsing sample 2015-07-29", () => {
 
         const html = fs.readFileSync("./test//samples/Kamenica.2015-07-29.html", { encoding: "utf-8" });
-        let menu;
+        let menu: IMenuItem[];
 
         before((done) => {
             parser.parse(html, new Date(2015, 6, 29), (menuItems) => {
