@@ -31,7 +31,7 @@ export function getDateRegex(date: Date): RegExp {
 const accentPairs: {[key: string]: string} = { a: "á", e: "é", i: "í", o: "ó", u: "ú", y: "ý", t: "ť", l: "ľ" };
 
 String.prototype.tidyAfterOCR = function(): string {
-    return this.replace(/(\w)[`']/g, (m, g) => {
+    return this.replace(/(\w)[`']/g, (m: string, g: string) => {
         return accentPairs[g] || m;
     }).replace("%:", "€");
 };
@@ -51,7 +51,7 @@ String.prototype.removeAlergens = function() {
 };
 
 String.prototype.capitalizeFirstLetter = function() {
-    return this.replace(/(^[A-Za-z\u00C0-\u017F])/, (a) => a.toUpperCase());
+    return this.replace(/(^[A-Za-z\u00C0-\u017F])/, (a: string) => a.toUpperCase());
 };
 
 String.prototype.removeItemNumbering = function() {
