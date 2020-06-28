@@ -1,18 +1,19 @@
 import * as appInsights from "applicationinsights";
 import express from "express";
 import hbs from "hbs";
+import NodeCache from "node-cache";
 
-import { Cache } from "./cache";
 import { Config } from "./config";
-import { MenuFetcher } from "./menuFetcher";
-import { IMenuItem } from "./parsers/IMenuItem";
+import { MenuFetcher, IMenuResult } from "./menuFetcher";
 import { isError } from "util";
 import { sk } from "date-fns/locale";
 import { formatDistance, parse, isValid } from "date-fns";
 
 console.debug("Initializing...");
 const config = new Config();
-const cache =  new Cache<Error | IMenuItem[]>(config);
+const cache =  new NodeCache({
+    checkperiod: (config.cacheExpiration / 2)
+});
 const menuFetcher = new MenuFetcher(config, cache);
 
 if (config.appInsightsInstrumentationKey) {
@@ -20,7 +21,7 @@ if (config.appInsightsInstrumentationKey) {
     appInsights.start();
 }
 
-const actions = new Map<string, ((date: Date, done: (result: ReturnType<Cache<Error | IMenuItem[]>["get"]>) => void) => void)>();
+const actions = new Map<string, ((date: Date, done: (result: IMenuResult) => void) => void)>();
 for (const location of config.restaurants.keys()) {
     for (const restaurant of config.restaurants.get(location)) {
         console.log("Processing:", restaurant);
