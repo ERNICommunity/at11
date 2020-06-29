@@ -6,7 +6,7 @@ import { format } from "date-fns";
 import { sk } from "date-fns/locale";
 
 export class DerbyPub implements IParser {
-    public parse(html: string, date: Date, doneCallback: (menu: IMenuItem[]) => void): void {
+    public parse(html: string, date: Date): Promise<IMenuItem[]> {
         const $ = cheerio.load(html);
         const dayMenu = new Array<IMenuItem>();
         const todayText = format(date, "d. LLLL yyyy", { locale: sk });
@@ -20,7 +20,7 @@ export class DerbyPub implements IParser {
             }
         });
 
-        doneCallback(dayMenu);
+        return Promise.resolve(dayMenu);
 
         function parseDailyMenu(table: Cheerio) {
             const rows = table.find("tr");

@@ -7,7 +7,7 @@ import { format, addDays } from "date-fns";
 import { sk } from "date-fns/locale";
 
 export class Itb implements IParser {
-    public parse(html: string, date: Date, doneCallback: (menu: IMenuItem[]) => void): void {
+    public parse(html: string, date: Date): Promise<IMenuItem[]> {
         const $ = cheerio.load(html);
         const dayMenu = new Array<IMenuItem>();
 
@@ -35,7 +35,7 @@ export class Itb implements IParser {
 
         dayMenu.sort(compareMenuItems);
 
-        doneCallback(dayMenu);
+        return Promise.resolve(dayMenu);
 
         function parseMeal(tablerow: Cheerio): IMenuItem {
             if (tablerow.find("li").length === 0) {

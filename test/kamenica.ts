@@ -14,10 +14,11 @@ describe("kamenica", () => {
         let menu: IMenuItem[];
 
         before((done) => {
-            parser.parse(html, new Date(2015, 6, 29), (menuItems) => {
-                menu = menuItems;
-                done();
-            });
+            parser.parse(html, new Date(2015, 6, 29))
+                .then((menuItems) => {
+                    menu = menuItems;
+                    done();
+                });
         });
 
         it("should return 5 items", () => {

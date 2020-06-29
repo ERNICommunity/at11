@@ -5,7 +5,7 @@ import { IParser } from "../IParser";
 import { format } from "date-fns";
 
 export class Kamenica implements IParser {
-    public parse(html: string, date: Date, doneCallback: (menu: IMenuItem[]) => void): void {
+    public parse(html: string, date: Date): Promise<IMenuItem[]> {
         const $ = cheerio.load(html);
 
         const soupPattern = /0[.,]\d+\s?l/;
@@ -41,7 +41,7 @@ export class Kamenica implements IParser {
             }
         });
 
-        doneCallback(dayMenu);
+        return Promise.resolve(dayMenu);
 
         function normalize(str: string) {
             return str.normalizeWhitespace()

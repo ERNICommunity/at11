@@ -4,10 +4,10 @@ import { Sme } from "../sme";
 import { parsePrice } from "../parserUtil";
 
 export class MKMRestaurant extends Sme implements IParser {
-    public parse(html: string, date: Date, doneCallback: (menu: IMenuItem[]) => void): void {
+    public parse(html: string, date: Date): Promise<IMenuItem[]> {
         const menuItems = super.parseBase(html, date);
 
-        if(menuItems.length > 0) {
+        if (menuItems.length > 0) {
             // first item is soup
             menuItems[0].isSoup = true;
             menuItems.forEach(item=> {
@@ -17,6 +17,6 @@ export class MKMRestaurant extends Sme implements IParser {
             });
         }
 
-        doneCallback(menuItems);
+        return Promise.resolve(menuItems);
     }
 }

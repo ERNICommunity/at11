@@ -5,7 +5,7 @@ import { IParser } from "../IParser";
 import { getDateRegex, parsePrice } from "../parserUtil";
 
 export class Giuliano implements IParser {
-    public parse(html: string, date: Date, doneCallback: (menu: IMenuItem[]) => void): void {
+    public parse(html: string, date: Date): Promise<IMenuItem[]> {
         const $ = cheerio.load(html);
         let dayMenu = new Array<IMenuItem>();
         const dateRegex = getDateRegex(date);
@@ -29,7 +29,7 @@ export class Giuliano implements IParser {
             }
         });
 
-        doneCallback(dayMenu);
+        return Promise.resolve(dayMenu);
     }
 
     private parseMeals(cell: Cheerio): IMenuItem[] {
