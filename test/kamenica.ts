@@ -1,11 +1,8 @@
 import assert from "assert";
 import fs from "fs";
 import { describe, it } from "mocha";
-import moment from "moment-timezone";
 
 import { Kamenica } from "../parsers/sevcenkova/kamenica";
-
-moment.locale("sk");
 
 describe("kamenica", () => {
     const parser = new Kamenica();
@@ -16,7 +13,7 @@ describe("kamenica", () => {
         let menu;
 
         before((done) => {
-            parser.parse(html, moment("2015-07-29"), (menuItems) => {
+            parser.parse(html, new Date(2015, 6, 29), (menuItems) => {
                 menu = menuItems;
                 done();
             });

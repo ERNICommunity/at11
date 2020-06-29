@@ -1,11 +1,9 @@
-import { Moment } from "moment-timezone";
-
 import { IMenuItem } from "../IMenuItem";
 import { IParser } from "../IParser";
 import { Sme } from "../sme";
 
 export class Kasa extends Sme implements IParser {
-    public parse(html: string, date: Moment, doneCallback: (menu: IMenuItem[]) => void): void {
+    public parse(html: string, date: Date, doneCallback: (menu: IMenuItem[]) => void): void {
         const menuItems = super.parseBase(html, date);
 
         if(menuItems.length > 0) {

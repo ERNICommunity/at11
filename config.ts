@@ -1,4 +1,5 @@
-import { Moment } from "moment-timezone";
+import { format } from "date-fns";
+import { sk } from "date-fns/locale";
 
 import { IParser } from "./parsers/IParser";
 
@@ -30,9 +31,10 @@ export interface IConfig {
     readonly cacheExpiration: number;
     readonly requestTimeout: number;
     readonly parserTimeout: number;
-    readonly restaurants: Map<string, Readonly<{ id: number, name: string, urlFactory: (date: Moment) => string, parser: IParser}>[]>;
+    readonly restaurants: Map<string, ReadonlyArray<{ id: number, name: string, urlFactory: (date: Date) => string, parser: IParser}>>;
 }
 
+/* eslint-disable max-len */
 export class Config implements IConfig {
     public readonly isProduction = process.env.NODE_ENV === "production";
     public readonly scraperApiKey = process.env.SCRAPER_API_KEY;
@@ -42,7 +44,7 @@ export class Config implements IConfig {
     public readonly cacheExpiration = 2 * 60 * 60 * 1000; // 2h
     public readonly requestTimeout = 15 * 1000; // 15s
     public readonly parserTimeout = 15 * 1000; // 15s
-    public readonly restaurants = new Map<string, Readonly<{ id: number, name: string, urlFactory: (date: Moment) => string, parser: IParser}>[]>([ // tslint:disable: max-line-length
+    public readonly restaurants = new Map<string, ReadonlyArray<{ id: number, name: string, urlFactory: (date: Date) => string, parser: IParser}>>([
         ["einpark", [
             { id: 1, name: "Clock Block", urlFactory: _ => "https://restauracie.sme.sk/restauracia/clock-block_8537-petrzalka_664/denne-menu", parser: new ClockBlock() },
             { id: 2, name: "Derby Pub", urlFactory: _ => "https://www.derbypub.sk/menu/obedove-menu", parser: new DerbyPub() },
@@ -58,7 +60,7 @@ export class Config implements IConfig {
             { id: 5, name: "Hall of Kings", urlFactory: _ => "https://menucka.sk/denne-menu/bratislava/hall-of-kings", parser: new HallOfKings() },
             { id: 6, name: "Škôlka", urlFactory: _ => "http://jedalen.vysnivany.sk/ukazka-strany", parser: new Skolka() },
             { id: 7, name: "Giuliano", urlFactory: _ => "http://www.giuliano.sk/-denne-menu", parser: new Giuliano() },
-            { id: 8, name: "Pizza Pazza", urlFactory: date => `https://www.pizzeriaviennagate.sk/obedove-menu/${date.format("dddd").replace("š", "s").replace("ľ", "l")}`, parser: new PizzaPazza() },
+            { id: 8, name: "Pizza Pazza", urlFactory: date => `https://www.pizzeriaviennagate.sk/obedove-menu/${format(date, "EEEE", { locale: sk }).replace("š", "s").replace("ľ", "l")}`, parser: new PizzaPazza() },
             { id: 9, name: "Kamenica - Corleone Pizza", urlFactory: _ => "http://www.pizzacorleone.sk/obedove-menu.html", parser: new Kamenica() },
             { id: 10, name: "Engerau restaurant", urlFactory: _ => "https://www.zomato.com/sk/bratislava/engerau-restaurant-petr%C5%BEalka-bratislava-v/denn%C3%A9-menu", parser: new Engerau() },
             { id: 11, name: "Lokálka", urlFactory: _ => "http://www.lokalka.sk/kopcianska-2/", parser: new Lokalka() },

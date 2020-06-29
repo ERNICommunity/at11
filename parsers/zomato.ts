@@ -1,13 +1,13 @@
 import cheerio from "cheerio";
-import { Moment } from "moment-timezone";
 
 import { IMenuItem } from "./IMenuItem";
-import "./parserUtil";
 import { parsePrice } from "./parserUtil";
+import { format } from "date-fns";
+import { sk } from "date-fns/locale";
 
 
 export abstract class Zomato {
-    protected parseBase(html: string, date: Moment): IMenuItem[] {
+    protected parseBase(html: string, date: Date): IMenuItem[] {
         const $ = cheerio.load(html);
         const dayMenu = new Array<IMenuItem>();
 
@@ -17,7 +17,7 @@ export abstract class Zomato {
             const dayText = $this.children(".tmi-group-name").text();
             const dayName = getDayName(dayText);
 
-            if (dayName === date.format("dddd")) {
+            if (dayName === format(date, "EEEE", { locale: sk })) {
                 $this.children(".tmi-daily").each(function() {
                     let text = $(this).find(".tmi-name").text().trim();
                     let price = parseFloat($(this).find(".tmi-price").text().replace(/,/, "."));

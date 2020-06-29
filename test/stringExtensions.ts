@@ -2,7 +2,7 @@ import assert from "assert";
 import { describe, it } from "mocha";
 import "../parsers/parserUtil";
 
-// tslint:disable: max-line-length
+/* eslint-disable max-len */
 
 const removeNumberingTests = [
     { input: "1.) Kurací steak s bylinkovou omáčkou, pečené zemiaky, obloha", result: "Kurací steak s bylinkovou omáčkou, pečené zemiaky, obloha" },

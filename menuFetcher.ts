@@ -1,5 +1,4 @@
-import { Moment } from "moment-timezone";
-import request from "request";
+import Axios from "axios";
 
 import { Cache } from "./cache";
 import { IConfig } from "./config";
@@ -11,8 +10,8 @@ export class MenuFetcher {
 
     constructor(private readonly _config: IConfig, private readonly _cache: Cache<Error | IMenuItem[]>) {}
 
-    public fetchMenu(urlFactory: (date: Moment) => string,
-                     date: Moment,
+    public fetchMenu(urlFactory: (date: Date) => string,
+                     date: Date,
                      parser: IParser,
                      doneCallback: (result: ReturnType<Cache<Error | IMenuItem[]>["get"]>) => void) {
         const url = urlFactory(date);
@@ -33,7 +32,7 @@ export class MenuFetcher {
     }
 
     private load(url: string,
-                 date: Moment,
+                 date: Date,
                  parser: IParser,
                  doneCallback: (error: Error, menu: IMenuItem[]) => void) {
         // on production (azure) use scraper api for zomato requests, otherwise zomato blocks them
@@ -47,33 +46,32 @@ export class MenuFetcher {
         }
         this._runningRequests[url] = [doneCallback];
 
-        const options = {
-            url,
-            method: "GET",
-            headers: { // some sites need us to pretend to be a browser to work
+        const done = (e: Error, m: IMenuItem[]) => {
+            const doneCallbacks = this._runningRequests[url];
+            delete this._runningRequests[url];
+            if(e) {
+                console.error("Error for %s: %s", url, e);
+            }
+            doneCallbacks.forEach(dc => dc(e, m));
+        };
+
+        Axios.get<string>(url, {
+            method: "get",
+            headers: {
                 "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)",
-                "Accept": "text/html,*/*",
-                "Accept-Language":"sk" // we want response in slovak (useful for menu portals that use localization, like zomato)
+                Accept: "text/html,*/*",
+                "Accept-Language": "sk" // we want response in slovak (useful for menu portals that use localization, like zomato)
             },
             timeout: this._config.requestTimeout
-        };
-        request(options, (error, response, body) => {
-            const done = (e: Error, m: IMenuItem[]) => {
-                const doneCallbacks = this._runningRequests[url];
-                delete this._runningRequests[url];
-                if(e) {
-                    console.error("Error for %s: %s", url, e);
-                }
-                doneCallbacks.forEach(dc => dc(e, m));
-            }
-            if (!error && response.statusCode === 200) {
+        }).then(response => {
+            if (response.status === 200) {
                 let timer = setTimeout(() => {
                     timer = null; // clear needed as value is kept even after timeout fired
                     done(new Error("Parser timeout"), null);
                 }, this._config.parserTimeout);
 
                 try {
-                    parser.parse(body, date, (menu) => {
+                    parser.parse(response.data, date, (menu) => {
                         if (!timer) {
                             // multiple calls in parser or parser called back after timeout
                             return;
@@ -88,9 +86,7 @@ export class MenuFetcher {
                     timer = null;
                     done(err, null);
                 }
-            } else {
-                done(error || new Error("Response code " + response.statusCode), null);
             }
-        });
+        }).catch(error => done(error, null));
     }
 }

@@ -1,12 +1,9 @@
-import { Moment } from "moment-timezone";
-
 import { IMenuItem } from "../IMenuItem";
 import { IParser } from "../IParser";
-import "../parserUtil";
 import { Menucka } from "../menucka";
 
 export class SidliskovaPivarnicka extends Menucka implements IParser {
-    public parse(html: string, date: Moment, doneCallback: (menu: IMenuItem[]) => void): void {
+    public parse(html: string, date: Date, doneCallback: (menu: IMenuItem[]) => void): void {
         const menuItems = super.parseBase(html, date);
 
         if(menuItems.length > 0) {
@@ -17,7 +14,7 @@ export class SidliskovaPivarnicka extends Menucka implements IParser {
                     item.isSoup = true;
                     item.text = item.text.replace(/^polievka:?\s*/i, "");
                 }
-            })
+            });
         }
 
         doneCallback(menuItems);
