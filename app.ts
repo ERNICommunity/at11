@@ -9,6 +9,8 @@ import { isError } from "util";
 import { sk } from "date-fns/locale";
 import { formatDistance, parse, isValid } from "date-fns";
 
+/* eslint-disable no-console */
+
 console.debug("Initializing...");
 const config = new Config();
 const cache =  new NodeCache({

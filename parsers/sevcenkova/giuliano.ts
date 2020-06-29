@@ -49,7 +49,7 @@ export class Giuliano implements IParser {
 
     private parsePrices(cell: Cheerio): number[] {
         const items = new Array<number>();
-        cell.text().split("\n").map(str => str.trim()).filter(str => str.length > 0).forEach((str, i) => {
+        cell.text().split("\n").map(str => str.trim()).filter(str => str.length > 0).forEach((str) => {
             if (str === "Špeciálna ponuka:") {
                 return;
             }

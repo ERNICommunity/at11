@@ -5,7 +5,7 @@ import { IParser } from "../IParser";
 import { compareMenuItems, parsePrice } from "../parserUtil";
 
 export class PizzaPazza implements IParser {
-    public parse(html: string, date: Date): Promise<IMenuItem[]> {
+    public parse(html: string): Promise<IMenuItem[]> {
         const $ = cheerio.load(html);
         const dayMenu = new Array<IMenuItem>();
 
