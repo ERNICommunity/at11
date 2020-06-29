@@ -1,11 +1,11 @@
 import cheerio from "cheerio";
-import Axios from "axios";
 
 import { IMenuItem } from "../IMenuItem";
 import { IParser } from "../IParser";
 import { getDateRegex, parsePrice } from "../parserUtil";
 import { format } from "date-fns";
 import { sk } from "date-fns/locale";
+import { OcrService } from "../../services/ocr.service";
 
 export class Skolka implements IParser {
     public parse(html: string, date: Date, doneCallback: (menu: IMenuItem[]) => void): void {
@@ -33,14 +33,8 @@ export class Skolka implements IParser {
         }
 
         function callOcr(picData: string, actionMetod: "pdf" | "image" | "encoded") {
-            const url = "https://at11ocr.azurewebsites.net/api/process/" + actionMetod;
-            const requestBody = `=${encodeURIComponent(picData)}`;
-            Axios.post(url, requestBody, {
-                headers: {
-                    "Content-type": "application/x-www-form-urlencoded"
-                },
-                timeout: 25_000
-            }).then(response => parseMenu(response.data))
+            OcrService.scanData(picData, actionMetod)
+                .then(response => parseMenu(response))
                 .catch(() => doneCallback([]));
         }
 
