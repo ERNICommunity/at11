@@ -11,55 +11,49 @@ export interface IMenuResult {
 }
 
 export class MenuFetcher {
-    private readonly _runningRequests: { [url: string]: ((error: Error, menu: IMenuItem[]) => void)[]; } = {};
+    private readonly pendingTasks: Map<string, Promise<IMenuItem[]>> = new Map<string, Promise<IMenuItem[]>>();
 
     constructor(private readonly _config: IConfig, private readonly _cache: NodeCache) { }
 
-    public fetchMenu(urlFactory: (date: Date) => string, date: Date, parser: IParser, doneCallback: (result: IMenuResult) => void): void {
+    public async fetchMenu(urlFactory: (date: Date) => string, date: Date, parser: IParser): Promise<IMenuResult> {
         const url = urlFactory(date);
         const cacheKey = date + ":" + url;
         const cached = this._cache.get<IMenuResult>(cacheKey);
         if (cached && !this._config.bypassCache) {
-            doneCallback(cached);
+            return cached;
         } else {
-            this.load(url, date, parser, (error: Error, menu: IMenuItem[]) => {
-                if (!error) {
-                    this._cache.set(cacheKey, { value: menu, timestamp: Date.now() }, this._config.cacheExpiration);
-                } else {
-                    this._cache.set(cacheKey, { value: error, timestamp: Date.now() }, this._config.cacheExpiration / 2);
-                }
-                doneCallback(this._cache.get<IMenuResult>(cacheKey));
-            });
+            try {
+                const menu = await this.load(url, date, parser);
+                this._cache.set(cacheKey, { value: menu, timestamp: Date.now() }, this._config.cacheExpiration);
+                return this._cache.get<IMenuResult>(cacheKey);
+            } catch (error) {
+                this._cache.set(cacheKey, { value: error, timestamp: Date.now() }, this._config.cacheExpiration / 2);
+                return this._cache.get<IMenuResult>(cacheKey);
+            }
         }
     }
 
-    private load(url: string, date: Date, parser: IParser, doneCallback: (error: Error, menu: IMenuItem[]) => void) {
-        if (this._runningRequests[url]) { // if request is already running, just add additional callback
-            this._runningRequests[url].push(doneCallback);
-            return;
+    private load(url: string, date: Date, parser: IParser): Promise<IMenuItem[]> {
+        // if there was already task to fetch the same URL we will wait for the first task's result
+        if (this.pendingTasks.has(url)) {
+            return this.pendingTasks.get(url);
         }
-        this._runningRequests[url] = [doneCallback];
 
-        const done = (e: Error, m: IMenuItem[]) => {
-            const doneCallbacks = this._runningRequests[url];
-            delete this._runningRequests[url];
-            if (e) {
-                console.error("Error for %s: %s", url, e);
+        const task = this.scrapeAndParse(url, date, parser);
+        this.pendingTasks.set(url, task);
+        return task.finally(() => this.pendingTasks.delete(url));
+    }
+
+    private async scrapeAndParse(url: string, date: Date, parser: IParser): Promise<IMenuItem[]> {
+        try {
+            const htmlData = await HtmlScraperService.scrape(url);
+            return await promiseWithTimeout(this._config.parserTimeout, () => parser.parse(htmlData, date));
+        } catch (error) {
+            if (error instanceof TimeoutError) {
+                throw new Error(`Parsing timeout - timeout period elapsed to parse data with '${parser.constructor?.name}' parser`);
             }
-            doneCallbacks.forEach(dc => dc(e, m));
-        };
 
-        HtmlScraperService.scrape(url)
-            .then((data: string) => {
-                promiseWithTimeout(this._config.parserTimeout, () => parser.parse(data, date))
-                    .then(menu => done(null, menu))
-                    .catch(error => {
-                        if (error instanceof TimeoutError) {
-                            done(new Error(`Parsing timeout - timeout period elapsed to parse data with '${parser.constructor?.name}' parser`), null);
-                        }
-                        done(error, null);
-                    });
-            })
-            .catch(error => done(error, null));
+            throw error;
+        }
     }
 }

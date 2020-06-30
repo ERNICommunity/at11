@@ -23,7 +23,7 @@ if (config.appInsightsInstrumentationKey) {
     appInsights.start();
 }
 
-const actions = new Map<string, ((date: Date, done: (result: IMenuResult) => void) => void)>();
+const actions = new Map<string, ((date: Date) => Promise<IMenuResult>)>();
 for (const location of config.restaurants.keys()) {
     for (const restaurant of config.restaurants.get(location)) {
         console.log("Processing:", restaurant);
@@ -32,7 +32,7 @@ for (const location of config.restaurants.keys()) {
             if (actions.has(id)) {
                 throw new Error("Non unique id '" + id + "' provided within '" + location + "' restaurants");
             }
-            actions.set(id, (date, doneCallback) => menuFetcher.fetchMenu(restaurant.urlFactory, date, restaurant.parser, doneCallback));
+            actions.set(id, (date) => menuFetcher.fetchMenu(restaurant.urlFactory, date, restaurant.parser));
         } catch (e) {
             console.warn(e);
         }
@@ -62,7 +62,7 @@ app.get("/:location?", (req, res) => {
         appInsightsKey: config.appInsightsInstrumentationKey
     });
 });
-app.get("/menu/:id", (req, res) => {
+app.get("/menu/:id", async (req, res) => {
     const date = parse(req.query.date as string, "yyyy-M-d", new Date());
     if (!isValid(date)) {
         res.statusCode = 400;
@@ -76,14 +76,13 @@ app.get("/menu/:id", (req, res) => {
         return;
     }
 
-    actions.get(req.params.id)(date, result => {
-        const timeago = formatDistance(result.timestamp, new Date(), { addSuffix: true, locale: sk });
-        if (isError(result.value)) {
-            res.status(500).json({ error: result.value.toString(), timeago });
-        } else {
-            res.json({ menu: result.value, timeago });
-        }
-    });
+    const result = await actions.get(req.params.id)(date);
+    const timeago = formatDistance(result.timestamp, new Date(), { addSuffix: true, locale: sk });
+    if (isError(result.value)) {
+        res.status(500).json({ error: result.value.toString(), timeago });
+    } else {
+        res.json({ menu: result.value, timeago });
+    }
 });
 app.listen(config.port, function(err) {
   if (err) {
