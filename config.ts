@@ -27,6 +27,9 @@ import { SidliskovaPivarnicka } from "./parsers/einpark/sidliskovapivarnicka";
 export type Location = "einpark" | "ševčenkova";
 type RestaurantMap = ReadonlyMap<Location, ReadonlyArray<{ id: number, name: string, urlFactory: (date: Date) => string, parser: IParser }>>;
 
+/**
+ * Here add new restaurant for given location
+ */
 const restaurants: RestaurantMap = new Map([
     ["einpark", [
         { id: 1, name: "Clock Block", urlFactory: _ => "https://restauracie.sme.sk/restauracia/clock-block_8537-petrzalka_664/denne-menu", parser: new ClockBlock() },
