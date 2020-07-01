@@ -1,12 +1,12 @@
 import * as appInsights from "applicationinsights";
 import express from "express";
 import hbs from "hbs";
+import { types } from "util";
+import { sk } from "date-fns/locale";
+import { formatDistance, parse, isValid } from "date-fns";
 
 import { config, Location } from "./config";
 import { MenuFetcher, IMenuResult } from "./menuFetcher";
-import { isError } from "util";
-import { sk } from "date-fns/locale";
-import { formatDistance, parse, isValid } from "date-fns";
 
 /* eslint-disable no-console */
 
@@ -74,7 +74,7 @@ app.get("/menu/:id", async (req, res) => {
 
     const result = await actions.get(req.params.id)(date);
     const timeago = formatDistance(result.timestamp, new Date(), { addSuffix: true, locale: sk });
-    if (isError(result.value)) {
+    if (types.isNativeError(result.value)) {
         res.status(500).json({ error: result.value.toString(), timeago });
     } else {
         res.json({ menu: result.value, timeago });
