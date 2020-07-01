@@ -1,16 +1,12 @@
 import Axios from "axios";
-import { Config } from "../config";
-
-const SCRAPER_ENDPOINT = "http://api.scraperapi.com";
+import { config } from "../config";
 
 export class HtmlScraperService {
-    static config = new Config();
-
     static async scrape(url: string): Promise<string> {
         // on production (azure) use scraper api for zomato requests, otherwise zomato blocks them
-        if (HtmlScraperService.config.isProduction && url.search("zomato") >= 0) {
+        if (config.isProduction && url.search("zomato") >= 0) {
             // eslint-disable-next-line no-param-reassign
-            url = `${SCRAPER_ENDPOINT}?api_key=${HtmlScraperService.config.scraperApiKey}&url=${encodeURIComponent(url)}`;
+            url = `${config.scraper.endpoint}?api_key=${config.scraper.apiKey}&url=${encodeURIComponent(url)}`;
         }
 
         try {
@@ -21,7 +17,7 @@ export class HtmlScraperService {
                     Accept: "text/html,*/*",
                     "Accept-Language": "sk" // we want response in slovak (useful for menu portals that use localization, like zomato)
                 },
-                timeout: HtmlScraperService.config.requestTimeout
+                timeout: config.requestTimeout
             });
 
             if (response.status !== 200) {

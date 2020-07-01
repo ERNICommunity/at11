@@ -58,7 +58,7 @@ export class Skolka implements IParser {
             if (/Hodnota/.test(lines[i])) {
                 price = parsePrice(lines[i]).price;
             } else {
-                price = price || NaN;
+                price = price ?? NaN;
             }
         }
 

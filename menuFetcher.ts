@@ -1,4 +1,4 @@
-import { IConfig } from "./config";
+import { config } from "./config";
 import { IMenuItem } from "./parsers/IMenuItem";
 import { IParser } from "./parsers/IParser";
 import NodeCache from "node-cache";
@@ -11,30 +11,30 @@ export interface IMenuResult {
 }
 
 export class MenuFetcher {
-    private readonly pendingTasks: Map<string, Promise<IMenuItem[]>> = new Map<string, Promise<IMenuItem[]>>();
+    private pendingTasks = new Map<string, Promise<IMenuItem[]>>();
 
-    constructor(private readonly _config: IConfig, private readonly _cache: NodeCache) { }
+    constructor(private readonly _cache: NodeCache) { }
 
     public async fetchMenu(urlFactory: (date: Date) => string, date: Date, parser: IParser): Promise<IMenuResult> {
         const url = urlFactory(date);
         const cacheKey = date + ":" + url;
         const cached = this._cache.get<IMenuResult>(cacheKey);
-        if (cached && !this._config.bypassCache) {
+        if (cached && !config.cache.bypassCache) {
             return cached;
         } else {
             try {
                 const menu = await this.load(url, date, parser);
-                this._cache.set(cacheKey, { value: menu, timestamp: Date.now() }, this._config.cacheExpiration);
+                this._cache.set(cacheKey, { value: menu, timestamp: Date.now() }, config.cache.expirationTime);
                 return this._cache.get<IMenuResult>(cacheKey);
             } catch (error) {
-                this._cache.set(cacheKey, { value: error, timestamp: Date.now() }, this._config.cacheExpiration / 2);
+                this._cache.set(cacheKey, { value: error, timestamp: Date.now() }, config.cache.expirationTime / 2);
                 return this._cache.get<IMenuResult>(cacheKey);
             }
         }
     }
 
     private load(url: string, date: Date, parser: IParser): Promise<IMenuItem[]> {
-        // if there was already task to fetch the same URL we will wait for the first task's result
+        // to avoid parallel fetching and parsing for the same source (URL)
         if (this.pendingTasks.has(url)) {
             return this.pendingTasks.get(url);
         }
@@ -47,7 +47,7 @@ export class MenuFetcher {
     private async scrapeAndParse(url: string, date: Date, parser: IParser): Promise<IMenuItem[]> {
         try {
             const htmlData = await HtmlScraperService.scrape(url);
-            return await promiseWithTimeout(this._config.parserTimeout, () => parser.parse(htmlData, date));
+            return await promiseWithTimeout(config.parserTimeout, () => parser.parse(htmlData, date));
         } catch (error) {
             if (error instanceof TimeoutError) {
                 throw new Error(`Parsing timeout - timeout period elapsed to parse data with '${parser.constructor?.name}' parser`);

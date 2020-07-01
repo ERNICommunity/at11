@@ -3,7 +3,7 @@ import express from "express";
 import hbs from "hbs";
 import NodeCache from "node-cache";
 
-import { Config } from "./config";
+import { config, Location } from "./config";
 import { MenuFetcher, IMenuResult } from "./menuFetcher";
 import { isError } from "util";
 import { sk } from "date-fns/locale";
@@ -12,14 +12,11 @@ import { formatDistance, parse, isValid } from "date-fns";
 /* eslint-disable no-console */
 
 console.debug("Initializing...");
-const config = new Config();
-const cache =  new NodeCache({
-    checkperiod: (config.cacheExpiration / 2)
-});
-const menuFetcher = new MenuFetcher(config, cache);
+const cache =  new NodeCache({ checkperiod: (config.cache.expirationTime / 2) });
+const menuFetcher = new MenuFetcher(cache);
 
-if (config.appInsightsInstrumentationKey) {
-    appInsights.setup(config.appInsightsInstrumentationKey).setAutoCollectConsole(true, true);
+if (config.applicationInsights.instrumentationKey) {
+    appInsights.setup(config.applicationInsights.instrumentationKey).setAutoCollectConsole(true, true);
     appInsights.start();
 }
 
@@ -51,15 +48,15 @@ app.use(express.static(__dirname + "/../static"));
 app.get("/:location?", (req, res) => {
     res.setHeader("Content-Type", "text/html; charset=UTF-8");
     res.setHeader("Content-Language", "sk");
-    const location = req.params.location || config.restaurants.keys().next().value; // use first location if not specified
+    const location: Location = (req.params.location ?? config.restaurants.keys().next().value); // use first location if not specified
     res.render(__dirname + "/../views/index.html", {
-        locations: Array.from(config.restaurants.keys()).map(k => ({ name: k, selected: k === location })),
-        restaurants: (config.restaurants.get(location) || []).map(x => ({
+        locations: Array.from(config.restaurants.keys()).map(key => ({ name: key, selected: key === location })),
+        restaurants: (config.restaurants.get(location) ?? []).map(x => ({
             id: location + "-" + x.id,
             name: x.name,
             url: x.urlFactory(new Date())
         })),
-        appInsightsKey: config.appInsightsInstrumentationKey
+        appInsightsKey: config.applicationInsights.instrumentationKey
     });
 });
 app.get("/menu/:id", async (req, res) => {
@@ -84,10 +81,7 @@ app.get("/menu/:id", async (req, res) => {
         res.json({ menu: result.value, timeago });
     }
 });
-app.listen(config.port, function(err) {
-  if (err) {
-      throw err;
-  }
+app.listen(config.port, function() {
   const host = this.address().address;
   const port = this.address().port;
 

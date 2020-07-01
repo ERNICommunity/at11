@@ -1,21 +1,19 @@
 import Axios from "axios";
-
-const OCR_ENDPOINT = "https://at11ocr.azurewebsites.net/api/process";
-const OCR_TIMEOUT = 25_000;
+import { config } from "../config";
 
 export type DocumentType = "pdf" | "image" | "encoded";
 
 export class OcrService {
     static async scanData(data: string, documentType: DocumentType): Promise<string> {
         try {
-            const url = `${OCR_ENDPOINT}/${documentType}`;
+            const url = `${config.ocr.endpoint}/${documentType}`;
             const requestBody = `=${encodeURIComponent(data)}`;
 
             const response = await Axios.post(url, requestBody, {
                 headers: {
                     "Content-type": "application/x-www-form-urlencoded"
                 },
-                timeout: OCR_TIMEOUT
+                timeout: config.ocr.timeout
             });
 
             return response.data;
