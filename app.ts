@@ -1,7 +1,6 @@
 import * as appInsights from "applicationinsights";
 import express from "express";
 import hbs from "hbs";
-import NodeCache from "node-cache";
 
 import { config, Location } from "./config";
 import { MenuFetcher, IMenuResult } from "./menuFetcher";
@@ -12,8 +11,8 @@ import { formatDistance, parse, isValid } from "date-fns";
 /* eslint-disable no-console */
 
 console.debug("Initializing...");
-const cache =  new NodeCache({ checkperiod: (config.cache.expirationTime / 2) });
-const menuFetcher = new MenuFetcher(cache);
+
+const menuFetcher = new MenuFetcher();
 
 if (config.applicationInsights.instrumentationKey) {
     appInsights.setup(config.applicationInsights.instrumentationKey).setAutoCollectConsole(true, true);

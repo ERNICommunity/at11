@@ -1,7 +1,8 @@
+import NodeCache from "node-cache";
+
 import { config } from "./config";
 import { IMenuItem } from "./parsers/IMenuItem";
 import { IParser } from "./parsers/IParser";
-import NodeCache from "node-cache";
 import { HtmlScraperService } from "./services/html-scraper.service";
 import { promiseWithTimeout, TimeoutError } from "./parsers/promise-with-wait";
 
@@ -11,29 +12,34 @@ export interface IMenuResult {
 }
 
 export class MenuFetcher {
-    private pendingTasks = new Map<string, Promise<IMenuItem[]>>();
+    private readonly cache =  new NodeCache({ checkperiod: (config.cache.expirationTime / 2) });
+    private readonly pendingTasks = new Map<string, Promise<IMenuItem[]>>();
 
-    constructor(private readonly _cache: NodeCache) { }
-
-    public async fetchMenu(urlFactory: (date: Date) => string, date: Date, parser: IParser): Promise<IMenuResult> {
+    async fetchMenu(urlFactory: (date: Date) => string, date: Date, parser: IParser): Promise<IMenuResult> {
         const url = urlFactory(date);
         const cacheKey = date + ":" + url;
-        const cached = this._cache.get<IMenuResult>(cacheKey);
+        const cached = this.cache.get<IMenuResult>(cacheKey);
+        
         if (cached && !config.cache.bypassCache) {
             return cached;
-        } else {
-            try {
-                const menu = await this.load(url, date, parser);
-                this._cache.set(cacheKey, { value: menu, timestamp: Date.now() }, config.cache.expirationTime);
-                return this._cache.get<IMenuResult>(cacheKey);
-            } catch (error) {
-                this._cache.set(cacheKey, { value: error, timestamp: Date.now() }, config.cache.expirationTime / 2);
-                return this._cache.get<IMenuResult>(cacheKey);
-            }
         }
+
+        let value: IMenuItem[] | Error;
+        let expirationTime = config.cache.expirationTime;
+        try {
+            value = await this.fetchMenuInternal(url, date, parser);
+        } catch (error) {
+            value = error;
+            expirationTime = config.cache.expirationTime / 2;
+        }
+        
+        const result: IMenuResult = { value, timestamp: new Date() };
+        this.cache.set(cacheKey, result, expirationTime);
+
+        return result;
     }
 
-    private load(url: string, date: Date, parser: IParser): Promise<IMenuItem[]> {
+    private fetchMenuInternal(url: string, date: Date, parser: IParser): Promise<IMenuItem[]> {
         // to avoid parallel fetching and parsing for the same source (URL)
         if (this.pendingTasks.has(url)) {
             return this.pendingTasks.get(url);
