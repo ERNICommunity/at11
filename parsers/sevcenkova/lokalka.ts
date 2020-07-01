@@ -12,19 +12,19 @@ export class Lokalka implements IParser {
 
         const elements = $("li.fdm-item", "div.entry-content.post-content");
         elements.each(function() {
-        const node = $(this);
-        const title = node.find("p.fdm-item-title").text();
-        if (todayRegex.test(title)) {
-            parseDailyMenu(node.find("table"));
-            return false;
-        }
+            const node = $(this);
+            const title = node.find("p.fdm-item-title").text();
+            if (todayRegex.test(title)) {
+                parseDailyMenu(node.find("table"));
+                return false;
+            }
         });
 
         doneCallback(dayMenu);
 
         function parseDailyMenu(table: Cheerio) {
             const rows = table.find("tr");
-            rows.each((index: number, elem: CheerioElement) => {
+            rows.each((index, elem) => {
                 if (index === 0) {
                     return;
                 }
