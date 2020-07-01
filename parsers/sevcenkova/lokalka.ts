@@ -5,7 +5,7 @@ import { IParser } from "../IParser";
 import { getDateRegex } from "../parserUtil";
 
 export class Lokalka implements IParser {
-    public parse(html: string, date: Date, doneCallback: (menu: IMenuItem[]) => void): void {
+    public parse(html: string, date: Date): Promise<IMenuItem[]> {
         const $ = cheerio.load(html);
         let dayMenu = new Array<IMenuItem>();
         const todayRegex = getDateRegex(date);
@@ -20,7 +20,7 @@ export class Lokalka implements IParser {
             }
         });
 
-        doneCallback(dayMenu);
+        return Promise.resolve(dayMenu);
 
         function parseDailyMenu(table: Cheerio) {
             const rows = table.find("tr");
