@@ -14,7 +14,7 @@ export abstract class Menucka {
         let currentDay: Cheerio;
         let nextDay: Cheerio;
         $(".day-title").each((i, elem) => {
-            const node =  $(elem);
+            const node = $(elem);
             if (currentDay) {
                 nextDay = node.parent();
                 return false;

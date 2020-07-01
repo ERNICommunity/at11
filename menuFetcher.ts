@@ -12,7 +12,7 @@ export interface IMenuResult {
 }
 
 export class MenuFetcher {
-    private readonly cache =  new NodeCache({ checkperiod: (config.cache.expirationTime / 2) });
+    private readonly cache = new NodeCache({ checkperiod: (config.cache.expirationTime / 2) });
     private readonly pendingTasks = new Map<string, Promise<IMenuItem[]>>();
 
     async fetchMenu(urlFactory: (date: Date) => string, date: Date, parser: IParser): Promise<IMenuResult> {

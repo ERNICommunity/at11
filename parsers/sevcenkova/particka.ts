@@ -3,7 +3,7 @@ import { IParser } from "../IParser";
 import { Sme } from "../sme";
 import { parsePrice } from "../parserUtil";
 
-export class Particka extends Sme  implements IParser {
+export class Particka extends Sme implements IParser {
     public parse(html: string, date: Date): Promise<IMenuItem[]> {
         const menuItems = super.parseBase(html, date);
 
