@@ -26,6 +26,7 @@
         "comma-dangle": ["error", "never"],
         "no-console": ["warn", { "allow": ["warn", "error"] }],
         "no-unused-vars": "off",
+        "object-curly-spacing": ["error", "always"],
         "@typescript-eslint/explicit-function-return-type": "off",
         "@typescript-eslint/no-explicit-any": 1,
         "@typescript-eslint/no-inferrable-types": [ "warn", { "ignoreParameters": true }],

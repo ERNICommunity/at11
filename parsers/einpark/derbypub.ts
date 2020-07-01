@@ -24,7 +24,7 @@ export class DerbyPub implements IParser {
 
         function parseDailyMenu(table: Cheerio) {
             const rows = table.find("tr");
-            rows.each((index: number, elem: CheerioElement) => {
+            rows.each((index, elem) => {
                 if (index === 0) {
                     dayMenu.push(parseSoup(elem));
                 } else {
