@@ -14,7 +14,7 @@ export class DerbyPub implements IParser {
         $(".pm-date-sub").each((i, elem) => {
             const node = $(elem);
             const text = node.text().trim();
-            if (todayText === text){
+            if (todayText === text) {
                 parseDailyMenu(node.nextAll(".pm-item").first().find("table"));
                 return false;
             }

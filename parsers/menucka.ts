@@ -15,7 +15,7 @@ export abstract class Menucka {
         let nextDay: Cheerio;
         $(".day-title").each((i, elem) => {
             const node =  $(elem);
-            if(currentDay) {
+            if (currentDay) {
                 nextDay = node.parent();
                 return false;
             }
@@ -28,7 +28,7 @@ export abstract class Menucka {
         const menuElems = currentDay.nextUntil(nextDay);
         for (let i = 0; i < menuElems.length; i+=2) {
             const text = menuElems.eq(i).text().trim();
-            if(!text) {
+            if (!text) {
                 continue;
             }
             const price = parseFloat(menuElems.eq(i+1).text().trim().replace(",", "."));
