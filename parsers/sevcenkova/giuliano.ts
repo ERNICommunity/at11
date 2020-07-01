@@ -36,13 +36,13 @@ export class Giuliano implements IParser {
         const items = new Array<IMenuItem>();
         cell.text().split("\n").map(str => str.trim()).filter(str => str.length > 0).forEach((str, i) => {
             if (i === 0 ) {
-                items.push({isSoup: true, price: NaN, text: this.normalize(str)});
+                items.push({ isSoup: true, price: NaN, text: this.normalize(str) });
                 return;
             }
             if (str === "Špeciálna ponuka:") {
                 return;
             }
-            items.push({isSoup: false, price: NaN, text: this.normalize(str)});
+            items.push({ isSoup: false, price: NaN, text: this.normalize(str) });
         });
         return items;
     }

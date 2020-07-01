@@ -1,87 +1,88 @@
 {
-  "name": "at11",
-  "description": "Daily lunch menu application",
-  "version": "2.0.0",
-  "dependencies": {
-    "applicationinsights": "^1.8.0",
-    "axios": "^0.19.2",
-    "cheerio": "^0.22.0",
-    "date-fns": "^2.14.0",
-    "express": "^4.17.1",
-    "hbs": "^4.1.1"
-  },
-  "devDependencies": {
-    "@types/cheerio": "^0.22.18",
-    "@types/express": "^4.17.6",
-    "@types/hbs": "^4.0.1",
-    "@types/mocha": "^7.0.2",
-    "@types/node": "^14.0.14",
-    "@typescript-eslint/eslint-plugin": "^3.4.0",
-    "@typescript-eslint/parser": "^3.4.0",
-    "eslint": "^7.3.1",
-    "eslint-plugin-import": "^2.21.2",
-    "eslint-plugin-prefer-arrow": "^1.2.1",
-    "mocha": "^7.2.0",
-    "typescript": "^3.9.5"
-  },
-  "scripts": {
-    "build": "tsc && npm run lint",
-    "start": "node dist/app.js",
-    "lint": "tsc --noEmit && eslint . --ext .js,.ts --quiet --fix",
-    "pretest": "npm run lint",
-    "test": "mocha ./dist/test --exit"
-  },
-  "author": {
-    "name": "Jakub Šturc",
-    "email": "jakub.sturc@erni.sk"
-  },
-  "contributors": [
-    {
-      "name": "Ján Neščivera",
-      "email": "jan.nescivera@erni.sk"
+    "name": "at11",
+    "description": "Daily lunch menu application",
+    "version": "2.0.0",
+    "dependencies": {
+        "applicationinsights": "^1.8.0",
+        "axios": "^0.19.2",
+        "cheerio": "^0.22.0",
+        "date-fns": "^2.14.0",
+        "express": "^4.17.1",
+        "hbs": "^4.1.1",
+        "node-cache": "^5.1.1"
     },
-    {
-      "name": "Matúš Brliť",
-      "email": "matus.brlit@erni.sk"
+    "devDependencies": {
+        "@types/cheerio": "^0.22.18",
+        "@types/express": "^4.17.6",
+        "@types/hbs": "^4.0.1",
+        "@types/mocha": "^7.0.2",
+        "@types/node": "^14.0.14",
+        "@typescript-eslint/eslint-plugin": "^3.4.0",
+        "@typescript-eslint/parser": "^3.4.0",
+        "eslint": "^7.3.1",
+        "eslint-plugin-import": "^2.21.2",
+        "eslint-plugin-prefer-arrow": "^1.2.1",
+        "mocha": "^7.2.0",
+        "typescript": "^3.9.5"
     },
-    {
-      "name": "Peter Matejka",
-      "email": "peter.matejka@erni.sk"
+    "scripts": {
+        "build": "tsc && npm run lint",
+        "start": "node dist/app.js",
+        "lint": "tsc --noEmit && eslint . --ext .js,.ts --quiet --fix",
+        "pretest": "npm run lint",
+        "test": "mocha ./dist/test --exit"
     },
-    {
-      "name": "Andrej Mandli",
-      "email": "andrej.mandli@erni.sk"
+    "author": {
+        "name": "Jakub Šturc",
+        "email": "jakub.sturc@erni.sk"
     },
-    {
-      "name": "Marek Linka",
-      "email": "marek.linka@erni.sk"
+    "contributors": [
+        {
+            "name": "Ján Neščivera",
+            "email": "jan.nescivera@erni.sk"
+        },
+        {
+            "name": "Matúš Brliť",
+            "email": "matus.brlit@erni.sk"
+        },
+        {
+            "name": "Peter Matejka",
+            "email": "peter.matejka@erni.sk"
+        },
+        {
+            "name": "Andrej Mandli",
+            "email": "andrej.mandli@erni.sk"
+        },
+        {
+            "name": "Marek Linka",
+            "email": "marek.linka@erni.sk"
+        },
+        {
+            "name": "Milos Karas",
+            "email": "caesar1987@centrum.sk"
+        },
+        {
+            "name": "Peter Václavek",
+            "email": "peter.vaclavek@erni.sk"
+        }
+    ],
+    "keywords": [
+        "lunch",
+        "menu",
+        "at11",
+        "erni",
+        "obed"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/at11/at11.git"
     },
-    {
-      "name": "Milos Karas",
-      "email": "caesar1987@centrum.sk"
+    "bugs": {
+        "url": "https://github.com/at11/at11/issues"
     },
-    {
-      "name": "Peter Václavek",
-      "email": "peter.vaclavek@erni.sk"
-    }
-  ],
-  "keywords": [
-    "lunch",
-    "menu",
-    "at11",
-    "erni",
-    "obed"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/at11/at11.git"
-  },
-  "bugs": {
-    "url": "https://github.com/at11/at11/issues"
-  },
-  "engines": {
-    "node": "12.15.x"
-  },
-  "license": "Unlicense",
-  "main": "app.js"
+    "engines": {
+        "node": "12.15.x"
+    },
+    "license": "Unlicense",
+    "main": "app.js"
 }
