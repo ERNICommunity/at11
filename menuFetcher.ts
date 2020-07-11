@@ -24,9 +24,9 @@ export class MenuFetcher {
         } else {
             this.load(url, date, parser, (error: Error, menu: IMenuItem[]) => {
                 if (!error) {
-                    this._cache.set(cacheKey, { value: menu, timestamp: Date.now() }, this._config.cacheExpiration);
+                    this._cache.set<IMenuResult>(cacheKey, { value: menu, timestamp: new Date() }, this._config.cacheExpiration);
                 } else {
-                    this._cache.set(cacheKey, { value: error, timestamp: Date.now() }, this._config.cacheExpiration / 2);
+                    this._cache.set<IMenuResult>(cacheKey, { value: error, timestamp: new Date() }, this._config.cacheExpiration / 2);
                 }
                 doneCallback(this._cache.get<IMenuResult>(cacheKey));
             });
