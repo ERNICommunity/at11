@@ -13,7 +13,7 @@ export class Itb implements IParser {
 
         const todayNameRegex = new RegExp(format(date, "iiii", { locale: sk }), "i");
         const tomorrowNameRegex = new RegExp(format(addDays(date, 1), "iiii", { locale: sk }), "i");
-        
+
         const menuRows = $(".tabularmenu").children("div.one-third, div.one-third-last, h2");
         let foundCurrentDay = false;
         menuRows.each((index, element) => {
@@ -37,7 +37,7 @@ export class Itb implements IParser {
 
         doneCallback(dayMenu);
 
-        function parseMeal(tablerow: Cheerio): IMenuItem {
+        function parseMeal(tablerow: cheerio.Cheerio): IMenuItem {
             if (tablerow.find("li").length === 0) {
                 return null;
             }

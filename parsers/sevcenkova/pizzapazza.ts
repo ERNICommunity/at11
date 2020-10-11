@@ -21,7 +21,7 @@ export class PizzaPazza implements IParser {
 
         doneCallback(dayMenu);
 
-        function parseItems(item: Cheerio) {
+        function parseItems(item: cheerio.Cheerio) {
             item.find("table tr").each((i, elem) => {
                 const $this = $(elem);
                 const nameCellText = $this.children("td").eq(1).text().trim();

@@ -9,6 +9,6 @@
         "sourceMap": true,
         "outDir": "dist",
         "baseUrl": ".",
-        "lib": [ "ES2019" ]
+        "lib": [ "ES2019", "DOM" ]
     }
 }

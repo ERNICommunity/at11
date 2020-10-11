@@ -11,8 +11,8 @@ export abstract class Menucka {
 
         const dayMenu = new Array<IMenuItem>();
 
-        let currentDay: Cheerio;
-        let nextDay: Cheerio;
+        let currentDay: cheerio.Cheerio;
+        let nextDay: cheerio.Cheerio;
         $(".day-title").each((i, elem) => {
             const node =  $(elem);
             if (currentDay) {

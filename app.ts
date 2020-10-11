@@ -83,12 +83,6 @@ app.get("/menu/:id", (req, res) => {
         }
     });
 });
-app.listen(config.port, function(err) {
-  if (err) {
-      throw err;
-  }
-  const host = this.address().address;
-  const port = this.address().port;
-
-  console.info("Done, listening on http://%s:%s", host, port);
+const server = app.listen(config.port, () => {
+  console.info("Done, listening on", server.address());
 });

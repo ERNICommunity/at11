@@ -22,7 +22,7 @@ export class Lokalka implements IParser {
 
         doneCallback(dayMenu);
 
-        function parseDailyMenu(table: Cheerio) {
+        function parseDailyMenu(table: cheerio.Cheerio) {
             const rows = table.find("tr");
             rows.each((index, elem) => {
                 if (index === 0) {
@@ -36,7 +36,7 @@ export class Lokalka implements IParser {
             });
         }
 
-        function parseSoup(row: CheerioElement): IMenuItem[] {
+        function parseSoup(row: cheerio.Element): IMenuItem[] {
             const cells = $(row).find("td");
             const price = parseFloat(cells.eq(4).text().replace(",", "."));
             const text = cells.eq(2).text() ;
@@ -45,7 +45,7 @@ export class Lokalka implements IParser {
             return soups.map((item) => ({ isSoup: true, text: item.trim(), price }));
         }
 
-        function parseOther(row: CheerioElement): IMenuItem {
+        function parseOther(row: cheerio.Element): IMenuItem {
             const cells = $(row).find("td");
             return { isSoup: false, text: cells.eq(1).text(), price: parseFloat(cells.eq(4).text().replace(",", ".")) };
         }
