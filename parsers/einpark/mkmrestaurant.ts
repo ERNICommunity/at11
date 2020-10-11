@@ -7,7 +7,7 @@ export class MKMRestaurant extends Sme implements IParser {
     public parse(html: string, date: Date, doneCallback: (menu: IMenuItem[]) => void): void {
         const menuItems = super.parseBase(html, date);
 
-        if(menuItems.length > 0) {
+        if (menuItems.length > 0) {
             // first item is soup
             menuItems[0].isSoup = true;
             menuItems.forEach(item=> {

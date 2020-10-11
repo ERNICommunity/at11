@@ -2,16 +2,16 @@
 function writeCookie(cookieName, cookieValue, nDays) {
     var today = new Date();
     var expire = new Date();
-    if(!nDays) { nDays = 1; }
+    if (!nDays) { nDays = 1; }
     expire.setTime(today.getTime() + 3600 * 1000 * 24 * nDays);
     document.cookie = cookieName + "=" + escape(cookieValue) + ";expires=" + expire.toUTCString() + ";path=/";
 }
 
 function readCookie(name) {
     var cookies = document.cookie.split(";");
-    for(var i = 0; i < cookies.length; i++) {
+    for (var i = 0; i < cookies.length; i++) {
         var nameValue = cookies[i].split("=");
-        if(nameValue[0].trim() === name) {
+        if (nameValue[0].trim() === name) {
             return unescape(nameValue[1].trim());
         }
     }
@@ -52,7 +52,7 @@ function loadMenus(container) {
                 })
                 .fail(function(jxhr) {
                     listElem.append(errElem);
-                    if(jxhr.responseJSON?.timeago) {
+                    if (jxhr.responseJSON?.timeago) {
                         refreshElem = "<i class='timeago'>" + jxhr.responseJSON.timeago + "</i>";
                     }
                 })
@@ -68,7 +68,7 @@ function loadMenus(container) {
 function initialHide(cont) {
     window.hiddenRestaurants = {};
     var hidden = readCookie("hiddenRestaurants");
-    if(typeof hidden === "undefined") {
+    if (typeof hidden === "undefined") {
         return;
     }
     hidden = hidden.split(",");
@@ -76,7 +76,7 @@ function initialHide(cont) {
     $("article", cont).each(function() {
         var article = $(this);
         var restaurantId = article.data("restaurantId");
-        if(hidden.indexOf(restaurantId.toString()) > -1) // hide
+        if (hidden.indexOf(restaurantId.toString()) > -1) // hide
         {
             window.hiddenRestaurants[restaurantId.toString()] = article;
             article.remove();
@@ -88,7 +88,7 @@ function initialHide(cont) {
 function getDateCompound() {
     var date = new Date();
     var desc = "dnes";
-    if(date.getHours() >= 15) {
+    if (date.getHours() >= 15) {
         date.setDate(date.getDate() + 1);
         desc = "zajtra";
     }
@@ -129,7 +129,7 @@ $("#selectrestaurants").on("click", function(e) {
 
     var $target = $(e.target);
     var checkbox;
-    if($target.val() === 0) {
+    if ($target.val() === 0) {
         checkbox = $target.children("input").length > 0 ? $target.children("input") : $target.siblings("input");
         checkbox.prop("checked", !checkbox.prop("checked"));
     }
@@ -139,7 +139,7 @@ $("#selectrestaurants").on("click", function(e) {
 
     var id = checkbox.val();
     var article;
-    if(checkbox.prop("checked"))//show
+    if (checkbox.prop("checked"))//show
     {
         article = window.hiddenRestaurants[id.toString()];
         delete window.hiddenRestaurants[id.toString()];
@@ -154,7 +154,7 @@ $("#selectrestaurants").on("click", function(e) {
 
     var unChecked = [];
     $("input[type=\"checkbox\"]", this).each(function() {
-        if(!$(this).prop("checked")) {
+        if (!$(this).prop("checked")) {
             unChecked.push($(this).val());
         }
     });
