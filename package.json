@@ -29,7 +29,7 @@
         "build": "tsc && npm run lint",
         "start": "node dist/app.js",
         "lint": "tsc --noEmit && eslint . --ext .js,.ts --quiet --fix",
-        "pretest": "npm run lint",
+        "pretest": "eslint . --ext .js,.ts",
         "test": "mocha ./dist/test --exit"
     },
     "author": {
