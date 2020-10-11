@@ -26,7 +26,7 @@
         "typescript": "^4.0.3"
     },
     "scripts": {
-        "build": "tsc && npm run lint",
+        "build": "tsc",
         "start": "node dist/app.js",
         "lint": "tsc --noEmit && eslint . --ext .js,.ts --quiet --fix",
         "pretest": "eslint . --ext .js,.ts",
