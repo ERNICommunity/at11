@@ -46,7 +46,7 @@ export class Itb implements IParser {
             }
             const menuItem: IMenuItem = { price: NaN, isSoup: false, text: "" };
             menuItem.isSoup = /polievka/i.test(tablerow.children("h3").text());
-            const textParts = tablerow.find("li").children("span").eq(1)[0].children;
+            const textParts = (tablerow.find("li").children("span").eq(1)[0] as cheerio.TagElement).children;
             const mergedText = textParts.length > 1 ? $(textParts[0]).text() + "," + $(textParts[2]).text() : $(textParts[0]).text();
             if (mergedText.trim() === "()") { // empty meal
                 return null;
