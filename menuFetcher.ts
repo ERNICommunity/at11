@@ -11,7 +11,7 @@ export interface IMenuResult {
 }
 
 export class MenuFetcher {
-    private readonly _runningRequests: { [url: string]: ((error: Error, menu: IMenuItem[]) => void)[]; } = {};
+    private readonly _runningRequests: { [url: string]: ((error: Error, menu: IMenuItem[]) => void)[] } = {};
 
     constructor(private readonly _config: IConfig, private readonly _cache: NodeCache) { }
 
@@ -58,7 +58,7 @@ export class MenuFetcher {
             method: "get",
             headers: {
                 "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)",
-                Accept: "text/html,*/*",
+                "Accept": "text/html,*/*",
                 "Accept-Language": "sk" // we want response in slovak (useful for menu portals that use localization, like zomato)
             },
             timeout: this._config.requestTimeout

@@ -16,7 +16,7 @@
             "internalConsoleOptions": "openOnSessionStart",
             "serverReadyAction": {
                 "action": "openExternally",
-                "pattern": "Done, listening on http://.+:(\\d+)"
+                "pattern": "Done, listening on .* port: (\\d+)"
             }
         },
         {

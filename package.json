@@ -28,7 +28,7 @@
     "scripts": {
         "build": "tsc",
         "start": "node dist/app.js",
-        "lint": "tsc --noEmit && eslint . --ext .js,.ts --quiet --fix",
+        "lint": "tsc --noEmit && eslint . --ext .js,.ts --fix",
         "pretest": "eslint . --ext .js,.ts",
         "test": "mocha ./dist/test --exit"
     },
