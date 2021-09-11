@@ -12,7 +12,8 @@ import { formatDistance, parse, isValid } from "date-fns";
 console.debug("Initializing...");
 const config = new Config();
 const cache =  new NodeCache({
-    checkperiod: (config.cacheExpiration / 2)
+    checkperiod: (config.cacheExpiration / 2),
+    useClones: false
 });
 const menuFetcher = new MenuFetcher(config, cache);
 
