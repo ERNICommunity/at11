@@ -25,7 +25,7 @@ if (config.appInsightsInstrumentationKey) {
 const actions = new Map<string, ((date: Date, done: (result: IMenuResult) => void) => void)>();
 for (const location of config.restaurants.keys()) {
     for (const restaurant of config.restaurants.get(location)) {
-        console.log("Processing:", restaurant);
+        console.log(`Processing: ${location} - ${restaurant.name}`);
         try {
             const id = location + "-" + restaurant.id;
             if (actions.has(id)) {
