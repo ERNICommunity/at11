@@ -67,5 +67,5 @@ export class Config implements IConfig {
             { id: 12, name: "Tiffany", urlFactory: _ => "https://www.zomato.com/sk/bratislava/pizzeria-tiffany-petr%C5%BEalka-bratislava-v/denn%C3%A9-menu", parser: new Tiffany() },
             { id: 13, name: "Petržalská klubovňa", urlFactory: _ => "https://restauracie.sme.sk/restauracia/petrzalska-klubovna_7359-petrzalka_664/denne-menu", parser: new Klubovna() }
         ]]
-    ])
+    ]);
 }
