@@ -40,7 +40,7 @@ export class Skolka implements IParser {
                     "Content-type": "application/x-www-form-urlencoded"
                 },
                 timeout: 25_000
-            }).then(response => parseMenu(response.data as string))
+            }).then(response => parseMenu(response.data))
                 .catch(() => doneCallback([]));
         }
 
