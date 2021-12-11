@@ -81,7 +81,7 @@
         "url": "https://github.com/at11/at11/issues"
     },
     "engines": {
-        "node": "14.10.x"
+        "node": "16.13.x"
     },
     "license": "Unlicense",
     "main": "app.js"
