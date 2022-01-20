@@ -25,7 +25,7 @@ if (config.appInsightsInstrumentationKey) {
 const actions = new Map<string, ((date: Date, done: (result: IMenuResult) => void) => void)>();
 for (const location of config.restaurants.keys()) {
     for (const restaurant of config.restaurants.get(location)) {
-        console.log(`Processing: ${location} - ${restaurant.name}`);
+        console.log(`Processing: ${location}/${restaurant.id} - ${restaurant.name}`);
         try {
             const id = location + "-" + restaurant.id;
             if (actions.has(id)) {
@@ -52,8 +52,8 @@ app.get("/:location?", (req, res) => {
     res.setHeader("Content-Language", "sk");
     const location = req.params.location || config.restaurants.keys().next().value; // use first location if not specified
     res.render(__dirname + "/../views/index.html", {
-        locations: Array.from(config.restaurants.keys()).map(k => ({ name: k, selected: k === location })),
-        restaurants: (config.restaurants.get(location) || []).map(x => ({
+        locations: [...config.restaurants.keys()].map(k => ({ name: k, selected: k === location })),
+        restaurants: config.restaurants.get(location).map(x => ({
             id: location + "-" + x.id,
             name: x.name,
             url: x.urlFactory(new Date())

@@ -22,6 +22,7 @@ import { MKMRestaurant } from "./parsers/einpark/mkmrestaurant";
 import { ClassicRestaurantPub } from "./parsers/einpark/classicrestaurantpub";
 import { SidliskovaPivarnicka } from "./parsers/einpark/sidliskovapivarnicka";
 
+/* eslint-disable max-len */
 export interface IConfig {
     readonly isProduction: boolean;
     readonly scraperApiKey: string;
@@ -31,10 +32,9 @@ export interface IConfig {
     readonly cacheExpiration: number;
     readonly requestTimeout: number;
     readonly parserTimeout: number;
-    readonly restaurants: Map<string, ReadonlyArray<{ id: number, name: string, urlFactory: (date: Date) => string, parser: IParser}>>;
+    readonly restaurants: ReadonlyMap<string, ReadonlyArray<{id: number, name: string, urlFactory: (date: Date) => string, parser: IParser}>>;
 }
 
-/* eslint-disable max-len */
 export class Config implements IConfig {
     public readonly isProduction = process.env.NODE_ENV === "production";
     public readonly scraperApiKey = process.env.SCRAPER_API_KEY;
