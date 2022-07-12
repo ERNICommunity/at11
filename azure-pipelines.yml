@@ -38,6 +38,7 @@ steps:
       static/**/*
       views/**/*
       node_modules/**/*
+      package.json
     TargetFolder: '$(Build.BinariesDirectory)'
 
 - task: ArchiveFiles@2
