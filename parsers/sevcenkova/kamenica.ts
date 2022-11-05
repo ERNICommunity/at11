@@ -1,4 +1,4 @@
-import cheerio from "cheerio";
+import { load } from "cheerio";
 
 import { IMenuItem } from "../IMenuItem";
 import { IParser } from "../IParser";
@@ -6,7 +6,7 @@ import { format } from "date-fns";
 
 export class Kamenica implements IParser {
     public parse(html: string, date: Date, doneCallback: (menu: IMenuItem[]) => void): void {
-        const $ = cheerio.load(html);
+        const $ = load(html);
 
         const soupPattern = /0[.,]\d+\s?l/;
         const dayOfWeek = Number(format(date, "i"));

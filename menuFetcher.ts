@@ -1,4 +1,4 @@
-import Axios from "axios";
+import axios from "axios";
 
 import { IConfig } from "./config";
 import { IMenuItem } from "./parsers/IMenuItem";
@@ -54,7 +54,7 @@ export class MenuFetcher {
             doneCallbacks.forEach(dc => dc(e, m));
         };
 
-        Axios.get<string>(url, {
+        axios.get<string>(url, {
             method: "get",
             headers: {
                 "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)",

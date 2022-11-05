@@ -1,5 +1,5 @@
-import cheerio from "cheerio";
-import Axios from "axios";
+import { load } from "cheerio";
+import axios from "axios";
 
 import { IMenuItem } from "../IMenuItem";
 import { IParser } from "../IParser";
@@ -9,7 +9,7 @@ import { sk } from "date-fns/locale";
 
 export class Skolka implements IParser {
     public parse(html: string, date: Date, doneCallback: (menu: IMenuItem[]) => void): void {
-        const $ = cheerio.load(html);
+        const $ = load(html);
 
         const dateReg = getDateRegex(date);
         const todayNameReg = new RegExp(`^\\s*${format(date, "EEEE", { locale: sk })}`, "i");
@@ -35,7 +35,7 @@ export class Skolka implements IParser {
         function callOcr(picData: string, actionMetod: "pdf" | "image" | "encoded") {
             const url = "https://at11ocr.azurewebsites.net/api/process/" + actionMetod;
             const requestBody = `=${encodeURIComponent(picData)}`;
-            Axios.post(url, requestBody, {
+            axios.post(url, requestBody, {
                 headers: {
                     "Content-type": "application/x-www-form-urlencoded"
                 },

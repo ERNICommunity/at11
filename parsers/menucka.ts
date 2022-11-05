@@ -1,4 +1,4 @@
-import cheerio from "cheerio";
+import { load } from "cheerio";
 
 import { IMenuItem } from "./IMenuItem";
 import { getDateRegex } from "./parserUtil";
@@ -6,7 +6,7 @@ import { getDateRegex } from "./parserUtil";
 
 export abstract class Menucka {
     protected parseBase(html: string, date: Date): IMenuItem[] {
-        const $ = cheerio.load(html);
+        const $ = load(html);
         const dateRegex = getDateRegex(date);
 
         const dayMenu = new Array<IMenuItem>();

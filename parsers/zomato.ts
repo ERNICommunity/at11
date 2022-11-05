@@ -1,4 +1,4 @@
-import cheerio from "cheerio";
+import { load } from "cheerio";
 
 import { IMenuItem } from "./IMenuItem";
 import { parsePrice } from "./parserUtil";
@@ -8,7 +8,7 @@ import { sk } from "date-fns/locale";
 
 export abstract class Zomato {
     protected parseBase(html: string, date: Date): IMenuItem[] {
-        const $ = cheerio.load(html);
+        const $ = load(html);
         const dayMenu = new Array<IMenuItem>();
 
         $("#daily-menu-container").find(".tmi-group").each(function() {

@@ -1,11 +1,11 @@
-import cheerio from "cheerio";
+import { load } from "cheerio";
 
 import { IMenuItem } from "./IMenuItem";
 import { getDateRegex } from "./parserUtil";
 
 export abstract class Sme {
     protected parseBase(html: string, date: Date): IMenuItem[] {
-        const $ = cheerio.load(html);
+        const $ = load(html);
         const dateRegex = getDateRegex(date);
 
         const denneMenuElem = $(".dnesne_menu, .ostatne_menu").filter((i, elem) => {
