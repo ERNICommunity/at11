@@ -17,8 +17,8 @@ const cache =  new NodeCache({
 });
 const menuFetcher = new MenuFetcher(config, cache);
 
-if (config.appInsightsInstrumentationKey) {
-    appInsights.setup(config.appInsightsInstrumentationKey).setAutoCollectConsole(true, true);
+if (config.appInsightsConnectionString) {
+    appInsights.setup(config.appInsightsConnectionString).setAutoCollectConsole(true, true);
     appInsights.start();
 }
 
@@ -58,7 +58,7 @@ app.get("/:location?", (req, res) => {
             name: x.name,
             url: x.urlFactory(new Date())
         })),
-        appInsightsKey: config.appInsightsInstrumentationKey
+        appInsightsConnectionString: config.appInsightsConnectionString
     });
 });
 app.get("/menu/:id", (req, res) => {
