@@ -8,7 +8,7 @@ import { format } from "date-fns";
 import { sk } from "date-fns/locale";
 
 export class Skolka implements IParser {
-    public parse(html: string, date: Date, doneCallback: (menu: IMenuItem[]) => void): void {
+    public async parse(html: string, date: Date): Promise<IMenuItem[]> {
         const $ = load(html);
 
         const dateReg = getDateRegex(date);
@@ -21,27 +21,27 @@ export class Skolka implements IParser {
 
         if (pic.length === 0 && link.length > 0) {
             const pdfUrl = link.attr("href");
-            callOcr(pdfUrl, "pdf");
+            return await callOcr(pdfUrl, "pdf");
         } else if (pic.parent().filter("a").length > 0) {
             const picHref = pic.parent().attr("href");
-            callOcr(picHref, "image");
+            return callOcr(picHref, "image");
         } else if (pic.attr("src") !== undefined) {
             const picSrc = pic.attr("src");
-            callOcr(picSrc, "encoded");
+            return await callOcr(picSrc, "encoded");
         } else {
-            parseMenu($("div.entry-content", "#post-2").text());
+            return parseMenu($("div.entry-content", "#post-2").text());
         }
 
-        function callOcr(picData: string, actionMetod: "pdf" | "image" | "encoded") {
+        async function callOcr(picData: string, actionMetod: "pdf" | "image" | "encoded") {
             const url = "https://at11ocr.azurewebsites.net/api/process/" + actionMetod;
             const requestBody = `=${encodeURIComponent(picData)}`;
-            axios.post(url, requestBody, {
+            const response = await axios.post(url, requestBody, {
                 headers: {
                     "Content-type": "application/x-www-form-urlencoded"
                 },
                 timeout: 25_000
-            }).then(response => parseMenu(response.data))
-                .catch(() => doneCallback([]));
+            }).catch(() => ({ data: "" }));
+            return parseMenu(response.data);
         }
 
         function parseMenu(menuString: string) {
@@ -75,7 +75,7 @@ export class Skolka implements IParser {
             const dayMenu: IMenuItem[] = texts.map((text, index) => {
                 return { isSoup: /polievka/i.test(text), text, price: index === 0 ? NaN : price };
             });
-            doneCallback(dayMenu);
+            return dayMenu;
         }
 
         function normalize(str: string): string {

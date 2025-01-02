@@ -9,7 +9,6 @@ import { Giuliano } from "./parsers/sevcenkova/giuliano";
 import { HallOfKings } from "./parsers/sevcenkova/hallofkings";
 import { Itb } from "./parsers/sevcenkova/itb";
 import { Kamenica } from "./parsers/sevcenkova/kamenica";
-import { Kasa } from "./parsers/sevcenkova/kasa";
 import { Lokalka } from "./parsers/sevcenkova/lokalka";
 import { Particka } from "./parsers/sevcenkova/particka";
 import { PizzaPazza } from "./parsers/sevcenkova/pizzapazza";
@@ -39,8 +38,8 @@ export class Config implements IConfig {
     public readonly isProduction = process.env.NODE_ENV === "production";
     public readonly scraperApiKey = process.env.SCRAPER_API_KEY;
     public readonly appInsightsConnectionString = process.env.APPLICATIONINSIGHTS_CONNECTION_STRING;
-    public readonly port: number = process.env.PORT as unknown as number || 54321;
-    public readonly bypassCache: boolean = process.env.AT11_NO_CACHE === "true";
+    public readonly port = process.env.PORT as unknown as number || 54321;
+    public readonly bypassCache = process.env.AT11_NO_CACHE === "true";
     public readonly cacheExpiration = 2 * 60 * 60; // 2h
     public readonly requestTimeout = 15 * 1000; // 15s
     public readonly parserTimeout = 15 * 1000; // 15s
@@ -53,7 +52,6 @@ export class Config implements IConfig {
             { id: 5, name: "Sídlisková pivárnička", urlFactory: _ => "https://menucka.sk/denne-menu/bratislava/sidliskova-pivarnicka", parser: new SidliskovaPivarnicka() }
         ]],
         ["ševčenkova", [
-            { id: 1, name: "Kaša", urlFactory: _ => "https://restauracie.sme.sk/restauracia/kasa-2_8386-petrzalka_664/denne-menu", parser: new Kasa() },
             { id: 2, name: "ITB", urlFactory: _ => "http://www.citycantina.sk/prevadzka/1", parser: new Itb() },
             { id: 3, name: "Partička", urlFactory: _ => "https://restauracie.sme.sk/restauracia/particka-restauracia-beer-pub_11101-petrzalka_664/denne-menu", parser: new Particka() },
             { id: 4, name: "Alfa", urlFactory: _ => "http://restauracie.sme.sk/restauracia/restauracia-alfa_2512-petrzalka_664/denne-menu", parser: new Alfa() },

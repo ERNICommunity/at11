@@ -4,7 +4,7 @@ import { Sme } from "../sme";
 import { parsePrice } from "../parserUtil";
 
 export class ClassicRestaurantPub extends Sme implements IParser {
-    public parse(html: string, date: Date, doneCallback: (menu: IMenuItem[]) => void): void {
+    public async parse(html: string, date: Date): Promise<IMenuItem[]> {
         const menuItems = super.parseBase(html, date);
 
         if (menuItems.length > 0) {
@@ -18,6 +18,6 @@ export class ClassicRestaurantPub extends Sme implements IParser {
             });
         }
 
-        doneCallback(menuItems);
+        return menuItems;
     }
 }

@@ -69,22 +69,19 @@ export class MenuFetcher {
                     done(new Error("Parser timeout"), null);
                 }, this._config.parserTimeout);
 
-                try {
-                    parser.parse(response.data, date, (menu) => {
-                        if (!timer) {
-                            // multiple calls in parser or parser called back after timeout
-                            return;
-                        }
-                        clearTimeout(timer);
-                        timer = null;
-
-                        done(null, menu);
-                    });
-                } catch (err) {
+                parser.parse(response.data, date).then((menu) => {
+                    if (!timer) {
+                        // multiple calls in parser or parser called back after timeout
+                        return;
+                    }
+                    clearTimeout(timer);
+                    timer = null;
+                    done(null, menu);
+                }).catch((err) => {
                     clearTimeout(timer);
                     timer = null;
                     done(err, null);
-                }
+                });
             }
         }).catch(error => done(error, null));
     }

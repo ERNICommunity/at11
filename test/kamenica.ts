@@ -14,7 +14,7 @@ describe("kamenica", () => {
         let menu: IMenuItem[];
 
         before((done) => {
-            parser.parse(html, new Date(2015, 6, 29), (menuItems) => {
+            parser.parse(html, new Date(2015, 6, 29)).then((menuItems) => {
                 menu = menuItems;
                 done();
             });

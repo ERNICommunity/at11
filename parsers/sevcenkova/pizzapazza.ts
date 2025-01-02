@@ -5,7 +5,7 @@ import { IParser } from "../IParser";
 import { compareMenuItems, parsePrice } from "../parserUtil";
 
 export class PizzaPazza implements IParser {
-    public parse(html: string, date: Date, doneCallback: (menu: IMenuItem[]) => void): void {
+    public async parse(html: string, date: Date): Promise<IMenuItem[]> {
         const $ = load(html);
         const dayMenu = new Array<IMenuItem>();
 
@@ -19,7 +19,7 @@ export class PizzaPazza implements IParser {
             dayMenu.shift();
         }
 
-        doneCallback(dayMenu);
+        return dayMenu;
 
         function parseItems(item: cheerio.Cheerio) {
             item.find("table tr").each((i, elem) => {
