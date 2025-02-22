@@ -76,7 +76,7 @@ app.get("/menu/:id", async (req, res) => {
     const result = await actions.get(req.params.id)(date);
     const timeago = formatDistance(result.timestamp, new Date(), { addSuffix: true, locale: sk });
     if (result.type === "error") {
-        res.status(500).json({ error: result.error.toString(), timeago });
+        res.status(500).json({ error: result.error, timeago });
     } else {
         res.json({ menu: result.menu, timeago });
     }
