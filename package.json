@@ -3,7 +3,7 @@
     "description": "Daily lunch menu application",
     "version": "2.0.0",
     "dependencies": {
-        "applicationinsights": "^3.4.0",
+        "applicationinsights": "^3.5.0",
         "axios": "^1.7.9",
         "cheerio": "^1.0.0",
         "date-fns": "^4.1.0",
@@ -12,22 +12,22 @@
         "node-cache": "^5.1.2"
     },
     "devDependencies": {
-        "@eslint/compat": "^1.2.4",
-        "@eslint/eslintrc": "^3.2.0",
-        "@eslint/js": "^9.17.0",
+        "@eslint/compat": "^1.2.7",
+        "@eslint/eslintrc": "^3.3.0",
+        "@eslint/js": "^9.21.0",
         "@types/cheerio": "^0.22.35",
         "@types/express": "^5.0.0",
         "@types/hbs": "^4.0.4",
         "@types/mocha": "^10.0.10",
-        "@types/node": "^22.10.3",
-        "@typescript-eslint/eslint-plugin": "^8.19.0",
-        "@typescript-eslint/parser": "^8.19.0",
-        "eslint": "^9.17.0",
+        "@types/node": "^22.13.5",
+        "@typescript-eslint/eslint-plugin": "^8.24.1",
+        "@typescript-eslint/parser": "^8.24.1",
+        "eslint": "^9.21.0",
         "eslint-plugin-import": "^2.31.0",
         "eslint-plugin-prefer-arrow": "^1.2.3",
-        "globals": "^15.14.0",
-        "mocha": "^11.0.1",
-        "typescript": "^5.7.2"
+        "globals": "^16.0.0",
+        "mocha": "^11.1.0",
+        "typescript": "^5.7.3"
     },
     "scripts": {
         "build": "tsc",
