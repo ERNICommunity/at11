@@ -5,15 +5,13 @@ import NodeCache from "node-cache";
 
 import { Config } from "./config";
 import { MenuFetcher, IMenuResult } from "./menuFetcher";
-import { isError } from "util";
 import { sk } from "date-fns/locale";
 import { formatDistance, parse, isValid } from "date-fns";
 
 console.debug("Initializing...");
 const config = new Config();
 const cache =  new NodeCache({
-    checkperiod: (config.cacheExpiration / 2),
-    useClones: false
+    checkperiod: (config.cacheExpiration / 2)
 });
 const menuFetcher = new MenuFetcher(config, cache);
 
@@ -22,7 +20,7 @@ if (config.appInsightsConnectionString) {
     appInsights.start();
 }
 
-const actions = new Map<string, ((date: Date, done: (result: IMenuResult) => void) => void)>();
+const actions = new Map<string, (date: Date) => Promise<IMenuResult>>();
 for (const location of config.restaurants.keys()) {
     for (const restaurant of config.restaurants.get(location)) {
         console.log(`Processing: ${location}/${restaurant.id} - ${restaurant.name}`);
@@ -31,7 +29,7 @@ for (const location of config.restaurants.keys()) {
             if (actions.has(id)) {
                 throw new Error("Non unique id '" + id + "' provided within '" + location + "' restaurants");
             }
-            actions.set(id, (date, doneCallback) => menuFetcher.fetchMenu(restaurant.urlFactory, date, restaurant.parser, doneCallback));
+            actions.set(id, (date) => menuFetcher.fetchMenu(restaurant.urlFactory, date, restaurant.parser));
         } catch (e) {
             console.warn(e);
         }
@@ -61,7 +59,7 @@ app.get("/:location?", (req, res) => {
         appInsightsConnectionString: config.appInsightsConnectionString
     });
 });
-app.get("/menu/:id", (req, res) => {
+app.get("/menu/:id", async (req, res) => {
     const date = parse(req.query.date as string, "yyyy-M-d", new Date());
     if (!isValid(date)) {
         res.statusCode = 400;
@@ -75,14 +73,13 @@ app.get("/menu/:id", (req, res) => {
         return;
     }
 
-    actions.get(req.params.id)(date, result => {
-        const timeago = formatDistance(result.timestamp, new Date(), { addSuffix: true, locale: sk });
-        if (isError(result.value)) {
-            res.status(500).json({ error: result.value.toString(), timeago });
-        } else {
-            res.json({ menu: result.value, timeago });
-        }
-    });
+    const result = await actions.get(req.params.id)(date);
+    const timeago = formatDistance(result.timestamp, new Date(), { addSuffix: true, locale: sk });
+    if (result.type === "error") {
+        res.status(500).json({ error: result.error.toString(), timeago });
+    } else {
+        res.json({ menu: result.menu, timeago });
+    }
 });
 const server = app.listen(config.port, () => {
   console.info("Done, listening on", server.address());

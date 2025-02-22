@@ -64,3 +64,9 @@ export function compareMenuItems(first: IMenuItem, second: IMenuItem): number {
     const s = second.isSoup ? 0 : 1;
     return f - s;
 }
+
+export function parserTimeout(ms: number): Promise<never> {
+    return new Promise((_, reject) => {
+       setTimeout(() => reject(new Error("Parser timeout")), ms);
+    });
+ }
