@@ -31,6 +31,7 @@
     },
     "scripts": {
         "build": "tsc",
+        "prestart": "npm run build",
         "start": "node dist/app.js",
         "lint": "tsc --noEmit && eslint .",
         "pretest": "eslint .",

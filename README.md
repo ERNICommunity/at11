@@ -1,4 +1,4 @@
-[![Workflow Status](https://github.com/ERNICommunity/at11//actions/workflows/azure-webapps-node.yml/badge.svg)
+![Workflow Status](https://github.com/ERNICommunity/at11//actions/workflows/azure-webapps-node.yml/badge.svg)
 
 at11
 ==========
@@ -16,8 +16,7 @@ This is a [Node.js](http://nodejs.org) powered application writen it [TypeScript
 1. Get the source code by either [downloading a zip](https://github.com/at11/at11/archive/master.zip) or cloning this repo.
 1. Change into directory with extracted/cloned sources `cd path/to/sources`.
 1. Execute `npm install`. This might take a moment as all required dependecies need to be downloaded.
-1. Execute `npm run build` to transpile typescript into javascript.
-1. Execute `npm start`. This will prompt a few messages, last of them being `Done, listening on http://:::54321` and hang.
+1. Execute `npm start`. This will build and start the application.
 1. Navigate your browser to [http://localhost:54321](http://localhost:54321) and you should see today's menus.
 1. You can execute `npm test` to run the tests and linter.
 
