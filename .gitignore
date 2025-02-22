@@ -19,3 +19,4 @@ node_modules
 .idea/
 *.iml
 dist
+test-results.xml
