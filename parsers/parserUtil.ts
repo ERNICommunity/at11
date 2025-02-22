@@ -1,4 +1,4 @@
-import { IMenuItem } from "./IMenuItem";
+import { IMenuItem } from "./types";
 
 declare global {
     interface String {

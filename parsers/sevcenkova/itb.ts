@@ -1,7 +1,6 @@
 import { load } from "cheerio";
 
-import { IMenuItem } from "../IMenuItem";
-import { IParser } from "../IParser";
+import { IMenuItem, IParser } from "../types";
 import { compareMenuItems } from "../parserUtil";
 import { format, addDays } from "date-fns";
 import { sk } from "date-fns/locale";

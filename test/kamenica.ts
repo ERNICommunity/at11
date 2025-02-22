@@ -3,7 +3,7 @@ import fs from "fs";
 import { describe, it } from "mocha";
 
 import { Kamenica } from "../parsers/sevcenkova/kamenica";
-import { IMenuItem } from "../parsers/IMenuItem";
+import { IMenuItem } from "../parsers/types";
 
 describe("kamenica", () => {
     const parser = new Kamenica();

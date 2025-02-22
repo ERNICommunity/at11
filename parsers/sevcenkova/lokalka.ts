@@ -1,7 +1,6 @@
 import { load } from "cheerio";
 
-import { IMenuItem } from "../IMenuItem";
-import { IParser } from "../IParser";
+import { IMenuItem, IParser } from "../types";
 import { getDateRegex } from "../parserUtil";
 
 export class Lokalka implements IParser {

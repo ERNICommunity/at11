@@ -1,6 +1,5 @@
-import { IMenuItem } from "../IMenuItem";
-import { IParser } from "../IParser";
-import { Menucka } from "../menucka";
+import { IMenuItem, IParser } from "../types";
+import { Menucka } from "../common/menucka";
 
 export class HallOfKings extends Menucka implements IParser {
     public async parse(html: string, date: Date): Promise<IMenuItem[]> {

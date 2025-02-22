@@ -1,7 +1,4 @@
-import { format } from "date-fns";
-import { sk } from "date-fns/locale";
-
-import { IParser } from "./parsers/IParser";
+import { IParser } from "./parsers/types";
 
 import { Alfa } from "./parsers/sevcenkova/alfa";
 import { Engerau } from "./parsers/sevcenkova/engerau";
@@ -10,16 +7,10 @@ import { HallOfKings } from "./parsers/sevcenkova/hallofkings";
 import { Itb } from "./parsers/sevcenkova/itb";
 import { Kamenica } from "./parsers/sevcenkova/kamenica";
 import { Lokalka } from "./parsers/sevcenkova/lokalka";
-import { Particka } from "./parsers/sevcenkova/particka";
-import { PizzaPazza } from "./parsers/sevcenkova/pizzapazza";
-import { Skolka } from "./parsers/sevcenkova/skolka";
-import { Tiffany } from "./parsers/sevcenkova/tiffany";
 import { Klubovna } from "./parsers/sevcenkova/klubovna";
 import { ClockBlock } from "./parsers/einpark/clockblock";
 import { DerbyPub } from "./parsers/einpark/derbypub";
 import { MKMRestaurant } from "./parsers/einpark/mkmrestaurant";
-import { ClassicRestaurantPub } from "./parsers/einpark/classicrestaurantpub";
-import { SidliskovaPivarnicka } from "./parsers/einpark/sidliskovapivarnicka";
 
 /* eslint-disable max-len */
 export interface IConfig {
@@ -47,7 +38,7 @@ export class Config implements IConfig {
         ["einpark", [
             { id: 1, name: "Clock Block", urlFactory: _ => "https://restauracie.sme.sk/restauracia/clock-block_8537-petrzalka_664/denne-menu", parser: new ClockBlock() },
             { id: 2, name: "Derby Pub", urlFactory: _ => "https://www.derbypub.sk/menu/obedove-menu", parser: new DerbyPub() },
-            { id: 3, name: "MKM Restaurant", urlFactory: _ => "https://restauracie.sme.sk/restauracia/mkm-pizzeria_1742-petrzalka_664/denne-menu", parser: new MKMRestaurant() },
+            { id: 3, name: "MKM Restaurant", urlFactory: _ => "https://restauracie.sme.sk/restauracia/mkm-pizzeria_1742-petrzalka_664/denne-menu", parser: new MKMRestaurant() }
         ]],
         ["ševčenkova", [
             { id: 2, name: "ITB", urlFactory: _ => "http://www.citycantina.sk/prevadzka/1", parser: new Itb() },
@@ -55,7 +46,7 @@ export class Config implements IConfig {
             { id: 5, name: "Hall of Kings", urlFactory: _ => "https://menucka.sk/denne-menu/bratislava/hall-of-kings", parser: new HallOfKings() },
             { id: 7, name: "Giuliano", urlFactory: _ => "http://www.giuliano.sk/-denne-menu", parser: new Giuliano() },
             { id: 9, name: "Kamenica - Corleone Pizza", urlFactory: _ => "http://www.pizzacorleone.sk/obedove-menu.html", parser: new Kamenica() },
-            { id: 10, name: "Engerau restaurant", urlFactory: _ => "https://www.zomato.com/sk/bratislava/engerau-restaurant-petr%C5%BEalka-bratislava-v/denn%C3%A9-menu", parser: new Engerau() },
+            { id: 10, name: "Engerau restaurant", urlFactory: _ => "https://www.engerau.sk/denne-menu", parser: new Engerau() },
             { id: 11, name: "Lokálka", urlFactory: _ => "http://www.lokalka.sk/kopcianska-2/", parser: new Lokalka() },
             { id: 13, name: "Petržalská klubovňa", urlFactory: _ => "https://restauracie.sme.sk/restauracia/petrzalska-klubovna_7359-petrzalka_664/denne-menu", parser: new Klubovna() }
         ]]

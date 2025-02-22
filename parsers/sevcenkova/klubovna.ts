@@ -1,6 +1,5 @@
-import { IMenuItem } from "../IMenuItem";
-import { IParser } from "../IParser";
-import { Sme } from "../sme";
+import { IMenuItem, IParser } from "../types";
+import { Sme } from "../common/sme";
 import { parsePrice } from "../parserUtil";
 
 export class Klubovna extends Sme implements IParser {

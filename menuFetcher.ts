@@ -2,8 +2,7 @@ import get, { isAxiosError } from "axios";
 import NodeCache from "node-cache";
 
 import { IConfig } from "./config";
-import { IMenuItem } from "./parsers/IMenuItem";
-import { IParser } from "./parsers/IParser";
+import { IMenuItem, IParser } from "./parsers/types";
 import { parserTimeout } from "./parsers/parserUtil";
 
 export type IMenuResult = {

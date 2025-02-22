@@ -3,3 +3,7 @@ export interface IMenuItem {
     price: number;
     isSoup: boolean;
 }
+
+export interface IParser {
+    parse(html: string, date: Date): Promise<IMenuItem[]>;
+}
