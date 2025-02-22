@@ -1,4 +1,4 @@
-[![Build Status](https://dev.azure.com/nej0372/at11/_apis/build/status/ERNICommunity.at11?branchName=master)](https://dev.azure.com/nej0372/at11/_build/latest?definitionId=2&branchName=master)
+[![Workflow Status](https://github.com/ERNICommunity/at11//actions/workflows/azure-webapps-node.yml/badge.svg)
 
 at11
 ==========
