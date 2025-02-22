@@ -84,6 +84,5 @@
     "bugs": {
         "url": "https://github.com/at11/at11/issues"
     },
-    "license": "Unlicense",
-    "main": "app.js"
+    "license": "Unlicense"
 }
