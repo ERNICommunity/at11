@@ -42,21 +42,31 @@ jobs:
         node-version: ${{ env.NODE_VERSION }}
         cache: 'npm'
 
-    - name: npm install and build
+    - name: Install and build
       run: |
         npm ci
         npm run build
 
-    - name: run tests
+    - name: Run tests
       run: |
         npm install mocha-junit-reporter --no-save
-        pm test -- --reporter mocha-junit-reporter
+        npm test -- --reporter mocha-junit-reporter
 
-    - name: Upload artifact for deployment job
+    - name: Cleanup dev dependencies
+      run: |
+        npm prune --production
+
+    - name: Upload artifact
       uses: actions/upload-artifact@v4
       with:
         name: node-app
-        path: .
+        path: |
+          dist/**/*.js
+          !dist/test/
+          static/
+          views/
+          node_modules/
+          package.json
 
   deploy:
     permissions:
