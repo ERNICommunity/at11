@@ -32,7 +32,8 @@
     "scripts": {
         "build": "tsc",
         "prestart": "npm run build",
-        "start": "node dist/app.js",
+        "start": "node --env-file-if-exists=.env dist/app.js",
+        "start:prod": "node dist/app.js",
         "lint": "tsc --noEmit && eslint .",
         "pretest": "eslint .",
         "test": "mocha ./dist/test --exit"
