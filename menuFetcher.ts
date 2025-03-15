@@ -40,7 +40,7 @@ export class MenuFetcher {
         }
     }
 
-    private async load(url: string, date: Date, parser: IParser): Promise<IMenuItem[]> {
+    private load(url: string, date: Date, parser: IParser): Promise<IMenuItem[]> {
         // on production (azure) use scraper api for zomato requests, otherwise zomato blocks them
         if (this._config.isProduction && url.search("zomato") >= 0) {
             url = `http://api.scraperapi.com?api_key=${this._config.scraperApiKey}&url=${encodeURIComponent(url)}`;
