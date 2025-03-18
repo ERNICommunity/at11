@@ -21,19 +21,9 @@ if (config.appInsightsConnectionString) {
 }
 
 const actions = new Map<string, (date: Date) => Promise<IMenuResult>>();
-for (const location of config.restaurants.keys()) {
-    for (const restaurant of config.restaurants.get(location)) {
-        console.log(`Processing: ${location}/${restaurant.id} - ${restaurant.name}`);
-        try {
-            const id = location + "-" + restaurant.id;
-            if (actions.has(id)) {
-                throw new Error("Non unique id '" + id + "' provided within '" + location + "' restaurants");
-            }
-            actions.set(id, (date) => menuFetcher.fetchMenu(restaurant.urlFactory, date, restaurant.parser));
-        } catch (e) {
-            console.warn(e);
-        }
-    }
+for (const [key, value] of config.restaurants) {
+    console.debug(`Processing '${key}': ${value.name}`);
+    actions.set(key, (date) => menuFetcher.fetchMenu(date, value.parser));
 }
 
 if (actions.size === 0) {
@@ -48,18 +38,17 @@ app.use(express.static(__dirname + "/../static"));
 app.get("/:location?", (req, res) => {
     res.setHeader("Content-Type", "text/html; charset=UTF-8");
     res.setHeader("Content-Language", "sk");
-    const location = req.params.location || config.restaurants.keys().next().value; // use first location if not specified
+    const now = new Date();
     res.render(__dirname + "/../views/index.html", {
-        locations: [...config.restaurants.keys()].map(k => ({ name: k, selected: k === location })),
-        restaurants: config.restaurants.get(location).map(x => ({
-            id: location + "-" + x.id,
-            name: x.name,
-            url: x.urlFactory(new Date())
+        restaurants: Array.from(config.restaurants.entries()).map(([k,v]) => ({
+            id: k,
+            name: v.name,
+            url: v.parser.urlFactory(now)
         })),
         appInsightsConnectionString: config.appInsightsConnectionString
     });
 });
-app.get("/menu/:id", async (req, res) => {
+app.get("/menu/:key", async (req, res) => {
     const date = parse(req.query.date as string, "yyyy-M-d", new Date());
     if (!isValid(date)) {
         res.statusCode = 400;
@@ -67,13 +56,13 @@ app.get("/menu/:id", async (req, res) => {
         return;
     }
 
-    if (!actions.has(req.params.id)) {
+    if (!actions.has(req.params.key)) {
         res.statusCode = 404;
-        res.send("Restaurant " + req.params.id + " not found");
+        res.send("Restaurant " + req.params.key + " not found");
         return;
     }
 
-    const result = await actions.get(req.params.id)(date);
+    const result = await actions.get(req.params.key)(date);
     const timeago = formatDistance(result.timestamp, new Date(), { addSuffix: true, locale: sk });
     if (result.type === "error") {
         res.status(500).json({ error: result.error, timeago });

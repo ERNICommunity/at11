@@ -20,8 +20,8 @@ export class MenuFetcher {
 
     constructor(private readonly _config: IConfig, private readonly _cache: NodeCache) { }
 
-    public async fetchMenu(urlFactory: (date: Date) => string, date: Date, parser: IParser): Promise<IMenuResult> {
-        const url = urlFactory(date);
+    public async fetchMenu(date: Date, parser: IParser): Promise<IMenuResult> {
+        const url = parser.urlFactory(date);
         const cacheKey = date.toISOString() + ":" + url;
         const cached = this._cache.get<IMenuResult>(cacheKey);
         if (cached && !this._config.bypassCache) {

@@ -5,6 +5,8 @@ import { format } from "date-fns";
 import { sk } from "date-fns/locale";
 
 export class DerbyPub implements IParser {
+    public readonly urlFactory = () => "https://www.derbypub.sk/menu/obedove-menu";
+
     public async parse(html: string, date: Date): Promise<IMenuItem[]> {
         const $ = load(html);
         const dayMenu = new Array<IMenuItem>();

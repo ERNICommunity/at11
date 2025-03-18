@@ -147,20 +147,9 @@ header .logos img {
     height: 50px;
     margin-right: 10px;
 }
-header h1, header h2 {
+header h1 {
     margin-top: 20px;
     font-size: 40px;
-}
-header h2 {
-    float: left;
-}
-header h2 a {
-    margin-left: 10px;
-}
-header h2 a.selected {
-    color: #E9843E;
-}
-header h1 {
     float: right;
 }
 

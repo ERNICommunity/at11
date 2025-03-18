@@ -3,6 +3,8 @@ import { Sme } from "../common/sme";
 import { parsePrice } from "../parserUtil";
 
 export class ClockBlock extends Sme implements IParser {
+    public readonly urlFactory = () => "https://restauracie.sme.sk/restauracia/clock-block_8537-petrzalka_664/denne-menu";
+
     public async parse(html: string, date: Date): Promise<IMenuItem[]> {
         const menuItems = super.parseBase(html, date);
 
