@@ -49,7 +49,7 @@ app.get("/:location?", (req, res) => {
     });
 });
 app.get("/menu/:key", async (req, res) => {
-    const date = parse(req.query.date as string, "yyyy-M-d", new Date());
+    const date = parse(req.query.date as string, "yyyy-M-d", new Date(), { locale: sk });
     if (!isValid(date)) {
         res.statusCode = 400;
         res.send("Missing/incorrect 'date' query parameter");

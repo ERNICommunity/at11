@@ -2,6 +2,7 @@ import { IParser } from "./parsers/types";
 import { ClockBlock } from "./parsers/einpark/clockblock";
 import { DerbyPub } from "./parsers/einpark/derbypub";
 import { MKMRestaurant } from "./parsers/einpark/mkmrestaurant";
+import { PomodoroRosso } from "./parsers/einpark/pomodoro-rosso";
 
 export interface IConfig {
     readonly isProduction: boolean;
@@ -28,7 +29,6 @@ export class Config implements IConfig {
         ["clock-block", { name: "Clock Block", parser: new ClockBlock() }],
         ["derby", { name: "Derby Pub", parser: new DerbyPub() }],
         ["mkm", { name: "MKM Restaurant", parser: new MKMRestaurant() }],
-        ["u-gazdu", { name: "U Gazdu", parser: new MKMRestaurant() }],
-        ["pomodoro-rosso", { name: "MKM Restaurant", parser: new MKMRestaurant() }]
+        ["pomodoro-rosso", { name: "Pomodoro Rosso", parser: new PomodoroRosso() }]
     ]);
 }
