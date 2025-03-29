@@ -8,17 +8,19 @@ import { MenuFetcher, IMenuResult } from "./menuFetcher";
 import { sk } from "date-fns/locale";
 import { formatDistance, parse, isValid } from "date-fns";
 
-console.debug("Initializing...");
 const config = new Config();
+if (config.appInsightsConnectionString) {
+    appInsights.setup(config.appInsightsConnectionString)
+    .setAutoCollectConsole(true, true)
+    .setDistributedTracingMode(appInsights.DistributedTracingModes.AI_AND_W3C)
+    .start();
+}
+
+console.debug("Initializing...");
 const cache =  new NodeCache({
     checkperiod: (config.cacheExpiration / 2)
 });
 const menuFetcher = new MenuFetcher(config, cache);
-
-if (config.appInsightsConnectionString) {
-    appInsights.setup(config.appInsightsConnectionString).setAutoCollectConsole(true, true);
-    appInsights.start();
-}
 
 const actions = new Map<string, (date: Date) => Promise<IMenuResult>>();
 for (const [key, value] of Object.entries(config.restaurants)) {
