@@ -21,7 +21,7 @@ if (config.appInsightsConnectionString) {
 }
 
 const actions = new Map<string, (date: Date) => Promise<IMenuResult>>();
-for (const [key, value] of config.restaurants) {
+for (const [key, value] of Object.entries(config.restaurants)) {
     console.debug(`Processing '${key}': ${value.name}`);
     actions.set(key, (date) => menuFetcher.fetchMenu(date, value.parser));
 }
@@ -35,12 +35,12 @@ const app = express();
 app.set("view engine", "html");
 app.engine("html", hbs.__express);
 app.use(express.static(__dirname + "/../static"));
-app.get("/:location?", (req, res) => {
+app.get("/", (req, res) => {
     res.setHeader("Content-Type", "text/html; charset=UTF-8");
     res.setHeader("Content-Language", "sk");
     const now = new Date();
     res.render(__dirname + "/../views/index.html", {
-        restaurants: Array.from(config.restaurants.entries()).map(([k,v]) => ({
+        restaurants: Object.entries(config.restaurants).map(([k,v]) => ({
             id: k,
             name: v.name,
             url: v.parser.urlFactory(now)

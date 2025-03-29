@@ -13,7 +13,7 @@ export interface IConfig {
     readonly cacheExpiration: number;
     readonly requestTimeout: number;
     readonly parserTimeout: number;
-    readonly restaurants: ReadonlyMap<string, {name: string, parser: IParser}>;
+    readonly restaurants: Record<string, {name: string, parser: IParser}>;
 }
 
 export class Config implements IConfig {
@@ -25,10 +25,10 @@ export class Config implements IConfig {
     public readonly cacheExpiration = 2 * 60 * 60; // 2h
     public readonly requestTimeout = 15 * 1000; // 15s
     public readonly parserTimeout = 15 * 1000; // 15s
-    public readonly restaurants = new Map<string, { name: string, parser: IParser}>([
-        ["clock-block", { name: "Clock Block", parser: new ClockBlock() }],
-        ["derby", { name: "Derby Pub", parser: new DerbyPub() }],
-        ["mkm", { name: "MKM Restaurant", parser: new MKMRestaurant() }],
-        ["pomodoro-rosso", { name: "Pomodoro Rosso", parser: new PomodoroRosso() }]
-    ]);
+    public readonly restaurants = {
+        "clock-block": { name: "Clock Block", parser: new ClockBlock() },
+        "derby": { name: "Derby Pub", parser: new DerbyPub() },
+        "mkm": { name: "MKM Restaurant", parser: new MKMRestaurant() },
+        "pomodoro-rosso": { name: "Pomodoro Rosso", parser: new PomodoroRosso() }
+    };
 }
