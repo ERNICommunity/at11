@@ -8,6 +8,9 @@
             "type": "node",
             "request": "launch",
             "name": "Debug at11",
+            "runtimeArgs": [
+                "--env-file-if-exists=.env",
+            ],
             "program": "${workspaceFolder}/app.ts",
             "preLaunchTask": "${defaultBuildTask}",
             "outFiles": [
