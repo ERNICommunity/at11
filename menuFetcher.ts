@@ -65,6 +65,9 @@ export class MenuFetcher {
                         parser.parse(response.data, date)]);
                 }
                 throw new Error(`Wrong response status ${response.status} for ${url}`);
+            })
+            .finally(() => {
+                delete this._runningRequests[url];
             });
         return this._runningRequests[url];
     }
