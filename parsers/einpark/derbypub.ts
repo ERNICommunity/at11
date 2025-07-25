@@ -1,4 +1,5 @@
-import { load } from "cheerio";
+import { Cheerio, load } from "cheerio";
+import type { Element } from "domhandler";
 
 import { IMenuItem, IParser } from "../types";
 import { format } from "date-fns";
@@ -23,7 +24,7 @@ export class DerbyPub implements IParser {
 
         return dayMenu;
 
-        function parseDailyMenu(table: cheerio.Cheerio) {
+        function parseDailyMenu(table: Cheerio<Element>) {
             const rows = table.find("tr");
             rows.each((index, elem) => {
                 if (index === 0) {
@@ -34,13 +35,13 @@ export class DerbyPub implements IParser {
             });
         }
 
-        function parseSoup(row: cheerio.Element): IMenuItem {
+        function parseSoup(row: Element): IMenuItem {
             const cells = $(row).find("td");
             const text = cells.eq(2).text().trim();
             return { isSoup: true, text: normalize(text), price: NaN };
         }
 
-        function parseOther(row: cheerio.Element): IMenuItem {
+        function parseOther(row: Element): IMenuItem {
             const cells = $(row).find("td");
             const text = cells.eq(2).text().trim();
             const price = parseFloat(cells.eq(4).text().replace(",", "."));

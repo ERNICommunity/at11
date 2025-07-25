@@ -17,7 +17,7 @@ export class PomodoroRosso implements IParser {
     }
 
     public async parse(html: string, date: Date): Promise<IMenuItem[]> {
-        const $ = load(html, { normalizeWhitespace: true, decodeEntities: true });
+        const $ = load(html);
         const currentDayName = format(date, "eeee", { locale: sk });
         const nextDayName = format(addDays(date, 1), "eeee", { locale: sk });
 
