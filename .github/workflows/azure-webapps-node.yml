@@ -30,7 +30,7 @@ jobs:
 
     - name: Run tests
       run: |
-        npm install mocha-ctrf-json-reporter--no-save
+        npm install mocha-ctrf-json-reporter --no-save
         npm test -- --reporter mocha-ctrf-json-reporter
 
     - name: Publish Test Report
