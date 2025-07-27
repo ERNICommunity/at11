@@ -30,8 +30,15 @@ jobs:
 
     - name: Run tests
       run: |
-        npm install mocha-junit-reporter --no-save
-        npm test -- --reporter mocha-junit-reporter
+        npm install mocha-ctrf-json-reporter--no-save
+        npm test -- --reporter mocha-ctrf-json-reporter
+
+    - name: Publish Test Report
+      uses: ctrf-io/github-test-reporter@v1
+      with:
+        report-path: './ctrf/*.json'
+        github-report: true
+      if: always()
 
     - name: Cleanup dev dependencies
       run: |
