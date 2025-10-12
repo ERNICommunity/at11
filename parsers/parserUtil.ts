@@ -3,7 +3,7 @@ import { IMenuItem } from "./types";
 declare global {
     interface String {
         tidyAfterOCR: () => string;
-        normalizeWhitespace: () => string
+        normalizeWhitespace: () => string;
         removeMetrics: () => string;
         removeAlergens: () => string;
         capitalizeFirstLetter: () => string;
@@ -11,51 +11,70 @@ declare global {
     }
 }
 
-export function parsePrice(item: string): { price: number, text: string} {
-    const priceRegex = /(\d+(?:[.,]\d+)?)[.,]?\s*(?:€|Eur)/ig;
+export function parsePrice(item: string): { price: number; text: string } {
+    const priceRegex = /(\d+(?:[.,]\d+)?)[.,]?\s*(?:€|Eur)/gi;
     let price = NaN;
-    const text = item.replace(priceRegex, (matchStr, group1) => {
+    const text = item.replace(priceRegex, (matchStr, group1: string) => {
         price = parseFloat(group1.replace(/\s/g, "").replace(",", "."));
         return "";
     });
     return {
         price,
-        text: text.trim()
+        text: text.trim(),
     };
 }
 
 export function getDateRegex(date: Date): RegExp {
-   return new RegExp(`0?${date.getDate()}\\.\\s?0?${date.getMonth() + 1}\\.\\s?${date.getFullYear()}`);
+    return new RegExp(
+        `0?${date.getDate()}\\.\\s?0?${date.getMonth() + 1}\\.\\s?${date.getFullYear()}`,
+    );
 }
 
-const accentPairs: {[key: string]: string} = { a: "á", e: "é", i: "í", o: "ó", u: "ú", y: "ý", t: "ť", l: "ľ" };
+const accentPairs: { [key: string]: string } = {
+    a: "á",
+    e: "é",
+    i: "í",
+    o: "ó",
+    u: "ú",
+    y: "ý",
+    t: "ť",
+    l: "ľ",
+};
 
-String.prototype.tidyAfterOCR = function(): string {
+String.prototype.tidyAfterOCR = function (this: string): string {
     return this.replace(/(\w)[`']/g, (m: string, g: string) => {
         return accentPairs[g] || m;
     }).replace("%:", "€");
 };
 
-String.prototype.normalizeWhitespace = function() {
+String.prototype.normalizeWhitespace = function (this: string) {
     // also single spaces are replaced as there are different charcodes for space (32 vs. 160)
     // and we need to be consistent because of comparisons in tests
     return this.trim().replace(/\s+/g, " ");
 };
 
-String.prototype.removeMetrics = function() {
-    return this.replace(/\s*\(?(?:\d+\/)?( ?\d[\doO\s]*)+ *(?:[,.]\d[\doO]*)? *[lLgG]\)?\.?\s*/g, " ").trim();
+String.prototype.removeMetrics = function (this: string) {
+    return this.replace(
+        /\s*\(?(?:\d+\/)?( ?\d[\doO\s]*)+ *(?:[,.]\d[\doO]*)? *[lLgG]\)?\.?\s*/g,
+        " ",
+    ).trim();
 };
 
-String.prototype.removeAlergens = function() {
+String.prototype.removeAlergens = function (this: string) {
     return this.replace(/\s*[\s(\d,)]+$/g, "");
 };
 
-String.prototype.capitalizeFirstLetter = function() {
-    return this.replace(/(^[A-Za-z\u00C0-\u017F])/, (a: string) => a.toUpperCase());
+String.prototype.capitalizeFirstLetter = function (this: string) {
+    return this.replace(/(^[A-Za-z\u00C0-\u017F])/, (a: string) =>
+        a.toUpperCase(),
+    );
 };
 
-String.prototype.removeItemNumbering = function() {
-    return this.trim().replace(/^\W\s+/, "").replace(/^[\dA-Z][ ).,:;]+(?:[AB]\s+)?/, "").trim();
+String.prototype.removeItemNumbering = function (this: string) {
+    return this.trim()
+        .replace(/^\W\s+/, "")
+        .replace(/^[\dA-Z][ ).,:;]+(?:[AB]\s+)?/, "")
+        .trim();
 };
 
 // Soup first menu item comparere
@@ -67,6 +86,6 @@ export function compareMenuItems(first: IMenuItem, second: IMenuItem): number {
 
 export function parserTimeout(ms: number): Promise<never> {
     return new Promise((_, reject) => {
-       setTimeout(() => reject(new Error("Parser timeout")), ms);
+        setTimeout(() => reject(new Error("Parser timeout")), ms);
     });
- }
+}

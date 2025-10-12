@@ -8,14 +8,10 @@
             "type": "node",
             "request": "launch",
             "name": "Debug at11",
-            "runtimeArgs": [
-                "--env-file-if-exists=.env",
-            ],
+            "runtimeArgs": ["--env-file-if-exists=.env"],
             "program": "${workspaceFolder}/app.ts",
             "preLaunchTask": "${defaultBuildTask}",
-            "outFiles": [
-                "${workspaceFolder}/dist/**/*.js"
-            ],
+            "outFiles": ["${workspaceFolder}/dist/**/*.js"],
             "internalConsoleOptions": "openOnSessionStart",
             "serverReadyAction": {
                 "action": "openExternally",
@@ -35,9 +31,7 @@
                 "./dist/test"
             ],
             "preLaunchTask": "${defaultBuildTask}",
-            "outFiles": [
-                "${workspaceFolder}/dist/**/*.js"
-            ],
+            "outFiles": ["${workspaceFolder}/dist/**/*.js"],
             "internalConsoleOptions": "openOnSessionStart"
         }
     ]

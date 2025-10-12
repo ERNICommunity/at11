@@ -4,7 +4,7 @@
     width: 237px;
     height: 237px;
     background-image: url("../img/clock_canvas.png");
-   }
+}
 .inner_face {
     position: absolute;
     width: 237px;
@@ -12,7 +12,8 @@
     border-radius: 1000px;
     z-index: 1000;
 }
-.hand, .hand.hour {
+.hand,
+.hand.hour {
     position: absolute;
     width: 28.5px;
     height: 125px;
@@ -41,59 +42,71 @@
     width: 1px;
     margin-left: -0.5px;
     margin-top: 38px;
-    background: #DEDCDE;
+    background: #dedcde;
     z-index: -1;
 }
 /* page stylws */
 @font-face {
-    font-family: 'Amatic SC';
+    font-family: "Amatic SC";
     font-style: normal;
     font-weight: 400;
-    src: local('Amatic SC Regular'), local('AmaticSC-Regular'),
-         url('../fonts/amatic-sc-v9-latin-ext_latin-regular.woff2') format('woff2'),
-         url('../fonts/amatic-sc-v9-latin-ext_latin-regular.woff') format('woff');;
+    src:
+        local("Amatic SC Regular"),
+        local("AmaticSC-Regular"),
+        url("../fonts/amatic-sc-v9-latin-ext_latin-regular.woff2")
+            format("woff2"),
+        url("../fonts/amatic-sc-v9-latin-ext_latin-regular.woff") format("woff");
 }
 @font-face {
-  font-family: 'Amatic SC';
-  font-style: normal;
-  font-weight: 700;
-  src: local('Amatic SC Bold'), local('AmaticSC-Bold'),
-       url('../fonts/amatic-sc-v9-latin-ext_latin-700.woff2') format('woff2'),
-       url('../fonts/amatic-sc-v9-latin-ext_latin-700.woff') format('woff');
+    font-family: "Amatic SC";
+    font-style: normal;
+    font-weight: 700;
+    src:
+        local("Amatic SC Bold"),
+        local("AmaticSC-Bold"),
+        url("../fonts/amatic-sc-v9-latin-ext_latin-700.woff2") format("woff2"),
+        url("../fonts/amatic-sc-v9-latin-ext_latin-700.woff") format("woff");
 }
 @font-face {
-  font-family: 'Oswald';
-  font-style: normal;
-  font-weight: 400;
-  src: local('Oswald Regular'), local('Oswald-Regular'),
-       url('../fonts/oswald-v11-latin-ext_latin-regular.woff2') format('woff2'),
-       url('../fonts/oswald-v11-latin-ext_latin-regular.woff') format('woff');
+    font-family: "Oswald";
+    font-style: normal;
+    font-weight: 400;
+    src:
+        local("Oswald Regular"),
+        local("Oswald-Regular"),
+        url("../fonts/oswald-v11-latin-ext_latin-regular.woff2") format("woff2"),
+        url("../fonts/oswald-v11-latin-ext_latin-regular.woff") format("woff");
 }
 @font-face {
-  font-family: 'Oswald';
-  font-style: normal;
-  font-weight: 300;
-  src: local('Oswald Light'), local('Oswald-Light'),
-       url('../fonts/oswald-v11-latin-ext_latin-300.woff2') format('woff2'),
-       url('../fonts/oswald-v11-latin-ext_latin-300.woff') format('woff');
+    font-family: "Oswald";
+    font-style: normal;
+    font-weight: 300;
+    src:
+        local("Oswald Light"),
+        local("Oswald-Light"),
+        url("../fonts/oswald-v11-latin-ext_latin-300.woff2") format("woff2"),
+        url("../fonts/oswald-v11-latin-ext_latin-300.woff") format("woff");
 }
 @font-face {
-  font-family: 'Oswald';
-  font-style: normal;
-  font-weight: 700;
-  src: local('Oswald Bold'), local('Oswald-Bold'),
-       url('../fonts/oswald-v11-latin-ext_latin-700.woff2') format('woff2'),
-       url('../fonts/oswald-v11-latin-ext_latin-700.woff') format('woff');
+    font-family: "Oswald";
+    font-style: normal;
+    font-weight: 700;
+    src:
+        local("Oswald Bold"),
+        local("Oswald-Bold"),
+        url("../fonts/oswald-v11-latin-ext_latin-700.woff2") format("woff2"),
+        url("../fonts/oswald-v11-latin-ext_latin-700.woff") format("woff");
 }
 
-html, body {
+html,
+body {
     margin: 0;
     padding: 0;
     width: 100%;
     height: 100%;
-    font-family: 'Oswald', sans-serif;
+    font-family: "Oswald", sans-serif;
     background-color: #eee;
-    color: #413F4A ;
+    color: #413f4a;
     min-width: 600px;
 }
 body {
@@ -101,10 +114,11 @@ body {
     min-height: 100vh;
     flex-direction: column;
 }
-h1, h2 {
+h1,
+h2 {
     margin: 0;
-    font-family: 'Amatic SC', Verdana, sans-serif;
-    color: #84C4D0
+    font-family: "Amatic SC", Verdana, sans-serif;
+    color: #84c4d0;
 }
 a {
     text-decoration: inherit;
@@ -114,7 +128,7 @@ a {
 header {
     background-color: white;
     height: 218px;
-    background: url('../img/at11_header_background_01.png') repeat-x;
+    background: url("../img/at11_header_background_01.png") repeat-x;
     padding: 0 5%;
     flex: none;
 }
@@ -129,8 +143,8 @@ footer {
     padding: 20px 5%;
     font-size: 0.9em;
     text-align: center;
-    color: #FCB85F;
-    background-color: #E9843E;
+    color: #fcb85f;
+    background-color: #e9843e;
     flex: none;
 }
 
@@ -168,14 +182,14 @@ header #picker {
     width: 200px;
     margin-top: 8px;
     position: relative;
-    color: #E9843E;
+    color: #e9843e;
     font-weight: bold;
-    padding:  5px 10px;
+    padding: 5px 10px;
     height: 30px;
 }
 header #picker:hover {
     color: #fff;
-    background: #EE6B67;
+    background: #ee6b67;
 }
 #picker:hover ul {
     display: block;
@@ -188,7 +202,7 @@ header #picker:hover {
     padding: 0;
     margin: 0;
     list-style: none;
-    color: #E9843E;
+    color: #e9843e;
     z-index: 2;
 }
 #picker li {
@@ -196,11 +210,11 @@ header #picker:hover {
     display: block;
     line-height: 18px;
     color: #fff;
-    background-color: #FCB85F;
-    padding:  5px 5px;
+    background-color: #fcb85f;
+    padding: 5px 5px;
 }
 #picker li:hover {
-    background: #EE6B67;
+    background: #ee6b67;
 }
 
 article {
@@ -214,20 +228,24 @@ article h2 {
     text-align: center;
 }
 article h2 a:hover {
-    color: #EE6B67;
+    color: #ee6b67;
 }
 article .loader {
     margin: 10px auto;
     border: 6px solid #eee;
-    border-top: 6px solid #E9843E;
+    border-top: 6px solid #e9843e;
     border-radius: 50%;
     width: 30px;
     height: 30px;
     animation: spin 2s linear infinite;
 }
 @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 }
 article ul {
     display: table;
@@ -246,20 +264,20 @@ article ul li > *.price {
     white-space: nowrap;
     text-align: right;
     padding-left: 0.5em;
-    color: #E9843E;
+    color: #e9843e;
 }
 article ul li:before {
     content: "";
     display: table-cell;
-    background: url('../img/at11_dish_icon.png') no-repeat left 2px;
+    background: url("../img/at11_dish_icon.png") no-repeat left 2px;
     width: 1em;
 }
 article ul li.soup {
     font-weight: 300;
     letter-spacing: 0.02em;
 }
-article ul li.soup:before{
-    background-image: url('../img/at11_soup_icon.png');
+article ul li.soup:before {
+    background-image: url("../img/at11_soup_icon.png");
 }
 article ul li.error {
     color: lightgrey;
@@ -269,13 +287,13 @@ article ul li.error:before {
     display: none;
 }
 article ul a {
-    color: #E9843E;
+    color: #e9843e;
 }
 article > i.timeago {
     display: block;
     font-size: 0.7em;
     text-align: right;
-    color: #EE6B67;
+    color: #ee6b67;
 }
 
 footer .copyright {

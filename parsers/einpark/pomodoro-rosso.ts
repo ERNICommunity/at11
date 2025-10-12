@@ -7,28 +7,41 @@ import { parsePrice } from "../parserUtil";
 
 export class PomodoroRosso implements IParser {
     public urlFactory(d: Date): string {
-        const weekStart =  startOfWeek(d, { locale: sk });
+        const weekStart = startOfWeek(d, { locale: sk });
         const dayBeforeStart = subDays(weekStart, 1);
-        const weekEnd =  endOfWeek(d, { locale: sk });
+        const weekEnd = endOfWeek(d, { locale: sk });
         const fridayBeforeEnd = subDays(weekEnd, 2);
-        return "https://www.pizzeriapomodororosso.sk/" +
+        return (
+            "https://www.pizzeriapomodororosso.sk/" +
             format(dayBeforeStart, "yyyy/MM/dd", { locale: sk }) +
-            `/denne-menu-${format(weekStart, "d-M-yyyy", { locale: sk })}-${format(fridayBeforeEnd, "d-M-yyyy", { locale: sk })}/`;
+            `/denne-menu-${format(weekStart, "d-M-yyyy", { locale: sk })}-${format(fridayBeforeEnd, "d-M-yyyy", { locale: sk })}/`
+        );
     }
 
-    public async parse(html: string, date: Date): Promise<IMenuItem[]> {
+    public parse(html: string, date: Date): Promise<IMenuItem[]> {
         const $ = load(html);
         const currentDayName = format(date, "eeee", { locale: sk });
         const nextDayName = format(addDays(date, 1), "eeee", { locale: sk });
 
-        const allMenuText = $("article.post.tag-denne-menu .entry-content").find("br").replaceWith("\n").end()
-            .text().split("\n").map(t => t.trim()).filter(Boolean);
+        const allMenuText = $("article.post.tag-denne-menu .entry-content")
+            .find("br")
+            .replaceWith("\n")
+            .end()
+            .text()
+            .split("\n")
+            .map((t) => t.trim())
+            .filter(Boolean);
 
-        return this.parseDailyMenu(allMenuText, currentDayName, nextDayName);
-
+        return Promise.resolve(
+            this.parseDailyMenu(allMenuText, currentDayName, nextDayName),
+        );
     }
 
-    private parseDailyMenu(rows: string[], currentDay: string, nextDay: string): IMenuItem[] {
+    private parseDailyMenu(
+        rows: string[],
+        currentDay: string,
+        nextDay: string,
+    ): IMenuItem[] {
         const menu: IMenuItem[] = [];
 
         const current = new RegExp(currentDay, "i");
@@ -63,10 +76,17 @@ export class PomodoroRosso implements IParser {
 
     private parseOther(row: string): IMenuItem {
         const { text, price } = parsePrice(row);
-        return { isSoup: false, text: this.normalize(text.replace("//", "").trim()), price };
+        return {
+            isSoup: false,
+            text: this.normalize(text.replace("//", "").trim()),
+            price,
+        };
     }
 
     private normalize(str: string) {
-        return str.removeMetrics().removeItemNumbering().capitalizeFirstLetter();
+        return str
+            .removeMetrics()
+            .removeItemNumbering()
+            .capitalizeFirstLetter();
     }
 }

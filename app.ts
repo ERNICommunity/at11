@@ -10,15 +10,18 @@ import { formatDistance, parse, isValid } from "date-fns";
 
 const config = new Config();
 if (config.appInsightsConnectionString) {
-    appInsights.setup(config.appInsightsConnectionString)
-    .setAutoCollectConsole(true, true)
-    .setDistributedTracingMode(appInsights.DistributedTracingModes.AI_AND_W3C)
-    .start();
+    appInsights
+        .setup(config.appInsightsConnectionString)
+        .setAutoCollectConsole(true, true)
+        .setDistributedTracingMode(
+            appInsights.DistributedTracingModes.AI_AND_W3C,
+        )
+        .start();
 }
 
 console.debug("Initializing...");
-const cache =  new NodeCache({
-    checkperiod: (config.cacheExpiration / 2)
+const cache = new NodeCache({
+    checkperiod: config.cacheExpiration / 2,
 });
 const menuFetcher = new MenuFetcher(config, cache);
 
@@ -35,6 +38,7 @@ if (actions.size === 0) {
 console.debug("Express setup...");
 const app = express();
 app.set("view engine", "html");
+// eslint-disable-next-line @typescript-eslint/unbound-method
 app.engine("html", hbs.__express);
 app.use(express.static(__dirname + "/../static"));
 app.get("/", (req, res) => {
@@ -42,16 +46,18 @@ app.get("/", (req, res) => {
     res.setHeader("Content-Language", "sk");
     const now = new Date();
     res.render(__dirname + "/../views/index.html", {
-        restaurants: Object.entries(config.restaurants).map(([k,v]) => ({
+        restaurants: Object.entries(config.restaurants).map(([k, v]) => ({
             id: k,
             name: v.name,
-            url: v.parser.urlFactory(now)
+            url: v.parser.urlFactory(now),
         })),
-        appInsightsConnectionString: config.appInsightsConnectionString
+        appInsightsConnectionString: config.appInsightsConnectionString,
     });
 });
 app.get("/menu/:key", async (req, res) => {
-    const date = parse(req.query.date as string, "yyyy-M-d", new Date(), { locale: sk });
+    const date = parse(req.query.date as string, "yyyy-M-d", new Date(), {
+        locale: sk,
+    });
     if (!isValid(date)) {
         res.statusCode = 400;
         res.send("Missing/incorrect 'date' query parameter");
@@ -65,7 +71,10 @@ app.get("/menu/:key", async (req, res) => {
     }
 
     const result = await actions.get(req.params.key)(date);
-    const timeago = formatDistance(result.timestamp, new Date(), { addSuffix: true, locale: sk });
+    const timeago = formatDistance(result.timestamp, new Date(), {
+        addSuffix: true,
+        locale: sk,
+    });
     if (result.type === "error") {
         res.status(500).json({ error: result.error, timeago });
     } else {
@@ -73,5 +82,5 @@ app.get("/menu/:key", async (req, res) => {
     }
 });
 const server = app.listen(config.port, () => {
-  console.info("Done, listening on", server.address());
+    console.info("Done, listening on", server.address());
 });

@@ -6,9 +6,10 @@ import { format } from "date-fns";
 import { sk } from "date-fns/locale";
 
 export class DerbyPub implements IParser {
-    public readonly urlFactory = () => "https://www.derbypub.sk/menu/obedove-menu";
+    public readonly urlFactory = () =>
+        "https://www.derbypub.sk/menu/obedove-menu";
 
-    public async parse(html: string, date: Date): Promise<IMenuItem[]> {
+    public parse(html: string, date: Date): Promise<IMenuItem[]> {
         const $ = load(html);
         const dayMenu = new Array<IMenuItem>();
         const todayText = format(date, "d. LLLL yyyy", { locale: sk });
@@ -22,7 +23,7 @@ export class DerbyPub implements IParser {
             }
         });
 
-        return dayMenu;
+        return Promise.resolve(dayMenu);
 
         function parseDailyMenu(table: Cheerio<Element>) {
             const rows = table.find("tr");
@@ -49,9 +50,7 @@ export class DerbyPub implements IParser {
         }
 
         function normalize(str: string) {
-            return str.removeAlergens()
-                .removeMetrics()
-                .capitalizeFirstLetter();
+            return str.removeAlergens().removeMetrics().capitalizeFirstLetter();
         }
     }
- }
+}
