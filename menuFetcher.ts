@@ -49,13 +49,13 @@ export class MenuFetcher {
                     cacheKey,
                     {
                         type: "error",
-                        error: error.toString(),
+                        error: String(error),
                         timestamp: new Date(),
                     },
                     this._config.cacheExpiration / 2,
                 );
             }
-            return this._cache.get<IMenuResult>(cacheKey);
+            return this._cache.get<IMenuResult>(cacheKey)!;
         }
     }
 

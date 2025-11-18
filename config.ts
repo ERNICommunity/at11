@@ -6,8 +6,8 @@ import { PomodoroRosso } from "./parsers/einpark/pomodoro-rosso";
 
 export interface IConfig {
     readonly isProduction: boolean;
-    readonly scraperApiKey: string;
-    readonly appInsightsConnectionString: string;
+    readonly scraperApiKey?: string;
+    readonly appInsightsConnectionString?: string;
     readonly port: number;
     readonly bypassCache: boolean;
     readonly cacheExpiration: number;

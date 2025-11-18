@@ -1,14 +1,18 @@
 {
     "compilerOptions": {
-        "module": "commonjs",
-        "esModuleInterop": true,
-        "allowSyntheticDefaultImports": true,
-        "target": "ES2022",
-        "noImplicitAny": true,
-        "moduleResolution": "node",
+        "lib": [
+            "es2024",
+            "ESNext.Array",
+            "ESNext.Collection",
+            "ESNext.Iterator"
+        ],
+        "module": "nodenext",
+        "target": "es2024",
+        "strict": true,
+        "skipLibCheck": true,
+        "moduleResolution": "node16",
         "sourceMap": true,
         "outDir": "dist",
-        "baseUrl": ".",
-        "lib": ["ES2019", "DOM"]
+        "baseUrl": "."
     }
 }

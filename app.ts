@@ -66,11 +66,11 @@ app.get("/menu/:key", async (req, res) => {
 
     if (!actions.has(req.params.key)) {
         res.statusCode = 404;
-        res.send("Restaurant " + req.params.key + " not found");
+        res.send(`Restaurant action for '${req.params.key}' not found`);
         return;
     }
 
-    const result = await actions.get(req.params.key)(date);
+    const result = await actions.get(req.params.key)!(date);
     const timeago = formatDistance(result.timestamp, new Date(), {
         addSuffix: true,
         locale: sk,
