@@ -69,33 +69,31 @@ export class MenuFetcher {
             url = `http://api.scraperapi.com?api_key=${this._config.scraperApiKey}&url=${encodeURIComponent(url)}`;
         }
 
-        if (this._runningRequests[url] !== undefined) {
-            return this._runningRequests[url];
-        }
-
-        this._runningRequests[url] = get<string>(url, {
-            method: "get",
-            headers: {
-                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)",
-                Accept: "text/html,*/*",
-                "Accept-Language": "sk", // we want response in slovak (useful for menu portals that use localization, like zomato)
-            },
-            timeout: this._config.requestTimeout,
-        })
-            .then((response) => {
-                if (response.status === 200) {
-                    return Promise.race([
-                        parserTimeout(this._config.parserTimeout),
-                        parser.parse(response.data, date),
-                    ]);
-                }
-                throw new Error(
-                    `Wrong response status ${response.status} for ${url}`,
-                );
+        if (this._runningRequests[url] === undefined) {
+            this._runningRequests[url] = get<string>(url, {
+                method: "get",
+                headers: {
+                    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)",
+                    Accept: "text/html,*/*",
+                    "Accept-Language": "sk", // we want response in slovak (useful for menu portals that use localization, like zomato)
+                },
+                timeout: this._config.requestTimeout,
             })
-            .finally(() => {
-                delete this._runningRequests[url];
-            });
+                .then((response) => {
+                    if (response.status === 200) {
+                        return Promise.race([
+                            parserTimeout(this._config.parserTimeout),
+                            parser.parse(response.data, date),
+                        ]);
+                    }
+                    throw new Error(
+                        `Wrong response status ${response.status} for ${url}`,
+                    );
+                })
+                .finally(() => {
+                    delete this._runningRequests[url];
+                });
+        }
         return this._runningRequests[url];
     }
 }
