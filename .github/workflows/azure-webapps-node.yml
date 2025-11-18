@@ -47,7 +47,7 @@ jobs:
 
             - name: Cleanup dev dependencies
               run: |
-                  npm prune --production
+                  npm prune --omit=dev
 
             - name: Upload artifact
               uses: actions/upload-artifact@v4
