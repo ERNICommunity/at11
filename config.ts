@@ -1,8 +1,8 @@
-import { IParser } from "./parsers/types";
-import { ClockBlock } from "./parsers/einpark/clockblock";
-import { DerbyPub } from "./parsers/einpark/derbypub";
-import { MKMRestaurant } from "./parsers/einpark/mkmrestaurant";
-import { PomodoroRosso } from "./parsers/einpark/pomodoro-rosso";
+import { IParser } from "./parsers/types.js";
+import { ClockBlock } from "./parsers/einpark/clockblock.js";
+import { DerbyPub } from "./parsers/einpark/derbypub.js";
+import { MKMRestaurant } from "./parsers/einpark/mkmrestaurant.js";
+import { PomodoroRosso } from "./parsers/einpark/pomodoro-rosso.js";
 
 export interface IConfig {
     readonly isProduction: boolean;

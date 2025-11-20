@@ -2,8 +2,8 @@ import assert from "assert";
 import fs from "fs";
 import { describe, it } from "mocha";
 
-import { IMenuItem } from "../parsers/types";
-import { PomodoroRosso } from "../parsers/einpark/pomodoro-rosso";
+import { IMenuItem } from "../parsers/types.js";
+import { PomodoroRosso } from "../parsers/einpark/pomodoro-rosso.js";
 
 describe("PomodoroRosso", () => {
     const parser = new PomodoroRosso();

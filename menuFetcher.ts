@@ -1,9 +1,9 @@
 import get, { isAxiosError } from "axios";
 import NodeCache from "node-cache";
 
-import { IConfig } from "./config";
-import { IMenuItem, IParser } from "./parsers/types";
-import { parserTimeout } from "./parsers/parserUtil";
+import { IConfig } from "./config.js";
+import { IMenuItem, IParser } from "./parsers/types.js";
+import { parserTimeout } from "./parsers/parserUtil.js";
 
 export type IMenuResult =
     | {

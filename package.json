@@ -2,6 +2,7 @@
     "name": "at11",
     "description": "Daily lunch menu application",
     "version": "2.0.0",
+    "type": "module",
     "dependencies": {
         "applicationinsights": "^3.7.0",
         "axios": "^1.11.0",

@@ -1,6 +1,6 @@
-import { IMenuItem, IParser } from "../types";
-import { Sme } from "../common/sme";
-import { parsePrice } from "../parserUtil";
+import { IMenuItem, IParser } from "../types.js";
+import { Sme } from "../common/sme.js";
+import { parsePrice } from "../parserUtil.js";
 
 export class MKMRestaurant extends Sme implements IParser {
     public readonly urlFactory = () =>

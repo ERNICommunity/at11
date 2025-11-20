@@ -1,6 +1,6 @@
 import assert from "assert";
 import { describe, it } from "mocha";
-import { parsePrice } from "../parsers/parserUtil";
+import { parsePrice } from "../parsers/parserUtil.js";
 
 const parsePriceTests = [
     {

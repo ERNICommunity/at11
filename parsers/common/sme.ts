@@ -1,7 +1,7 @@
 import { load } from "cheerio";
 
-import { IMenuItem } from "../types";
-import { getDateRegex } from "../parserUtil";
+import { IMenuItem } from "../types.js";
+import { getDateRegex } from "../parserUtil.js";
 
 export abstract class Sme {
     protected parseBase(html: string, date: Date): IMenuItem[] {

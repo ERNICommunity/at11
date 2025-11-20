@@ -1,7 +1,7 @@
 import { Cheerio, load } from "cheerio";
 import type { Element } from "domhandler";
 
-import { IMenuItem, IParser } from "../types";
+import { IMenuItem, IParser } from "../types.js";
 import { format } from "date-fns";
 import { sk } from "date-fns/locale";
 

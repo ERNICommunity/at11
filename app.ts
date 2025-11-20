@@ -3,8 +3,8 @@ import express from "express";
 import hbs from "hbs";
 import NodeCache from "node-cache";
 
-import { Config } from "./config";
-import { MenuFetcher, IMenuResult } from "./menuFetcher";
+import { Config } from "./config.js";
+import { MenuFetcher, IMenuResult } from "./menuFetcher.js";
 import { sk } from "date-fns/locale";
 import { formatDistance, parse, isValid } from "date-fns";
 
@@ -40,12 +40,12 @@ const app = express();
 app.set("view engine", "html");
 // eslint-disable-next-line @typescript-eslint/unbound-method
 app.engine("html", hbs.__express);
-app.use(express.static(__dirname + "/../static"));
+app.use(express.static(import.meta.dirname + "/../static"));
 app.get("/", (req, res) => {
     res.setHeader("Content-Type", "text/html; charset=UTF-8");
     res.setHeader("Content-Language", "sk");
     const now = new Date();
-    res.render(__dirname + "/../views/index.html", {
+    res.render(import.meta.dirname + "/../views/index.html", {
         restaurants: Object.entries(config.restaurants).map(([k, v]) => ({
             id: k,
             name: v.name,

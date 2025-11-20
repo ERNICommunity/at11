@@ -1,9 +1,9 @@
 import { load } from "cheerio";
 
-import { IMenuItem, IParser } from "../types";
+import { IMenuItem, IParser } from "../types.js";
 import { addDays, endOfWeek, format, startOfWeek, subDays } from "date-fns";
 import { sk } from "date-fns/locale";
-import { parsePrice } from "../parserUtil";
+import { parsePrice } from "../parserUtil.js";
 
 export class PomodoroRosso implements IParser {
     public urlFactory(d: Date): string {
