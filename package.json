@@ -1,7 +1,8 @@
 {
     "name": "at11",
     "description": "Daily lunch menu application",
-    "version": "2.0.0",
+    "homepage": "https://at11.azurewebsites.net/",
+    "version": "2.1.0",
     "type": "module",
     "dependencies": {
         "applicationinsights": "^3.7.0",
@@ -35,13 +36,13 @@
         "format:check": "prettier . --check"
     },
     "author": {
-        "name": "Jakub Šturc",
-        "email": "jakub.sturc@erni.sk"
+        "name": "Ján Neščivera",
+        "email": "jan.nescivera@betterask.erni"
     },
     "contributors": [
         {
-            "name": "Ján Neščivera",
-            "email": "jan.nescivera@erni.sk"
+            "name": "Jakub Šturc",
+            "email": "jakub.sturc@erni.sk"
         },
         {
             "name": "Matúš Brliť",
@@ -77,10 +78,10 @@
     ],
     "repository": {
         "type": "git",
-        "url": "https://github.com/at11/at11.git"
+        "url": "https://github.com/ERNICommunity/at11"
     },
     "bugs": {
-        "url": "https://github.com/at11/at11/issues"
+        "url": "https://github.com/ERNICommunity/at11/issues"
     },
     "license": "Unlicense"
 }
