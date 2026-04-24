@@ -40,7 +40,7 @@ function loadMenus(container) {
             "' target='_blank'>stránke reštaurácie</a></span></li>";
         var listElem = $("<ul></ul>");
         var refreshElem = null;
-        $.ajax(
+        fetch(
             "/menu/" +
                 restaurantId +
                 "?date=" +
@@ -50,11 +50,24 @@ function loadMenus(container) {
                 "-" +
                 date.getDate(),
         )
-            .done(function (data) {
+            .then((response) => {
+                if (!response.ok) {
+                    return response.json().then(
+                        function (errorData) {
+                            return Promise.reject(errorData);
+                        },
+                        function () {
+                            return Promise.reject(null);
+                        },
+                    );
+                }
+                return response.json();
+            })
+            .then((data) => {
                 if (data.menu.length === 0) {
                     listElem.append(errElem);
                 } else {
-                    data.menu.forEach(function (item) {
+                    data.menu.forEach((item) => {
                         var li = $("<li></li>");
                         if (item.isSoup) {
                             li.addClass("soup");
@@ -75,16 +88,14 @@ function loadMenus(container) {
                 }
                 refreshElem = "<i class='timeago'>" + data.timeago + "</i>";
             })
-            .fail(function (jxhr) {
+            .catch(function (errorData) {
                 listElem.append(errElem);
-                if (jxhr.responseJSON?.timeago) {
+                if (errorData?.timeago) {
                     refreshElem =
-                        "<i class='timeago'>" +
-                        jxhr.responseJSON.timeago +
-                        "</i>";
+                        "<i class='timeago'>" + errorData.timeago + "</i>";
                 }
             })
-            .always(function () {
+            .finally(function () {
                 article.find(".loader").remove();
                 article.append(listElem);
                 article.append(refreshElem);
