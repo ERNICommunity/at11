@@ -18,10 +18,10 @@ jobs:
     build:
         runs-on: ubuntu-latest
         steps:
-            - uses: actions/checkout@v4
+            - uses: actions/checkout@v6
 
             - name: Set up Node.js
-              uses: actions/setup-node@v4
+              uses: actions/setup-node@v6
               with:
                   node-version: ${{ env.NODE_VERSION }}
                   cache: "npm"
@@ -46,14 +46,13 @@ jobs:
               with:
                   report-path: "./ctrf/*.json"
                   github-report: true
-              if: always()
 
             - name: Cleanup dev dependencies
               run: |
                   npm prune --omit=dev
 
             - name: Upload artifact
-              uses: actions/upload-artifact@v4
+              uses: actions/upload-artifact@v7
               with:
                   name: at11-app
                   path: |
@@ -76,7 +75,7 @@ jobs:
 
         steps:
             - name: Download artifact from build job
-              uses: actions/download-artifact@v4
+              uses: actions/download-artifact@v8
               with:
                   name: at11-app
 
