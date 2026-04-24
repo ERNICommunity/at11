@@ -81,6 +81,10 @@ app.get("/menu/:key", async (req, res) => {
         res.json({ menu: result.menu, timeago });
     }
 });
-const server = app.listen(config.port, () => {
-    console.info("Done, listening on", server.address());
+const server = app.listen(config.port, (err) => {
+    if (err) {
+        console.error("Error starting server", err);
+    } else {
+        console.info("Done, listening on", server.address());
+    }
 });
