@@ -1,5 +1,4 @@
 import { IParser } from "./parsers/types.js";
-import { ClockBlock } from "./parsers/einpark/clockblock.js";
 import { DerbyPub } from "./parsers/einpark/derbypub.js";
 import { MKMRestaurant } from "./parsers/einpark/mkmrestaurant.js";
 import { PomodoroRosso } from "./parsers/einpark/pomodoro-rosso.js";
@@ -27,7 +26,6 @@ export class Config implements IConfig {
     public readonly requestTimeout = 15 * 1000; // 15s
     public readonly parserTimeout = 15 * 1000; // 15s
     public readonly restaurants = {
-        "clock-block": { name: "Clock Block", parser: new ClockBlock() },
         derby: { name: "Derby Pub", parser: new DerbyPub() },
         mkm: { name: "MKM Restaurant", parser: new MKMRestaurant() },
         "pomodoro-rosso": {
