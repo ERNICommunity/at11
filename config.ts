@@ -22,7 +22,7 @@ export class Config implements IConfig {
         process.env.APPLICATIONINSIGHTS_CONNECTION_STRING;
     public readonly port = (process.env.PORT as unknown as number) || 54321;
     public readonly bypassCache = process.env.AT11_NO_CACHE === "true";
-    public readonly cacheExpiration = 2 * 60 * 60; // 2h
+    public readonly cacheExpiration = 3 * 60 * 60; // 3h
     public readonly requestTimeout = 15 * 1000; // 15s
     public readonly parserTimeout = 15 * 1000; // 15s
     public readonly restaurants = {
